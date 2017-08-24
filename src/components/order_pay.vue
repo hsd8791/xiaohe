@@ -77,7 +77,7 @@
               publicFun.goPage(this.successPath)
               return
             }
-            publicFun.goPage(-1)
+            publicFun.goPage(-2)
           }}
           ]
           setTimeout(()=> {
@@ -118,31 +118,6 @@
           // this.chooseRslt()
         // }, 1000);
         this.chooseRslt()
-        
-        // var T=setInterval(()=>{
-        //   publicFun.get(this.statusUrl+this.payId,this,()=>{
-        //     console.log('res status pay',this.response.body)
-        //     var data=this.response.body.data
-        //     if(data.status==='success'){
-        //       clearInterval(T)
-        //       var r=this.remind,self_=this
-        //       r.remindMsg='支付成功'
-        //       r.isShow=true
-        //       r.remindOpts=[
-        //       {msg:'确定',callback:()=>{
-        //         if(self_.successPath){
-        //           publicFun.goPage(self_.successPath)
-        //           return
-        //         }
-        //         publicFun.goPage(-1)
-        //       }}
-        //       ]
-        //       setTimeout(()=> {
-        //           publicFun.goPage(self_.successPath)
-        //       }, 500);
-        //     }
-        //   })
-        // },2000)
       }
 
     })
@@ -185,7 +160,7 @@
               publicFun.goPage(this.successPath)
               return
             }
-            publicFun.goPage(-1)
+            publicFun.goPage(-2)
           }}
           ]
           setTimeout(()=> {

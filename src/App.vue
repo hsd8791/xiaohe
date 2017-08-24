@@ -66,7 +66,6 @@
       checkSession(){
         console.log('checkSession')
         this.loading=true
-
         this.$http.get('account/checkSession').then(res=>{
           var data = res.body.data
           console.log('session data',data)

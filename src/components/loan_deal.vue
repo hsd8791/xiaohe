@@ -228,7 +228,7 @@
           return m
         },
         reBorrowFee____() {
-          return 0.2 * this.moneyFee
+          return 0.25 * this.moneyFee
         },
         amount() {
           if (this.action == 'special') {
