@@ -36,6 +36,15 @@ var bus = new Vue({
 	watch: {
 
 	},
+	computed:{
+		relativeUrlTest(){
+			if(/test/.test(this.$http.options.root)){
+				return '/test'
+			}else{
+				return ''
+			}
+		},
+	}
 })
 
 export default bus

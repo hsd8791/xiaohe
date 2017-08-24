@@ -30,12 +30,12 @@
 		</div>
 
 		<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='signup'?'注册':'确认'}}</el-button>
-<!-- 		<div class='ctrl-container' v-if='action=="login"'>
-			<span class="find-pwd-btn" @click='findPwd'>忘记密码？</span>
+		<div class='ctrl-container' v-if='action=="signup"'>
+			<span class="login-link" @click='goLogin'>
+				已有账号？
+				<span class='signup-btn' @click='signup'>登录</span>
+			</span>
 		</div>
-		<div class='ctrl-container signup-container' v-if='action=="login"'>
-			没有账号？<span class='signup-btn' @click='signup'>注册</span>
-		</div> -->
 
 		<remind :remind='remind'></remind>
 	</div>
@@ -70,7 +70,7 @@
 				formData:{
 					
 				},
-				backAfterPost:true,
+				backAfterPost:false,
 				response:null,
 				remind:{
 					isShow:false,
@@ -104,6 +104,9 @@
 			},
 			findPwd(){
 				
+			},
+			goLogin(){
+				publicFun.goPage('/introduce/login')
 			},
 			pwdLog(b){
 				this.pwdLogin=b
@@ -175,11 +178,7 @@
 				if(salesWay){
 					queryBody.qudao=salesWay
 				}
-				// }else{
-					// queryBody.password=this.pwd
-				// 	subDomain='/loginByPwd'
-				// }
-				// queryBody.uniqueId='gds333'
+				
 				var url = publicFun.urlConcat('account'+subDomain,queryBody)
 				console.log('login code URL',url)
 				publicFun.get(url,this,()=>{
@@ -197,8 +196,6 @@
 							publicFun.goPage(this.$route.path+'/pwd')
 						}else{
 							this.remind.remindOpts=[{msg:'确定',callback:()=>{
-								// console.log('back',1)
-								// publicFun.goPage(-1)
 								publicFun.goTopLv()
 							}}]
 							this.remind.remindMsg='登录成功'
@@ -349,11 +346,11 @@
 		opacity: 0.4;
 	}
 	.ctrl-container{
-		margin: 0.2rem 0;
+		margin: 0.2rem 0.4rem;
 		font-size: 0.14rem;
-		.find-pwd-btn{
-			margin-left: 2.4rem;
-			color:#6a7fa5;
+		text-align: right;
+		.login-link{
+			color:#242527;
 		}
 		.signup-btn{
 			color:#6a7fa5;

@@ -18,11 +18,14 @@
 			</p>
 		</div>
 		<div class="container" v-if='!loanInfo&&(auditing===0||auditing===1)' audit-ctrl='guide'>
+		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
 			<p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p>
 			<img src="./../assets/img/QRxh.jpg" alt="" class="qrcode">
+			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
 			<p>
@@ -94,6 +97,7 @@
 
 <script>
 	import publicFun from '../js/public.js'
+	import bus from '../bus.js'
 	export default {
 		data() {
 				return {
@@ -122,6 +126,7 @@
 			},
 			created() {
 				publicFun.checkSession(this)
+
 				this.get()
 			},
 			filters: {
@@ -153,11 +158,15 @@
 				},
 			},
 			methods: {
-				test() {
-					this.auditing = 1
+				// test() {
+				// 	this.auditing = 1
+				// },
+				hzgMarket(){
+				    console.log('hzg market_list')
+				    location.href='http://hzg.he577.com/m/#/market_list'
 				},
 				reapply() {
-							var remind=this.remind
+					var remind=this.remind
 					var apply = () => {
 							var remind=this.remind
 							remind.isShow=false
@@ -167,8 +176,6 @@
 								amount: this.amount * 100,
 							})
 							publicFun.post(urlApply, {}, this, () => {
-								// console.log('res apply_borrow', this.response)
-								// this.remind.remindMsg='提示:添加联系方式'
 								if(this.response.body.error){
 									return
 								}
@@ -184,9 +191,9 @@
 								}]
 							}, () => {})
 						}
-						// if (!this.allFilled) {
-						// 	// return
-						// }
+						if (!this.allFilled) {
+							return
+						}
 					remind.remindMsg = '请确定是否提交'
 					remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
 					remind.remindOpts = [{
@@ -231,19 +238,8 @@
 							this.auditing = data.status
 							this.auditingRemark = data.remark
 							this.phoneLender = data.phone
-								// if(data[0].status==2){
-								// 	auditStatus
-								// }
-								// r.remindMsg='审核中'
-								// r.remindOpts=[{
-								// 	msg:'确定',
-								// 	callback:()=>{
-								// 		publicFun.goPage('/loan_bill')
-								// 	}
-								// }]
-								// r.isShow=true
+						
 						} else {
-							// this.norecord=true
 						}
 					}
 					publicFun.get(this.url, this, () => {
@@ -259,7 +255,6 @@
 				actions() {
 					var l = this.loanInfo
 						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
-
 					var temp = {
 							special: {
 								act: '特殊',
@@ -296,6 +291,9 @@
 	*{
 		/*border:1px solid red;*/
 	}
+	.link{
+		color:#2447D1;
+	}
 		.loan-amount{
 			color:#000;
 			font-size: 0.2rem;
@@ -318,12 +316,8 @@
 			.auditing-txt{
 				border: 0px solid #efeff4 ;
 				border-bottom-width: 1px;
-				/*margin-bottom: 0.1rem;*/
 				padding:0.1rem;
-				/*margin-bottom: 0.1rem;*/
-
 			}
-
 		}
 		.bttn-refresh{
 			padding:0.15rem 0;
@@ -360,7 +354,6 @@
 						text-align: left;
 					}
 					.li-content{
-						/*padding:0 0.15rem;*/
 						text-align: right;
 					}
 				}
@@ -371,7 +364,6 @@
 			.loan-action{
 				display: flex;
 				font-size: 0.16rem;
-				/*padding:0.1rem 0;*/
 				color:#8e8e8e;
 				.action-bttn{
 					width: 33%;
@@ -381,23 +373,6 @@
 				}
 			}
 		}
-/*		.dscrp-container{
-			border:1px solid transparent;
-			padding-left:0.2rem;
-			background: #fff;
-			margin: 0;
-			font-size: 0.15rem;
-			text-align: left;
-			color: #8e8e8e;
-			letter-spacing: 0.01rem;
-			line-height: 1.4;
-			.dscrp-part{
-				margin:0.2rem 0;
-				.dscrp-line{
-
-				}
-			}
-		}*/
 	#loanBillVue{
 		.container{
 			.enable{
