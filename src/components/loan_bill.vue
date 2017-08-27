@@ -191,9 +191,7 @@
 								}]
 							}, () => {})
 						}
-						if (!this.allFilled) {
-							return
-						}
+
 					remind.remindMsg = '请确定是否提交'
 					remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
 					remind.remindOpts = [{
