@@ -36,7 +36,7 @@ export default {
             activeI: 0,
             showFoot: true,
             showMarketLink:false,
-            marketHideQudaos:['jEJree'],
+            marketHideQudaos:['jEJree','n2MN3y'],
             // footActive:true,
             paths: [ //显示footnav的路径
                 '/index0',
