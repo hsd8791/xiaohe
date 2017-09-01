@@ -115,6 +115,8 @@
     if(way){
      this.fromSales(way)
      localStorage.qudao=way
+    }else{
+      localStorage.removeItem('qudao')
     }
     bus.$on('foot_show_change',(footShow)=>{
       this.footNavShow=footShow

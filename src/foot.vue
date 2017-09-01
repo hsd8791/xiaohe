@@ -36,6 +36,7 @@ export default {
             activeI: 0,
             showFoot: true,
             showMarketLink:false,
+            marketHideQudaos:['jEJree'],
             // footActive:true,
             paths: [ //显示footnav的路径
                 '/index0',
@@ -103,21 +104,10 @@ export default {
                 //     console.log('got the undefined path')
                 //     next()
                 // }
-                // console.log('to', to.path)
-                    // console.log('from', from.path)
+                
                 var depthTo = to.path.split('/').length
                 var depthFrom = from.path.split('/').length
-                    // console.log('depth',depthFrom,depthTo)
-                // var name = to.name
-                    // console.log('name',name)
-                // var activeFoot = this.cmpntNames.indexOf(name)
-                // if (activeFoot > 3) {
-                    // if (activeFoot === 4) {
-                        // activeFoot = 1
-                    // }
-                // }
-                // console.log('activeFoot', activeFoot)
-                // this.activeI = activeFoot
+               
                 var action
                 if (depthTo > depthFrom) {
                     action = 'forward'
@@ -128,35 +118,26 @@ export default {
                 }
                 // console.log('action', action)
                 bus.$emit('url_change', action)
-                // if (activeFoot < 0) {
-                //     bus.$emit('foot_show_change', false, action)
-                // } else {
-                //     bus.$emit('foot_show_change', true, action)
-                // }
+               
                 this.checkPath(to.path)
                 next()
 
             })
-            // bus.$on('foot_index_change',(val)=>{
-            // console.log('get change footindex',val)
-            // this.activeI=val
-            // })
-                var self_ = this
+          
+            var self_ = this
         // var url = location.href
         var urlPath = location.pathnname
         // console.log('location',location)
         var urlHash = location.hash
         urlHash = urlHash.replace('#', '')
 
-        // console.log('urlHash.indexOf()',urlHash.indexOf('?'))
-        // var queryMark=urlHash.indexOf('?')
-        // console.log('queryMark',queryMark)
-        // if(queryMark>0){
-            // urlHash=urlHash.slice(0,queryMark)
-        // }
-            // console.log('urlHash',urlHash.split('/')[1])
+       
         this.checkPath(urlHash)
-        if(localStorage.qudao!=='jEJree'){
+        function checkHideLinkQudao(arrQudao){
+            var strQudao=arrQudao.join(' ')
+            return strQudao.indexOf(localStorage.qudao)>-1
+        }
+        if(!checkHideLinkQudao(this.marketHideQudaos)){
             this.showMarketLink=true
         }else{
             let a=new Date(),
@@ -165,23 +146,7 @@ export default {
                 this.showMarketLink=true
             }
         }
-        // var aUrl = urlHash.split('/')
-        // this.activeI = getIndex(this.paths, '/' + urlHash.split('/')[1])
-        //     // console.log('getIndex(this.paths,urlHash)',getIndex(this.paths,urlHash))
-        // function getIndex(arr, val) {
-        //     var l = arr.length,
-        //         i
-        //     if (val == '/') {
-        //         return 0
-        //     }
-        //     for (i = 0; i < l; i++) {
-        //         if (arr[i] === val) {
-        //             return i
-        //         }
-        //     }
-        //     return -1
-        // }
-        // console.log('hash',urlHash)
+       
     },
     components: {}
 }
