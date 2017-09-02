@@ -153,6 +153,11 @@
 						label: '芝麻认证',
 						getUrl: 'credit/zhimaAuthStatus',
 						checkMethod: function(data) {
+							console.warn('zhima data',data)
+							if(data.time<publicFun.zhimaAcChangeTime){
+								this.status=0
+								return
+							}
 							if(data.status){
 								this.status=0
 								if(data.status=='success'){
