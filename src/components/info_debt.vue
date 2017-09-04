@@ -94,7 +94,9 @@
 							this.remind.remindOpts = [{
 								msg: '前往付款',
 								callback: () => {
-									publicFun.goPage(this.$route.path+url)
+									let paths=this.$route.path.split('/')
+									paths.pop()
+									publicFun.goPage(paths.join('/')+url)
 								}
 							}]
 						}

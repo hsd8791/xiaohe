@@ -129,15 +129,13 @@ publicFun.goTopLv = function() {
 	var arr = r.split('/')
 	this.goPage('/' + arr[1])
 }
-
-// publicFun.goUpLv = function() {
-// 	var r = location.hash.replace("#", '')
-// 	var arr = r.split('/')
-// 	arr.pop()
-// 	var newR = arr.join('/')
-// 	console.log('newR', newR)
-// 	router.push(newR)
-// }
+publicFun.goUpLv = function() {
+	var r=location.hash.replace("#",'')
+	var arr=r.split('/')
+	arr.pop()
+	var newR=arr.join('/')
+	publicFun.goPage(newR)
+}
 
 
 publicFun.checkSession = function(vm, callback) {

@@ -68,7 +68,7 @@
 			</div>
 
 			<div class="inner-contaier loan-action input">
-				<el-button type='success' class="action-bttn" @click="goP(key,act)" v-for='(act,key ) in actions' :class="{'enable':act.enable}" :disabled='!act.enable' :key='key'>
+				<el-button type='success' class="action-bttn" @click="goP(key,act)" v-for='(act,key ) in actions' :class="{'enable':act.enable}" :disabled='!act.enable' :key='key' v-if='act.show'>
 					{{act.act}}
 				</el-button>
 			</div>
@@ -126,7 +126,9 @@
 			},
 			created() {
 				publicFun.checkSession(this)
-
+				// setTimeout(()=> {
+				// 	// this.loanInfo.status=3
+				// }, 3333);
 				this.get()
 			},
 			filters: {
@@ -203,11 +205,18 @@
 					remind.isShow = true
 				},
 				goP(key, act) {
-					if (!act.enable) {
+					console.log('act',act)
+					if(key==='repay'){
+						let url=publicFun.urlConcat('/loan_deal',{
+							action: key,
+							billId:this.loanInfo.id,
+							v:Math.random().toFixed(5),
+						})
+						publicFun.goPage(this.$route.path+url)
 						return
 					}
 					// var url = publicFun.urlConcat('/loan_deal', {
-					var url = publicFun.urlConcat('/debt', {
+					let url = publicFun.urlConcat('/debt', {
 						action: key,
 						billId:this.loanInfo.id,
 						v:Math.random().toFixed(5),
@@ -256,26 +265,34 @@
 					var temp = {
 							special: {
 								act: '特殊',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
 							},
 							renewal: {
 								act: '续期',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
 							},
 							reborrow: {
 								act: '重借',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
+							},
+							repay:{
+								act:'还款',
+								enable:true,
+								show:true,
+								index:1,
 							},
 						}
 						// temp.special.enable=(l.status===0||l.status==2)
-					temp.special.enable = true
-						// temp.renewal.enable=l.status===1||l.status===0
-					temp.renewal.enable = true
-						// temp.reborrow.enable=l.status===3
-					temp.reborrow.enable = true
+						temp.renewal.show=l.status===1||l.status===0
+						temp.repay.show=l.status===1||l.status===0
+					// temp.renewal.show=false
+						temp.reborrow.show=l.status===3
 
 					return temp
 				},
@@ -364,8 +381,8 @@
 				font-size: 0.16rem;
 				color:#8e8e8e;
 				.action-bttn{
-					width: 33%;
-					margin:0.1rem 0.1rem;
+					width: 50%;
+					margin:0.1rem 0.25rem;
 					padding:0.1rem 0;
 					opacity: 0.5;
 				}

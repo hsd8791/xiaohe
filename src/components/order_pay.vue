@@ -21,14 +21,14 @@
         <el-button type='success' @click='cardPayCommit':disabled='!verifyCodeValid'>支付</el-button>
       </div>
     </div>
-    <div class="binding-card" v-if='binding'>
+    <div class="binding-card" v-if='binding' >
       <div class="input">
         <h1 class="title">
           <app-back :method='cancelBinding'></app-back>
           绑定新银行卡
         </h1>
       </div>
-      <app-bind-card ></app-bind-card>
+      <app-bind-card :callback='cardPay' ></app-bind-card>
     </div>
     <choose :choose=choose ></choose>
     <remind :remind='remind'></remind>
@@ -111,7 +111,17 @@
     },
     cancelChoose(){
       this.choose.isShow=false
-      this.choosePayType()
+      var r=location.hash.replace("#",'')
+      var arr=r.split('/')
+      arr.pop()
+      var newR=arr.join('/')
+      let query=this.$route.query
+      newR=publicFun.urlConcat(newR,{
+        action:query.action,
+        billId:query.billId,
+        v:Math.random().toFixed(5)
+      })
+      publicFun.goPage(newR)
     },
     cancelBinding(){
       this.binding=false
@@ -204,7 +214,9 @@
       })
     },
     cardPay(){
+      console.log('card paying')
       this.paying=false
+      this.binding=false
       publicFun.get(this.urls.cards,this,()=>{
         let cards=this.response.body.data
         ,options=[],len=cards.length
@@ -232,6 +244,7 @@
       // c.isShow=true
     },
     cardPayCommit(){
+      this.polling()
       if(!this.payId){
         console.warn('no payId')
         return
@@ -272,12 +285,6 @@
 
       })
     },
-    // testPolling(){
-    //   console.log('test this',this)
-    // },
-    // test(){
-    //   setInterval(this.testPolling,3000)
-    // },
     wechatPay(){
       if(!this.payId){
         console.warn('no payId')

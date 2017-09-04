@@ -45,12 +45,21 @@ export default {
    		},
     }
   },
+  props:{
+    callback:{}
+  },
   methods:{
   	submit(){
+      console.log('submit')
   		publicFun.get(this.url+this.bankcard,this,()=>{
   			let r=this.remind
+          console.warn('binded')
+
   			r.remindMsg='绑定成功'
-  			r.remindOpts={msg:'确定'}
+  			r.remindOpts=[{msg:'确定',callback:()=>{
+          console.warn('callback')
+          this.callback()
+        }}]
   			r.isShow=true
   		})
   	},
