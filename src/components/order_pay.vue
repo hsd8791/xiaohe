@@ -214,7 +214,6 @@
       })
     },
     cardPay(){
-      console.log('card paying')
       this.paying=false
       this.binding=false
       publicFun.get(this.urls.cards,this,()=>{
