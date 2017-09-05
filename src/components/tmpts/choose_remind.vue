@@ -1,6 +1,6 @@
 <template>
 	<!---->
-	<div class="cover"   v-if='choose.isShow'  >
+	<div class="cover"   v-show='choose.isShow'  >
 		<div class="choose" :class="{'choose-higher':choose.chooseMsgDscrp}">
 			<div class="choose-msg">
 				<app-back :color='"#000"' :remind="'<'" :method='choose.back' v-if='choose.back'></app-back>
@@ -27,9 +27,6 @@
 		props:{
 			choose:{
 				default:{}
-			},
-			back:{
-
 			},
 
 		},
@@ -63,7 +60,7 @@
 		width: 100%;
 		height: 100%;
 		top: 0;
-		z-index: 99999;
+		z-index: 999;
 		.choose{
 			/*height: 1.05rem;*/
 			width: 2.7rem;

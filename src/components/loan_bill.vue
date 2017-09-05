@@ -12,11 +12,15 @@
 				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
 			</div>
 		</div> 
-		<div class="container auditing" v-if='auditing===0||auditing===1' audit-ctrl='auditing' >
+		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
-			<span v-if="loanInfo">重借/续期</span><span v-if="!loanInfo">小禾微贷</span> 审核中
+			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
 			</p>
 		</div>
+		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
+			<app-quota :quotaCfg='applyRecord'></app-quota>
+		</div>
+
 		<div class="container" v-if='!loanInfo&&(auditing===0||auditing===1)' audit-ctrl='guide'>
 		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
@@ -43,7 +47,7 @@
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
 		<!-- <div class="container" v-if='true'> -->
-		<div class="container" v-if='auditing!==4&&loanInfo&&auditing!==2' audit-ctrl='bill-status' >
+		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">借款金额</span>
@@ -98,10 +102,12 @@
 <script>
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
+	import quota from './views/quota.vue'
 	export default {
 		data() {
 				return {
 					response: null,
+					applyRecord:{},
 					auditingRemark:null,
 					auditing: null,
 					loanInfo: null,
@@ -126,9 +132,10 @@
 			},
 			created() {
 				publicFun.checkSession(this)
-				// setTimeout(()=> {
-				// 	// this.loanInfo.status=3
-				// }, 3333);
+				setTimeout(()=> {
+					this.auditing=3
+					this.loanInfo.status=1
+				}, 3333);
 				this.get()
 			},
 			filters: {
@@ -245,6 +252,7 @@
 							this.auditing = data.status
 							this.auditingRemark = data.remark
 							this.phoneLender = data.phone
+							this.applyRecord = data
 						
 						} else {
 						}
@@ -298,7 +306,9 @@
 				},
 			},
 			events: {},
-			components: {}
+			components: {
+				'app-quota':quota,
+			}
 	}
 </script>
 

@@ -225,7 +225,7 @@
               case 'renewal':
               s = 2;
               break;
-              default: s=0;
+              default: s=3;
               break;
             }
             return s

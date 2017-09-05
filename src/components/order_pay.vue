@@ -30,7 +30,7 @@
       </div>
       <app-bind-card :callback='cardPay' ></app-bind-card>
     </div>
-    <choose :choose=choose ></choose>
+    <app-choose :choose=choose ></app-choose>
     <remind :remind='remind'></remind>
   </div>
 </template>
@@ -38,8 +38,6 @@
 <script>
   import publicFun from '../js/public.js'
   import bus from '../bus.js'
-  import choose from './../components/tmpts/choose_remind.vue'
-  import bindCard from './views/card_bind.vue'
   export default {
     data() {
       return {
@@ -47,7 +45,7 @@
         verifyCodeMsgErr:'',
         banGetCode:false,
         response: null,
-        loading: true,
+        loading: false,
         editing: true,
         tokenChoosed: '',
         backAfterPost: false, // watch out
@@ -332,8 +330,6 @@
 
   },
   components: {
-    'choose':choose,
-    'app-bind-card':bindCard,
   }
 }
 </script>

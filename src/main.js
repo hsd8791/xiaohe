@@ -11,11 +11,15 @@ import publicFun from './js/public.js'
 import remind from './components/tmpts/remind.vue'
 import back from './components/tmpts/route_back.vue'
 import record from './components/tmpts/record.vue'
+import choose from './components/tmpts/choose_remind.vue'
+import bindCard from './components/views/card_bind.vue'
 
 Vue.use(VueResource)
 Vue.component('remind', remind)
 Vue.component('app-back', back)
 Vue.component('app-record', record)
+Vue.component('app-choose', choose)
+Vue.component('app-bind-card',bindCard)
 Vue.directive('scroll-load', {
 	bind: function(el, binding, vnode) {
 		el.addEventListener('scroll', () => {

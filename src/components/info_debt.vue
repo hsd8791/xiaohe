@@ -92,7 +92,7 @@
 							var url=publicFun.urlConcat('/loan_deal',this.$route.query)
 							console.log('url',url)
 							this.remind.remindOpts = [{
-								msg: '前往付款',
+								msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
 								callback: () => {
 									let paths=this.$route.path.split('/')
 									paths.pop()
