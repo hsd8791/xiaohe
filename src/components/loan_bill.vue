@@ -20,6 +20,7 @@
 		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
 			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
+			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 
 		<div class="container" v-if='!loanInfo&&(auditing===0||auditing===1)' audit-ctrl='guide'>
 		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
@@ -132,10 +133,10 @@
 			},
 			created() {
 				publicFun.checkSession(this)
-				setTimeout(()=> {
-					this.auditing=3
-					this.loanInfo.status=1
-				}, 3333);
+				// setTimeout(()=> {
+				// 	this.auditing=3
+				// 	this.loanInfo.status=1
+				// }, 3333);
 				this.get()
 			},
 			filters: {
@@ -389,10 +390,11 @@
 			.loan-action{
 				display: flex;
 				font-size: 0.16rem;
+				padding:0 0.15rem;
 				color:#8e8e8e;
 				.action-bttn{
 					width: 50%;
-					margin:0.1rem 0.25rem;
+					margin:0.1rem 0.15rem;
 					padding:0.1rem 0;
 					opacity: 0.5;
 				}
