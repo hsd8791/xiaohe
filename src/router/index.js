@@ -32,6 +32,9 @@ import coming from '../components/coming.vue'
 import pay from '../components/order_pay.vue'
 // import errorPage from '../components/tmpts/error.vue'
 
+import bankcard_bind from '../components/pay_bankcard_bind.vue'
+
+
 //小禾专用
 import introduce from '../components/introduce.vue'
 import pay_intrest from '../components/pay_intrest.vue'
@@ -39,7 +42,7 @@ import loan_bill from '../components/loan_bill.vue'
 import loan_deal from '../components/loan_deal.vue'
 import loan_deal_remind from '../components/loan_deal_remind.vue'
 import index0 from '../components/index0.vue'
-
+import quota from '../components/views/quota.vue'
 // import Test from '../components/test.vue'
 // import Relatives from '../components/info_relatives.vue'
 // import AddInfo from '../components/info_add_info.vue'
@@ -54,7 +57,8 @@ var routes = [],
 	basicRoutes = [],
 	indexRoutes = [],
 	mineRoutes = [],
-	xiaoheRoutes = []
+	xiaoheRoutes = [],
+	bankcardRoutes = []
 
 /**
  * 针对某一个组件创建路由数组（多个路由）
@@ -124,10 +128,14 @@ xiaoheRoutes = xiaoheRoutes.concat(
 		newRoute('/index0', 'index0', index0),
 		newRoute('*/loan_deal', 'loan_deal', loan_deal),
 		newRoute('*/loan_deal_remind', 'loan_deal_remind', loan_deal_remind),
+		newRoute('*/quota', 'quota', quota),
 	)
 	// console.log('indexRoutes', indexRoutes)
 
+bankcardRoutes = bankcardRoutes.concat(
+	newRoute(['*/bankcard_bind', '/bankcard_bind', ], 'bankcard_bind', bankcard_bind),
 
+)
 basicRoutes = [{
 	path: rootPath + '/index',
 	name: 'index',
@@ -161,7 +169,11 @@ basicRoutes = [{
 	component: index0
 }, ]
 
-routes = routes.concat(indexRoutes.concat(mineRoutes, xiaoheRoutes), basicRoutes)
+routes = routes.concat(indexRoutes.concat(
+	mineRoutes,
+	xiaoheRoutes,
+	bankcardRoutes
+), basicRoutes)
 console.log('routes', routes)
 export default new Router({
 	// mode: 'history',

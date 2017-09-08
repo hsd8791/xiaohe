@@ -17,6 +17,11 @@ publicFun.reg.idCardNum = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3
 	// publicFun.remindOpts={}
 	// publicFun.remindOpts.confirm=[{msg:'确定'}]
 
+publicFun.resetLocalUserInfo = function (){
+	localStorage.removeItem('uniqueId')
+	localStorage.removeItem('pwd')
+}
+
 publicFun.parseMixRslt = function(s) {
 	// console.log('s', s)
 	// var obj = JSON.parse(s)
@@ -125,15 +130,13 @@ publicFun.goTopLv = function() {
 	var arr = r.split('/')
 	this.goPage('/' + arr[1])
 }
-
-// publicFun.goUpLv = function() {
-// 	var r = location.hash.replace("#", '')
-// 	var arr = r.split('/')
-// 	arr.pop()
-// 	var newR = arr.join('/')
-// 	console.log('newR', newR)
-// 	router.push(newR)
-// }
+publicFun.goUpLv = function() {
+	var r=location.hash.replace("#",'')
+	var arr=r.split('/')
+	arr.pop()
+	var newR=arr.join('/')
+	publicFun.goPage(newR)
+}
 
 
 publicFun.checkSession = function(vm, callback) {
@@ -238,78 +241,78 @@ publicFun.checkSession = function(vm, callback) {
  * @return {null}             [description]
  */
 publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this,url,
-	// console.log('geting', url)
-	// console.log('vm', vm)
-	// if (bus.account === '请登录') {
-	// 	vm.loading = false
-	// 	if (!vm.remind) {
-	// 		return
-	// 	}
-	// 	vm.remind.remindMsg = '请先登录'
-	// 	vm.remind.isShow = true
-	// 	vm.remind.remindOpts = [{
-	// 		msg: '确定',
-	// 		callback: () => {
-	// 			this.goPage('/login')
-	// 		}
-	// 	}]
-	// 	return
-	// }
-	vm.loading = true
-	var vmRemind = vm.remind
-	sccssCall = setNullFunc(sccssCall)
-	errCall = setNullFunc(errCall)
-	callback = setNullFunc(callback)
-		// var url = 'userInfo/remarks'
-	vm.$http.get(url).then(res => {
-		// console.log('getted', vm)
-		vm.loading = false
-		vm.response = res
-		var resBody = res.body
-			// console.log('get res', res)
-			// console.log('res', res.body)
-		if (resBody.error) {
-			publicFun.errorHandle(resBody, vm)
-			return
-		} else {
-			// sccssCall()
-			// callback()
-			if (!checkNullObj(res.body.data)) {
-				vm.editing = true
+		// console.log('geting', url)
+		// console.log('vm', vm)
+		// if (bus.account === '请登录') {
+		// 	vm.loading = false
+		// 	if (!vm.remind) {
+		// 		return
+		// 	}
+		// 	vm.remind.remindMsg = '请先登录'
+		// 	vm.remind.isShow = true
+		// 	vm.remind.remindOpts = [{
+		// 		msg: '确定',
+		// 		callback: () => {
+		// 			this.goPage('/login')
+		// 		}
+		// 	}]
+		// 	return
+		// }
+		vm.loading = true
+		var vmRemind = vm.remind
+		sccssCall = setNullFunc(sccssCall)
+		errCall = setNullFunc(errCall)
+		callback = setNullFunc(callback)
+			// var url = 'userInfo/remarks'
+		vm.$http.get(url).then(res => {
+			// console.log('getted', vm)
+			vm.loading = false
+			vm.response = res
+			var resBody = res.body
+				// console.log('get res', res)
+				// console.log('res', res.body)
+			if (resBody.error) {
+				publicFun.errorHandle(resBody, vm)
+				callback()
+				return
 			} else {
-				vm.editing = false
+				// sccssCall()
+				// callback()
+				if (!checkNullObj(res.body.data)) {
+					vm.editing = true
+				} else {
+					vm.editing = false
+				}
+				sccssCall()
 			}
-			sccssCall()
-		}
-		callback()
-	}, err => {
-		vm.loading = false
-		if (vmRemind) {
-			vmRemind.remindMsg = '连接失败'
-			vmRemind.remindOpts = [{
-				msg: '确定',
-			}, ]
-			vmRemind.isShow = true
-		}
-		// router.go(-1)
-		// console.log('try go back')
-		// router.push('/index')
-		vm.response = err
-		callback()
-		errCall()
-	})
-}
-/**
- * post中一定会有remind 故不判断remind提示是否存在
- * 除body为 post body外，其余与get方法一样
- * @param  {[type]}   url       [同get function]
- * @param  {[type]}   body      [description]
- * @param  {[type]}   vm        [同get function]
- * @param  {[type]}   sccssCall [同get function]
- * @param  {[type]}   errCall   [同get function]
- * @param  {Function} callback  [同get function]
- * @return {[type]}             [同get function]
- */
+		}, err => {
+			vm.loading = false
+			if (vmRemind) {
+				vmRemind.remindMsg = '连接失败'
+				vmRemind.remindOpts = [{
+					msg: '确定',
+				}, ]
+				vmRemind.isShow = true
+			}
+			// router.go(-1)
+			// console.log('try go back')
+			// router.push('/index')
+			vm.response = err
+			callback()
+			errCall()
+		})
+	}
+	/**
+	 * post中一定会有remind 故不判断remind提示是否存在
+	 * 除body为 post body外，其余与get方法一样
+	 * @param  {[type]}   url       [同get function]
+	 * @param  {[type]}   body      [description]
+	 * @param  {[type]}   vm        [同get function]
+	 * @param  {[type]}   sccssCall [同get function]
+	 * @param  {[type]}   errCall   [同get function]
+	 * @param  {Function} callback  [同get function]
+	 * @return {[type]}             [同get function]
+	 */
 publicFun.post = function(url, body, vm, sccssCall, errCall, callback) { //paras:  this,url,
 	// console.log('posting')
 	vm.loading = true
@@ -367,7 +370,10 @@ publicFun.errorHandle = function(resBody, vm) {
 	// console.log('error', resBody)
 	// console.log('vmRemind', vmRemind)
 	var err = resBody.error
-	var vmRemind=vm.remind
+	var vmRemind = vm.remind
+	vmRemind.remindOpts = [{
+		msg: '确定'
+	}]
 	if (vmRemind) {
 		vmRemind.remindMsg = resBody.msg
 		if (err === 20002) {
@@ -421,7 +427,7 @@ publicFun.errorHandle = function(resBody, vm) {
 publicFun.postRes = function(res, vm) {
 	vm.loading = false
 	vm.response = res
-	var vmRemind=vm.remind
+	var vmRemind = vm.remind
 	var resBody = res.body
 	console.log('post res', res.body)
 	if (resBody.error) {
@@ -436,7 +442,8 @@ publicFun.postRes = function(res, vm) {
 	} else {
 		vmRemind.remindMsg = '提交成功'
 		vmRemind.remindOpts = [{
-			msg: '确定',callback:()=>{
+			msg: '确定',
+			callback: () => {
 				console.log('posted success')
 			}
 		}, ]
@@ -515,7 +522,7 @@ publicFun.wechatAuth = function(vm) {
 	// console.warn('back path',back)
 	// console.log('i',i.index)
 	// console.warn('wechat auth back path', back)
-	back=encodeURIComponent(back)
+	back = encodeURIComponent(back)
 		// alert('')
 	if (this.isWeiXin()) {
 		publicFun.get('wechat/oauth?url=' + back, vm, () => {
@@ -534,6 +541,7 @@ publicFun.wechatAuth = function(vm) {
 	}
 
 }
+
 function fToTwo(aNum) {
 	return aNum >= 10 ? aNum : "0" + aNum;
 };
@@ -549,7 +557,7 @@ publicFun.qualify = function(vm) {
 	// if(localStorage.qualified==1){
 	// return 
 	// }
-	if(localStorage.qudao=='jEJree'){
+	if (localStorage.qudao == 'jEJree') {
 		return
 	}
 	console.log('qualified', bus.qualified)

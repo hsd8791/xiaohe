@@ -1,6 +1,6 @@
 <template>
 	<div class="back">
-		<span class='text' @click='back'>返回</span>
+		<span class='text' @click='back' :style="{'color':bindedColor}">{{remind}}</span>
 		<!-- <div class="test" :class='testClass'>  -->
 			<!-- <slot name='11' class='test'></slot> -->
 		<!-- </div> -->
@@ -12,7 +12,7 @@
 	export default {
 		data() {
 			return {
-
+				bindedColor:"#fff",
 			}
 		},
 		props:{
@@ -24,10 +24,23 @@
 			},
 			type:{
 				default:'none'
+			},
+			color:{},
+			method:{
+
+			},
+			remind:{
+				default:'返回'
 			}
 		},
 		methods:{
 			back(){
+				if(this.method){
+					console.log('back method',this.method)
+					this.method()
+					console.log('this.',this)
+					return
+				}
 				// console.log('url',location.hash)
 				var r=location.hash.replace("#",'')
 				var arr=r.split('/')
@@ -35,6 +48,11 @@
 				var newR=arr.join('/')
 				publicFun.goPage(newR)
 				// publicFun.goPage(-1)
+			}
+		},
+		created(){
+			if(this.color){
+				this.bindedColor=this.color
 			}
 		},
 		computed:{
@@ -68,11 +86,10 @@
 		width: 0.5rem;
 		.text{
 			height: 0.16rem;
-			text-decoration: underline;
 			font-weight: normal;
 			line-height: 1;
 			font-size: 0.16rem;
-			color:#fff;
+			/*color:;*/
 			position: absolute;
 			display: block;
 			margin:auto ;

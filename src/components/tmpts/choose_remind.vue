@@ -9,6 +9,7 @@
 			<div class="choose-box">
 				<div class="choose-btn"  v-for='item in choose.chooseOpts'  @click='close(item.callback,choose.self_)'>{{item.type}}
 					<a class="href" v-show='item.href' :href="item.href"  @click='close(item.callback,choose.self_)'>
+
 					</a>
 				</div>
 			</div>

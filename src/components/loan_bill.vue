@@ -12,11 +12,16 @@
 				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
 			</div>
 		</div> 
-		<div class="container auditing" v-if='auditing===0||auditing===1' audit-ctrl='auditing' >
+		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
-			<span v-if="loanInfo">重借/续期</span><span v-if="!loanInfo">小禾微贷</span> 审核中
+			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
 			</p>
 		</div>
+		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
+			<app-quota :quotaCfg='applyRecord'></app-quota>
+		</div>
+			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
+
 		<div class="container" v-if='!loanInfo&&(auditing===0||auditing===1)' audit-ctrl='guide'>
 		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
@@ -43,7 +48,7 @@
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
 		<!-- <div class="container" v-if='true'> -->
-		<div class="container" v-if='auditing!==4&&loanInfo&&auditing!==2' audit-ctrl='bill-status' >
+		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">借款金额</span>
@@ -68,7 +73,7 @@
 			</div>
 
 			<div class="inner-contaier loan-action input">
-				<el-button type='success' class="action-bttn" @click="goP(key,act)" v-for='(act,key ) in actions' :class="{'enable':act.enable}" :disabled='!act.enable' :key='key'>
+				<el-button type='success' class="action-bttn" @click="goP(key,act)" v-for='(act,key ) in actions' :class="{'enable':act.enable}" :disabled='!act.enable' :key='key' v-if='act.show'>
 					{{act.act}}
 				</el-button>
 			</div>
@@ -98,10 +103,12 @@
 <script>
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
+	import quota from './views/quota.vue'
 	export default {
 		data() {
 				return {
 					response: null,
+					applyRecord:{},
 					auditingRemark:null,
 					auditing: null,
 					loanInfo: null,
@@ -126,7 +133,10 @@
 			},
 			created() {
 				publicFun.checkSession(this)
-
+				// setTimeout(()=> {
+				// 	this.auditing=3
+				// 	this.loanInfo.status=1
+				// }, 3333);
 				this.get()
 			},
 			filters: {
@@ -203,11 +213,18 @@
 					remind.isShow = true
 				},
 				goP(key, act) {
-					if (!act.enable) {
+					console.log('act',act)
+					if(key==='repay'){
+						let url=publicFun.urlConcat('/loan_deal',{
+							action: key,
+							billId:this.loanInfo.id,
+							v:Math.random().toFixed(5),
+						})
+						publicFun.goPage(this.$route.path+url)
 						return
 					}
 					// var url = publicFun.urlConcat('/loan_deal', {
-					var url = publicFun.urlConcat('/debt', {
+					let url = publicFun.urlConcat('/debt', {
 						action: key,
 						billId:this.loanInfo.id,
 						v:Math.random().toFixed(5),
@@ -236,6 +253,7 @@
 							this.auditing = data.status
 							this.auditingRemark = data.remark
 							this.phoneLender = data.phone
+							this.applyRecord = data
 						
 						} else {
 						}
@@ -256,32 +274,42 @@
 					var temp = {
 							special: {
 								act: '特殊',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
 							},
 							renewal: {
 								act: '续期',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
 							},
 							reborrow: {
 								act: '重借',
-								enable: null,
+								enable: true,
+								show:true,
 								index: 1
+							},
+							repay:{
+								act:'还款',
+								enable:true,
+								show:true,
+								index:1,
 							},
 						}
 						// temp.special.enable=(l.status===0||l.status==2)
-					temp.special.enable = true
-						// temp.renewal.enable=l.status===1||l.status===0
-					temp.renewal.enable = true
-						// temp.reborrow.enable=l.status===3
-					temp.reborrow.enable = true
+						temp.renewal.show=l.status===1||l.status===0
+						temp.repay.show=l.status===1||l.status===0
+					// temp.renewal.show=false
+						temp.reborrow.show=l.status===3
 
 					return temp
 				},
 			},
 			events: {},
-			components: {}
+			components: {
+				'app-quota':quota,
+			}
 	}
 </script>
 
@@ -362,10 +390,11 @@
 			.loan-action{
 				display: flex;
 				font-size: 0.16rem;
+				padding:0 0.15rem;
 				color:#8e8e8e;
 				.action-bttn{
-					width: 33%;
-					margin:0.1rem 0.1rem;
+					width: 50%;
+					margin:0.1rem 0.15rem;
 					padding:0.1rem 0;
 					opacity: 0.5;
 				}

@@ -11,37 +11,21 @@ import publicFun from './js/public.js'
 import remind from './components/tmpts/remind.vue'
 import back from './components/tmpts/route_back.vue'
 import record from './components/tmpts/record.vue'
+import choose from './components/tmpts/choose_remind.vue'
+import bindCard from './components/views/card_bind.vue'
 
 Vue.use(VueResource)
 Vue.component('remind', remind)
 Vue.component('app-back', back)
 Vue.component('app-record', record)
-Vue.directive('scroll-load', {
-	bind: function(el, binding, vnode) {
-		el.addEventListener('scroll', () => {
-				// console.log('scrolling')
-				// console.log('binding value', binding.value)
-				var value = binding.value
-					// binding.value.crrtPage++
-				var el = document.querySelector('.list-container-inner')
-				var btt = el.getBoundingClientRect().bottom
-					// console.log('btt',btt)
-				if (btt < (screen.height + 50)) {
-					// value.getting = true
-					// value.get(value.crrtPage)
-					value.method()
-						// console.log('load more')
-						// console.dirxml(el)
-				}
-			}, false)
-			// console.log('value', this)
-	}
-})
+Vue.component('app-choose', choose)
+Vue.component('app-bind-card',bindCard)
+
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-// Vue.http.options.root = 'http://hzg.he577.com';
-Vue.http.options.root = 'http://hzg.he577.com/test';
+Vue.http.options.root = 'http://hzg.he577.com';
+// Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
@@ -63,7 +47,23 @@ Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
-
+Vue.directive('scroll-load', {
+	bind: function(el, binding, vnode) {
+		el.addEventListener('scroll', () => {
+				// console.log('scrolling')
+				// console.log('binding value', binding.value)
+				var value = binding.value
+					// binding.value.crrtPage++
+				var el = document.querySelector('.list-container-inner')
+				var btt = el.getBoundingClientRect().bottom
+					// console.log('btt',btt)
+				if (btt < (screen.height + 50)) {
+					value.method()
+				}
+			}, false)
+			// console.log('value', this)
+	}
+})
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',
