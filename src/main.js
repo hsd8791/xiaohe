@@ -20,27 +20,7 @@ Vue.component('app-back', back)
 Vue.component('app-record', record)
 Vue.component('app-choose', choose)
 Vue.component('app-bind-card',bindCard)
-Vue.directive('scroll-load', {
-	bind: function(el, binding, vnode) {
-		el.addEventListener('scroll', () => {
-				// console.log('scrolling')
-				// console.log('binding value', binding.value)
-				var value = binding.value
-					// binding.value.crrtPage++
-				var el = document.querySelector('.list-container-inner')
-				var btt = el.getBoundingClientRect().bottom
-					// console.log('btt',btt)
-				if (btt < (screen.height + 50)) {
-					// value.getting = true
-					// value.get(value.crrtPage)
-					value.method()
-						// console.log('load more')
-						// console.dirxml(el)
-				}
-			}, false)
-			// console.log('value', this)
-	}
-})
+
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
@@ -67,7 +47,23 @@ Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
-
+Vue.directive('scroll-load', {
+	bind: function(el, binding, vnode) {
+		el.addEventListener('scroll', () => {
+				// console.log('scrolling')
+				// console.log('binding value', binding.value)
+				var value = binding.value
+					// binding.value.crrtPage++
+				var el = document.querySelector('.list-container-inner')
+				var btt = el.getBoundingClientRect().bottom
+					// console.log('btt',btt)
+				if (btt < (screen.height + 50)) {
+					value.method()
+				}
+			}, false)
+			// console.log('value', this)
+	}
+})
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',

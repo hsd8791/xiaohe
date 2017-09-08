@@ -5,12 +5,12 @@
     </p>
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<div class="container">
-				<div class="wraper right-align-input">
+				<div class="wraper right-align-input" v-if='!specialQuota'>
 					<label class="label" :disabled='true'>发放额度：</label> 
 					<el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
 					<!-- <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i> -->
 				</div>
-          <el-button type='success'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0'>领取</el-button>
+          <el-button type='success'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
 			</div>
 		</div>
     <div class="binding-card" v-if='binding' >
@@ -55,6 +55,7 @@ import publicFun from '../../js/public.js'
           self_:this,
           chooseOpts:[
           ],
+
         },
 				binding:false,
     }
@@ -124,8 +125,17 @@ import publicFun from '../../js/public.js'
         case 1:s='等待发放';break;
         case 2:s='已放款';break;
       }
+      if(this.quotaCfg.quotaFee===0&&this.quotaCfg.status===1){
+        s='申请通过，请联系客服完成放款'
+      }
       return s
     },
+    specialQuota(){
+      if(this.quotaCfg.quotaFee===0&&this.quotaCfg.status===1){
+        return true
+      }
+    },
+
   },
   events: {},
   components: {}
@@ -151,7 +161,7 @@ import publicFun from '../../js/public.js'
     z-index: 99999;
   }
   .audit-msg{
-    font-size: 0.25rem;
+    font-size: 0.24rem;
   }
 }
 

@@ -4,6 +4,7 @@
 	<title>借款协议</title>
 	<style type="text/css">
 		p{
+			color:#222;
 			text-indent: 32px;
 			font-size: 16px;
 			line-height: 1.6;
@@ -23,6 +24,24 @@
 		}
 		.gap{
 			margin:34px 0;
+		}
+		.loan-detail{
+			border: 1px #000 solid;
+			display: flex;
+			margin: 0 50px;
+			width: 600px;
+		}
+		.loan-detail span{
+			width: 50%;
+			padding-left: 20px;
+			border: 0px solid #000 ;
+			border-left-width: 1px;
+		}
+		.loan-detail span:first-child{
+			border-left-width: 0px;
+			width: 30%;
+			text-align: center;
+			padding-left: 0;
 		}
 	</style>
 </head>
@@ -52,13 +71,13 @@
 <p>甲乙双方均已在丙方平台注册，同意遵守丙方平台的各项行为准则，在充分阅读理解本文本情形下，本着诚信自愿原则签订本《借款协议》。本协议内容如下：</p>
 <p class="no-indent">一、借款主要内容</p>
 <p></p>
-<p>借款金额	200.00(贰佰元整)</p>
-<p>借款日期	2017-01-13</p>
-<p>年化利率	0%</p>
-<p>还款方式	到期还本付息</p>
-<p>还款日期	2017-01-19</p>
-<p>借款用途	消费</p>
-<p>还款总额	304.98(叁佰零肆元玖角捌分)</p>
+<div class="loan-detail"><span>借款金额</span><span>200.00(贰佰元整)</span></div>
+<div class="loan-detail"><span>借款日期</span><span>2017-01-13</span></div>
+<div class="loan-detail"><span>年化利率</span><span>0%</span></div>
+<div class="loan-detail"><span>还款方式</span><span>到期还本付息</span></div>
+<div class="loan-detail"><span>还款日期</span><span>2017-01-19</span></div>
+<div class="loan-detail"><span>借款用途</span><span>消费</span></div>
+<div class="loan-detail"><span>还款总额	</span><span>304.98(叁佰零肆元玖角捌分)</span></div>
 <p>注：还款总额=借款金额*（1+借款时长/365）*年化利率，其中借款时长为借款日期和还款日期间的天数；此处的“借款日期”是指甲方向乙方实际支付借款且借款已到账的日期。</p>
 <p>借款人可多次还款直至待还本息全部还清，但提前还款并不减少待还本息。</p>
 <p></p>
@@ -157,9 +176,13 @@
 <p>各方均确认，本协议的签订、生效和履行以不违反法律为前提。如果本协议中的任何一条或多条违反适用的法律，则该条将被视为无效，但该无效条款并不影响本协议其他条款的效力。</p>
 <p>若甲方与丙方、乙方与丙方或甲乙丙三方发生任何纠纷或争议，首先应友好协商解决，协商不成的，同意将纠纷或争议提交丙方住所地有管辖权的人民法院，相关的诉讼费、律师代理费等因追索权利而发生的合理费用均由败诉方承担。</p>
 <p>若甲方与乙方发生任何纠纷或争议，首先应友好协商解决，协商不成的，同意将纠纷或争议提交提起诉讼一方住所地有管辖权的人民法院，相关的诉讼费、律师代理费等因追索权利而发生的合理费用均由败诉方承担。</p>
+<p style="z-index: -1">
+	<img src="./stamp.jpg" alt="" id="stamp">
+</p>
 <p>本协议中所使用的定义，除非另有规定，否则应适用今借到平台释义规则，今借到平台对本文定义享有最终解释权。</p>
-<p></p>
-<p>甲方(借款人)：
+
+
+<p style="z-index: 1">甲方(借款人)：
 	<span>杨晓磊</span>
 </p>
 <p>乙方(出借人)：
@@ -172,5 +195,16 @@
 
 
 </div>
+<style type="text/css">
+	#stamp{
+		margin-left: 100px;
+		/*background: url('./stamp.jpg') no-repeat 100px 0;*/
+		width: 300px;
+		height: 222px;
+		position: absolute;
+		z-index: -1;
+		opacity: 1;
+	}
+</style>
 </body>
 </html>
