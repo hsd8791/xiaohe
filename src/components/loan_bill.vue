@@ -397,7 +397,12 @@
 					margin:0.1rem 0.15rem;
 					padding:0.1rem 0;
 					opacity: 0.5;
+					
 				}
+				.action-bttn:last-child{
+					margin-right:0.45rem;
+				}
+
 			}
 		}
 	#loanBillVue{
