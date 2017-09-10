@@ -31,6 +31,7 @@
 
 <script>
 import publicFun from '../js/public.js'
+import bus from '../bus.js'
 export default {
   data() {
     return {
@@ -39,7 +40,7 @@ export default {
       loading:true,
       editing:true,
       backAfterPost:false,// watch out
-      url:'accounting/myLendInfo?lendingUid=1',
+      urlLendInfo:'accounting/myLendInfo?lendingUid=1',
       urlApply:'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
       // urlSales:'qudao/pv?qudao=',
       remind:{
@@ -68,16 +69,25 @@ export default {
 
   	// 	})
   	// },
+  	noNewerRedirect(){
+  		// if(bus.firstEnterApp){
+  		// 	publicFun.goPage('/loan_bill')
+  		// 	bus.firstEnterApp=false
+  		// }
+  	},
   	checkNewer(){
-  		publicFun.get(this.url,this,()=>{
+  		publicFun.get(this.urlLendInfo,this,()=>{
   			console.log('this',this.response)
   			if(this.response.body.data){
   				this.isNewer=false
+  				this.noNewerRedirect()
+
   			}else{
   				publicFun.get(this.urlApply,this,()=>{
   					console.warn('this urlApply',this.response)
   					if(this.response.body.data.data.length){
   						this.isNewer=false
+  						this.noNewerRedirect()
   					}else{
   						this.isNewer=true
   					}

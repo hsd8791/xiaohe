@@ -133,6 +133,9 @@
 			},
 			created() {
 				publicFun.checkSession(this)
+				bus.$on('quota_recieved',()=>{
+					this.get()
+				})
 				// setTimeout(()=> {
 				// 	this.auditing=3
 				// 	this.loanInfo.status=1
@@ -254,7 +257,6 @@
 							this.auditingRemark = data.remark
 							this.phoneLender = data.phone
 							this.applyRecord = data
-						
 						} else {
 						}
 					}

@@ -7,10 +7,11 @@
 			<div class="container">
 				<div class="wraper right-align-input" v-if='!specialQuota'>
 					<label class="label" :disabled='true'>发放额度：</label> 
-					<el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
-					<!-- <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i> -->
-				</div>
-          <el-button type='success'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
+          <el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
+          <!-- <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i> -->
+        </div>
+        <el-checkbox v-model='clause' v-show='quotaCfg.quotaStatus==0&&!specialQuota'>我同意《借款服务与隐私协议》</el-checkbox>
+        <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
 			</div>
 		</div>
     <div class="binding-card" v-if='binding' >
@@ -20,7 +21,7 @@
           绑定新银行卡
         </h1>
       </div>
-      <app-bind-card :callback='cardPay' ></app-bind-card>
+      <app-bind-card></app-bind-card>
     </div>
     <remind :remind=remind></remind>
 		<app-choose :choose='choose'></app-choose>
@@ -29,6 +30,7 @@
 
 <script>
 import publicFun from '../../js/public.js'
+import bus from '../../bus.js'
 	export default {
 		data() {
 			return {
@@ -37,6 +39,7 @@ import publicFun from '../../js/public.js'
 					receive:'lendApply/receiveQuota',
           cards: 'unspay/mycards',
 				},
+        clause:true,
         response:null,
         backAfterPost:false,// watch out
         remind:{
@@ -105,10 +108,11 @@ import publicFun from '../../js/public.js'
       publicFun.get(url,this,()=>{
         console.log('res receive',this.response)
         if(!this.response.body.error){
-
           let r = this.remind
           r.remindMsg='申请成功'
-          r.remindOpts=[{msg:'确定'}]
+          r.remindOpts=[{msg:'确定',callback:()=>{
+            bus.$emit('quota_recieved')
+          }}]
           r.isShow=true
         }
       })
@@ -121,7 +125,7 @@ import publicFun from '../../js/public.js'
     auditMsg(){
       let s
       switch(this.quotaCfg.quotaStatus){
-        case 0:s='申请通过，请确认领取额度';break;
+        case 0:s='申请通过，请领取额度';break;
         case 1:s='等待发放';break;
         case 2:s='已放款';break;
       }
@@ -162,6 +166,7 @@ import publicFun from '../../js/public.js'
   }
   .audit-msg{
     font-size: 0.24rem;
+    margin:0.05rem 0;
   }
 }
 

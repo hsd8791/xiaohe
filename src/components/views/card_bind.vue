@@ -58,7 +58,9 @@ export default {
   			let r=this.remind
   			r.remindMsg='绑定成功'
   			r.remindOpts=[{msg:'确定',callback:()=>{
-          this.callback()
+          if(this.callback instanceof Function){
+            this.callback()
+          }
         }}]
   			r.isShow=true
   		})

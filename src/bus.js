@@ -11,6 +11,7 @@ var bus = new Vue({
 		response: null,
 		loanInfo: null,
 		qualified: 0,
+		firstEnterApp: true,
 	},
 	created: function() {
 		// this.getLenderInfo()
@@ -36,11 +37,11 @@ var bus = new Vue({
 	watch: {
 
 	},
-	computed:{
-		relativeUrlTest(){
-			if(/test/.test(this.$http.options.root)){
+	computed: {
+		relativeUrlTest() {
+			if (/test/.test(this.$http.options.root)) {
 				return '/test'
-			}else{
+			} else {
 				return ''
 			}
 		},
