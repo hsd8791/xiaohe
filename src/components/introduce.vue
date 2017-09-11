@@ -5,10 +5,21 @@
 			小禾微贷丨关于小禾微贷
 		</h3>
 		<p class="total">小禾微贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p>
-		<div class="sub-title">
+		<div class="input">
+			<a class="download-app" href="http://mobileappdownload.oss-cn-hangzhou.aliyuncs.com/hzg.0.0.1.apk">
+			<el-button type='success' id='androidAppDownload'>
+				<i class="icon-android platfor-icon"></i>
+				<div class="download-text">
+					<p>下载安卓</p>
+					<p>同步助手</p>
+				</div>
+			</el-button>
+			</a>
+		</div>
+		<!-- <div class="sub-title">
 			<img class="title-img" src="../assets/img/readem.png"/>
 		</div>
-		<p>无前期无押金，通过今借到、借贷宝、无忧借条等多个平台放款，首次500~1000额度；点击“借款”，填写借款申请，最快7分钟放款。</p>
+		<p>无前期无押金，通过今借到、借贷宝、无忧借条等多个平台放款，首次500~1000额度；点击“借款”，填写借款申请，最快7分钟放款。</p> -->
 		<div class="sub-title">
 			<img class="title-img" src="../assets/img/conect.png"/>
 		</div>
@@ -20,6 +31,7 @@
 		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
+
 		<remind :remind='remind'></remind>
 	</div>
 </template>
@@ -140,4 +152,51 @@
 			border-radius: 10*0.01rem;
 		}
 	}
+#introduceVue{
+
+	.download-app{
+		text-decoration: none;
+		color: #fff;
+	}
+	.platfor-icon{
+		position: absolute;
+		left: 5%;top: 0;
+		font-size: 0.5rem;
+		line-height: 0.8rem;
+	}
+	.download-text{
+		margin-left: 30%;
+		width: 60%;
+	}
+	.download-app{
+		white-space: wrap;
+	}
+	#androidAppDownload{
+		p{
+			font-size: 0.24rem;
+			color:#fff;
+			line-height: 1.4;
+
+		}
+	}
+}
+</style>
+<style lang='scss'>
+#introduceVue{
+
+		.el-button{
+				
+			position: relative;
+			font-size: 0.24rem;
+			line-height: 1.4;
+			height: 0.8rem;
+			width:50%;
+			padding: 0;
+		}
+		.download-text{
+			color: #fff;
+		}
+	}
+	
+
 </style>
