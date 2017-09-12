@@ -6,7 +6,7 @@
 		</h3>
 		<p class="total">小禾微贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p>
 		<div class="input">
-			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" >
+			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
 			<el-button type='success' id='androidAppDownload'>
 				<i class="icon-android platfor-icon"></i>
 				<div class="download-text">
@@ -72,6 +72,15 @@
   			// console.log('app',bus)
   			bus.$emit('account_change','请登录','','')//para1 for account, para2 for uniqueId
   		})
+  	},
+  	testWechat(){
+  		if(publicFun.isWeiXin()){
+  			let r=this.remind
+  			r.remindMsg='无法在微信中下载'
+  			r.remindMsgDscrp='请点击右上方用浏览器打开后下载'
+  			r.remindOpts=[{msg:'确定'}]
+  			r.isShow=true
+  		}
   	},
   	joinQQ(){
 			window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"

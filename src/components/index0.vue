@@ -39,6 +39,7 @@ export default {
       response:null,
       loading:true,
       editing:true,
+      noFromRoute:false,
       backAfterPost:false,// watch out
       urlLendInfo:'accounting/myLendInfo?lendingUid=1',
       urlApply:'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
@@ -54,12 +55,17 @@ export default {
     }
   },
   created(){
-  	// var way=this.$route.query.qudao
-  	// if(way){
-  	// 	this.fromSales(way)
-  	// }
-  	// console.log('route',way)
   	this.checkNewer()
+  },
+  beforeRouteEnter (to, from,next){
+  	console.log('to',to)
+  	console.log('from',from)
+  	
+  	next(vm=>{
+  		if(!from.name){
+  			vm.noFromRoute=true
+  		}
+  	})
   },
   methods:{
   	// fromSales(w){
@@ -70,6 +76,9 @@ export default {
   	// 	})
   	// },
   	noNewerRedirect(){
+  		if(this.noFromRoute){
+ 				publicFun.goPage('/loan_bill')
+  		}
   		// if(bus.firstEnterApp){
   		// 	publicFun.goPage('/loan_bill')
   		// 	bus.firstEnterApp=false
