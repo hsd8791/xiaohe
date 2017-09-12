@@ -274,12 +274,7 @@
 					var l = this.loanInfo
 						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
 					var temp = {
-							special: {
-								act: '特殊',
-								enable: true,
-								show:true,
-								index: 1
-							},
+
 							renewal: {
 								act: '续期',
 								enable: true,
@@ -297,6 +292,12 @@
 								enable:true,
 								show:true,
 								index:1,
+							},
+							special: {
+								act: '特殊',
+								enable: true,
+								show:true,
+								index: 1
 							},
 						}
 						// temp.special.enable=(l.status===0||l.status==2)
@@ -395,7 +396,7 @@
 				padding:0 0.15rem;
 				color:#8e8e8e;
 				.action-bttn{
-					width: 50%;
+					width: 40%;
 					margin:0.1rem 0.15rem;
 					padding:0.1rem 0;
 					opacity: 0.5;

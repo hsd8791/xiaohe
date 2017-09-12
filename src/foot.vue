@@ -18,7 +18,7 @@
          <div class="nav-icon"><i class="icon-user"></i></div>
          <div class="nav-item">我们</div>
      </span>
-    <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink'>
+    <span class="nav-mid" @click='hzgMarket' v-if='false'>
         <!-- <span class="txt"> -->
             更多贷款
         <!-- </span> -->

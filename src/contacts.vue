@@ -29,10 +29,10 @@
 						<img src="./assets/img/jdb.png" alt="">
 					</a>
 				</li>
-				<li @click="doit(6)">
+				<!-- <li @click="doit(6)">
 					<a href="javascript:void(0)">
 						<img src="./assets/img/gongzhonghao_icon.png" alt="">
-					</a>
+					</a> -->
 				</li>
 			</ul>
 			<div class="keycontrol" @click="control">
@@ -44,7 +44,7 @@
 			<img @click.stop='' v-show="qrcode == 2" src="./assets/img/qqMe.png" alt="">
 			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/zfbMe.jpeg" alt="">
 			<img @click.stop='' v-show="qrcode == 4" src="./assets/img/jdbMe.jpeg" alt="">
-			<img @click.stop='' v-show="qrcode == 5" src="./assets/img/qrcode_xh.jpg" alt="">
+			<!-- <img @click.stop='' v-show="qrcode == 5" src="./assets/img/qrcode_xh.jpg" alt=""> -->
 		</div>
 	</div>
 </template>
@@ -69,6 +69,7 @@
 					}
 				},
 				doit: function(choose) {
+					console.log('chooose',choose)
 					switch (choose) {
 						case 1:
 							this.qrcode = 2;
@@ -87,6 +88,7 @@
 							break;
 						case 5:
 							this.qrcode = 4;
+							break;
 						case 6:
 						this.qrcode = 5;
 							break;
