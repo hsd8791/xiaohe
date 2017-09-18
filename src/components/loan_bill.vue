@@ -303,8 +303,8 @@
 						// temp.special.enable=(l.status===0||l.status==2)
 						temp.renewal.show=l.status===1||l.status===0
 						temp.repay.show=l.status===1||l.status===0
-					// temp.renewal.show=false
-						temp.reborrow.show=l.status===3
+						// temp.renewal.show=false
+						temp.reborrow.show=l.status===3 || l.status===2
 
 					return temp
 				},
