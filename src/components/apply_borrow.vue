@@ -281,7 +281,7 @@
 						}
 					if (!this.allFilled||!this.canApply||!this.amountValid) {
 						console.error('sth undone ！')
-						return
+						// return
 					}
 					console.log('applying')
 					this.remind.remindMsg = '请确认是否提交'

@@ -22,7 +22,7 @@
 		</div>
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 
-		<div class="container" v-if='!loanInfo&&(auditing===0||auditing===1)' audit-ctrl='guide'>
+		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
 		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
@@ -78,7 +78,7 @@
 				</el-button>
 			</div>
 		</div>
-		<div class="input bttn-refresh" v-if='auditing!==3&&auditing!==4' audit-ctrl='refresh'>
+		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
