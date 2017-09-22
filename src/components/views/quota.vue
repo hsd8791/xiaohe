@@ -5,7 +5,7 @@
     </p>
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<div class="container">
-        <p class='remind-msg' v-if='quotaCfg.quotaStatus===3'>超时未领，请重新申请</p>
+        <!-- <p class='remind-msg' v-if='quotaCfg.quotaStatus===3'></p> -->
 				<div class="wraper right-align-input" v-if='!specialQuota'>
 					<label class="label" :disabled='true'>发放额度：</label> 
           <el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
@@ -131,6 +131,7 @@ import bus from '../../bus.js'
         case 0:s='申请通过，请领取额度';break;
         case 1:s='等待发放';break;
         case 2:s='已放款';break;
+        case 3:s='超时未领，请重新申请';break;
       }
       if(this.quotaCfg.quotaFee===0&&this.quotaCfg.status===1){
         s='申请通过，请联系客服完成放款'
