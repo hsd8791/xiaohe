@@ -5,6 +5,7 @@
     </p>
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<div class="container">
+        <p class='remind-msg' v-if='quotaCfg.quotaStatus===3'>超时未领，请重新申请</p>
 				<div class="wraper right-align-input" v-if='!specialQuota'>
 					<label class="label" :disabled='true'>发放额度：</label> 
           <el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
@@ -115,6 +116,8 @@ import bus from '../../bus.js'
           }}]
           r.isShow=true
         }
+      },()=>{
+        
       })
     }
   },

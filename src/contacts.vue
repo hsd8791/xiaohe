@@ -69,7 +69,6 @@
 					}
 				},
 				doit: function(choose) {
-					console.log('chooose',choose)
 					switch (choose) {
 						case 1:
 							this.qrcode = 2;
@@ -84,7 +83,6 @@
 							break;
 						case 4:
 							this.qrcode = 3;
-
 							break;
 						case 5:
 							this.qrcode = 4;
