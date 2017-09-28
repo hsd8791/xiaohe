@@ -145,6 +145,11 @@
 				if(localStorage.qudao=='jEJree'){
 					return true
 				}
+				if(localStorage.qudao=='qYfm6r'){
+					if(this.zmxyScore2<580||this.zmxyScore<500){
+						return false
+					}
+				}
 				if(this.zmxyScore<500){
 					return false
 				}

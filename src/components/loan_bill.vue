@@ -78,6 +78,7 @@
 				</el-button>
 			</div>
 		</div>
+		
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
@@ -217,7 +218,7 @@
 				},
 				goP(key, act) {
 					console.log('act',act)
-					if(key==='repay'){
+					if(key==='repay'||key==='renewal'){
 						let url=publicFun.urlConcat('/loan_deal',{
 							action: key,
 							billId:this.loanInfo.id,
