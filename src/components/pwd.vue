@@ -23,8 +23,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
-	// import urlConcat from '../js/urlConcat.js'
 	import publicFun from '../js/public.js'
 	import remind from './tmpts/remind.vue'
 	import Bus from '../bus.js'

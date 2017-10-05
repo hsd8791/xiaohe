@@ -43,7 +43,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
 	import remind from '../components/tmpts/remind.vue'

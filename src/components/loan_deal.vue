@@ -182,6 +182,7 @@ export default {
       var url = publicFun.urlConcat(this.urlOrder, queryBody)
       publicFun.goPage(this.$route.fullPath + '/')
       publicFun.get(url, this, () => {
+        console.log('res order',this.response.body)
         var payId = this.response.body.data.payId
         var transactionId = this.response.body.data.transactionId
         var successPath
@@ -202,6 +203,8 @@ export default {
           path: encodeURIComponent(successPath),
         })
         publicFun.goPage(url)
+      },()=>{
+        console.log('res order',this.response.body)
       })
     },
     reborrowSubmit() {

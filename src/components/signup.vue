@@ -20,7 +20,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
 	export default {
 		data() {
 			return {

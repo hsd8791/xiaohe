@@ -13,6 +13,7 @@ import back from './components/tmpts/route_back.vue'
 import record from './components/tmpts/record.vue'
 import choose from './components/tmpts/choose_remind.vue'
 import bindCard from './components/views/card_bind.vue'
+import select from './components/tmpts/select.vue'
 
 Vue.use(VueResource)
 Vue.component('remind', remind)
@@ -20,6 +21,7 @@ Vue.component('app-back', back)
 Vue.component('app-record', record)
 Vue.component('app-choose', choose)
 Vue.component('app-bind-card',bindCard)
+Vue.component('app-select',select)
 
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
@@ -64,7 +66,34 @@ Vue.directive('scroll-load', {
 			// console.log('value', this)
 	}
 })
+Vue.directive('select',{
+	bind: function(el, binding, vnode) {
+		console.warn('el',el,vnode.componentInstance)
+		let valueName=binding.expression
+		let select=el.getElementsByClassName('select__')[0]
+			console.log('',select.value,select.selectedIndex,valueName)
+		select.addEventListener('change',(e)=>{
+			console.log('e',e)
+			// vnode.context.$parent.education=select.value
+			// vnode.education=select.value="opel
+			vnode.componentInstance.$parent[valueName]=select.value
+			// select.selectedIndex=0
+		})
+	}
+})
+var pathMap={
+	'http://localhost:8000/xh':'xh',
+	'http://localhost:8000/xh2':'xh2',
+	'http://hzg.he577.com/xh':'xh',
+	'http://hzg.he577.com/xhtest':'xh',
+}
 /* eslint-disable no-new */
+var url=location.href
+// console.log('host',url.slice(0,url.indexOf('#')-1))
+var host=url.slice(0,url.indexOf('#')-1)
+var path=pathMap[host]
+console.log('img path',path)
+Vue.prototype.___imgPath=path
 new Vue({
 	el: '#app',
 	router,

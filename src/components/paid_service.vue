@@ -30,7 +30,6 @@
 	import remind from './tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
-	// import '../css/input.css'
 
 	export default {
 	data() {

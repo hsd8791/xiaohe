@@ -10,10 +10,18 @@
 				<el-select :disabled='!editing' v-model="education" placeholder="请选择">
 				<el-option v-for="item in options.education" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
 			</div>
+			<div class="wraper"  >
+				<label>学历：</label>
+				<app-select :options="options.education"  v-select='education' :select-value='education' :disabled='!editing' ></app-select>
+			</div>
 			<div class="wraper">
 				<label>婚姻状况：</label>
 				<el-select :disabled='!editing' v-model="marriage" placeholder="请选择">
 				<el-option v-for="item in options.marriage" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
+			</div>
+			<div class="wraper">
+				<label>婚姻状况：</label>
+				<app-select :options="options.marriage"  v-select='marriage' :select-value='marriage' :disabled='!editing' ></app-select>
 			</div>
 			<div class="wraper">
 				<label>子女情况：</label>
@@ -56,7 +64,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
 	import remind from './tmpts/remind.vue'
 	import publicFun from './../js/public.js'
 	export default {
@@ -76,7 +83,7 @@
 					education:'',
 				},
 				response:null,
-				loading:true,
+				loading:false,
 				editing:false,
 				url1:'userInfo/personal',
 				url2:'userInfo/address',
@@ -230,28 +237,28 @@
 		},
 		created:function(){
 			var self_=this
-			var mapScript=document.createElement('script')
-			var mapSrc='http://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
-			mapScript.src=mapSrc
-			document.body.appendChild(mapScript)
-			mapScript.onload=function(){
-				console.log('amap loaded')
-				AMap.service('AMap.DistrictSearch',function(){
-					self_.districtSearch = new AMap.DistrictSearch({
-						level : 'country',  
-						subdistrict : 3    
-					});
-					self_.districtSearch.search('中国',function(status,result){
-						var searchRslt=result.districtList[0].districtList
-						self_.options.province=[]
-						var len=searchRslt.length,i
-						for(i=0;i<len;i++){
-							self_.options.province.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
-						}
-						self_.get()
-					})
-				})
-			}
+			// var mapScript=document.createElement('script')
+			// var mapSrc='http://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
+			// mapScript.src=mapSrc
+			// document.body.appendChild(mapScript)
+			// mapScript.onload=function(){
+			// 	console.log('amap loaded')
+			// 	AMap.service('AMap.DistrictSearch',function(){
+			// 		self_.districtSearch = new AMap.DistrictSearch({
+			// 			level : 'country',  
+			// 			subdistrict : 3    
+			// 		});
+			// 		self_.districtSearch.search('中国',function(status,result){
+			// 			var searchRslt=result.districtList[0].districtList
+			// 			self_.options.province=[]
+			// 			var len=searchRslt.length,i
+			// 			for(i=0;i<len;i++){
+			// 				self_.options.province.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
+			// 			}
+			// 			self_.get()
+			// 		})
+			// 	})
+			// }
 
 		},
 		watch:{

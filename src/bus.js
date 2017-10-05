@@ -45,6 +45,9 @@ var bus = new Vue({
 				return ''
 			}
 		},
+		imgPath(){
+		  return this.___imgPath
+		},
 	}
 })
 

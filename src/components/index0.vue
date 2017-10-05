@@ -19,6 +19,8 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
+    <img :src='src' width="300">
+    <!-- <img src='../assets/xh/bg_old_customer.png' width="300"> -->
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
@@ -35,6 +37,7 @@ import bus from '../bus.js'
 export default {
   data() {
     return {
+      src:require("../assets/"+this.___imgPath+"/bg_old_customer.png"),
     	isNewer:false,
       response:null,
       loading:true,

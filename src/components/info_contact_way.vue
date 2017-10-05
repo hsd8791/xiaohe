@@ -40,6 +40,10 @@
 				<el-select :disabled='!editing' v-model="item.relative" placeholder="关系"  @change='validateRelative(item)'  class=''>
 				<el-option v-for="relation in relationOpts[index]" :key="relation.value" :label="relation.label" :value="relation.value"></el-option></el-select>
 			</div>
+			<div class="wraper">
+				<label>关系：</label>
+				<app-select :options="relationOpts[index]"  v-select='item.relative' :select-value='item.relative' :disabled='!editing' ></app-select>
+			</div>
 			<!-- <div class="wraper">
 				<label>关系：</label>
 				<el-input :disabled='!editing'  placeholder='关系' v-model='item.relative' @blur.once='blured'  @change='validateRelative(item)'></el-input>
@@ -64,7 +68,6 @@
 </template>
 
 <script>
-// import '../css/input.css'
 import publicFun from '../js/public.js'
 import remind from '../components/tmpts/remind.vue'
 export default {
@@ -167,7 +170,7 @@ export default {
 							this.relatives = data.relatives
 							var r = this.relatives,
 								i
-							console.log('r', r)
+							// console.log('r', r)
 							for (i = 0; i < r.length; i++) {
 								console.log('validtae', i)
 								this.validatename(r[i])
@@ -295,6 +298,7 @@ export default {
 		},
 		created() {
 			this.get()
+			console.log('relationOpts[index]',this.relationOpts[0])
 			// this.relatives[0].value='父亲'
 		},
 		events: {},

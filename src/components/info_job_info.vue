@@ -38,7 +38,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
 	import remind from '../components/tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	export default {

@@ -46,7 +46,6 @@
 </template>
 
 <script>
-	// import '../css/input.css'
 	import remind from './tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	import Bus from '../bus.js'
