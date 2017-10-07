@@ -9,23 +9,24 @@
 		若逻辑复杂，会导致当前页面DOM结构繁杂，造成webview响应缓慢，甚至崩溃；
 		因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>-->
 	<img class="banner" src="../assets/img/banner.jpg"/>
-	<div class="box">
-		<img src="../assets/img/logo.jpg" alt="" class="sub-banner" />
-		<p>安全 · 快速 · 便捷</p>
-		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
-			开始借款
-			<!--<img src="../assets/img/oldCustomer.png"/>-->
+	<!-- <div class="box"> -->
+		<!-- <img src="../assets/img/logo.jpg" alt="" class="sub-banner" /> -->
+		<!-- <p>安全 · 快速 · 便捷</p> -->
+			<img :src='isNewer?src.newer:src.back' class="cartoon-bg" />
+      <img :src="src.logo" alt="" class="logo-index">
+    <div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
+      开始借款
 		</div>
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <img :src='src' width="300">
+    <!-- <img :src='src' width="300"> -->
     <!-- <img src='../assets/xh/bg_old_customer.png' width="300"> -->
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
 		<!-- </div> -->
-	</div>
+	<!-- </div> -->
 	<remind :remind='remind'></remind>
 		
 	</div>
@@ -37,8 +38,12 @@ import bus from '../bus.js'
 export default {
   data() {
     return {
-      src:require("../assets/"+this.___imgPath+"/bg_old_customer.png"),
-    	isNewer:false,
+      src:{
+        back:require("../assets/"+this.___imgPath+"/bg_old_customer.png"),
+        newer:require("../assets/"+this.___imgPath+"/bg_new_customer.png"),
+        logo:require("../assets/"+this.___imgPath+"/logo.png"),
+      },
+    	
       response:null,
       loading:true,
       editing:true,
@@ -58,7 +63,12 @@ export default {
     }
   },
   created(){
-  	this.checkNewer()
+  	// this.checkNewer()
+  },
+  computed:{
+    isNewer(){
+      return bus.isNewer
+    },
   },
   beforeRouteEnter (to, from,next){
   	console.log('to',to)
@@ -67,6 +77,7 @@ export default {
   	next(vm=>{
   		if(!from.name){
   			vm.noFromRoute=true
+
   		}
   	})
   },
@@ -87,27 +98,27 @@ export default {
   		// 	bus.firstEnterApp=false
   		// }
   	},
-  	checkNewer(){
-  		publicFun.get(this.urlLendInfo,this,()=>{
-  			console.log('this',this.response)
-  			if(this.response.body.data){
-  				this.isNewer=false
-  				this.noNewerRedirect()
+  	// checkNewer(){
+  	// 	publicFun.get(this.urlLendInfo,this,()=>{
+  	// 		console.log('this',this.response)
+  	// 		if(this.response.body.data){
+  	// 			this.isNewer=false
+  	// 			this.noNewerRedirect()
 
-  			}else{
-  				publicFun.get(this.urlApply,this,()=>{
-  					console.warn('this urlApply',this.response)
-  					if(this.response.body.data.data.length){
-  						this.isNewer=false
-  						this.noNewerRedirect()
-  					}else{
-  						this.isNewer=true
-  					}
-  				})
-  			}
-  		})
+  	// 		}else{
+  	// 			publicFun.get(this.urlApply,this,()=>{
+  	// 				console.warn('this urlApply',this.response)
+  	// 				if(this.response.body.data.data.length){
+  	// 					this.isNewer=false
+  	// 					this.noNewerRedirect()
+  	// 				}else{
+  	// 					this.isNewer=true
+  	// 				}
+  	// 			})
+  	// 		}
+  	// 	})
   		
-  	},
+  	// },
 
   	dealBill(){
   		publicFun.goPage('/loan_bill')
@@ -145,14 +156,7 @@ export default {
 	.banner{
 		width: 100%;
 	}
-	.box {
-		padding: 0 80px 30px;
-		.sub-banner{
-			margin-top: 40px;
-			width: 55%;
-		}
-	}
-	#newBorrow {
+/*	#newBorrow {
 	    border: 1px solid #e71419;
 	    padding: 16px 0;
 	    margin-bottom: 50px;
@@ -168,16 +172,28 @@ export default {
 		font-size: 20px;
 		font-weight: 700;
 		color: #e49731;
-	}
-	p{
-		margin-top: 0;
-    margin-bottom: 10px;
-    color: #8f8f94;
-    padding-bottom: 60px;
-    font-size: 12px;
-	}
+	}*/
+  .cartoon-bg{
+    width: 2.86rem;
+    margin: 0.28rem 0 0.18rem
+  }
+  .logo-index{
+    width: 1.02rem;
+    margin-bottom: 0.2rem;
+  }
 	.mybtn {
-    border-radius: 10px;
+    margin:0 auto;
+    font-family: "PingFangSC";
+    font-size: 18 * 0.01rem;
+    letter-spacing: -0.4 * 0.01rem;
+    text-align: center;
+    color: #ffffff;
+    line-height: 0.44rem;
+    width: 258 * 0.01rem;
+    height: 0.44rem;
+    border-radius: 100 * 0.01rem;
+    background-color: #5494f3;
+    box-shadow: 0 2 * 0.01rem 6 * 0.01rem 0 rgba(36, 91, 172, 0.38);
 	}
 }
 </style>

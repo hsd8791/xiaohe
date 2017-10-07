@@ -35,11 +35,11 @@
 				<i :class="{'el-icon-check':item.nameValid,'el-icon-close':!item.nameValid}"></i>
 			</div>
 
-			<div class="wraper ">
+			<!-- <div class="wraper ">
 				<label>关系：</label>
 				<el-select :disabled='!editing' v-model="item.relative" placeholder="关系"  @change='validateRelative(item)'  class=''>
 				<el-option v-for="relation in relationOpts[index]" :key="relation.value" :label="relation.label" :value="relation.value"></el-option></el-select>
-			</div>
+			</div> -->
 			<div class="wraper">
 				<label>关系：</label>
 				<app-select :options="relationOpts[index]"  v-select='item.relative' :select-value='item.relative' :disabled='!editing' ></app-select>

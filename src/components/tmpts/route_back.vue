@@ -1,6 +1,8 @@
 <template>
 	<div class="back">
-		<span class='text' @click='back' :style="{'color':bindedColor}">{{remind}}</span>
+		<span class='text' @click='back' :style="{'color':bindedColor}">
+			<i :class="'icon-icon-back'" class='icon' :style="{'color':color}"></i>
+		</span>
 		<!-- <div class="test" :class='testClass'>  -->
 			<!-- <slot name='11' class='test'></slot> -->
 		<!-- </div> -->
@@ -30,8 +32,11 @@
 
 			},
 			remind:{
-				default:'返回'
-			}
+				default:''
+			},
+			iconName:{
+				default:'icon-icon-back'
+			},
 		},
 		methods:{
 			back(){
@@ -85,15 +90,18 @@
 		height: 100%;
 		width: 0.5rem;
 		.text{
-			height: 0.16rem;
+			height: 0.24rem;
 			font-weight: normal;
 			line-height: 1;
-			font-size: 0.16rem;
+			/*font-size: 0.16rem;*/
 			/*color:;*/
 			position: absolute;
 			display: block;
 			margin:auto ;
 			top: 0;right: 0;left: 0;bottom: 0;
+			.icon{
+				font-size: 0.24rem;
+			}
 		}
 	}
 	.test{

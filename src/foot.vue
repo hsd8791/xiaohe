@@ -3,19 +3,22 @@
 
   <div id="footNav" class='foot-nav'>
       <span class='nav-btn' :class='{active:activeI===0}' @click='goPage(0)'>
-         <div class="nav-icon"><i class="icon-home"></i></div>
+         <div class="nav-icon">
+            <i class="icon-icon-index"></i>
+            <!-- <img :src='src.index' class="icon"> -->
+        </div>
          <div class="nav-item">首页</div>
      </span>
      <span class='nav-btn' :class='{active:activeI===1}' @click='goPage(1)'>
-         <div class="nav-icon"><i class="icon-bookmarks"></i></div>
+         <div class="nav-icon"><i class="icon-icon-identification"></i></div>
          <div class="nav-item">认证</div>
      </span>
      <span class='nav-btn' :class='{active:activeI===2}' @click='goPage(2)'>
-         <div class="nav-icon"><i class="icon-file-text"></i></div>
+         <div class="nav-icon"><i class="icon-icon-loan-bill"></i></div>
          <div class="nav-item">借单</div>
      </span>
      <span class='nav-btn' :class='{active:activeI===3}' @click='goPage(3)'>
-         <div class="nav-icon"><i class="icon-user"></i></div>
+         <div class="nav-icon"><i class="icon-icon-me"></i></div>
          <div class="nav-item">我们</div>
      </span>
     <span class="nav-mid" @click='hzgMarket' v-if='false'>
@@ -33,6 +36,9 @@ import bus from './bus.js'
 export default {
     data: function() {
         return {
+            src:{
+                // index:require('./assets/xh/icon-index.svg'),
+            },
             activeI: 0,
             showFoot: true,
             showMarketLink:false,

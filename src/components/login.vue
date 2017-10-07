@@ -1,7 +1,8 @@
 <template>
 	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='登录中'>
-	<h1 class="title"><app-back></app-back>登录</h1>
+	<h1 class="title"><app-back :color="'#6ff792'"></app-back>登录</h1>
 	<div class="logo-container" >
+		<img :src="src.logo" alt="" class="logo">
 	<!-- v-if='action=="login"' -->
 	<!-- <h2 class="log-title">验证手机找回密码</h2> -->
 	</div>
@@ -13,41 +14,48 @@
 		</div> -->
 		<div class="container" v-if='!pwdLogin'>
 			<div class="wraper">
-				<label>手机号：</label>
+				<label class="label">手机号：</label>
 				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
 				<el-input placeholder='请填写手机号' v-model='cellphone' @blur.once='blured'  :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}'></el-input>
 				<!-- <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i> -->
 			</div>
 			<div class="wraper">
-				<label>验证码：</label>
+				<label class="label">验证码：</label>
 				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
 				<el-input placeholder='填写验证码' v-model='verifyCode' @blur.once='blured'  :class='{"valid-border":verifyCodeValid,"error-border":!verifyCodeValid}'></el-input>
 				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid">{{codeBtnMsg}}</el-button>
 				<!-- <i :class="{'el-icon-check':verifyCodeValid,'el-icon-close':!verifyCodeValid}"></i> -->
 			</div>
 		</div>
-		<div class="container" v-else>
-			<div class="wraper">
-				<label>手机号：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='请填写手机号' v-model='cellphone' @blur.once='blured'  :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}'></el-input>
-				<!-- <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i> -->
+		<!-- <div class="container" v-else> -->
+		<div class="login-container">
+			
+			<div class="container" >
+				<div class="wraper">
+					<label>手机号码：</label>
+					<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
+					<el-input placeholder='请填写手机号' v-model='cellphone' @blur.once='blured'  :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}'></el-input>
+					<!-- <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i> -->
+				</div>
+				<div class="wraper">
+					<label>密码：</label>
+					<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
+					<el-input placeholder='请填写密码' v-model='pwd' @blur.once='blured'  :class='{"valid-border":pwdValid,"error-border":!pwdValid}' type='password'></el-input>
+					<!-- <el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode">{{codeBtnMsg}}</el-button> -->
+					<!-- <i :class="{'el-icon-check':pwdValid,'el-icon-close':!pwdValid}"></i> -->
+				</div>
 			</div>
-			<div class="wraper">
-				<label>密码：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='请填写密码' v-model='pwd' @blur.once='blured'  :class='{"valid-border":pwdValid,"error-border":!pwdValid}' type='password'></el-input>
-				<!-- <el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode">{{codeBtnMsg}}</el-button> -->
-				<!-- <i :class="{'el-icon-check':pwdValid,'el-icon-close':!pwdValid}"></i> -->
-			</div>
+			<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='login'?'登录':'确认'}}</el-button>
+
 		</div>
-		<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='login'?'登录':'确认'}}</el-button>
+
+
 		<div class='ctrl-container' v-if='action=="login"'>
+			<span class='signup-btn' @click='signup'>点击注册</span>
 			<span class="find-pwd-btn" @click='findPwd'>修改/忘记密码？</span>
 		</div>
-		<div class='ctrl-container signup-container' v-if='action=="login"'>
-			没有账号？<span class='signup-btn' @click='signup'>注册</span>
-		</div>
+		<!-- <div class='ctrl-container signup-container' v-if='action=="login"'>
+		</div> -->
 
 		<remind :remind='remind'></remind>
 	</div>
@@ -60,6 +68,9 @@
 	export default {
 		data() {
 			return {
+				src:{
+					logo:require('../assets/'+this.___subName+'/logo.png')
+				},
 				fromRoute:{},
 				pwdLogin:true,
 				actions:['login','signup','findPwd'],
@@ -273,20 +284,47 @@
 </script>
 
 <style lang='scss' scoped>
+$mainColor:#5494f3;
 #loginVue{
+	background: #3078e3;
+	background: #5494f3;
+	height: 100%;
+	background: linear-gradient(145deg,  #5494f3 0%,#5494f3 40%,#3078e3 40%, #3078e3 100%);
+	.title{
+		color:#6ff792;
+	}
 	.container{
 		/*margin-top: 2rem;*/
 		/*margin-left:0.5rem;*/
 		margin:auto auto;
-		width: 80%;
+		width: 75%;
+		transform:scale(1.2);
+		transform-origin:top;
+	}
+	.login-container{
+		width: 3.35rem;
+		height: 3.15rem;
+		background: #fff;
+		box-shadow: 8px 13.9px 28px 0 rgba(21, 59, 117, 0.58);
+		border-radius: 0.1rem;
+		margin: 0 auto;
+		position: relative;
+		padding-top: 0.6rem;
 	}
 	.logo-container{
 		width: 100%;
-		height: 2.05rem;
-		background: url(../assets/img/logo.png) center center no-repeat;
-		background-size: 80%;
+		/*height: 2.05rem;*/
+		background: #fff;
+		mask: url('../assets/xh/logo.png') no-repeat center 30%;
+		mask-size:45% auto;
+		padding-top: 0.4rem;
+		padding-bottom: 0.75rem;
+		height: 1.64rem;
+		/*background: url(../assets/img/logo.png) center center no-repeat;*/
+		/*background-size: 80%;*/
 		.logo{
-			width: 100%;
+			display: none;
+			width: 1.64rem;
 		}
 	}
 	.getVerify{
@@ -336,25 +374,33 @@
 	}
 	.submit{
 		/*transition: 0.2s;*/
-		width: 80%;
-		background-color:#d6322c;
-		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
+		width: 100%;
+		height: 0.5rem;
+		background-color: #6ff792;
 		border-width: 0;
-		border-radius: 0.1rem;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		font-size: 0.18rem;
+		color: #055013;
+/*		background-color:#d6322c;
+		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
+		border-radius: 0.1rem;*/
     /*border-color: #ff6231;*/
 	}
 	button[class~='el-button--success'].is-disabled{
 		opacity: 0.4;
 	}
 	.ctrl-container{
-		margin: 0.2rem 0;
+		margin: 0.2rem auto;
+		width: 3.35rem;
 		font-size: 0.14rem;
+		color:#a1c5fb;
+		display: flex;
+		justify-content:space-between;
 		.find-pwd-btn{
-			margin-left: 2.4rem;
-			color:#6a7fa5;
 		}
 		.signup-btn{
-			color:#6a7fa5;
 		}
 	}
 	.signup-container{

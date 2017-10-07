@@ -27,7 +27,7 @@ Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'http://hzg.he577.com';
-// Vue.http.options.root = 'http://hzg.he577.com/test';
+Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
@@ -85,6 +85,7 @@ var pathMap={
 	'http://localhost:8000/xh':'xh',
 	'http://localhost:8000/xh2':'xh2',
 	'http://hzg.he577.com/xh':'xh',
+	'http://hzg.he577.com/test/xh':'xh2',
 	'http://hzg.he577.com/xhtest':'xh',
 }
 /* eslint-disable no-new */
@@ -94,6 +95,7 @@ var host=url.slice(0,url.indexOf('#')-1)
 var path=pathMap[host]
 console.log('img path',path)
 Vue.prototype.___imgPath=path
+Vue.prototype.___subName=path
 new Vue({
 	el: '#app',
 	router,
