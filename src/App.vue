@@ -111,10 +111,12 @@
   },
   created:function(){
     var way=this.$route.query.qudao
-    console.log('way',this.$route)
+
+    // console.log('way',this.$route)
     if(way){
      this.fromSales(way)
      localStorage.qudao=way
+
     }else{
       // localStorage.removeItem('qudao')
     }
