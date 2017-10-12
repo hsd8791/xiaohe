@@ -1,0 +1,127 @@
+//自定组件样式
+$placeholderColor:#97a7be;
+$disabledColor:#777;
+$mainColor:#5494f3;
+$inputSize:0.14rem;
+// $placeholderColor:#999999;
+#app .input{
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+      color:    $placeholderColor;
+  }
+  input:-moz-placeholder, textarea:-moz-placeholder { 
+      color:    $placeholderColor;
+  }
+  input::-moz-placeholder, textarea::-moz-placeholder { 
+      color:    $placeholderColor;
+  }
+  input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+      color:    $placeholderColor;
+  }
+}
+
+.app-select{
+  height: 100%;
+  height: 0.24rem;
+  .select__{
+    position: absolute;
+    top: 0;left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    height: 0.24rem;
+  }
+  .select-value{
+    font-size: $inputSize;
+    text-align: left;
+    padding: 0rem;
+    line-height: 0.24rem;
+    color:$mainColor;
+  }
+  .__disabled{
+    color:$disabledColor;
+  }
+}
+
+//列表
+.record-container{
+  position: relative;
+  border:1px solid #e5e5e5;
+  border-width: 1px 0px;
+  height: 0.7rem;
+  width: 100%;
+  background: #fff;
+  margin:0.1rem 0;
+  .avator{
+    position: relative;
+    width: 0.5rem;
+    height: 0.5rem;
+    border:1px solid #c9c9c9;
+    position: absolute;
+    left: 0.15rem;
+    top: 0;bottom: 0;
+    margin:auto 0;
+    border-radius: 3px;
+    .icon-avator{
+      font-size: 0.4rem;
+      color:#c9c9c9;
+      line-height: 0.5rem;
+    }
+  }
+  .record-brief{
+    color:#aaaaaa;
+    margin-left:0.75rem;
+    .record-brief-up{
+      height: 0.18rem;
+      margin-top: 0.15rem;
+      text-align: left;
+      .record-name,.record-lt{
+        font-size: 0.18rem;
+        color:#000;
+        line-height: 0.18rem;
+        letter-spacing: 0.01rem;
+      }
+      .record-time,.record-rt{
+        font-size: 0.12rem;
+        line-height: 0.18rem;
+        position: absolute;
+        right: 0.3rem;
+      }
+    }
+    .record-brief-down{
+      margin-top:0.1rem;
+      text-align:left;
+      .record-phone,.record-description,.record-ld{
+        font-size: 0.14rem;
+        line-height: 0.14rem;
+      }
+      .record-status,.record-rd{
+        position: absolute;
+        right: 0.3rem;
+      }
+    }
+  }
+  $arrowHeight:0.15rem;
+  .el-icon-arrow-right{
+    position: absolute;
+    font-size:$arrowHeight;
+    height: $arrowHeight;
+    color: #aaaaaa;
+    right: 0.1rem;
+    margin:auto 0;
+    top: 0;bottom: 0;
+  }
+}
+.list-bottom{
+  position: relative;
+  font-size: 0.14rem;
+  margin-bottom: 0.1rem;
+}
+.list-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: scroll;
+  margin-top:0.9rem;
+  height:auto;
+}

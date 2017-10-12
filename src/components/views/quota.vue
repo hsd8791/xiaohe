@@ -14,6 +14,9 @@
         <el-checkbox v-model='clause' v-show='quotaCfg.quotaStatus==0&&!specialQuota'>我同意《借款服务与隐私协议》</el-checkbox>
         <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
 			</div>
+      <!-- <div class="container" v-if='quotaCfg.quotaStatus===3'>
+        <p>超时未领</p>
+      </div> -->
 		</div>
     <div class="binding-card" v-if='binding' >
       <div class="input">
@@ -144,6 +147,11 @@ import bus from '../../bus.js'
       }
     },
 
+  },
+  created(){
+    setTimeout(()=> {
+      this.quotaCfg.quotaStatus=3
+    }, 3000);
   },
   events: {},
   components: {}

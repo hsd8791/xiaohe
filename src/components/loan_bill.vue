@@ -138,9 +138,9 @@
 					this.get()
 				})
 				// setTimeout(()=> {
-				// 	this.auditing=3
+				// 	this.auditing=1
 				// 	this.loanInfo.status=1
-				// }, 3333);
+				// }, 2000);
 				this.get()
 			},
 			filters: {
@@ -185,10 +185,14 @@
 							var remind=this.remind
 							remind.isShow=false
 							remind.remindMsgDscrp=null
-							var urlApply = publicFun.urlConcat(this.urlApply, {
+							let queryBody={
 								phone: '13777722216',
 								amount: this.amount * 100,
-							})
+							}
+							if(this.applyRecord.quotaStatus===3){
+								queryBody.applyType=1
+							}
+							var urlApply = publicFun.urlConcat(this.urlApply, queryBody)
 							publicFun.post(urlApply, {}, this, () => {
 								if(this.response.body.error){
 									return
@@ -207,7 +211,9 @@
 						}
 
 					remind.remindMsg = '请确定是否提交'
-					remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
+					if(!this.applyRecord.quotaStatus===3){
+						remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
+					}
 					remind.remindOpts = [{
 						msg: '确定',
 						callback: apply,
