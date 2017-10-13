@@ -149,9 +149,9 @@ import bus from '../../bus.js'
 
   },
   created(){
-    setTimeout(()=> {
-      this.quotaCfg.quotaStatus=3
-    }, 3000);
+    // setTimeout(()=> {
+    //   this.quotaCfg.quotaStatus=3
+    // }, 3000);
   },
   events: {},
   components: {}
