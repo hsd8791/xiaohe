@@ -1,5 +1,7 @@
 import Vue from 'vue'
-import publicFun from './js/public.js'
+// import publicFun from './js/public.js'
+var publicFun = require('./js/public.js')
+
 var bus = new Vue({
 	data: {
 		detailTaskId: null,
@@ -12,6 +14,18 @@ var bus = new Vue({
 		loanInfo: null,
 		qualified: 0,
 		firstEnterApp: true,
+		fillStatus:{
+			"address": -1,
+			"idcardPic": -1,
+			"zmAuth": -1,
+			"identity": -1,
+			"work": -1,
+			"sjmh": -1,
+			"contact": -1,
+			"liabilities": -1,
+			"personal": -1,
+			"relatives": -1,
+		},
 	},
 	created: function() {
 		// this.getLenderInfo()
@@ -23,6 +37,12 @@ var bus = new Vue({
 		})
 	},
 	methods: {
+		checkStatus(){
+		  publicFun.default.get('userInfo/authInfo',this,()=>{
+		  	console.log('bus authInfo',this.response.body)
+		  	this.fillStatus=this.response.body.data
+		  })
+		},
 		// getLenderInfo() {
 		// publicFun.get(this.urlLendInfo, this, () => {
 		// 	console.log('res loan info', this.response)

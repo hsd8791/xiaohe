@@ -26,8 +26,14 @@ Vue.component('app-select',select)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'http://hzg.he577.com';
-Vue.http.options.root = 'http://hzg.he577.com/test';
+
+if(/test\/xh/.test(location.href)){
+	Vue.http.options.root = 'http://hzg.he577.com/test';
+}else{
+	Vue.http.options.root = 'http://hzg.he577.com';
+}
+// Vue.http.options.root = 'http://hzg.he577.com';
+// Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
@@ -68,12 +74,12 @@ Vue.directive('scroll-load', {
 })
 Vue.directive('select',{
 	bind: function(el, binding, vnode) {
-		console.warn('el',el,vnode.componentInstance)
+		// console.warn('el',el,vnode.componentInstance)
 		let valueName=binding.expression
 		let select=el.getElementsByClassName('select__')[0]
-			console.log('',select.value,select.selectedIndex,valueName)
+			// console.log('',select.value,select.selectedIndex,valueName)
 		select.addEventListener('change',(e)=>{
-			console.log('e',e)
+			// console.log('e',e)
 			// vnode.context.$parent.education=select.value
 			// vnode.education=select.value="opel
 			vnode.componentInstance.$parent[valueName]=select.value
@@ -83,6 +89,7 @@ Vue.directive('select',{
 })
 var pathMap={
 	'http://localhost:8000/xh':'xh',
+	'http://localhost:8000/test/xh':'xh',
 	'http://localhost:8000/xh2':'xh2',
 	'http://hzg.he577.com/xh':'xh',
 	'http://hzg.he577.com/test/xh':'xh2',

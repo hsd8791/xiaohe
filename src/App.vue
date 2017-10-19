@@ -121,17 +121,19 @@
       })
       
     },
-
+    addCssLink(){
+      let body=document.querySelector('body')
+      let link=document.createElement('link')
+      link.type = 'text/css';
+      link.rel = 'stylesheet';
+      link.href = '../'+this.___subName+'.css';
+      // var head = document.getElementsByTagName('head')[0];
+      body.appendChild(link);
+    },
   },
   created:function(){
-    let body=document.querySelector('body')
-    let link=document.createElement('link')
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = '../'+this.___subName+'.css';
-    // var head = document.getElementsByTagName('head')[0];
-    body.appendChild(link);
-
+    this.addCssLink()
+    bus.checkStatus()
 
     var way=this.$route.query.qudao
     console.log('way',this.$route)

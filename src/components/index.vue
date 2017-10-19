@@ -28,6 +28,9 @@
 		<div class="container">
 			<div class="row" v-for='row in essentialCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+					<i class="input-status icon-document-edit " v-if='cell.status===0'></i>
+					<i class="input-status icon-spinner " v-if='cell.status===-1'></i>
+					<i class="input-status icon-input-checked " v-if='cell.status===1'></i>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
@@ -37,6 +40,9 @@
 		<div class="container">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+					<i class="input-status icon-document-edit " v-if='cell.status===0'></i>
+					<i class="input-status icon-spinner " v-if='cell.status===-1'></i>
+					<i class="input-status icon-input-checked " v-if='cell.status===1'></i>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
@@ -67,26 +73,7 @@
 					{msg:'确定',},
 					],
 				},
-				essentialCell:[
-				[
-				{title:'身份认证',link:'/identity',icon:'icon-address-book',},
-				{title:'联系方式',link:'/contact_way',icon:'icon-phone',},
-				{title:'身份证上传',link:'/upload',icon:'icon-upload',},
-				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
-				],
-				[
-				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
-				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
-				],
-				],
-				optionalCell:[
-				[
-				{title:'个人概况',link:'/profile',icon:'icon-documents',},
-				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
-				// {title:'行业名单',link:'/',icon:'icon-info',},
 
-				],
-				]
 			}
 		},
 		methods:{
@@ -98,6 +85,37 @@
 		created(){
 			console.log('bus',bus)
 			publicFun.checkSession(this)
+		},
+		computed:{
+		  fillStatus(){
+		    return bus.fillStatus
+		  },
+		  essentialCell(){
+		  	return [[
+				  {title:'身份认证',link:'/identity',icon:'icon-address-book',
+				  	statusKey:'identity',status:bus.fillStatus.identity},
+				  {title:'联系方式',link:'/contact_way',icon:'icon-phone',
+				  	statusKey:['contact','relatives'],status:bus.fillStatus.contact&&bus.fillStatus.relatives,},
+				  {title:'身份证上传',link:'/upload',icon:'icon-upload',
+				  	statusKey:'idcardPic',status:bus.fillStatus.idcardPic},
+				  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
+				  	statusKey:'sjmh',status:bus.fillStatus.sjmh},
+				  ],
+				  [
+				  {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
+				  	statusKey:'liabilities',status:bus.fillStatus.liabilities},
+				  {title:'芝麻认证',link:'/zhima',icon:'icon-warning',
+				  	statusKey:'zmAuth',status:bus.fillStatus.zmAuth},
+				 ],]
+			},
+		  optionalCell(){
+		  	return[[
+				  {title:'个人概况',link:'/profile',icon:'icon-documents',
+				  	statusKey:['personal','address'],status:bus.fillStatus.personal&&bus.fillStatus.address},
+				  {title:'工作信息',link:'/job_info',icon:'icon-profile',
+				  	statusKey:'work',status:bus.fillStatus.work},
+			  ],]
+			}
 		},
 		events: {},
 		components: {}
@@ -116,7 +134,7 @@
 		/*margin-top: 1.52rem;*/
 	}
 	.cell{
-
+		position: relative;
 		.item-icon{
 			margin:0.2rem 0 0;
 			/*border:1px solid red;*/
@@ -133,6 +151,13 @@
 			/*color:$cellBorder;*/
 			/*border:1px solid red;*/
 		}
+	}
+	.input-status{
+		position: absolute;
+    right: 0.05rem;
+    top: 0.05rem;
+    font-size: 0.15rem;
+    /*display: none;*/
 	}
 	.container{
 		/*background: #fff;*/
