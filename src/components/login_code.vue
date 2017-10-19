@@ -1,5 +1,5 @@
 <template>
-	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='请稍后'>
+	<div id="loginVue" class="input fixed-title-page" v-loading='loading'  element-loading-text='请稍后'>
 	<h1 class="title"><app-back></app-back>{{action=='signup'?'注册':'找回密码'}}</h1>
 	<div class="logo-container" >
 	<!-- v-if='action=="login"' -->

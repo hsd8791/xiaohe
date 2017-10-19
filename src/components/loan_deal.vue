@@ -1,5 +1,5 @@
 <template>
-	<div id="loanDealVue">
+	<div id="loanDealVue" class="fixed-title-page">
 		<div class="input">
 			<h1 class="title">
 				<app-back></app-back>

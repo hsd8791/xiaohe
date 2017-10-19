@@ -1,5 +1,5 @@
 <template>
-	<div id="pwdVue" class="input"> 
+	<div id="pwdVue" class="input fixed-title-page"> 
 		<h1 class="title"><app-back></app-back>密码设置</h1>
 		<div class="container" v-loading='loading' element-loading-text='请稍后'>
 			<div class="wraper">

@@ -19,6 +19,9 @@ $disabledColor:#777;
 *{
 	box-sizing:border-box;
 }
+.fixed-title-page{
+	padding-top: 0.44rem;
+}
 
 .input{
 	.el-input__inner{
@@ -36,7 +39,10 @@ $disabledColor:#777;
 		padding:0.13rem 0;
 		font-size: 0.18rem;
 		position: relative;
-		// position: fixed;
+		position: fixed;
+		// position: absolute;
+		top:0;
+		left: 0;
 		z-index: 9999999;
 		width: 100%;
 		line-height: 1;

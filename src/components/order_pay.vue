@@ -1,5 +1,5 @@
 <template>
-  <div id="orderPayVue" class="input" >
+  <div id="orderPayVue" class="input fixed-title-page" >
     <h1 class="title" v-loading='loading' element-loading-text='请稍后'>支付</h1>
     <div class="cover-paying" v-show='paying'>
       <div class="input card-pay ">

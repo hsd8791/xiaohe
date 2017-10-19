@@ -1,5 +1,5 @@
 <template>
-	<div id="loginVue" class="input">
+	<div id="loginVue" class="input fixed-title-page">
 		<div class="container">
 			<div class="wraper">
 				<label>手机号：</label>

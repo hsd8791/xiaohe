@@ -1,5 +1,5 @@
 <template>
-	<div id="indexVue">
+	<div id="indexVue" class="fixed-title-page">
 		<remind :remind='remind'></remind>
 		<!-- <h3 class="title">操作</h3> -->
 		<!-- <div class="container">

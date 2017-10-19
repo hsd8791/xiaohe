@@ -1,5 +1,5 @@
 <template>
-	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='登录中'>
+	<div id="loginVue" class="input fixed-title-page" v-loading='loading'  element-loading-text='登录中'>
 	<h1 class="title"><app-back :color="'#6ff792'"></app-back>登录</h1>
 	<div class="logo-container" >
 		<img :src="src.logo" alt="" class="logo">

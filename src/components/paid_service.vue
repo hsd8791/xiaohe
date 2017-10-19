@@ -1,5 +1,5 @@
 <template>
-	<div id="paidServiceVue" class="router-view">
+	<div id="paidServiceVue" class="router-view fixed-title-page">
 		<div class="sub-top-nav input" v-show='activeTab!==2'>
 			<h1 class="title">增值服务</h1>
 			<div class="tabs-container" v-show='activeTab!==2'>

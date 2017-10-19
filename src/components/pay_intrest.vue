@@ -1,5 +1,5 @@
 <template>
-	<div id="payIntrestVue">
+	<div id="payIntrestVue" class="fixed-title-page">
 		<div class="title">微信支付</div>
 		<div class="msgbox">
 			<table border="0" cellspacing="0" cellpadding="0">

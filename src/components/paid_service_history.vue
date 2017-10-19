@@ -1,5 +1,5 @@
 <template>
-	<div id="paidServiceHistoryVue">
+	<div id="paidServiceHistoryVue" class="fixed-title-page">
 	<div class="list-container" @scroll='scrolling'  >
 		<div class="list-container-inner" v-loading='loading'  element-loading-text='请稍后'>
 

@@ -1,5 +1,5 @@
 <template>
-	<div id='identityVue' class="input"  v-loading='loading'  element-loading-text='请稍后'>
+	<div id='identityVue' class="input fixed-title-page"  v-loading='loading'  element-loading-text='请稍后'>
 		<h1 class='title'>
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>

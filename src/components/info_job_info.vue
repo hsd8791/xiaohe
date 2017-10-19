@@ -1,5 +1,5 @@
 <template>
-	<div id="jobVue"  class="input">
+	<div id="jobVue"  class="input fixed-title-page">
 			<h1 class="title">
 				<app-back></app-back>工作信息
 				<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>

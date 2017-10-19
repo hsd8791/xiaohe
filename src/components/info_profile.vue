@@ -1,6 +1,6 @@
 <template>
-	<div id="profileVue" class='input' v-loading='loading' element-loading-text='请稍后'>
-			<h1 class="title">
+	<div id="profileVue" class='input fixed-title-page' >
+			<h1 class="title" v-loading='loading' element-loading-text='请稍后'>
 				<app-back></app-back>个人信息
 				<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 			</h1>
@@ -31,7 +31,7 @@
 		</div>
 
 		<div class="container">
-			<h2 class="sub-title title">现居地</h2>
+			<h2 class="sub-title ">现居地</h2>
 			<div class=" residence">
 				<div class="wraper ">
 					<label>省/直辖市：</label>

@@ -1,5 +1,5 @@
 <template>
-	<div id="applyLendVue" class="input" v-loading='loading' element-loading-text='请稍后'>
+	<div id="applyLendVue" class="input fixed-title-page" v-loading='loading' element-loading-text='请稍后'>
 		<h1 class="title"><app-back></app-back><!-- 开始放贷 -->分享到微信</h1>
     <el-button type='success' class="confirm" @click='share("borrower")'>点击分享给客户<!-- 借款人 --></el-button>
 		<el-button type='success' class="confirm" @click='share("partner")'>点击分享给伙伴<!-- 下线 --></el-button>

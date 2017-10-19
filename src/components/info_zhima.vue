@@ -1,5 +1,5 @@
 <template>
-	<div id="zhimaVue" v-loading='loading' element-loading-text='请稍后' class="input">
+	<div id="zhimaVue" v-loading='loading' element-loading-text='请稍后' class="input fixed-title-page">
 		<h1 class="title"><app-back></app-back>芝麻认证</h1>
 
 

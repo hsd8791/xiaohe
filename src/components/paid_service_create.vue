@@ -1,5 +1,5 @@
 <template>
-	<div id='paidServiceCreateVue' class="input" v-loading='loading' element-loading-text='请稍后'>
+	<div id='paidServiceCreateVue' class="input fixed-title-page" v-loading='loading' element-loading-text='请稍后'>
 		<!-- <h1 class='title'>增值服务</h1> -->
 		<div class="container">
 			<div class="wraper">

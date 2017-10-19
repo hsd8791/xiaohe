@@ -1,5 +1,5 @@
 <template>
-	<div id="bankcardBindVue">
+	<div id="bankcardBindVue" class="fixed-title-page">
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<h1 class="title">
 				<app-back></app-back>
