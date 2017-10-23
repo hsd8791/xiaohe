@@ -150,7 +150,7 @@
 						return false
 					}
 				}
-				if(this.zmxyScore<500){
+				if(this.zmxyScore2<550){
 					return false
 				}
 				return true

@@ -238,7 +238,7 @@
 									msg:'是，此号码登录',callback:()=>{
 										localStorage.userID=this.cellphone
 										publicFun.resetLocalUserInfo()
-										publicFun.goPage('/introduce/login')
+										publicFun.goPage('/index0/login')
 									}
 								},{
 									msg:'不，换个号码',callback:()=>{
