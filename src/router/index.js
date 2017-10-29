@@ -27,7 +27,7 @@ import Pwd from '../components/pwd.vue'
 // import paidServiceRslt from '../components/paid_service_rslt.vue'
 // import paidService from '../components/paid_service.vue'
 import ApplyBorrow from '../components/apply_borrow.vue'
-import ApplyLend from '../components/apply_lend.vue'
+// import ApplyLend from '../components/apply_lend.vue'
 import coming from '../components/coming.vue'
 import pay from '../components/order_pay.vue'
 // import errorPage from '../components/tmpts/error.vue'
@@ -116,8 +116,6 @@ indexRoutes = indexRoutes.concat(
 	newRoute(['/index/debt', '/*/debt'], 'Debt', Debt),
 	newRoute(['/index/shujumohe', '/*/shujumohe'], 'shujumohe', shujumohe),
 	newRoute('*/pay', 'pay', pay),
-
-
 )
 
 xiaoheRoutes = xiaoheRoutes.concat(
@@ -151,10 +149,6 @@ basicRoutes = [{
 	meta: {
 		// keepAlive: true,
 	},
-}, {
-	path: rootPath + '/index/apply_lend',
-	name: 'ApplyLend',
-	component: ApplyLend,
 }, {
 	path: rootPath + '/index/debt',
 	name: 'Debt',

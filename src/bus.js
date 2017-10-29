@@ -55,7 +55,11 @@ var bus = new Vue({
 		// },
 	},
 	watch: {
-
+		account(v){
+			if(v!=='请登录'){
+				this.checkStatus()
+			}
+		}
 	},
 	computed: {
 		relativeUrlTest() {

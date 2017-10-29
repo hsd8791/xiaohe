@@ -1,6 +1,6 @@
 <template>
 	<!---->
-	<div class="cover"   v-if='remind.isShow'  >
+	<div class="___remind-cover"   v-if='remind.isShow'  >
 		<div class="remind" :class="{'remind-higher':remind.remindMsgDscrp}">
 			<div class="remind-msg">{{remind.remindMsg}}</div>
 			<div class="remind-msg-description" v-if='remind.remindMsgDscrp'>{{remind.remindMsgDscrp}}</div>
@@ -58,7 +58,7 @@
 
 <style lang='scss' scoped>
 
-	.cover{
+	.___remind-cover{
 		position: fixed;
 		background: rgba(0,0,0,0.6);
 		width: 100%;
@@ -129,7 +129,6 @@
 			}
 		}
 		.remind-higher{
-				/*height: 1.25rem;*/
 			}
 	}
 			

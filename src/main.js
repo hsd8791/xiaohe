@@ -10,18 +10,20 @@ import VueResource from 'vue-resource'
 import publicFun from './js/public.js'
 import remind from './components/tmpts/remind.vue'
 import back from './components/tmpts/route_back.vue'
-import record from './components/tmpts/record.vue'
 import choose from './components/tmpts/choose_remind.vue'
 import bindCard from './components/views/card_bind.vue'
 import select from './components/tmpts/select.vue'
+import inputLogin from './components/tmpts/input-login.vue'
+// import record from './components/tmpts/record.vue'
 
 Vue.use(VueResource)
 Vue.component('remind', remind)
 Vue.component('app-back', back)
-Vue.component('app-record', record)
 Vue.component('app-choose', choose)
 Vue.component('app-bind-card',bindCard)
 Vue.component('app-select',select)
+Vue.component('app-input-login',inputLogin)
+// Vue.component('app-record', record)
 
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
@@ -84,6 +86,15 @@ Vue.directive('select',{
 			// vnode.education=select.value="opel
 			vnode.componentInstance.$parent[valueName]=select.value
 			// select.selectedIndex=0
+		})
+	}
+})
+Vue.directive('input',{
+	bind: function(el, binding, vnode) {
+		let valueName=binding.expression
+		let input=el.getElementsByClassName('___input')[0]
+		input.addEventListener('input',(e)=>{
+			vnode.componentInstance.$parent[valueName]=input.value
 		})
 	}
 })

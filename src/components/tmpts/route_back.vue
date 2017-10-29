@@ -1,5 +1,5 @@
 <template>
-	<div class="back">
+	<div class="___app-route-back">
 		<span class='text' @click='back' :style="{'color':bindedColor}">
 			<i :class="'icon-icon-back'" class='icon' :style="{'color':color}"></i>
 		</span>
@@ -83,7 +83,7 @@
 </script>
 
 <style lang='scss' scoped>
-	.back{
+	.___app-route-back{
 		position: absolute;
 		left: 0;
 		top: 0;

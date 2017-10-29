@@ -1,10 +1,11 @@
 //自定组件样式
+//与input.scss 通用，两个文件需一起改变
 $placeholderColor:#97a7be;
 $disabledColor:#777;
 $mainColor:#5494f3;
 $inputSize:0.14rem;
 // $placeholderColor:#999999;
-#app .input{
+ .input{
   input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
       color:    $placeholderColor;
   }
@@ -125,3 +126,75 @@ $inputSize:0.14rem;
   margin-top:0.9rem;
   height:auto;
 }
+
+//login_code
+.___input-login-vue{
+  width: 3.45rem;
+  height: 0.42rem;
+  margin:0 auto;
+  // border:1px solid red;
+  position: relative;
+  background:#fff;
+  border-radius: 0.04rem;
+  overflow:hidden;
+    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
+        color:#3077e0;
+    }
+    input:-moz-placeholder, textarea:-moz-placeholder { 
+        color:#3077e0;
+    }
+    input::-moz-placeholder, textarea::-moz-placeholder { 
+        color:#3077e0;
+    }
+    input:-ms-input-placeholder, textarea:-ms-input-placeholder { 
+        color:#3077e0;
+    }
+  .icon{
+    position: relative;
+    display: inline-block;
+    // font-size: 0.22rem;
+    line-height: 0.4rem;
+    // margin-top:0.01rem;
+    // left:0.15rem;
+    color:#3077e0;
+  }
+  .icon-container{
+    position: absolute;
+    left: 0.1rem;
+    top:0;
+    // border:1px solid red;
+    height:100%;
+    width:0.3rem;
+  }
+  .right-container{
+    // border:1px solid red;
+    overflow:hidden;
+    height: 100%;
+    width: 1.08rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .___input{
+    border:0;
+    font-size: 0.15rem;
+    // border:1px solid red;
+    outline: none;
+    color:$placeholderColor;
+    height: 0.4rem;
+    width: 3rem;
+    margin-left: 0.45rem;
+    margin-left: 
+    &:focus{
+      outline: 0;
+    }
+  }
+}
+
+
+
+
+
+
+
+

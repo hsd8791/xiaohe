@@ -133,7 +133,7 @@
   },
   created:function(){
     this.addCssLink()
-    bus.checkStatus()
+    // bus.checkStatus()
 
     var way=this.$route.query.qudao
     console.log('way',this.$route)

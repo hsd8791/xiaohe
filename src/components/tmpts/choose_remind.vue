@@ -1,6 +1,6 @@
 <template>
 	<!---->
-	<div class="cover"   v-show='choose.isShow'  >
+	<div class="___choose-remind-cover"   v-show='choose.isShow'  >
 		<div class="choose" :class="{'choose-higher':choose.chooseMsgDscrp}">
 			<div class="choose-msg">
 				<app-back :color='"#000"' :remind="'<'" :method='choose.back' v-if='choose.back'></app-back>
@@ -55,7 +55,7 @@
 
 <style lang='scss' scoped>
 
-	.cover{
+	.___choose-remind-cover{
 		position: fixed;
 		background: rgba(0,0,0,0.6);
 		width: 100%;

@@ -1,34 +1,16 @@
 <template>
-	<div id="loginVue" class="input fixed-title-page" v-loading='loading'  element-loading-text='请稍后'>
-	<h1 class="title"><app-back></app-back>{{action=='signup'?'注册':'找回密码'}}</h1>
-	<div class="logo-container" >
-	<!-- v-if='action=="login"' -->
-	<!-- <h2 class="log-title">验证手机找回密码</h2> -->
-	</div>
-	
-		<div class="container" v-if='!pwdLogin'>
-			<div class="wraper">
-				<label>手机号：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='请填写手机号' v-model='cellphone' @blur.once='blured'  :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}'></el-input>
-				<!-- <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i> -->
-			</div>
-			<div class="wraper">
-				<label>图片码：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='图片验证码' v-model='picCode' @blur.once='blured'  :class='{"valid-border":picCodeValid,"error-border":!picCodeValid}'></el-input>
-				<img class='pic-code' :src="picCodeSrc" alt='填手机号获取' @click='getPicCode'>
-				<!-- <i :class="{'el-icon-check':verifyCodeValid,'el-icon-close':!verifyCodeValid}"></i> -->
-			</div>
-			<div class="wraper">
-				<label>验证码：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='手机验证码' v-model='verifyCode' @blur.once='blured'  :class='{"valid-border":verifyCodeValid,"error-border":!verifyCodeValid}'></el-input>
-				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
-				<!-- <i :class="{'el-icon-check':verifyCodeValid,'el-icon-close':!verifyCodeValid}"></i> -->
-			</div>
-		</div>
+	<div id="loginCodeVue" class="input fixed-title-page" v-loading='loading'  element-loading-text='请稍后'>
+	<h1 class="title"><app-back :color="'#6ff792'"></app-back>{{action=='signup'?'注册':'找回密码'}}</h1>
 
+			<app-input-login  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
+				
+			</app-input-login>
+			<app-input-login  v-input='picCode' :value='picCode' :icon="'icon-icon-pic'" :iconSize='"0.18rem"' class='input'>
+				<img class='pic-code' :src="picCodeSrc" alt='填手机号获取' @click='getPicCode'>
+			</app-input-login>
+			<app-input-login  v-input='verifyCode' :value='verifyCode' :icon="'icon-icon-code'" class='input'>
+				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
+			</app-input-login>
 		<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='signup'?'注册':'确认'}}</el-button>
 		<div class='ctrl-container' v-if='action=="signup"'>
 			<span class="login-link" @click='goLogin'>
@@ -228,28 +210,29 @@
 		watch:{
 			cellphoneValid(v){
 				if(v){
-					if(this.action==='signup'){
-						publicFun.get(this.urlPhoneUsed+'?phone='+this.cellphone,this,()=>{
-							console.log('res phone used',this.response.body)
-							if(this.response.body.data.status){
-								let r=this.remind
-								r.remindOpts=[{
-									msg:'是，此号码登录',callback:()=>{
-										localStorage.userID=this.cellphone
-										publicFun.resetLocalUserInfo()
-										publicFun.goPage('/introduce/login')
-									}
-								},{
-									msg:'不，换个号码',callback:()=>{
-										this.cellphone=''
-									}
-								}]
-								r.remindMsg='此账号已注册，是否使用此账号登录'
-								r.isShow=true
-							return
-							}
-						})
-					}
+					// if(this.action==='signup'){
+					// 	publicFun.get(this.urlPhoneUsed+'?phone='+this.cellphone,this,()=>{
+					// 		console.log('res phone used',this.response.body)
+					// 		if(this.response.body.data.status){
+					// 			let r=this.remind
+					// 			r.remindOpts=[{
+					// 				msg:'是，此号码登录',callback:()=>{
+					// 					localStorage.userID=this.cellphone
+					// 					publicFun.resetLocalUserInfo()
+					// 					publicFun.goPage('/introduce/login')
+					// 				}
+					// 			},{
+					// 				msg:'不，换个号码',callback:()=>{
+					// 					this.cellphone=''
+					// 				}
+					// 			}]
+					// 			r.remindMsg='此账号已注册，是否使用此账号登录'
+					// 			r.isShow=true
+					// 		return
+					// 		}
+					// 		this.getPicCode()
+					// 	})
+					// }
 					this.getPicCode()
 
 				}
@@ -285,21 +268,47 @@
 </script>
 
 <style lang='scss' scoped>
-#loginVue{
+#loginCodeVue{
+	background: #5494f3;
+	height: 100%;
+	.pic-code{
+		position: absolute;
+		right: -0.02rem;top: 0;bottom: 0;
+		margin:auto;
+		height:105%;
+		width: 105%;
+		font-size: 0.13rem;
+		line-height: 0.36rem;
+		color:#bfcbd9;
+
+	}
+	.title{
+		color:#6ff792;
+	}
+	.getVerify{
+		/*position: absolute;*/
+		margin:0;
+		/*top: 0;bottom: 0; right: 0.05rem;*/
+		height: 100%;
+		width: 100%;
+		/*padding:0.1rem;*/
+		color:#222;
+		background-color: #6ff792;;
+		border-color:#6ff792;;
+		/*box-sizing: content-box;*/
+	}
+	.input{
+		margin:0.15rem auto;
+	}
+
+
 	.container{
 		/*margin-top: 2rem;*/
 		/*margin-left:0.5rem;*/
 		margin:auto auto;
 		width: 80%;
 	}
-	.cover{
-		position: fixed;
-		background: rgba(0,0,0,0.6);
-		width: 100%;
-		height: 100%;
-		top: 0;
-		z-index: 99999;
-	}
+
 	.logo-container{
 		width: 100%;
 		height: 2.05rem;
@@ -309,30 +318,7 @@
 			width: 100%;
 		}
 	}
-	.pic-code{
-		position: absolute;
-		right: 0;top: 0;bottom: 0;
-		margin:auto 0.05rem;
-		height: 0.36rem;
-		width: 0.98rem;
-		font-size: 0.13rem;
-		line-height: 0.36rem;
-		color:#bfcbd9;
-
-	}
-	.getVerify{
-		position: absolute;
-		margin:auto 0;
-		top: 0;bottom: 0; right: 0.05rem;
-		height: 0.36rem;
-		width: 1rem;
-		padding:0.1rem;
-		color:#222;
-		background-color: #dfe0dd;
-		border-color:#dfe0dd;
-		/*box-sizing: content-box;*/
-
-	}
+	
 	button[class~='el-button--warning'].is-disabled{
 		opacity: 0.3;
 	}
