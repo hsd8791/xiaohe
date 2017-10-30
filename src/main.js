@@ -101,9 +101,11 @@ Vue.directive('input',{
 var pathMap={
 	'http://localhost:8000/xh':'xh',
 	'http://localhost:8000/test/xh':'xh',
+	'http://localhost:8000/test/xh2':'xh',
 	'http://localhost:8000/xh2':'xh2',
 	'http://hzg.he577.com/xh':'xh',
-	'http://hzg.he577.com/test/xh':'xh2',
+	'http://hzg.he577.com/test/xh':'xh',
+	'http://hzg.he577.com/test/xh2':'xh',
 	'http://hzg.he577.com/xhtest':'xh',
 }
 /* eslint-disable no-new */
