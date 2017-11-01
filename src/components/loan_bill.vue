@@ -270,6 +270,8 @@
 					publicFun.get(this.url, this, () => {
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
+						this.loanInfo.canReborrow=this.loanInfo.repaymentTime-604800000>(new Date()).getTime()
+						// this.loanInfo.repaymentTime
 							publicFun.get(this.urlApplyRecord, this, checkAuditing)
 						if (!this.loanInfo) {
 						}
@@ -308,10 +310,10 @@
 							},
 						}
 						// temp.special.enable=(l.status===0||l.status==2)
-						temp.renewal.show=l.status===1||l.status===0
+						temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow
 						temp.repay.show=l.status===1||l.status===0
 						// temp.renewal.show=false
-						temp.reborrow.show=l.status===3 || l.status===2
+						temp.reborrow.show=(l.status===3 || l.status===2)
 
 					return temp
 				},
