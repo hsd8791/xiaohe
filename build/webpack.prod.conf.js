@@ -88,6 +88,10 @@ var webpackConfig = merge(baseWebpackConfig, {
       from: path.resolve(__dirname, '../static'),
       to: config.build.assetsSubDirectory,
       ignore: ['.*']
+    },{
+      from: '/src/css/input.scss',
+      to: config.build.assetsSubDirectory,
+      ignore: ['.*']
     }])
   ]
 })

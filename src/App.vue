@@ -31,7 +31,7 @@
   import './css/input.scss'
   import './css/app-cmpt.scss'
   // import './css/input.css'
-  import './css/xh.scss'
+  // import './css/xh.scss'
 
   // import './libs/font-awesome.min.css'
   export default {
@@ -122,13 +122,18 @@
       
     },
     addCssLink(){
-      let body=document.querySelector('body')
-      let link=document.createElement('link')
-      link.type = 'text/css';
-      link.rel = 'stylesheet';
-      link.href = '../'+this.___subName+'.css';
+      function add(path){
+       let body=document.querySelector('body')
+       let link=document.createElement('link')
+       link.type = 'text/css';
+       link.rel = 'stylesheet';
+       link.href= path
+       body.appendChild(link);
+      }
+      add('../'+this.___subName+'.css')
+      add('../static/test.css')
+      // link.href = '../'+this.___subName+'_icon.css';
       // var head = document.getElementsByTagName('head')[0];
-      body.appendChild(link);
     },
   },
   created:function(){

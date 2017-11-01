@@ -1,7 +1,12 @@
 <template>
 	<div id="loginCodeVue" class="input fixed-title-page" v-loading='loading'  element-loading-text='请稍后'>
 	<h1 class="title"><app-back :color="'#6ff792'"></app-back>{{action=='signup'?'注册':'找回密码'}}</h1>
-
+			<!-- <img src="../assets/xh/2000limit.png" height="90" width="467"> -->
+<!-- 			<img src="../../static/xh/2000limit.png"  id='2000limit'>
+			<img src="../../static/xh/reward_sign_up.png"  id='reward_sign_up'>
+			<img src="../../static/xh/5min.png"  id='5min'>
+			<img src="../../static/xh/fast_auditing.png"  id='fast_auditing'> -->
+			<img :src="src.bg" id='bg_signup'>
 			<app-input-login  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
 				
 			</app-input-login>
@@ -11,7 +16,10 @@
 			<app-input-login  v-input='verifyCode' :value='verifyCode' :icon="'icon-icon-code'" class='input'>
 				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
 			</app-input-login>
-		<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='signup'?'注册':'确认'}}</el-button>
+		<div class='submit' type="success"  @click='login' :class="{'disabled':!canSubmit}">
+			{{action=='signup'?'注册':'确认'}}
+		</div>
+		<!-- <div>我已阅读并同意《小禾微贷服务协议》</div> -->
 		<div class='ctrl-container' v-if='action=="signup"'>
 			<span class="login-link" @click='goLogin'>
 				已有账号？
@@ -30,6 +38,9 @@
 	export default {
 		data() {
 			return {
+				src:{
+				  bg:require('../assets/'+this.___subName+'/bg_signup.png')
+				},
 				pwdLogin:false,
 				actions:['login','signup','findPwd'],
 				action:'signup',
@@ -65,19 +76,6 @@
 					]
 				}
 				,
-				// resCode:{
-				// 	c0:'成功',
-				// 	c20000:'系统异常',
-				// 	c20001:'参数错误',
-				// 	c20002:'未登录',
-				// 	c20003:'业务异常',
-				// 	c20004:'密码为空',
-				// 	c20005:'登录失败,账号或者密码错误',
-				// 	c20010:'重复验证码',
-				// 	c20011:'验证码错误',
-				// 	c20012:'账号异常',
-				// 	c20013:'账号不存在',
-				// },
 			}
 		},
 		methods: {
@@ -239,6 +237,10 @@
 			},
 		},
 		computed:{
+			canSubmit(){
+				let t=this
+			  return (t.allValid&&t.verifyCodeValid&&!t.pwdLogin)||(t.allValid&&t.pwdValid&&t.pwdLogin)
+			},
 			cellphoneValid:function(){
 				var reg=/^1[1234567890]\d{9}$/;
 				return reg.test(this.cellphone)
@@ -269,6 +271,12 @@
 
 <style lang='scss' scoped>
 #loginCodeVue{
+	#bg_signup{
+		width: 100%;
+		padding:0 0.15rem;
+		margin-top: 0.18rem;
+		margin-bottom: 0.22rem;
+	}
 	background: #5494f3;
 	height: 100%;
 	.pic-code{
@@ -352,13 +360,25 @@
 		}
 	}
 	.submit{
+		width: 3.45rem;
+		height: 0.4rem;
+		line-height: 0.4rem;
+		margin: 0 auto;
+		border-radius: 0.04rem;
+		background-color: #ffffff;
+		font-size: 0.18rem;
+		color:#3077e0;
+		font-family: SourceHanSansCN;
 		/*transition: 0.2s;*/
-		width: 80%;
-		background-color:#d6322c;
-		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
-		border-width: 0;
-		border-radius: 0.1rem;
+		/*width: 80%;*/
+		/*background-color:#d6322c;*/
+		/*background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);*/
+		/*border-width: 0;*/
+		/*border-radius: 0.1rem;*/
     /*border-color: #ff6231;*/
+	}
+	.disabled{
+		opacity: 0.4;
 	}
 	button[class~='el-button--success'].is-disabled{
 		opacity: 0.4;
