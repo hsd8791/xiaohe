@@ -44,7 +44,7 @@
 		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
 			无申请记录
 		</div>
-		<div class="input" v-if='auditing===2 ||applyRecord.quotaStatus===3' audit-ctrl='reapply'>
+		<div class="input" v-if='auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3)' audit-ctrl='reapply'>
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
 		<!-- <div class="container" v-if='true'> -->
