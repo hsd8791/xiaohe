@@ -10,9 +10,10 @@
 		因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>-->
 	<img class="banner" src="../assets/img/banner.jpg"/>
 	<div class="box">
-		<img src="../assets/img/logo.jpg" alt="" class="sub-banner" />
-		<p>安全 · 快速 · 便捷</p>
-		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
+		<img src="../assets/img/logo.png" alt="" class="sub-banner" />
+		<p class='slogan'>安全 · 快速 · 便捷</p>
+    <div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
+		<!-- <div class="mybtn" id="newBorrow" @click="user" v-if='true'> -->
 			开始借款
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
 		</div>
@@ -142,29 +143,26 @@ export default {
 	.banner{
 		width: 100%;
 	}
+  .slogan{
+    margin-top: -0.5rem,
+  }
 	.box {
-		padding: 0 80px 30px;
+		padding: 0 0.8rem 0.3rem;
 		.sub-banner{
-			margin-top: 40px;
-			width: 55%;
+			margin-top: 0.3rem;
+			width: 65%;
 		}
 	}
-	#newBorrow {
-	    border: 1px solid #e71419;
-	    padding: 16px 0;
-	    margin-bottom: 50px;
-	    font-family: "microsoft yahei";
-	    font-size: 20px;
-	    font-weight: 700;
-	    color: #e71419;
-	}
-	#oldBorrow{
-		border: 1px solid #e49731;
+	#oldBorrow,#newBorrow{
+		border: 1px solid #0090f6;
+    /*background: rgba(228,151,49,0.8);*/
+    background: linear-gradient(60deg,#0090f6,#fff);
 		padding: 16px 0;
 		font-family: "microsoft yahei";
 		font-size: 20px;
 		font-weight: 700;
-		color: #e49731;
+		/*color: #0090f6;*/
+    color:#fff;
 	}
 	p{
 		margin-top: 0;

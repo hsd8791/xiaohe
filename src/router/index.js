@@ -40,7 +40,7 @@ import introduce from '../components/introduce.vue'
 import pay_intrest from '../components/pay_intrest.vue'
 import loan_bill from '../components/loan_bill.vue'
 import loan_deal from '../components/loan_deal.vue'
-import loan_deal_remind from '../components/loan_deal_remind.vue'
+// import loan_deal_remind from '../components/loan_deal_remind.vue'
 import index0 from '../components/index0.vue'
 import quota from '../components/views/quota.vue'
 // import Test from '../components/test.vue'
@@ -127,7 +127,7 @@ xiaoheRoutes = xiaoheRoutes.concat(
 		// newRoute('/pay_intrest', 'pay_intrest', pay_intrest),
 		newRoute('/index0', 'index0', index0),
 		newRoute('*/loan_deal', 'loan_deal', loan_deal),
-		newRoute('*/loan_deal_remind', 'loan_deal_remind', loan_deal_remind),
+		// newRoute('*/loan_deal_remind', 'loan_deal_remind', loan_deal_remind),
 		newRoute('*/quota', 'quota', quota),
 	)
 	// console.log('indexRoutes', indexRoutes)

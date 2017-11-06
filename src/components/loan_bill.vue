@@ -14,7 +14,7 @@
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
-			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
+			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">壹号贷</span> 审核中
 			</p>
 		</div>
 		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
@@ -27,7 +27,7 @@
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p>
+			<p class="remind">识别以下二维码关注【壹号贷公众号】，输入“审核”咨询结果。</p>
 			<img src="./../assets/img/QRxh.jpg" alt="" class="qrcode">
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 

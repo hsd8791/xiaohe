@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-loading='loading' element-loading-text='请稍后' @touchmove.stop=''>
-
+    <img src='../src/assets/img/logo.png'  alt="" class="bg">
     <div class="router-view-container" :class="{'show-foot':footNavShow}">
       <keep-alive>
       <!-- <transition :name='enter'> -->
@@ -28,7 +28,7 @@
   import bus from './bus.js'
   import remind from './components/tmpts/remind.vue'
   import './css/icons.css'
-  import './css/input.css'
+  import './css/input.scss'
   // import './libs/font-awesome.min.css'
   export default {
     name:'App',
@@ -160,7 +160,18 @@
     margin-bottom: 0.5rem;
 
   }
+  .bg{
+    position: absolute;
+    border-radius: 0.5rem;
+    top: 1.9rem;
+    left: 0;right: 0;margin: 0 auto;
+    width:4rem;
+    opacity: 0.08;
+    transform:rotate(-30deg);
+    box-shadow:0 0 100px 30px #dcdcdc;
+  }
   #app {
+   
     position: absolute;
     top: 0;bottom: 0;
     width: 100%;
@@ -178,7 +189,7 @@
     color: #2c3e50;
     padding-bottom: 0.65rem;
     /*background: #fcf9fe;*/
-    background: #f4f4f4;
+    background-color: #f4f4f4;
     z-index: 9;
     /*margin-top: 0.6rem;*/
   }
@@ -189,7 +200,7 @@
   $navColor:#8f8e94;
   $navHeight:0.5rem;
   /*$activeColor:#cd331c;*/
-  $activeColor:#cc2a1b;
+  $activeColor:#0090f6;
   /*$navBackground:#eee;*/
   $navBackground:#fcf9fe;
   /*$itemNameColor:#8f8e94;*/

@@ -4,8 +4,8 @@ $errColor:#e94f4f;
 $inputHeight:0.42rem;
 $inputFontSzie:0.16rem;
 $underlineColor:#e5e5e5;
-$disabledSuccess:#ffbe00;
-$successColor:#09bb07;
+$disabledSuccess:#72c5ff;
+$successColor:#0090f6;
 $dangerColor:#e94f4f;
 
 *{
@@ -16,7 +16,7 @@ $dangerColor:#e94f4f;
 	width: 100%;
 	
 	.title{
-		background:#37383b;
+		background:#3F3F3F;
 		color:#fff;
 		// background:#dfdfdf;
 		padding:0.1rem 0;
@@ -122,9 +122,9 @@ $dangerColor:#e94f4f;
 	}
 	.wraper{
 		.el-icon-check{
-			background:$validColor;
+			background:$successColor;
 			color:white;
-			border-color: $validColor;
+			border-color: $successColor;
 			&:before{
 				padding-right: 0.04rem;
 				padding-top: 0.01rem;
@@ -227,15 +227,15 @@ $dangerColor:#e94f4f;
 		color: #dbf4db;
 		cursor: not-allowed;
 		// background-image: none;
-		background-color: #9de49c;
-		border-color: #9de49c;
+		background-color:$disabledSuccess;
+		border-color:$disabledSuccess;
 	}
 	.el-button--success, .el-button--success:focus, .el-button--success:hover{
 		color: #fff;
 		cursor: not-allowed;
 		// background-image: none;
 		background-color: $successColor;
-		border-color: #9ad499;
+		border-color: $successColor;
 	}
 	.el-button--danger,.el-button--danger:focus,.el-button--danger:hover{
 		background:#e94f4f;

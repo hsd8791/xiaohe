@@ -2,9 +2,9 @@
 	<div id="introduceVue">
 
 		<h3 class="title">
-			小禾微贷丨关于小禾微贷
+			壹号贷丨关于壹号贷
 		</h3>
-		<p class="total">小禾微贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p>
+		<!-- <p class="total">壹号贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p> -->
 		<div class="input">
 			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
@@ -32,12 +32,12 @@
 		<div class="sub-title">
 			<img class="title-img" src="../assets/img/conect.png"/>
 		</div>
-		<p>手机号：18968991186</p>
-		<p>微信/支付宝/借贷宝/无忧借条：18968991186</p>
-		<p>今借到：18958856806</p>
-		<p>客服电话：400-0577-009</p>
-		<p>小禾商务QQ公众号：4000577009</p>
-		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
+		<!-- <p>手机号：18968991186</p> -->
+		<!-- <p>微信/支付宝/借贷宝/无忧借条：18968991186</p> -->
+		<!-- <p>今借到：18958856806</p> -->
+		<p>客服电话：400-1605-566</p>
+		<p>商务QQ公众号：4001605566</p>
+		<!-- <p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p> -->
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
 
@@ -91,9 +91,9 @@
   			r.isShow=true
   		}
   	},
-  	joinQQ(){
-			window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
-  	}
+  	// joinQQ(){
+			// window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
+  	// }
   },
   created(){
   	// publicFun.qualify(this)
@@ -139,7 +139,7 @@
 		}
 		.sub-title{
 			text-align: left;
-			color: #dd524d;
+			color: rgb(217,53,16);
 			position: relative;
 			padding-bottom: 5*0.01rem;
 			margin: 20*0.01rem 15*0.01rem 10*0.01rem;
@@ -154,7 +154,7 @@
 				right: 88*0.01rem;
 				bottom: 0;
 				height: 1*0.01rem;
-				background: #dd524d;
+				background: rgb(217,53,16);
 			}
 		}
 		#loginOut {
@@ -166,7 +166,7 @@
 			color: white;
 			font-weight: 700;
 			border: none;
-			background: #dd524d;
+			background: #0090f6;
 			border-radius: 10*0.01rem;
 		}
 	}

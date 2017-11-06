@@ -72,9 +72,9 @@
 				{title:'身份认证',link:'/identity',icon:'icon-address-book',},
 				{title:'联系方式',link:'/contact_way',icon:'icon-phone',},
 				{title:'身份证上传',link:'/upload',icon:'icon-upload',},
-				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
 				],
 				[
+				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
 				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
 				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				],
@@ -108,28 +108,41 @@
 	$cellBorder:#e2e3e4;
 	/*$outBorder:#fff;*/
 	$outBorder:#f4f4f4;
-	$cellHeight:0.94rem;
-	$itemNameColor:#8f8e94;
+	$cellHeight:1.25rem*0.5;
+	$itemNameColor:#999;
 	/*#323233;*/
-	$itemIconColor:#8f8e94;
+	$itemIconColor:#0090f6;
 	h3.first-title{
 		/*margin-top: 1.52rem;*/
 	}
 	.cell{
-
+		position: relative;
+			border:0px solid #ccc;
+			border-bottom-width: 1px;
+			text-align: left;
 		.item-icon{
-			margin:0.2rem 0 0;
-			/*border:1px solid red;*/
+			display: inline-block;
+			margin:0.2rem*0 0 0;
+			width: 25%;
+			text-align: center;
 			i{
-				font-size:0.24rem;
-				line-height: 1.4;
+				font-size:0.32rem;
+				line-height: $cellHeight;
+				/*line-height: 1.4;*/
 				color:$itemIconColor;
 				/*color:$cellBorder;*/
 			}
 		}
 		.item-name{
-			font-size:0.14rem;
+			position: absolute;
+			display: inline-block;
+			text-align: left;
+			width:100%;
+			padding-left: 30%;
+			top: 0;left:0;
+			font-size:0.18rem;
 			color:$itemNameColor;
+			line-height: $cellHeight;
 			/*color:$cellBorder;*/
 			/*border:1px solid red;*/
 		}
@@ -152,20 +165,21 @@
 			/*background:#fff;*/
 			box-sizing: border-box;
 			/*width: 1.25rem;*/
-			width: $cellHeight;
+			/*width: $cellHeight;*/
+			width: 100%;
 			height: $cellHeight;
-			border: 0px solid $cellBorder;
-			border-right-width: 0.5px;
+			/*border: 0px solid $cellBorder;*/
+			/*border-right-width: 0.5px;*/
 			/*border-radius: 0.15rem;*/
 			/*border:0.05rem #fff solid;*/
 			/*display: inline-block;*/
 		}
 		.cell:nth-child(4){
 			/*border:1px solid red;*/
-			border-right-width: 0px;
+			/*border-right-width: 0px;*/
 		}
 		.row{
-			display: flex;
+			/*display: flex;*/
 			/*flex-wrap: wrap;*/
 			box-sizing: border-box;
 			border: 0px solid $cellBorder;
@@ -178,9 +192,10 @@
 
 
 	.sub-title{
+		font-size: 0.2rem;
 		text-align: left;
 		padding: 0.05rem 0.1rem;
-		color:#757575;
+		color:#666;
 	}
 	h3.title:first-child{
 	}
