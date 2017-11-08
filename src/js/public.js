@@ -1,6 +1,7 @@
 import router from '../router'
 import ivsMap from './ivs_map.js'
 import bus from '../bus.js'
+import App from '../App.vue'
 import parseAntifraud from './anti_fraud_map.js'
 // var router = require('../router')
 var publicFun = {}
@@ -11,13 +12,13 @@ var publicFun = {}
 	// 	}
 	// }]
 publicFun.reg = {}
-publicFun.zhimaAcChangeTime=1504195777508
+publicFun.zhimaAcChangeTime = 1504195777508
 publicFun.reg.cellphone = /^1[1234567890]\d{9}$/
 publicFun.reg.idCardNum = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/
 	// publicFun.remindOpts={}
 	// publicFun.remindOpts.confirm=[{msg:'确定'}]
 
-publicFun.resetLocalUserInfo = function (){
+publicFun.resetLocalUserInfo = function() {
 	localStorage.removeItem('uniqueId')
 	localStorage.removeItem('pwd')
 }
@@ -75,7 +76,9 @@ var setNullFunc = function(fun) {
 
 /*
 	1->非 null //至少有一个不是空值
+	isNotAllNull
 	*/
+
 var checkNullObj = function(obj) {
 	var flag = 0
 	for (var k in obj) {
@@ -131,10 +134,10 @@ publicFun.goTopLv = function() {
 	this.goPage('/' + arr[1])
 }
 publicFun.goUpLv = function() {
-	var r=location.hash.replace("#",'')
-	var arr=r.split('/')
+	var r = location.hash.replace("#", '')
+	var arr = r.split('/')
 	arr.pop()
-	var newR=arr.join('/')
+	var newR = arr.join('/')
 	publicFun.goPage(newR)
 }
 
@@ -231,6 +234,18 @@ publicFun.checkSession = function(vm, callback) {
 	return true
 }
 
+publicFun.test=function(){
+	// setTimeout(function() {
+	// bus.loading=true
+	// }, 3000);
+}
+// publicFun.mutiGet(getMethodArr){
+// 	//invoke getMethod(callBack)
+// 	//
+// }
+// publicFun.simpleGet(url,sccssCall, errCall, callback){ 
+
+// }
 /**
  * get
  * @param  {string}   url       [description]
@@ -278,10 +293,12 @@ publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this
 			} else {
 				// sccssCall()
 				// callback()
-				if (!checkNullObj(res.body.data)) {
-					vm.editing = true
-				} else {
-					vm.editing = false
+				if (vm.$data.editing!==undefined) {
+					if (!checkNullObj(res.body.data)) {
+						vm.editing = true
+					} else {
+						vm.editing = false
+					}
 				}
 				sccssCall()
 			}

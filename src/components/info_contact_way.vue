@@ -1,7 +1,7 @@
 <template>
 	<div id="contactWayVue" class="input" v-loading='loading' element-loading-text='请稍后'>
 		<h1 class="title">
-			<app-back></app-back>联系方式
+			<app-back></app-back>其他信息
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
 		<h2 class="sub-title">个人联系方式</h2>
@@ -55,10 +55,13 @@
 			<!-- <div class="delete"  -->
 			<!-- </div> -->
 		</div>
+		<h2 class="sub-title">负债调查</h2>
+		<app-debt ref='infoDebt'></app-debt>
 		<transition>
 			<el-button type='success' :disabled='!allValid' class='submit' v-if='editing' @click='submit'>提交</el-button>
 			<!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
 		</transition>
+
 		<remind :remind='remind'></remind>
 	</div>
 </template>
@@ -67,11 +70,17 @@
 // import '../css/input.css'
 import publicFun from '../js/public.js'
 import remind from '../components/tmpts/remind.vue'
-export default {
-	data() {
+import infoDebt from './views/info_debt_view.vue'
+// 组件refs , 
+// refs.viewName.isFilled
+// editing = !allFilled || forceEditing
+// forcefilled=false after #all# !!  post success
+// forceEditing =refs.a.forceEditing &&refs.b.forceEditing && refs.a.forceEditing &&
+ export default {
+		data() {
 			return {
-				directRelation: [
-				{
+				infoDebt:{},
+				directRelation: [{
 					value: '父亲',
 					label: '父亲'
 				}, {
@@ -80,8 +89,7 @@ export default {
 				}, {
 					value: '配偶',
 					label: '配偶'
-				}, 
-				 ],
+				}, ],
 				// relationPlaceholders: ['直系亲属', ''],
 				relationPlaceholders: ['', ''],
 				relatives: [{
@@ -105,7 +113,7 @@ export default {
 				url: 'userInfo/contact',
 				url2: 'userInfo/relatives',
 				formData: {},
-				backAfterPost:true,
+				backAfterPost: true,
 				remind: {
 					isShow: false,
 					remindMsg: 'remind',
@@ -150,7 +158,7 @@ export default {
 			},
 			get() {
 				publicFun.get(this.url, this, () => {
-					console.log('res outer', this.response)
+					// console.log('res outer', this.response)
 					var data = this.response.body.data
 					if (!data) {
 						return
@@ -160,16 +168,16 @@ export default {
 					this.nickWechat = data.nickWechat
 					this.acWechat = data.acWechat
 					publicFun.get(this.url2, this, () => {
-						console.log('res outer url2', this.response.body.data.relatives)
+						// console.log('res outer url2', this.response.body.data.relatives)
 						var data = this.response.body.data
-						console.log('data', data)
+							// console.log('data', data)
 						if (data.relatives) {
 							this.relatives = data.relatives
 							var r = this.relatives,
 								i
 							console.log('r', r)
 							for (i = 0; i < r.length; i++) {
-								console.log('validtae', i)
+								// console.log('validtae', i)
 								this.validatename(r[i])
 								this.validateRelative(r[i])
 								this.validatePhone(r[i])
@@ -218,6 +226,7 @@ export default {
 			},
 			edit() {
 				this.editing = true
+				this.cmptDebt.editing = true
 			},
 			blured($event) {
 				var el = $event.target.parentElement.parentElement
@@ -247,6 +256,18 @@ export default {
 			},
 		},
 		computed: {
+			test() {
+				return this.infoDebt.jiedaibaoLiabilities
+			},
+			isFilled: function() {
+				return !!(this.relatives[0].name && this.acQQ)
+			},
+			__editing: function() {
+				return this.cmptDebt.isFilled && this.isFilled
+			},
+			cmptDebt: function() {
+				return this.$refs.infoDebt || {}
+			},
 			relationOpts: function() {
 				return [
 					this.directRelation,
@@ -256,10 +277,10 @@ export default {
 					}, {
 						value: '朋友',
 						label: '朋友'
-					},  {
-					value: '兄弟姐妹',
-					label: '兄弟姐妹'
-				},])
+					}, {
+						value: '兄弟姐妹',
+						label: '兄弟姐妹'
+					}, ])
 				]
 			},
 			nickQqValid: function() {
@@ -278,28 +299,28 @@ export default {
 				var reg = /[a-zA-Z\d_]{5,}/;
 				return reg.test(this.acWechat)
 			},
-
 			allValid: function() {
 				var t = this
 				console.log('computing allValid')
-					// var relationValid=true,l=this.relatives.length,i,c
-					// for(i=0;i<l;i++){
-					// 	c=this.relatives[i]
-					// 	relationValid=relationValid&&c.phoneValid&&c.relationValid&&c.nameValid
-					// }
-					// var validR=this.relatives[0].validAll&&this.relatives[1].validAll
-					//  t.nickQqValid && t.nickWechatValid &&
-				return t.relativesAllVailid && t.acQQValid &&  t.acWechatValid && true //&&
-
+				return t.relativesAllVailid && t.acQQValid && t.acWechatValid && true //&&
 			},
+		},
+		mounted() {
+			console.log('refs', this.$refs)
+			this.infoDebt=this.$refs.infoDebt
 		},
 		created() {
 			this.get()
-			// this.relatives[0].value='父亲'
+			publicFun.test()
+				// setTimeout(()=>{
+				// console.log('refs',this.$refs)
+				// }, 2000);
+				// this.relatives[0].value='父亲'
 		},
 		events: {},
 		components: {
 			remind: remind,
+			'app-debt': infoDebt,
 		}
 }
 </script>

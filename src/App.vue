@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-loading='loading' element-loading-text='请稍后' @touchmove.stop=''>
-
+    <div v-loading='globalLoading' element-loading-text='请稍后'></div>
     <div class="router-view-container" :class="{'show-foot':footNavShow}">
       <keep-alive>
       <!-- <transition :name='enter'> -->
@@ -128,6 +128,11 @@
     })
     this.checkSession()
     this.footNavShow=true
+  },
+  computed:{
+    globalLoading(){
+      return bus.loading
+    },
   },
   watch:{
       // account:function(val){
