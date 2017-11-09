@@ -27,7 +27,7 @@
   import publicFun from './js/public.js'
   import bus from './bus.js'
   import remind from './components/tmpts/remind.vue'
-  import './css/icons.css'
+  // import './css/icons.css'
   import './css/input.scss'
   import './css/app-cmpt.scss'
   // import './css/input.css'
@@ -130,8 +130,8 @@
        link.href= path
        body.appendChild(link);
       }
-      add('../'+this.___subName+'.css')
-      add('../static/test.css')
+      // add('../'+this.___subName+'.css')
+      // add('../static/test.css')
       // link.href = '../'+this.___subName+'_icon.css';
       // var head = document.getElementsByTagName('head')[0];
     },

@@ -6,7 +6,10 @@
 			<img src="../../static/xh/reward_sign_up.png"  id='reward_sign_up'>
 			<img src="../../static/xh/5min.png"  id='5min'>
 			<img src="../../static/xh/fast_auditing.png"  id='fast_auditing'> -->
-			<img :src="src.bg" id='bg_signup'>
+			<!-- <img :src="src.bg" id='bg_signup'> -->
+			<div class="bg-container">
+			<img src="../../static/xh/bg_signup.png"  id='bg_signup'>
+			</div>
 			<app-input-login  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
 				
 			</app-input-login>
@@ -271,11 +274,15 @@
 
 <style lang='scss' scoped>
 #loginCodeVue{
+	.bg-container{
+		width: 100%;
+		height: 2.6rem;
+		margin-bottom: 0.22rem;
+		margin-top: 0.18rem;
+	}
 	#bg_signup{
 		width: 100%;
 		padding:0 0.15rem;
-		margin-top: 0.18rem;
-		margin-bottom: 0.22rem;
 	}
 	background: #5494f3;
 	height: 100%;

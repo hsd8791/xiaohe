@@ -31,7 +31,11 @@
 					<i class="input-status icon-document-edit " v-if='cell.status===0'></i>
 					<i class="input-status icon-spinner " v-if='cell.status===-1'></i>
 					<i class="input-status icon-input-checked " v-if='cell.status===1'></i>
-					<div class="item-icon"><i :class="cell.icon"></i></div>
+					<div class="item-icon">
+						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
+						<img :src="cell.imgNotfilled" v-if='cell.status===0' class="icon">
+						<!-- <i :class="cell.icon"></i> -->
+					</div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
 			</div>
@@ -92,28 +96,32 @@
 		  },
 		  essentialCell(){
 		  	return [[
-				  {title:'身份认证',link:'/identity',icon:'icon-address-book',
-				  	statusKey:'identity',status:bus.fillStatus.identity},
+				  {title:'身份认证',link:'/identity',icon:'icon-identify',
+				  	imgFilled:'../../static/xh/icon-identify.png',
+				  	imgNotfilled:'../../static/xh/icon-identify-enable.png',
+				  	status:bus.fillStatus.identity},
 				  {title:'联系方式',link:'/contact_way',icon:'icon-phone',
-				  	statusKey:['contact','relatives'],status:bus.fillStatus.contact&&bus.fillStatus.relatives,},
+				  	status:bus.fillStatus.contact&&bus.fillStatus.relatives,},
 				  {title:'身份证上传',link:'/upload',icon:'icon-upload',
-				  	statusKey:'idcardPic',status:bus.fillStatus.idcardPic},
+				  	status:bus.fillStatus.idcardPic},
 				  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
-				  	statusKey:'sjmh',status:bus.fillStatus.sjmh},
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
+				  	status:bus.fillStatus.sjmh},
 				  ],
 				  [
 				  {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
-				  	statusKey:'liabilities',status:bus.fillStatus.liabilities},
-				  {title:'芝麻认证',link:'/zhima',icon:'icon-warning',
-				  	statusKey:'zmAuth',status:bus.fillStatus.zmAuth},
+				  	status:bus.fillStatus.liabilities},
+				  {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
+				  	status:bus.fillStatus.zmAuth},
 				 ],]
 			},
 		  optionalCell(){
 		  	return[[
-				  {title:'个人概况',link:'/profile',icon:'icon-documents',
-				  	statusKey:['personal','address'],status:bus.fillStatus.personal&&bus.fillStatus.address},
+				  {title:'个人概况',link:'/profile',icon:'icon-test',
+				  	status:bus.fillStatus.personal&&bus.fillStatus.address},
 				  {title:'工作信息',link:'/job_info',icon:'icon-profile',
-				  	statusKey:'work',status:bus.fillStatus.work},
+				  	status:bus.fillStatus.work},
 			  ],]
 			}
 		},
@@ -138,6 +146,9 @@
 		.item-icon{
 			margin:0.2rem 0 0;
 			/*border:1px solid red;*/
+			.icon{
+				height: 0.33rem;
+			}
 			i{
 				font-size:0.24rem;
 				line-height: 1.4;
