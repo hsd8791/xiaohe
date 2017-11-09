@@ -44,14 +44,14 @@
         response:null,
         editing:true,
         backAfterPost:true,
-        remind:{
-          isShow:false,
-          remindMsg:'remind',
-          self_:this,
-          remindOpts:[
-          {msg:'确定',},
-          ],
-        },
+        // remind:{
+        //   isShow:false,
+        //   remindMsg:'remind',
+        //   self_:this,
+        //   remindOpts:[
+        //   {msg:'确定',},
+        //   ],
+        // },
       }
     },
     methods:{
@@ -110,6 +110,15 @@
 
   },
   created:function(){
+    setTimeout(function() {
+      let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
+      a.then((res)=>{
+        console.log('res from promise',res)
+      },rej=>{
+        publicFun.errorHandle(rej,bus)
+        console.log('rej from promise',rej)
+      })
+    }, 4000);
     var way=this.$route.query.qudao
 
     // console.log('way',this.$route)
@@ -133,6 +142,9 @@
     globalLoading(){
       return bus.loading
     },
+    remind(){
+      return bus.remind
+    }
   },
   watch:{
       // account:function(val){
@@ -142,7 +154,6 @@
     },
     components: {
       'foot-nav':footNav,
-      remind:remind,
       contact:contact,
     }
   }

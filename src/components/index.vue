@@ -96,7 +96,6 @@
 
 		},
 		created(){
-			console.log('bus',bus)
 			publicFun.checkSession(this)
 		},
 		events: {},

@@ -142,6 +142,52 @@ publicFun.goUpLv = function() {
 }
 
 
+// publicFun.checkSession = function(vm, callback) {
+// 	var loginOpts = [{
+// 		msg: '确定',
+// 		callback: () => {
+// 			this.goPage(vm.$route.path + '/login') // 与vm 中不同
+// 		}
+// 	}, {
+// 		msg: '取消',
+// 		callback: () => {
+// 			this.goPage(-1)
+// 		}
+// 	}];
+// 	// if (bus.account === '请登录') {
+// 	// 	vm.remind.remindMsg = '请先登录'
+// 	// 	vm.remind.isShow = true
+// 	// 	vm.remind.remindOpts = loginOpts
+// 	// 	return false
+// 	// }
+// 	this.get('account/checkSession', vm, () => {
+// 		// console.log('still checking sesion', bus.account)
+// 		var res = vm.response.body
+// 		if (res.data) {
+// 			// bus.account = res.data.phone
+// 			// bus.uniqueId = res.data.uniqueId
+// 			// already checkSession in App.vue
+// 			if (res.data.isSetPwd == 0) {
+// 				publicFun.goPage('/pwd')
+// 			} else {
+// 				// console.log('callback',callback)
+// 				if (callback !== undefined && callback instanceof Function) {
+// 					callback()
+// 				}
+// 			}
+// 			return true
+// 		} else {
+// 			vm.remind.remindOpts = loginOpts
+// 			vm.remind.remindMsgDscrp = ''
+// 			vm.remind.remindMsg = '请先登录'
+// 			vm.remind.isShow = true
+// 			return false
+// 		}
+
+// 	})
+// 	return true
+// }
+
 publicFun.checkSession = function(vm, callback) {
 	var loginOpts = [{
 		msg: '确定',
@@ -188,64 +234,49 @@ publicFun.checkSession = function(vm, callback) {
 	return true
 }
 
-publicFun.checkSession = function(vm, callback) {
-	var loginOpts = [{
-		msg: '确定',
-		callback: () => {
-			this.goPage(vm.$route.path + '/login') // 与vm 中不同
-		}
-	}, {
-		msg: '取消',
-		callback: () => {
-			this.goPage(-1)
-		}
-	}];
-	// if (bus.account === '请登录') {
-	// 	vm.remind.remindMsg = '请先登录'
-	// 	vm.remind.isShow = true
-	// 	vm.remind.remindOpts = loginOpts
-	// 	return false
-	// }
-	this.get('account/checkSession', vm, () => {
-		// console.log('still checking sesion', bus.account)
-		var res = vm.response.body
-		if (res.data) {
-			// bus.account = res.data.phone
-			// bus.uniqueId = res.data.uniqueId
-			// already checkSession in App.vue
-			if (res.data.isSetPwd == 0) {
-				publicFun.goPage('/pwd')
-			} else {
-				// console.log('callback',callback)
-				if (callback !== undefined && callback instanceof Function) {
-					callback()
-				}
-			}
-			return true
-		} else {
-			vm.remind.remindOpts = loginOpts
-			vm.remind.remindMsgDscrp = ''
-			vm.remind.remindMsg = '请先登录'
-			vm.remind.isShow = true
-			return false
-		}
-
-	})
-	return true
-}
-
-publicFun.test=function(){
-	// setTimeout(function() {
-	// bus.loading=true
-	// }, 3000);
-}
+publicFun.test = function() {
+		// setTimeout(function() {
+		// bus.loading=true
+		// }, 3000);
+	}
 // publicFun.mutiGet(getMethodArr){
 // 	//invoke getMethod(callBack)
+// Using Promise.all
+
 // 	//
 // }
-// publicFun.simpleGet(url,sccssCall, errCall, callback){ 
 
-// }
+//，将链接失败处理掉，返回error==0 || error!==0 的promis
+publicFun.singleGetPro = function(url,body) {
+	let fullUrl=publicFun.urlConcat(url,body)
+	return new Promise((resolve,rej)=>{
+		bus.loading = true
+		bus.$http.get(fullUrl).then(res => {
+			if(res.body.error===0){
+				resolve(res.body.data)
+				console.log('onSucc',res.body)
+			}else{
+				rej(res.body)
+			}
+		}, err => {
+			publicFun.onConnectFail()
+		}).finally(()=>{
+			console.log('finally', bus)
+			bus.loading = false
+			console.log('finally', bus)
+		})
+	})
+	
+}
+
+publicFun.onConnectFail=function(){
+	bus.remind.remindOpts = [{
+		msg: '确定',
+	}, ]
+	bus.remind.remindMsg = '连接失败'
+	bus.remind.isShow = true
+}
+
 /**
  * get
  * @param  {string}   url       [description]
@@ -293,7 +324,7 @@ publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this
 			} else {
 				// sccssCall()
 				// callback()
-				if (vm.$data.editing!==undefined) {
+				if (vm.$data.editing !== undefined) {
 					if (!checkNullObj(res.body.data)) {
 						vm.editing = true
 					} else {

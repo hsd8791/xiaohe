@@ -13,6 +13,14 @@ var bus = new Vue({
 		loanInfo: null,
 		qualified: 0,
 		firstEnterApp: true,
+		remind:{
+		  isShow:false,
+		  remindMsg:'remind',
+		  self_:undefined,
+		  remindOpts:[
+		  {msg:'确定',},
+		  ],
+		},
 	},
 	created: function() {
 		// this.getLenderInfo()
