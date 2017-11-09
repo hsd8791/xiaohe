@@ -7,3 +7,8 @@
   定制样式（定制scss 文件，批量sass 后静态上传）  
   定制icon（动态引入）
 
+
+
+  if(this.loanInfo){
+    this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
+  }

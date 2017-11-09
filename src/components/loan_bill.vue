@@ -270,7 +270,9 @@
 					publicFun.get(this.url, this, () => {
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
-						this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
+						if(this.loanInfo){
+							this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
+						}
 						// this.loanInfo.repaymentTime
 							publicFun.get(this.urlApplyRecord, this, checkAuditing)
 						if (!this.loanInfo) {
