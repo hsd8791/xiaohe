@@ -85,9 +85,8 @@
 					identity_code:this.identity_code,
 					user_mobile:this.phone,
 					// cb:encodeURIComponent('http://localhost:8080/m/#/shujumohe'),
-					cb:'http://hzg.he577.com/xh/#/index0',
+					cb:'https://www.yi576.com/yhd/#/index0',
 					// v:Math.random(),//防止location.href 失效
-					// cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
 				}
 				// console.log('callback',postBody.cb)
 				console.log('this.taskId',this.taskId)

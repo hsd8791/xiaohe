@@ -177,7 +177,7 @@
 				// },
 				hzgMarket(){
 				    console.log('hzg market_list')
-				    location.href='http://hzg.he577.com/m/#/market_list'
+				    location.href='https://www.yi576.com/m/#/market_list'
 				},
 				reapply() {
 					var remind=this.remind

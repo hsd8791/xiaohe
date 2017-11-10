@@ -3,7 +3,6 @@
    <img src="../assets/img/banner.jpg" class='banner'>
     <h1 class='test' >壹号贷</h1>
     <a class='apply' href='https://jinshuju.net/f/PA8yWu'>申 请</a>
-    <a class="runner" href="https://open.shujumohe.com/box/yys?box_token=2B7DC823735B42EC990771E9B8AFAA7F&cb=www.he577.com%2Fhzgui%2FnewCustomer.html">手机运营商</a>
   </div>
 </template>
 

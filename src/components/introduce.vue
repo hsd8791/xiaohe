@@ -5,8 +5,9 @@
 			壹号贷丨关于壹号贷
 		</h3>
 		<!-- <p class="total">壹号贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p> -->
+		<div v-if='false'>
 		<div class="input">
-			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
+			<a class="download-app" href="" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
@@ -24,6 +25,7 @@
 					</div>
 				</el-button>
 			</a>
+		</div>
 		</div>
 		<!-- <div class="sub-title">
 			<img class="title-img" src="../assets/img/readem.png"/>
