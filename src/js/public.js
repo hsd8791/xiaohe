@@ -514,31 +514,32 @@ publicFun.isWeiXin = function() {
 }
 publicFun.wechatAuth = function(vm) {
 	// console.log('authorize wechat')
-	var back = location.href
-	var i = back.match('/login')
-	if (i) {
-		back = back.slice(0, i.index)
-	}
-	// console.warn('back path',back)
-	// console.log('i',i.index)
-	// console.warn('wechat auth back path', back)
-	back = encodeURIComponent(back)
-		// alert('')
-	if (this.isWeiXin()) {
-		publicFun.get('wechat/oauth?url=' + back, vm, () => {
-			// console.log('res auth', vm.response.body.data)
-			if (vm.response.body.data) {
-				// alert('绑定微信')
-				location.href = vm.response.body.data
-			} else {
-				// alert('already authrized wechat')
-			}
-		})
-	} else {
-		// alert('not wechat browser')
-		// console.log('not micromessenger')
-		return false
-	}
+	return
+	// var back = location.href
+	// var i = back.match('/login')
+	// if (i) {
+	// 	back = back.slice(0, i.index)
+	// }
+	// // console.warn('back path',back)
+	// // console.log('i',i.index)
+	// // console.warn('wechat auth back path', back)
+	// back = encodeURIComponent(back)
+	// 	// alert('')
+	// if (this.isWeiXin()) {
+	// 	publicFun.get('wechat/oauth?url=' + back, vm, () => {
+	// 		// console.log('res auth', vm.response.body.data)
+	// 		if (vm.response.body.data) {
+	// 			// alert('绑定微信')
+	// 			location.href = vm.response.body.data
+	// 		} else {
+	// 			// alert('already authrized wechat')
+	// 		}
+	// 	})
+	// } else {
+	// 	// alert('not wechat browser')
+	// 	// console.log('not micromessenger')
+	// 	return false
+	// }
 
 }
 
@@ -611,7 +612,9 @@ publicFun.qualify = function(vm) {
 		r.remindOpts = [{
 			msg: '确定',
 			callback: () => {
+				r.remindMsgDscrp = null
 				publicFun.goPage('/introduce')
+
 			}
 		}]
 		r.isShow = true

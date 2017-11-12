@@ -73,7 +73,7 @@
 						case 1:
 							this.qrcode = 2;
 
-							// window.open("http://wpd.b.qq.com/page/info.php?nameAccount=4000577009");
+							// window.open("http://wpd.b.qq.com/page/info.php?nameAccount=4001605566");
 							// window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=65gJlYPrNgfWw8eO1e4Ju4uM_3AeHtNE";
 							break;
 						case 2:

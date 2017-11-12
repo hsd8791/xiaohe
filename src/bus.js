@@ -3,7 +3,7 @@ import publicFun from './js/public.js'
 var bus = new Vue({
 	data: {
 		detailTaskId: null,
-		phoneLender: '13777722216',
+		phoneLender: '13599506684',
 		uniqueIdLender: '2qamam',
 		account: '请登录',
 		uniqueId: '',

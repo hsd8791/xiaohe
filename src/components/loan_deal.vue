@@ -207,7 +207,7 @@ export default {
     reborrowSubmit() {
       let postBody = {}
       postBody.applyType = 1
-      postBody.phone = '13777722216'
+      postBody.phone = '13599506684'
       postBody.amount = this.moneyFee
       publicFun.post(this.urlLendApply, postBody, this, () => {
         this.remind.remindOpts = [{
