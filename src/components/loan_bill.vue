@@ -82,6 +82,8 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
+			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+		
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
 <!-- 		<div class="dscrp-container">
 			<div class="dscrp-part">
@@ -268,10 +270,13 @@
 						}
 					}
 					publicFun.get(this.url, this, () => {
+						function isOverDueOneWeek(repaymentTime){
+							return repaymentTime+604800000>(new Date()).getTime()
+						}
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
 						if(this.loanInfo){
-							this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
+							this.loanInfo.canReborrow=isOverDueOneWeek(this.loanInfo.repaymentTime)
 						}
 						// this.loanInfo.repaymentTime
 							publicFun.get(this.urlApplyRecord, this, checkAuditing)

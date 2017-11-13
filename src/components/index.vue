@@ -70,21 +70,21 @@
 				essentialCell:[
 				[
 				{title:'身份认证',link:'/identity',icon:'icon-address-book',},
-				{title:'联系方式',link:'/contact_way',icon:'icon-phone',},
-				{title:'身份证上传',link:'/upload',icon:'icon-upload',},
+				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
+				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
+				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				],
 				[
-				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
-				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+				// {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
 				],
 				],
 				optionalCell:[
 				[
+				{title:'其他信息',link:'/contact_way',icon:'icon-phone',},
 				{title:'个人概况',link:'/profile',icon:'icon-documents',},
 				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
 				// {title:'行业名单',link:'/',icon:'icon-info',},
-
 				],
 				]
 			}
@@ -96,7 +96,6 @@
 
 		},
 		created(){
-			console.log('bus',bus)
 			publicFun.checkSession(this)
 		},
 		events: {},

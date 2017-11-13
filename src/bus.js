@@ -3,6 +3,7 @@ import publicFun from './js/public.js'
 var bus = new Vue({
 	data: {
 		detailTaskId: null,
+		loading:false,
 		phoneLender: '13777722216',
 		uniqueIdLender: '2qamam',
 		account: '请登录',
@@ -12,6 +13,14 @@ var bus = new Vue({
 		loanInfo: null,
 		qualified: 0,
 		firstEnterApp: true,
+		remind:{
+		  isShow:false,
+		  remindMsg:'remind',
+		  self_:undefined,
+		  remindOpts:[
+		  {msg:'确定',},
+		  ],
+		},
 	},
 	created: function() {
 		// this.getLenderInfo()

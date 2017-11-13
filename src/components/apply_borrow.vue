@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 7, // qty of requset
+					ttlRequest: 4, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -105,7 +105,6 @@
 						getUrl: 'credit/shujumoheSimQueryStatus',
 						checkMethod: function(data) {
 							this.status = 0
-
 							console.log('data', data.status)
 							if (data.status === 'success') {
 								this.status = 1
@@ -126,7 +125,7 @@
 						}
 					}, {
 						status: 0,
-						url: '/index/apply_borrow/upload',
+						url: '/index/apply_borrow/identity',
 						label: '身份证上传',
 						getUrl: 'userInfo/addAccessory',
 						checkMethod: function(data) {
@@ -140,13 +139,14 @@
 								this.status = 1
 							}
 						}
-					}, {
-						status: 0,
-						url: '/index/apply_borrow/debt',
-						label: '负债调查',
-						getUrl: 'userInfo/liabilities',
-
 					}, 
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/debt',
+					// 	label: '负债调查',
+					// 	getUrl: 'userInfo/liabilities',
+
+					// }, 
 					{
 						status: 0,
 						url: '/index/apply_borrow/zhima',
@@ -176,17 +176,17 @@
 						// 	getUrl: 'userInfo/personal',
 						// 	getUrl2: 'userInfo/address'
 						// },
-						{
-							status: 0,
-							status2: 0,
-							url: '/index/apply_borrow/contact_way',
-							label: '联系方式',
-							getUrl: 'userInfo/contact',
-							getUrl2: 'userInfo/relatives',
-							checkMethod: function(data) {
-								// this.status=0
-							}
-						},
+						// {
+						// 	status: 0,
+						// 	status2: 0,
+						// 	url: '/index/apply_borrow/contact_way',
+						// 	label: '联系方式',
+						// 	getUrl: 'userInfo/contact',
+						// 	getUrl2: 'userInfo/relatives',
+						// 	checkMethod: function(data) {
+						// 		// this.status=0
+						// 	}
+						// },
 						// {
 						// 	status: 0,
 						// 	status2: 1,
@@ -334,7 +334,7 @@
 					}
 				},
 				checkFilled() {
-					// console.log('checking filled')
+					console.log('checking filled')
 					this.undoneRequest = this.ttlRequest
 					var u = this.fillStatus,
 						l = u.length,
@@ -356,6 +356,7 @@
 						l2 = u2.length,
 						i
 					var flag = true
+					console.log('l,l2',l,l2)
 					for (i = 0; i < l; i++) {
 						flag = flag && u[i].status
 						console.log('status', i, '-->', u[i].status)
@@ -447,8 +448,8 @@
 			events: {},
 			created: function() {
 
-				publicFun.qualify(this)
-				this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
+				// publicFun.qualify(this)
+				// this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
 				// 以上两个函数只会有一个出现提示框
 				this.checkFilled()
 				if (bus.phoneLender) {
@@ -509,7 +510,7 @@
 				},
 
 				undoneRequest: function(val) {
-					// console.log('undoneRequest', val)
+					console.log('undoneRequest', val)
 					if (val === 0) {
 						this.allFilled = this.checkAllFilled()
 					}

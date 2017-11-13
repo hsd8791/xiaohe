@@ -4,6 +4,7 @@
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
+		<app-upload></app-upload>
 		<div class="container">
 			<div class="wraper">
 				<label>姓名：</label>
@@ -47,6 +48,7 @@
 
 <script>
 	// import '../css/input.css'
+	import uploadId from './info_upload.vue'
 	import remind from './tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	import Bus from '../bus.js'
@@ -194,7 +196,8 @@
 		},
 		events: {},
 		components: {
-			remind:remind
+			remind:remind,
+			'app-upload':uploadId,
 		}
 	}
 </script>

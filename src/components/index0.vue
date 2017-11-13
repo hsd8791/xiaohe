@@ -11,7 +11,7 @@
 	<img class="banner" src="../assets/img/banner.jpg"/>
 	<div class="box">
 		<img src="../assets/img/logo.jpg" alt="" class="sub-banner" />
-		<p>安全 · 快速 · 便捷</p>
+		<p class="slogan">安全 · 快速 · 便捷</p>
 		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
 			开始借款
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
@@ -19,6 +19,9 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
+    <img src="../assets/img/QRxh.jpg" class="xh-public-qr">
+    <p class="slogan">小禾微贷 · 微信服务号</p>
+
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
@@ -149,10 +152,13 @@ export default {
 			width: 55%;
 		}
 	}
+  .xh-public-qr{
+    width: 80%;
+  }
 	#newBorrow {
 	    border: 1px solid #e71419;
 	    padding: 16px 0;
-	    margin-bottom: 50px;
+	    margin: 0.4rem 0;
 	    font-family: "microsoft yahei";
 	    font-size: 20px;
 	    font-weight: 700;
@@ -161,16 +167,17 @@ export default {
 	#oldBorrow{
 		border: 1px solid #e49731;
 		padding: 16px 0;
+    margin: 0.4rem 0;
 		font-family: "microsoft yahei";
 		font-size: 20px;
 		font-weight: 700;
 		color: #e49731;
 	}
-	p{
+	.slogan{
 		margin-top: 0;
     margin-bottom: 10px;
     color: #8f8f94;
-    padding-bottom: 60px;
+    /*padding-bottom: 0.4rem;*/
     font-size: 12px;
 	}
 	.mybtn {
