@@ -268,9 +268,14 @@
 						}
 					}
 					publicFun.get(this.url, this, () => {
+						function isOverDueOneWeek(repaymentTime){
+							return repaymentTime+604800000>(new Date()).getTime()
+						}
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
-						this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
+						if(this.loanInfo){
+							this.loanInfo.canReborrow=isOverDueOneWeek(this.loanInfo.repaymentTime)
+						}
 						// this.loanInfo.repaymentTime
 							publicFun.get(this.urlApplyRecord, this, checkAuditing)
 						if (!this.loanInfo) {

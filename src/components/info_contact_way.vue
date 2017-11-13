@@ -104,14 +104,18 @@ import infoDebt from './views/info_debt_view.vue'
 				relativesAllVailid: false,
 				response: null,
 				// loading:false,
-				loading: true,
+				loading: false,
 				editing: true,
 				nickQq: '',
 				acQQ: '',
 				nickWechat: '',
 				acWechat: '',
-				url: 'userInfo/contact',
-				url2: 'userInfo/relatives',
+				urls:{
+					contact: 'userInfo/contact',
+					relatives: 'userInfo/relatives',
+				},
+				url: 'userInfo/contact',//temp for upgrade
+				url2: 'userInfo/relatives',//temp for upgrade
 				formData: {},
 				backAfterPost: true,
 				remind: {
@@ -124,72 +128,82 @@ import infoDebt from './views/info_debt_view.vue'
 				},
 			}
 		},
-
+		mounted() {
+			this.get()
+			
+		},
 		methods: {
-			submit() {
+			postProAccount(){
 				var postBody = {}
-				postBody.nickQq = this.nickQq
-				postBody.acQq = this.acQQ
-				postBody.nickWechat = this.nickWechat
-				postBody.acWechat = this.acWechat
-				publicFun.post(this.url, postBody, this, () => {
-					console.log('post res', this.response)
-					var postBody = {},
-						postData = []
-					var l = this.relatives.length,
-						i
-					for (i = 0; i < l; i++) {
-						postData.push({})
-						postData[i].name = this.relatives[i].name
-						postData[i].relative = this.relatives[i].relative
-						postData[i].phone = this.relatives[i].phone
-					}
-					var jsonStr = JSON.stringify(postData)
-					console.log('formData', postData)
-					console.log('jsonStr', jsonStr)
-					postBody.data = jsonStr
-					console.log('postBody', postBody)
-
-
-					publicFun.post(this.url2, postBody, this, () => {
-
-					})
+			  postBody.nickQq = this.nickQq
+			  postBody.acQq = this.acQQ
+			  postBody.nickWechat = this.nickWechat
+			  postBody.acWechat = this.acWechat
+			  return publicFun.singlePostPro(this.urls.contact,postBody)
+			},
+			postProRelative(){
+				var postBody = {},
+					postData = []
+				var l = this.relatives.length,
+					i
+				for (i = 0; i < l; i++) {
+					postData.push({})
+					postData[i].name = this.relatives[i].name
+					postData[i].relative = this.relatives[i].relative
+					postData[i].phone = this.relatives[i].phone
+				}
+				var jsonStr = JSON.stringify(postData)
+				postBody.data = jsonStr
+				return publicFun.singlePostPro(this.urls.relatives,postBody)
+			},
+			submit() {
+				let postProDebt=this.$refs.infoDebt.submit()
+				let postArr=[postProDebt,this.postProRelative(),this.postProAccount()]
+				let prosHandler=publicFun.handlePostPros(postArr)
+				prosHandler.then(values=>{
+					publicFun.onPostIdentificationSucc()
+					console.log('prosHandler then',values)
 				})
 			},
-			get() {
-				publicFun.get(this.url, this, () => {
-					// console.log('res outer', this.response)
-					var data = this.response.body.data
-					if (!data) {
-						return
-					}
-					this.nickQq = data.nickQq
-					this.acQQ = data.acQq
-					this.nickWechat = data.nickWechat
-					this.acWechat = data.acWechat
-					publicFun.get(this.url2, this, () => {
-						// console.log('res outer url2', this.response.body.data.relatives)
-						var data = this.response.body.data
-							// console.log('data', data)
-						if (data.relatives) {
-							this.relatives = data.relatives
-							var r = this.relatives,
-								i
-							console.log('r', r)
-							for (i = 0; i < r.length; i++) {
-								// console.log('validtae', i)
-								this.validatename(r[i])
-								this.validateRelative(r[i])
-								this.validatePhone(r[i])
-							}
-
-						}
-					}, () => {
-						console.log('res outer url2', this.response)
-
-					})
+			getProRelations(){
+			  let getProContact=publicFun.singleGetPro(this.urls.contact)
+			  getProContact.then(res=>{
+					this.nickQq = res.nickQq
+					this.acQQ = res.acQq
+					this.nickWechat = res.nickWechat
+					this.acWechat = res.acWechat
+				})
+				return getProContact
+			},
+			getProContact(){
+			  let getProRelations=publicFun.singleGetPro(this.urls.relatives)
+			  getProRelations.then(res=>{
+			  	if (res.relatives) {
+			  		this.relatives = res.relatives
+			  		var r = this.relatives,
+			  			i
+			  		// console.log('r', r)
+			  		for (i = 0; i < r.length; i++) {
+			  			// console.log('validtae', i)
+			  			this.validatename(r[i])
+			  			this.validateRelative(r[i])
+			  			this.validatePhone(r[i])
+			  		}
+			  	}
+			  })
+			  return getProRelations
+			},
+			get(){
+				let getProContact=this.getProContact()
+				let getProRelations=this.getProRelations()
+				let getProDebt=this.$refs.infoDebt.get()
+				let getProArr=[getProContact, getProRelations, getProDebt]
+				let handleGetPros = publicFun.handleGetPros(getProArr)
+				handleGetPros.then(res=>{
+					publicFun.onGetIdentificationSucc(res,this)
 				})
 			},
+
 			validateAllRelations() {
 				var l = this.relatives.length,
 					i, flag = true
@@ -226,7 +240,6 @@ import infoDebt from './views/info_debt_view.vue'
 			},
 			edit() {
 				this.editing = true
-				this.cmptDebt.editing = true
 			},
 			blured($event) {
 				var el = $event.target.parentElement.parentElement
@@ -301,21 +314,13 @@ import infoDebt from './views/info_debt_view.vue'
 			},
 			allValid: function() {
 				var t = this
-				console.log('computing allValid')
+				// console.log('computing allValid')
 				return t.relativesAllVailid && t.acQQValid && t.acWechatValid && true //&&
 			},
 		},
-		mounted() {
-			console.log('refs', this.$refs)
-			this.infoDebt=this.$refs.infoDebt
-		},
+
 		created() {
-			this.get()
-			publicFun.test()
-				// setTimeout(()=>{
-				// console.log('refs',this.$refs)
-				// }, 2000);
-				// this.relatives[0].value='父亲'
+				
 		},
 		events: {},
 		components: {

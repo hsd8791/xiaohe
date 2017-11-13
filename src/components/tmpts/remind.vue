@@ -54,7 +54,7 @@
 		},
 		created(){
 			this.bus=bus
-			console.log('bus',bus)
+			// console.log('bus',bus)
 		},
 		events: {},
 		components: {}

@@ -32,10 +32,9 @@
 			</div>
 		</div>
 		<transition>
-			<!-- <el-button type='success' :disabled='!(allValid&&creditValid)' class='submit' v-if='editing' @click='submit'>提交</el-button> -->
+			<!-- <el-button type='success' :disabled='!(allValid&&creditValid)' class='submit' v-if='editing' @click='submit'>提交2</el-button> -->
 			<!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
 		</transition>
-		<!-- <remind :remind='remind'></remind> -->
 	</div>
 </template>
 
@@ -80,6 +79,7 @@
 				zmxyScore2:'',
 				data:null,
 				url:'userInfo/liabilities',
+				getPromise:null,
 				formData:{
 				},
 				backAfterPost:true,
@@ -112,39 +112,33 @@
 				postBody.zmxyScore = this.zmxyScore 
 				postBody.zmxyScore2 = this.zmxyScore2 
 				console.log('postBody',postBody)
-				publicFun.post(this.url,postBody,this,()=>{
-					console.log('post res',this.response)
-					if (!this.backAfterPost) {
-						if (!this.response.body.data) {
-							this.remind.remindMsg='更新成功'
-							var url=publicFun.urlConcat('/loan_deal',this.$route.query)
-							console.log('url',url)
-							this.remind.remindOpts = [{
-								msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
-								callback: () => {
-									let paths=this.$route.path.split('/')
-									paths.pop()
-									publicFun.goPage(paths.join('/')+url)
-								}
-							}]
-						}
-					}
-				})
+				let postPro=publicFun.singlePostPro(this.url,postBody)
+				return postPro
+				// publicFun.post(this.url,postBody,this,()=>{
+				// 	console.log('post res',this.response)
+				// 	if (!this.backAfterPost) {
+				// 		if (!this.response.body.data) {
+				// 			this.remind.remindMsg='更新成功'
+				// 			var url=publicFun.urlConcat('/loan_deal',this.$route.query)
+				// 			console.log('url',url)
+				// 			this.remind.remindOpts = [{
+				// 				msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
+				// 				callback: () => {
+				// 					let paths=this.$route.path.split('/')
+				// 					paths.pop()
+				// 					publicFun.goPage(paths.join('/')+url)
+				// 				}
+				// 			}]
+				// 		}
+				// 	}
+				// })
 			},
 			get(){
-				publicFun.get(this.url,this,()=>{
-					console.log('res outer',this.response)
-					var data=this.response.body.data
-					this.data=data
-					if(!data){
-						return
-					}
-					this.jiedaibaoLiabilities=data.jiedaibaoLiabilities
-					this.jinjiedaoLiabilities=	data.jinjiedaoLiabilities			
-					this.otherLiabilities=data.otherLiabilities
-					this.zmxyScore=data.zmxyScore
-					this.zmxyScore2=data.zmxyScore2
+				let getPro=publicFun.singleGetPro(this.url)
+				getPro.then(res=>{
+					Object.assign(this,res)
 				})
+				return getPro
 			},
 			// edit(){
 			// 	this.editing=true
@@ -209,15 +203,15 @@
 			},
 		},
 		created(){
-			var query=this.$route.query
-			console.log('query debt',this.$route)
-			if(query.action){
-				this.refreshFill=true
-				this.backAfterPost=false
-				this.editing=true
-			}else{
-			this.get()
-			}
+			// var query=this.$route.query
+			// console.log('query debt',this.$route)
+			// if(query.action){
+			// 	this.refreshFill=true
+			// 	this.backAfterPost=false
+			// 	this.editing=true
+			// }else{
+			// // this.get()
+			// }
 		}
 		,
 		events: {},

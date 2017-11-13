@@ -17,6 +17,7 @@
   <foot-nav v-if='footNavShow'></foot-nav>
   <!-- </transition> -->
   <remind :remind='remind'></remind >
+  <button v-if='isTest' style="position:absolute;left:10px;bottom:100px" @click='test'>test</button>
   </div>
 </template>
 
@@ -54,71 +55,62 @@
         // },
       }
     },
-    methods:{
-      fromSales(w){
-        sessionStorage.setItem('salesWay',w)
-        console.log('sales URL',this.urlSales+w)
-        publicFun.get(this.urlSales+w,this,()=>{
+    methods: {
+      fromSales(w) {
+        sessionStorage.setItem('salesWay', w)
+        console.log('sales URL', this.urlSales + w)
+        publicFun.get(this.urlSales + w, this, () => {
 
         })
       },
 
-      checkSession(){
+      checkSession() {
         console.log('checkSession')
-        this.loading=true
-        this.$http.get('account/checkSession').then(res=>{
+        this.loading = true
+        this.$http.get('account/checkSession').then(res => {
           var data = res.body.data
-          console.log('session data',data)
-          if(data){
-          // bus.account=data.phone
-          // bus.uniqueId=data.uniqueId
-          bus.$emit('account_change',localStorage.userID,localStorage.uniqueId,localStorage.qualified)
-          if(data.isSetPwd==0){
-            // console.log('no set pwd')
-            var r=this.remind
-            r.remindOpts=[{
-              msg:'确定',
-              callback:()=>{
-               publicFun.goPage('/pwd')
-             }
-           }]
-           r.remindMsg='请设置密码'
-           r.isShow=true
-         }
-         publicFun.wechatAuth(this)
-       }else{
-        // publicFun.goPage('/login')
-      }
-      this.loading=false
-    },err=>{
+          console.log('session data', data)
+          if (data) {
+            // bus.account=data.phone
+            // bus.uniqueId=data.uniqueId
+            bus.$emit('account_change', localStorage.userID, localStorage.uniqueId, localStorage.qualified)
+            if (data.isSetPwd == 0) {
+              // console.log('no set pwd')
+              var r = this.remind
+              r.remindOpts = [{
+                msg: '确定',
+                callback: () => {
+                  publicFun.goPage('/pwd')
+                }
+              }]
+              r.remindMsg = '请设置密码'
+              r.isShow = true
+            }
+            publicFun.wechatAuth(this)
+          } else {
+            // publicFun.goPage('/login')
+          }
+          this.loading = false
+        }, err => {
 
-    })
-      // publicFun.get('account/checkSession',this,()=>{
-      //   // console.log('res checkSession',this.response)
-      //   var res = this.response.body
-      //   console.log('res sesion',res)
-      //   if(res.data){
-      //     bus.account=res.data.phone
-      //     bus.uniqueId=res.data.uniqueId
-      //     bus.$emit('account change',res.data.phone,res.data.uniqueId)
-      //     if(res.data.isSetPwd===0){
-      //       publicFun.goPage('/pwd')
-      //     }
-      //   }
-      // })
+        })
+      },
+      test(){
+        let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
+        let b=publicFun.singleGetPro('userInfo/work',)
+        let c=publicFun.singleGetPro('userInfo/liabilities',)
+        console.log('Promise.all',Promise.all)
+        let test=publicFun.handleGetPros([a,b,c])
+        // a.then((res)=>{
+        //   console.log('res from promise',res)
+        // },rej=>{
+        //   publicFun.errorHandle(rej,bus)
+        //   console.log('rej from promise',rej)
+        // })
+      },
     },
-
-  },
   created:function(){
-    setTimeout(function() {
-      let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
-      a.then((res)=>{
-        console.log('res from promise',res)
-      },rej=>{
-        publicFun.errorHandle(rej,bus)
-        console.log('rej from promise',rej)
-      })
-    }, 4000);
+
     var way=this.$route.query.qudao
 
     // console.log('way',this.$route)
@@ -144,7 +136,10 @@
     },
     remind(){
       return bus.remind
-    }
+    },
+    isTest(){
+      return /test/.test(location.href)
+    },
   },
   watch:{
       // account:function(val){
