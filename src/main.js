@@ -28,6 +28,7 @@ Vue.component('app-input-login',inputLogin)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
+import env from '../config/index.js'
 
 if(/test\/xh/.test(location.href)){
 	Vue.http.options.root = 'http://hzg.he577.com/test';
@@ -114,6 +115,7 @@ var url=location.href
 var host=url.slice(0,url.indexOf('#')-1)
 var path=pathMap[host]
 console.log('img path',path)
+console.log('process',process.env)
 Vue.prototype.___imgPath=path
 Vue.prototype.___subName=path
 new Vue({

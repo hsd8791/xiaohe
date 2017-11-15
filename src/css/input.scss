@@ -4,7 +4,6 @@ $iconSize:0.13rem;
 // $dangerColor:#e94f4f;
 
 $validColor:#09bb07;
-
 $successColor:#09bb07;
 $inputFontSzie:0.16rem;
 $inputSize:0.14rem;
@@ -21,6 +20,7 @@ $disabledColor:#777;
 }
 .fixed-title-page{
 	padding-top: 0.44rem;
+	padding-bottom: 0.15rem;
 }
 
 .input{
@@ -65,6 +65,7 @@ $disabledColor:#777;
 		padding-left: 0.15rem;
 		text-align: left;
 		background:#ccc;
+
 	}
 	// .input .container .unordered-list .el-icon-arrow-right
 	.container{

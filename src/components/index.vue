@@ -28,9 +28,9 @@
 		<div class="container">
 			<div class="row" v-for='row in essentialCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
-					<i class="input-status icon-document-edit " v-if='cell.status===0'></i>
-					<i class="input-status icon-spinner " v-if='cell.status===-1'></i>
-					<i class="input-status icon-input-checked " v-if='cell.status===1'></i>
+					<!-- <i class="input-status icon-document-edit " v-if='cell.status===0'></i> -->
+					<!-- <i class="input-status icon-spinner " v-if='cell.status===-1'></i> -->
+					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
 					<div class="item-icon">
 						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
 						<img :src="cell.imgNotfilled" v-if='cell.status===0' class="icon">
@@ -44,10 +44,15 @@
 		<div class="container">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
-					<i class="input-status icon-document-edit " v-if='cell.status===0'></i>
-					<i class="input-status icon-spinner " v-if='cell.status===-1'></i>
-					<i class="input-status icon-input-checked " v-if='cell.status===1'></i>
-					<div class="item-icon"><i :class="cell.icon"></i></div>
+					<!-- <i class="input-status icon-document-edit " v-if='cell.status===0'></i> -->
+					<!-- <i class="input-status icon-spinner " v-if='cell.status===-1'></i> -->
+					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
+					<div class="item-icon">
+						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
+						<img :src="cell.imgNotfilled" v-if='cell.status===0' class="icon">
+						<!-- <i :class="cell.icon"></i> -->
+					</div>
+					<!-- <div class="item-icon"><i :class="cell.icon"></i></div> -->
 					<div class="item-name">{{cell.title}}</div>
 				</div>
 			</div>
@@ -101,26 +106,38 @@
 				  	imgNotfilled:'../../static/xh/icon-identify-enable.png',
 				  	status:bus.fillStatus.identity},
 				  {title:'联系方式',link:'/contact_way',icon:'icon-phone',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
 				  	status:bus.fillStatus.contact&&bus.fillStatus.relatives,},
 				  {title:'身份证上传',link:'/upload',icon:'icon-upload',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-id-upload.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-id-upload-enable.png'),
 				  	status:bus.fillStatus.idcardPic},
+				  ],
+				  [
 				  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
 				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
 				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
 				  	status:bus.fillStatus.sjmh},
-				  ],
-				  [
 				  {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-debt.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-debt.png'),
 				  	status:bus.fillStatus.liabilities},
 				  {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-zhima.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-zhima-enable.png'),
 				  	status:bus.fillStatus.zmAuth},
 				 ],]
 			},
 		  optionalCell(){
 		  	return[[
 				  {title:'个人概况',link:'/profile',icon:'icon-test',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-profile.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-profile-enable.png'),
 				  	status:bus.fillStatus.personal&&bus.fillStatus.address},
 				  {title:'工作信息',link:'/job_info',icon:'icon-profile',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-job.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-job-enable.png'),
 				  	status:bus.fillStatus.work},
 			  ],]
 			}
@@ -131,18 +148,23 @@
 </script>
 
 <style lang='scss' scoped>
-	$cellBorder:#e2e3e4;
-	/*$outBorder:#fff;*/
-	$outBorder:#f4f4f4;
-	$cellHeight:0.94rem;
-	$itemNameColor:#8f8e94;
+	/*$cellBorder:#c3c3c3;*/
+	$borderColor:#c3c3c3;
+	$cellHeight:1.12rem;
+	$cellWidth:1.25rem;
+	/*445/2*/
+	$itemNameColor:#363636;
 	/*#323233;*/
 	$itemIconColor:#8f8e94;
+	$bgColor:#fff;
 	h3.first-title{
 		/*margin-top: 1.52rem;*/
 	}
 	.cell{
+		background: transparent;
 		position: relative;
+		padding-top: 0.31em;
+		overflow: visible;
 		.item-icon{
 			margin:0.2rem 0 0;
 			/*border:1px solid red;*/
@@ -153,14 +175,24 @@
 				font-size:0.24rem;
 				line-height: 1.4;
 				color:$itemIconColor;
-				/*color:$cellBorder;*/
 			}
 		}
 		.item-name{
 			font-size:0.14rem;
 			color:$itemNameColor;
-			/*color:$cellBorder;*/
+			padding-top: 0.15rem;
 			/*border:1px solid red;*/
+		}
+
+		&:before{
+			content:'';
+			height: 0.44rem;
+			width: 1px;
+			background: #e3e3e3;
+			position: absolute;
+			right: -1px;
+			top: 0.37rem;
+
 		}
 	}
 	.input-status{
@@ -171,41 +203,20 @@
     /*display: none;*/
 	}
 	.container{
-		/*background: #fff;*/
-		/*border:1px solid red;*/
-		border:$outBorder solid 0px;
-		/*border-bottom-width:0.15rem;*/
-		/*background:
-		linear-gradient(180deg, $cellBorder 0.5%,$cellBorder 0.8%,transparent 0.8% ),
-		linear-gradient(90deg, transparent 99.5%,$cellBorder 99.5%,$cellBorder 99.8%,transparent 99.8% );
-		background-repeat:repeat-y repeat-x;
-		background-size:100% $cellHeight,25.5% 100%;
-		background-clip:content-box;*/
-		/*background-origin: border-box; */
-
-
+		/*margin-bottom: 0.15em;*/
+		background: $bgColor;
 		.cell{
-			/*background:#fff;*/
 			box-sizing: border-box;
-			/*width: 1.25rem;*/
-			width: $cellHeight;
+			width: $cellWidth;
 			height: $cellHeight;
-			border: 0px solid $cellBorder;
-			border-right-width: 0.5px;
-			/*border-radius: 0.15rem;*/
-			/*border:0.05rem #fff solid;*/
-			/*display: inline-block;*/
+			
 		}
 		.cell:nth-child(4){
-			/*border:1px solid red;*/
 			border-right-width: 0px;
 		}
 		.row{
 			display: flex;
-			/*flex-wrap: wrap;*/
 			box-sizing: border-box;
-			border: 0px solid $cellBorder;
-			border-bottom-width: 0.5px;
 		}
 		.row:first-child{
 			border-top-width: 0.5px;
@@ -214,9 +225,26 @@
 
 
 	.sub-title{
+		background: $bgColor;
+		border:0px solid $borderColor;
+		border-bottom-width: 1px;
 		text-align: left;
-		padding: 0.05rem 0.1rem;
+		padding-left: 0.3rem;
 		color:#757575;
+		position: relative;
+		height: 0.46rem;
+		line-height: 0.46rem;
+		font-size: 0.16rem;
+		&:before{
+			content:'';
+			width: 0.05rem;
+			height: 0.16rem;
+			border-radius: 2px;
+			background:#5494f3;
+			position: absolute;
+			left: 0.15rem;top:0;bottom: 0;
+			margin:auto 0;
+		}
 	}
 	h3.title:first-child{
 	}
