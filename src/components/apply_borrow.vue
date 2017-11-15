@@ -31,14 +31,14 @@
 			<h3 class="subtitle">请完成以下信息后提交</h3>
 			<div class="container">
 
-				<div class="unordered-list"  v-for='(item,index) in fillStatus' @click='goPage(item.url)' v-if='!item.status'>
+				<div class="unordered-list"  v-for='(item,index) in unFilledItems' @click='goPage(item.url)' v-if='!item.status'>
 					{{item.label}}
 					<i class="el-icon-arrow-right"></i>
 				</div>
-				<div class="unordered-list"  v-for='(item,index) in fillStatus2' @click='goPage(item.url)' v-if='!(item.status&&item.status2)'>
+				<!-- <div class="unordered-list"  v-for='(item,index) in fillStatus2' @click='goPage(item.url)' v-if='!(item.status&&item.status2)'>
 					{{item.label}}
 					<i class="el-icon-arrow-right"></i>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<remind :remind='remind'></remind>
@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 4, // qty of requset
+					ttlRequest: 7, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -66,6 +66,7 @@
 						name: '',
 						phone: '',
 					},
+					unFilledItem:[],
 					lenderInfoAlert: '',
 					uniqueIdLender: null,
 					urlPhone: 'lendApply/phoneInfo?phone=',
@@ -92,6 +93,7 @@
 					allFilled: true,
 
 					//fillStatus 填写项的后台请求path，router path, 名称,填写状态，特殊验证方法
+
 
 					fillStatus: [{
 						status: 0,
@@ -126,7 +128,7 @@
 					}, {
 						status: 0,
 						url: '/index/apply_borrow/identity',
-						label: '身份证上传',
+						label: '个人信息',
 						getUrl: 'userInfo/addAccessory',
 						checkMethod: function(data) {
 							// console.log('data', data)
@@ -140,13 +142,13 @@
 							}
 						}
 					}, 
-					// {
-					// 	status: 0,
-					// 	url: '/index/apply_borrow/debt',
-					// 	label: '负债调查',
-					// 	getUrl: 'userInfo/liabilities',
+					{
+						status: 0,
+						url: '/index/apply_borrow/contact_way',
+						label: '其他信息',
+						getUrl: 'userInfo/liabilities',
 
-					// }, 
+					}, 
 					{
 						status: 0,
 						url: '/index/apply_borrow/zhima',
@@ -176,17 +178,17 @@
 						// 	getUrl: 'userInfo/personal',
 						// 	getUrl2: 'userInfo/address'
 						// },
-						// {
-						// 	status: 0,
-						// 	status2: 0,
-						// 	url: '/index/apply_borrow/contact_way',
-						// 	label: '联系方式',
-						// 	getUrl: 'userInfo/contact',
-						// 	getUrl2: 'userInfo/relatives',
-						// 	checkMethod: function(data) {
-						// 		// this.status=0
-						// 	}
-						// },
+						{
+							status: 0,
+							status2: 0,
+							url: '/index/apply_borrow/contact_way',
+							label: '其他信息',
+							getUrl: 'userInfo/contact',
+							getUrl2: 'userInfo/relatives',
+							checkMethod: function(data) {
+								// this.status=0
+							}
+						},
 						// {
 						// 	status: 0,
 						// 	status2: 1,
@@ -348,6 +350,7 @@
 					for (i2 = 0; i2 < l2; i2++) {
 						this.getByUrls(u2, i2)
 					}
+
 				},
 				checkAllFilled() {
 					var u = this.fillStatus,
@@ -366,7 +369,23 @@
 						console.log('status 2', i, '-->', u2[i].status, u2[i].status2)
 
 					}
+					this.unFilledItems=[]
+					this.addUnfilledItems(u)
+					this.addUnfilledItems(u2)
 					return flag
+				},
+				addUnfilledItems(u){
+					u.forEach(item=>{
+						let exited=this.unFilledItems.find(i=>{
+							return i.label===item.label
+						})
+						if(exited){
+							return
+						}
+						if(item.status===0){
+							this.unFilledItems.push(item)
+						}
+					})
 				},
 				getLenderInfo(url) {
 					// console.log('getLenderInfo url',url)
@@ -448,8 +467,8 @@
 			events: {},
 			created: function() {
 
-				// publicFun.qualify(this)
-				// this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
+				publicFun.qualify(this)
+				this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
 				// 以上两个函数只会有一个出现提示框
 				this.checkFilled()
 				if (bus.phoneLender) {

@@ -11,10 +11,16 @@ $dangerColor:#e94f4f;
 *{
 	box-sizing:border-box;
 }
-
+.title-fixed h1.title{
+	position: fixed;
+	top:0;left: 0;
+}
+.title-fixed{
+	padding-top: 0.4rem;
+}
 .input{
 	width: 100%;
-	
+
 	.title{
 		background:#37383b;
 		color:#fff;
@@ -37,6 +43,7 @@ $dangerColor:#e94f4f;
 			line-height: 0.4rem;
 		}
 	}
+
 	.sub-title{
 		font-size: 0.16rem;
 		line-height: 1;

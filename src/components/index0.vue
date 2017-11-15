@@ -19,7 +19,7 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <img src="../assets/img/QRxh.jpg" class="xh-public-qr">
+    <img src="../assets/img/xh_public_qr.jpg" class="xh-public-qr">
     <p class="slogan">小禾微贷 · 微信服务号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->

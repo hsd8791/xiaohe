@@ -1,6 +1,6 @@
 <template>
-	<div id="contactWayVue" class="input" v-loading='loading' element-loading-text='请稍后'>
-		<h1 class="title">
+	<div id="contactWayVue" class="input title-fixed" v-loading='loading' element-loading-text='请稍后' v-inner-scroll style="padding-bottom: 0.15rem">
+		<h1 class="title ">
 			<app-back></app-back>其他信息
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
@@ -79,7 +79,7 @@ import infoDebt from './views/info_debt_view.vue'
  export default {
 		data() {
 			return {
-				infoDebt:{},
+				// infoDebt:{},
 				directRelation: [{
 					value: '父亲',
 					label: '父亲'
@@ -269,14 +269,8 @@ import infoDebt from './views/info_debt_view.vue'
 			},
 		},
 		computed: {
-			test() {
-				return this.infoDebt.jiedaibaoLiabilities
-			},
 			isFilled: function() {
 				return !!(this.relatives[0].name && this.acQQ)
-			},
-			__editing: function() {
-				return this.cmptDebt.isFilled && this.isFilled
 			},
 			cmptDebt: function() {
 				return this.$refs.infoDebt || {}
@@ -315,7 +309,8 @@ import infoDebt from './views/info_debt_view.vue'
 			allValid: function() {
 				var t = this
 				// console.log('computing allValid')
-				return t.relativesAllVailid && t.acQQValid && t.acWechatValid && true //&&
+				return t.relativesAllVailid && t.acQQValid &&
+				 t.acWechatValid &&this.cmptDebt.allValid&& true //&&
 			},
 		},
 

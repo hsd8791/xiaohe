@@ -9,7 +9,7 @@
 			</p>
 			<div class="auditing-remark">
 				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
+				<p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
 			</div>
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
@@ -27,8 +27,9 @@
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p>
-			<img src="./../assets/img/QRxh.jpg" alt="" class="qrcode">
+			<!-- <p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p> -->
+			<!-- <img src="./../assets/img/QRxh.jpg" alt="" class="qrcode"> -->
+			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 
 		</div>
@@ -38,7 +39,7 @@
 			</p>
 			<div class="auditing-remark">
 				<p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p>
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
+				<p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
 			</div>
 		</div>
 		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
@@ -82,7 +83,7 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 		
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
 <!-- 		<div class="dscrp-container">
@@ -271,7 +272,7 @@
 					}
 					publicFun.get(this.url, this, () => {
 						function isOverDueOneWeek(repaymentTime){
-							return repaymentTime+604800000>(new Date()).getTime()
+							return repaymentTime+345600000>(new Date()).getTime()
 						}
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
@@ -286,6 +287,9 @@
 				},
 			},
 			computed: {
+				noApplyRecord(){
+					return this.applyRecord.apply_id===undefined
+				},
 				actions() {
 					var l = this.loanInfo
 						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
@@ -338,6 +342,10 @@
 	}
 	.link{
 		color:#2447D1;
+	}
+	.more-loan{
+		margin: 0.1rem;
+		font-size: 0.14rem;
 	}
 		.loan-amount{
 			color:#000;
