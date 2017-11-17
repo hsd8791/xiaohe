@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?ubmg0b');
-  src:  url('fonts/icomoon.eot?ubmg0b#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?ubmg0b') format('truetype'),
-    url('fonts/icomoon.woff?ubmg0b') format('woff'),
-    url('fonts/icomoon.svg?ubmg0b#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?2ynxwe');
+  src:  url('fonts/icomoon.eot?2ynxwe#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?2ynxwe') format('truetype'),
+    url('fonts/icomoon.woff?2ynxwe') format('woff'),
+    url('fonts/icomoon.svg?2ynxwe#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,155 +24,20 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-test .path1:before {
+.icon-contact:before {
   content: "\e901";
-  color: rgb(255, 255, 255);
 }
-.icon-test .path2:before {
+.icon-id-card:before {
   content: "\e923";
-  margin-left: -1em;
-  color: rgb(25, 79, 130);
 }
-.icon-test .path3:before {
-  content: "\e93c";
-  margin-left: -1em;
-  color: rgb(92, 186, 234);
-}
-.icon-test .path4:before {
-  content: "\e93d";
-  margin-left: -1em;
-  color: rgb(255, 193, 13);
-}
-.icon-test .path5:before {
-  content: "\e93f";
-  margin-left: -1em;
-  color: rgb(92, 186, 234);
-}
-.icon-test .path6:before {
-  content: "\e940";
-  margin-left: -1em;
-  color: rgb(25, 79, 130);
-}
-.icon-test .path7:before {
-  content: "\e941";
-  margin-left: -1em;
-  color: rgb(25, 79, 130);
-}
-.icon-debt .path1:before {
+.icon-special:before {
   content: "\e924";
-  color: rgb(37, 36, 52);
 }
-.icon-debt .path2:before {
+.icon-refresh:before {
   content: "\e925";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
 }
-.icon-debt .path3:before {
+.icon-status:before {
   content: "\e926";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-profile .path1:before {
-  content: "\e927";
-  color: rgb(37, 36, 52);
-}
-.icon-profile .path2:before {
-  content: "\e928";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-profile .path3:before {
-  content: "\e929";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-job_info .path1:before {
-  content: "\e92a";
-  color: rgb(37, 36, 52);
-}
-.icon-job_info .path2:before {
-  content: "\e92d";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-job_info .path3:before {
-  content: "\e92e";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-contact .path1:before {
-  content: "\e92f";
-  color: rgb(37, 36, 52);
-}
-.icon-contact .path2:before {
-  content: "\e930";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-identify .path1:before {
-  content: "\e931";
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-identify .path2:before {
-  content: "\e932";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-}
-.icon-identify .path3:before {
-  content: "\e933";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-upload-id .path1:before {
-  content: "\e934";
-  color: rgb(37, 36, 52);
-}
-.icon-upload-id .path2:before {
-  content: "\e935";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-shujumohe .path1:before {
-  content: "\e936";
-  color: rgb(37, 36, 52);
-}
-.icon-shujumohe .path2:before {
-  content: "\e937";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-zhima .path1:before {
-  content: "\e938";
-  color: rgb(37, 36, 52);
-}
-.icon-zhima .path2:before {
-  content: "\e939";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-zhima .path3:before {
-  content: "\e93a";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
-}
-.icon-zhima .path4:before {
-  content: "\e93b";
-  margin-left: -1em;
-  color: rgb(37, 36, 52);
-  opacity: 0.18;
 }
 .icon-icon-audit:before {
   content: "\e912";

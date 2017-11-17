@@ -1,23 +1,24 @@
 <template>
 	<div id="loanBillVue" class="fixed-title-page">
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
-			<h1 class="title">我的借款</h1>
+			<h1 class="title">
+				我的借款
+				<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh' @click='get'>
+					<i class="icon-refresh refresh-icon"></i>
+					<span>
+						刷新
+					</span>
+				</div>
+			</h1>
 		</div>
-		<div class="container auditing" v-if='auditing===4' audit-ctrl='refused'>
-			<p>
-				审核拒绝
-			</p>
-			<div class="auditing-remark">
-				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
-			</div>
-		</div> 
+		<re-audit v-if='auditing===4' :remark="auditingRemark" :auditing='4'></re-audit>
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
 			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
 			</p>
 		</div>
-		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
+		<!-- <div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' > -->
+		<div class="container auditing" v-if='1' audit-ctrl='approved quota' >
 			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
@@ -32,70 +33,57 @@
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 
 		</div>
-		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
-			<p>
-				发回重审
-			</p>
-			<div class="auditing-remark">
-				<p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p>
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
-			</div>
-		</div>
+		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
+		
 		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
 			无申请记录
 		</div>
 		<div class="input" v-if='auditing===2 || applyRecord.quotaStatus===3' audit-ctrl='reapply'>
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
-		<!-- <div class="container" v-if='true'> -->
 		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
-			<div class="inner-contaier loan-amount">
-				<div class="detail-li">
-					<span class="li-title">借款金额</span>
-					<span class="li-content loan-amount">￥{{loanInfo.moneyFee | moneyParser}}</span>
+		<!-- <div class="container" v-if='true' audit-ctrl='bill-status' > -->
+			<div class="shadow-box">
+				<div class="inner-contaier loan-amount-container">
+					<div class="detail-li">
+						<span class="li-title">借款金额</span>
+						<span class="li-content loan-amount">{{loanInfo.moneyFee | moneyParser}}元</span>
+					</div>
+				</div>
+				<div class="inner-contaier loan-date">
+					<div class="detail-li">
+						<span class="li-title">
+							<i class="icon-status li-icon"></i>
+							借款日期
+						</span>
+						<span class="li-content">{{loanInfo.borrowTime|timeParser}}</span>
+					</div>
+					<div class="detail-li">
+						<span class="li-title">
+							<i class="icon-status li-icon"></i>
+							应还日期
+						</span>
+						<span class="li-content">{{loanInfo.repaymentTime | timeParser}}</span>
+					</div>
+					<div class="detail-li">
+						<span class="li-title">
+							<i class="icon-status li-icon"></i>
+							当前状态
+						</span>
+						<span class="li-content" :class="{'enable':loanInfo.status===3,'danger':loanInfo.status!==0||loanInfo.status!==2}">
+							{{loanInfo.status | statusParser}}
+						</span>
+					</div>
 				</div>
 			</div>
-			<div class="inner-contaier loan-date">
-				<div class="detail-li">
-					<span class="li-title">借款日期</span>
-					<span class="li-content">{{loanInfo.borrowTime|timeParser}}</span>
-				</div>
-				<div class="detail-li">
-					<span class="li-title">应还日期</span>
-					<span class="li-content">{{loanInfo.repaymentTime | timeParser}}</span>
-				</div>
-				<div class="detail-li">
-					<span class="li-title">当前状态</span>
-					<span class="li-content" :class="{'enable':loanInfo.status===3,'danger':loanInfo.status!==0||loanInfo.status!==2}">
-						{{loanInfo.status | statusParser}}
-					</span>
-				</div>
-			</div>
-
+			
 			<div class="inner-contaier loan-action input">
 				<el-button type='success' class="action-bttn" @click="goP(key,act)" v-for='(act,key ) in actions' :class="{'enable':act.enable}" :disabled='!act.enable' :key='key' v-if='act.show'>
 					{{act.act}}
 				</el-button>
 			</div>
 		</div>
-		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
-				<el-button type='success' @click='get' >刷新</el-button>
-		</div>
-				<!-- <el-button type='success' @click='test'>test</el-button> -->
-<!-- 		<div class="dscrp-container">
-			<div class="dscrp-part">
-				<p class="dscrp-line">还款：</p>
-				<p class="dscrp-line">若有逾期则按照每日3%的逾期费用，本金封顶的方式进行支付结算</p>
-			</div>
-			<div class="dscrp-part">
-				<p class="dscrp-line">续期：</p>
-				<p class="dscrp-line">收取逾期（若有）+续期手续费</p>
-			</div>
-			<div class="dscrp-part">
-				<p class="dscrp-line">重借：</p>
-				<p class="dscrp-line">最后一笔借款完成之后可以重借</p>
-			</div>
-		</div> -->
+		
 		<remind :remind='remind'></remind>
 	</div>
 </template>
@@ -104,6 +92,7 @@
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
 	import quota from './views/quota.vue'
+	import reAudit from './views/re-auditing.vue'
 	export default {
 		data() {
 				return {
@@ -136,10 +125,6 @@
 				bus.$on('quota_recieved',()=>{
 					this.get()
 				})
-				// setTimeout(()=> {
-				// 	this.auditing=3
-				// 	this.loanInfo.status=1
-				// }, 3333);
 				this.get()
 			},
 			filters: {
@@ -312,6 +297,7 @@
 			events: {},
 			components: {
 				'app-quota':quota,
+				're-audit':reAudit,
 			}
 	}
 </script>
@@ -323,91 +309,125 @@
 	.link{
 		color:#2447D1;
 	}
-		.loan-amount{
-			color:#000;
-			font-size: 0.2rem;
-			line-height: 0.15rem;
-		}
-		.auditing{
-			font-size: 0.28rem;
-			line-height: 1.4;
-			.auditing-remark{
-				border: 0px solid #efeff4 ;
-				padding:0.15rem 0.05rem;
-				border-top-width: 1px;
-			}
-			.auditing-description{
-				line-height: 1.6;
-				font-size: 0.16rem;
-				text-align: left;
-				margin:0.05rem 0.15rem;
-			}
-			.auditing-txt{
-				border: 0px solid #efeff4 ;
-				border-bottom-width: 1px;
-				padding:0.1rem;
-			}
-		}
-		.bttn-refresh{
-			padding:0.15rem 0;
-		}
-		.container{
-			background: #fff;
-			margin-top:0.2rem;
-			border:1px solid transparent;
-			.qrcode{
-				width: 60%;
-				margin:0 auto;
-			}
-			.remind{
-				font-size: 0.16rem;
-				text-align: left;
-				padding:0.05rem 0.25rem;
-			}
-			.inner-contaier{
-				margin-left: 0.2rem;
-				padding: 0.12rem 0;
-				padding-right: 0.2rem;
-				border: 0px solid #bbb ;
-				border-top-width: 1px;
-				line-height: 1;
-				.detail-li{
-					color: #8e8e8e;
-					display: flex;
-					font-size: 0.15rem;
-					margin:0.12rem 0;
-					.li-title,.li-content{
-						width: 50%;
-					}
-					.li-title{
-						text-align: left;
-					}
-					.li-content{
-						text-align: right;
-					}
-				}
-				&:first-child{
-					border-top-width: 0px;
-				}
-			}
-			.loan-action{
-				display: flex;
-				font-size: 0.16rem;
-				padding:0 0.15rem;
-				color:#8e8e8e;
-				.action-bttn{
-					width: 40%;
-					margin:0.1rem 0.15rem;
-					padding:0.1rem 0;
-					opacity: 0.5;
-					
-				}
-				.action-bttn:last-child{
-					margin-right:0.45rem;
-				}
 
+	.auditing{
+		font-size: 0.28rem;
+		line-height: 1.4;
+		.auditing-remark{
+			border: 0px solid #efeff4 ;
+			padding:0.15rem 0.05rem;
+			border-top-width: 1px;
+		}
+		.auditing-description{
+			line-height: 1.6;
+			font-size: 0.16rem;
+			text-align: left;
+			margin:0.05rem 0.15rem;
+		}
+		.auditing-txt{
+			border: 0px solid #efeff4 ;
+			border-bottom-width: 1px;
+			padding:0.1rem;
+		}
+	}
+	.bttn-refresh{
+		width: 0.7rem;
+		/*padding-right: 0.15rem;*/
+		position: absolute;
+		right: 0;
+		height: 100%;
+		top: 0;
+		font-size: 0.15rem;
+		/*border:1px solid red;*/
+		/*line-height: 0.4rem;*/
+		text-align: right;
+		
+		.refresh-icon,span{
+			font-size: 0.15rem;
+			position: absolute;
+			left: 0;
+			top: 0;bottom: 0;
+			margin:auto 0;
+			display: block;
+			height: 0.15rem;
+			color:#fff;
+			font-weight: bold;
+		}
+		span{
+			left: auto;
+			right: 0.15rem;
+		}
+	}
+
+	.container{
+		background: #fff;
+		margin-top:0.2rem;
+		border:1px solid transparent;
+
+		.qrcode{
+			width: 60%;
+			margin:0 auto;
+		}
+		.remind{
+			font-size: 0.16rem;
+			text-align: left;
+			padding:0.05rem 0.25rem;
+		}
+		.loan-amount-container{
+			border:0px dashed #d3d3d3;
+			border-bottom-width: 1px;
+
+		}
+		.inner-contaier{
+			margin-left: 0.2rem;
+			padding: 0.12rem 0;
+			width: 3.14rem;
+			line-height: 1;
+			.detail-li{
+				color: #7e7e7e;
+				display: flex;
+				font-size: 0.13rem;
+				margin:0.12rem 0;
+				.li-title,.li-content{
+					width: 50%;
+				}
+				.li-title{
+					text-align: left;
+				}
+				.li-content{
+					text-align: right;
+				}
+			}
+			&:first-child{
+				border-top-width: 0px;
+			}
+			.loan-amount{
+				color:#5494f3;
+				font-size: 0.16rem;
+				line-height: 0.15rem;
+			}
+			.li-icon{
+				margin-right: 0.1rem;
 			}
 		}
+		.loan-action{
+			display: flex;
+			font-size: 0.16rem;
+			padding:0 0.15rem;
+			color:#8e8e8e;
+			.action-bttn{
+				width: 40%;
+				margin:0.1rem 0.15rem;
+				padding:0.1rem 0;
+				opacity: 0.5;
+				
+			}
+			.action-bttn:last-child{
+				margin-right:0.45rem;
+			}
+
+		}
+	}
 	#loanBillVue{
 		.container{
 			.enable{

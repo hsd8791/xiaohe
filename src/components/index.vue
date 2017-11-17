@@ -40,7 +40,8 @@
 				</div>
 			</div>
 		</div>
-		<h3 class="sub-title">可选认证信息</h3>
+		<div class="separator"></div>
+		<h3 class="sub-title option-title">可选认证信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
@@ -247,6 +248,10 @@
 		}
 	}
 	h3.title:first-child{
+	}
+	.separator{
+		height: 0.15rem;
+		/*background: */
 	}
 	.banner{
 		width: 100%;

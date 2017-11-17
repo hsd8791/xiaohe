@@ -15,6 +15,13 @@
         <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
 			</div>
 		</div>
+    <div class="shadow-box">
+      <img src="../../assets/xh/approved.png"  alt="" class="audit-icon approved ">
+      <h2 class="title-approved">恭喜申请通过！请领取额度</h2>
+      <div class="audit-remark-box quota-amount">
+        <div class="bg-strip"></div>
+      </div>
+    </div>
     <div class="binding-card" v-if='binding' >
       <div class="input">
         <h1 class="title">

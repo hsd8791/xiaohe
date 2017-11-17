@@ -7,8 +7,11 @@
 			<img src="../../static/xh/5min.png"  id='5min'>
 			<img src="../../static/xh/fast_auditing.png"  id='fast_auditing'> -->
 			<!-- <img :src="src.bg" id='bg_signup'> -->
-			<div class="bg-container">
-			<img src="../../static/xh/bg_signup.png"  id='bg_signup'>
+			<div class="separator" v-if='action!="signup"'>
+				
+			</div>
+			<div class="bg-container" v-if='action==="signup"'>
+				<img src="../../static/xh/bg_signup.png"  id='bg_signup'>
 			</div>
 			<app-input-login  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
 				
@@ -19,12 +22,13 @@
 			<app-input-login  v-input='verifyCode' :value='verifyCode' :icon="'icon-icon-code'" class='input'>
 				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
 			</app-input-login>
+			<div class="separator2" v-if='action!=="signup"'></div>
 		<div class='submit' type="success"  @click='login' :class="{'disabled':!canSubmit}">
 			{{action=='signup'?'注册':'确认'}}
 		</div>
 		<!-- <div>我已阅读并同意《小禾微贷服务协议》</div> -->
 		<div class='ctrl-container' v-if='action=="signup"'>
-			<span class="login-link" @click='goLogin'>
+			<span class="login-link" @click='goLogin' >
 				已有账号？
 				<span class='signup-btn' @click='signup'>登录</span>
 			</span>
@@ -400,6 +404,12 @@
 		.signup-btn{
 			color:#6a7fa5;
 		}
+	}
+	.separator{
+		height: 0.35rem;
+	}
+	.separator2{
+		height: 0.6rem;
 	}
 	.signup-container{
 		margin-top:0.5rem;
