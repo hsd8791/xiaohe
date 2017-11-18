@@ -17,8 +17,7 @@
 			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
 			</p>
 		</div>
-		<!-- <div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' > -->
-		<div class="container auditing" v-if='1' audit-ctrl='approved quota' >
+		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
 			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->

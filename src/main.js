@@ -43,19 +43,19 @@ import {
 	Input,
 	Loading,
 	Collapse,
-	Upload,
+	// Upload,
 	Checkbox,
-	CollapseItem,
+	// CollapseItem,
 	Option,
 } from 'element-ui'
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Input)
 Vue.use(Loading.directive)
-Vue.use(Collapse)
-Vue.use(Upload)
+// Vue.use(Collapse)
+// Vue.use(Upload)
 Vue.use(Checkbox)
-Vue.use(CollapseItem)
+// Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
 Vue.directive('scroll-load', {

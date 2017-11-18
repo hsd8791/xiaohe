@@ -1,27 +1,28 @@
 <template>
 	<div id="quotaVue">
-		<p class="audit-msg">
-      {{auditMsg}}
-    </p>
-		<div class="input" v-loading='loading' element-loading-text='请稍后'>
-			<div class="container">
-        <!-- <p class='remind-msg' v-if='quotaCfg.quotaStatus===3'></p> -->
-				<div class="wraper right-align-input" v-if='!specialQuota'>
-					<label class="label" :disabled='true'>发放额度：</label> 
-          <el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
-          <!-- <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i> -->
-        </div>
-        <el-checkbox v-model='clause' v-show='quotaCfg.quotaStatus==0&&!specialQuota'>我同意《借款服务与隐私协议》</el-checkbox>
-        <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
-			</div>
-		</div>
+
     <div class="shadow-box">
       <img src="../../assets/xh/approved.png"  alt="" class="audit-icon approved ">
-      <h2 class="title-approved">恭喜申请通过！请领取额度</h2>
-      <div class="audit-remark-box quota-amount">
+      <h2 class="title-approved">{{auditMsg}}</h2>
+      <div class="audit-remark-box quota-amount" v-if='!specialQuota'>
         <div class="bg-strip"></div>
+        <div class="amount-box">
+          <p class="quota-amount-title">发放额度：</p>
+          <p class="quota-amount-qty">
+            {{quota}}
+            <span class='unit' v-if='this.quotaCfg.quotaFee!==0'>元</span>
+          </p>
+        </div>
       </div>
     </div>
+    <el-checkbox v-model='clause' class='quota-clause' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>
+      我同意<span class="clause">《借款服务与隐私协议》</span>
+    </el-checkbox>
+    <div class="input">
+      <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
+    </div>
+
+
     <div class="binding-card" v-if='binding' >
       <div class="input">
         <h1 class="title">
@@ -73,7 +74,7 @@ import bus from '../../bus.js'
   },
   props:{
   	quotaCfg:{
-  	
+  	 
   	}
   },
   methods:{
@@ -130,13 +131,13 @@ import bus from '../../bus.js'
   },
   computed:{
   	quota(){
-  		return  (this.quotaCfg.quotaFee/100).toFixed(2)+'元'
+  		return  (this.quotaCfg.quotaFee/100).toFixed(2)
   	},
     auditMsg(){
       let s
       switch(this.quotaCfg.quotaStatus){
-        case 0:s='申请通过，请领取额度';break;
-        case 1:s='等待发放';break;
+        case 0:s='恭喜申请通过，请领取额度！';break;
+        case 1:s='已申请，请等待发放';break;
         case 2:s='已放款';break;
         case 3:s='超时未领，请重新申请';break;
       }
