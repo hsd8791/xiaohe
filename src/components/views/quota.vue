@@ -22,7 +22,6 @@
       <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
     </div>
 
-
     <div class="binding-card" v-if='binding' >
       <div class="input">
         <h1 class="title">
@@ -100,7 +99,7 @@ import bus from '../../bus.js'
   		    }}
   		    options.push(temp)
   		  }
-  		  options.push({type:'使用其他银行卡',callback:()=>{
+  		  options.push({type:'使用新的银行卡',callback:()=>{
   		      this.binding=true
   		    }})
   		  // c.back=this.cancelChoose.bind(this)
