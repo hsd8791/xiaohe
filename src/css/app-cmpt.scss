@@ -5,7 +5,8 @@ $disabledColor:#777;
 $mainColor:#5494f3;
 $inputSize:0.14rem;
 // $placeholderColor:#999999;
- .input{
+
+#app .input{
   input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { 
       color:    $placeholderColor;
   }

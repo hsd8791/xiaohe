@@ -15,6 +15,7 @@ import bindCard from './components/views/card_bind.vue'
 import select from './components/tmpts/select.vue'
 import inputLogin from './components/tmpts/input-login.vue'
 // import record from './components/tmpts/record.vue'
+import bus from './bus.js'
 
 Vue.use(VueResource)
 Vue.component('remind', remind)
@@ -28,7 +29,7 @@ Vue.component('app-input-login',inputLogin)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-import env from '../config/index.js'
+// import env from '../config/index.js'
 
 if(/test\/xh/.test(location.href)){
 	Vue.http.options.root = 'http://hzg.he577.com/test';
@@ -109,6 +110,68 @@ var pathMap={
 	'http://hzg.he577.com/test/xh2':'xh',
 	'http://hzg.he577.com/xhtest':'xh',
 }
+Vue.directive('inner-scroll',{
+	bind:function(el,binding,vnode){
+		var cfg = binding.value,
+			containerTop = 0
+			// console.warn('config', cfg)
+			// console.warn('config', binding)
+		var touch = {
+			start: null,
+			end: null,
+			last: null,
+			crrt: null,
+		}
+		var scrollTop,outer
+		console.log('bindded v-inner-scroll')
+		
+		el.addEventListener('touchstart', (e) => {
+			e.stopPropagation()
+			touch.start = e.touches[0].clientY
+			touch.last = e.touches[0].clientY
+		}, false)
+		el.addEventListener('touchmove', (e) => {
+			e.stopPropagation()
+			e.preventDefault()
+			// console.log('e',e)
+			touch.crrt = e.touches[0].clientY
+			outer= e.currentTarget.parentElement
+			// console.log('outer',outer)
+			scrollTop =outer.scrollTop
+			// console.log('outer.scrollTop',outer.scrollTop)
+			bus.marketListScrollTop=outer.scrollTop
+			if (scrollTop > 0) {
+				var step = touch.crrt - touch.last
+				outer.scrollTop-=step
+				touch.last = touch.crrt
+				return
+			} else {
+				if (touch.crrt <= touch.last) {
+					if (containerTop === 0) {
+						var step = touch.crrt - touch.last
+						outer.scrollTop-=step
+						touch.last = touch.crrt
+						return
+					} else {
+						containerTop -= 0.025;
+						el.style.paddingTop = containerTop + 'rem'
+
+					}
+				} else {
+					// e.stopPropagation()
+					// e.preventDefault()
+					// containerTop += 0.025
+					// el.style.paddingTop = containerTop + 'rem'
+				}
+			}
+			touch.last = touch.crrt
+		}, false)
+		el.addEventListener('touchend', (e) => {
+			e.stopPropagation()
+			touch.end = e.changedTouches[0].clientY
+		}, false)
+	}
+})
 /* eslint-disable no-new */
 var url=location.href
 // console.log('host',url.slice(0,url.indexOf('#')-1))

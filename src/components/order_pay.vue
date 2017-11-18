@@ -41,6 +41,8 @@
   export default {
     data() {
       return {
+        unspayCodeExpire:0,
+        unspayCodeGetRecent:false,
         verifyCodeMsg:'验证码已发送，如未收到，请点击重新发送',
         verifyCodeMsgErr:'',
         banGetCode:false,
@@ -181,22 +183,24 @@
         })
       }, 2000)
     },
-    banGetCodeInterval(){
-       var expire=30,self_=this
-       this.codeBtnMsg=expire+'s后获取'
-       var T=setInterval(function(){
-        expire--
-        self_.codeBtnMsg=expire+'s后获取'
-        if(!expire){
+    banGetCodeInterval() {
+      this.unspayCodeExpire = 30
+        let self_ = this
+      this.codeBtnMsg = this.unspayCodeExpire + 's后获取'
+      var T = setInterval(() =>{
+        this.unspayCodeExpire--
+          self_.codeBtnMsg = this.unspayCodeExpire + 's后获取'
+        if (!self_.unspayCodeExpire) {
           clearInterval(T)
-          self_.banGetCode=false
-          self_.codeBtnMsg="获取验证码"
+          self_.banGetCode = false
+          self_.codeBtnMsg = "获取验证码"
+          self_.unspayCodeGetRecent = false
         }
-       },1000)
+      }, 1000)
     },
     getCode(u){
-      this.banGetCode=true
       this.banGetCodeInterval()
+      this.banGetCode=true
       let url=publicFun.urlConcat(u,{
         token:this.tokenChoosed,
         payId:this.payId,
@@ -222,9 +226,13 @@
         for(let i=0;i<len;i++){
           let l=cards[i].length
           temp={type:'银行卡：'+cards[i].cardNo,callback:()=>{
+            this.paying=true
+            if(this.unspayCodeGetRecent){
+              return
+            }
+            this.unspayCodeGetRecent=true
             this.tokenChoosed=cards[i].token
             this.getCode(this.urls.getCode)
-            this.paying=true
           }}
           options.push(temp)
         }
@@ -263,7 +271,7 @@
             msg = '支付成功'
             break;
           case '10':
-            msg = '交易处理中'
+            msg = '交易处理中，请勿重复支付'
             break;
           case '20':
             msg = '支付失败'

@@ -1,9 +1,9 @@
 <template>
-	<div id="debtVue" class="input fixed-title-page" v-loading='loading' element-loading-text='请稍后'>
-		<h1 class="title">
+	<div id="debtVue" class="input" v-loading='loading' element-loading-text='请稍后'>
+		<!-- <h1 class="title">
 			<app-back></app-back>负债调查
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
-		</h1>
+		</h1> -->
 		<div class="container">
 			<div class="wraper">
 				<label class="label" :disabled='!editing'>借贷宝负债：</label> 
@@ -32,30 +32,54 @@
 			</div>
 		</div>
 		<transition>
-			<el-button type='success' :disabled='!(allValid&&creditValid)' class='submit' v-if='editing' @click='submit'>提交</el-button>
+			<!-- <el-button type='success' :disabled='!(allValid&&creditValid)' class='submit' v-if='editing' @click='submit'>提交2</el-button> -->
 			<!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
 		</transition>
-		<remind :remind='remind'></remind>
 	</div>
 </template>
 
 <script>
-	import publicFun from '../js/public.js'
-	import remind from '../components/tmpts/remind.vue'
+	// import '../css/input.css'
+	import publicFun from '../../js/public.js'
+	// import remind from '../../components/tmpts/remind.vue'
 	export default {
+		// isfilled  暴露出去
+		// edit 暴露出去
+		// submit 暴露出去 submit succ
+		// 暴露一个方法控制edit?
+		// 
+		// 
+		// props...
+		// editing
+		// data
+		// data vilidation
+		// 
+		// 进入 
+		// 		multiGet 
+		// 		----每一个get 添加相同的callBack，errCallback,get 方法中进行数据判断（数据判断方法分离）
+		// 				
+		// 			loading使用全局 loading
+		// 			!allFilled 
+		// 			if any err,remind,use glabal remind
+		// 		
+		// 		有空则edit=true
+		// 编辑
+		// 提交
 		data() {
 			return {
 				refreshFill:false,
 				response:null,
 				// loading:true,
 				loading:false,
-				editing:false,
+				// editing:false,
 				jiedaibaoLiabilities:'',
 				jinjiedaoLiabilities:'',
 				otherLiabilities:'',
 				zmxyScore:'',
 				zmxyScore2:'',
+				data:null,
 				url:'userInfo/liabilities',
+				getPromise:null,
 				formData:{
 				},
 				backAfterPost:true,
@@ -68,6 +92,11 @@
 					],
 				},
 			}
+		},
+		props:{
+		  // editing:{
+		  //   default:true,
+		  // },
 		},
 		methods: {
 			submit(){
@@ -83,60 +112,53 @@
 				postBody.zmxyScore = this.zmxyScore 
 				postBody.zmxyScore2 = this.zmxyScore2 
 				console.log('postBody',postBody)
-				publicFun.post(this.url,postBody,this,()=>{
-					console.log('post res',this.response)
-					if (!this.backAfterPost) {
-						if (!this.response.body.data) {
-							this.remind.remindMsg='更新成功'
-							var url=publicFun.urlConcat('/loan_deal',this.$route.query)
-							console.log('url',url)
-							this.remind.remindOpts = [{
-								msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
-								callback: () => {
-									let paths=this.$route.path.split('/')
-									paths.pop()
-									publicFun.goPage(paths.join('/')+url)
-								}
-							}]
-						}
-					}
-				})
+				let postPro=publicFun.singlePostPro(this.url,postBody)
+				return postPro
+				// publicFun.post(this.url,postBody,this,()=>{
+				// 	console.log('post res',this.response)
+				// 	if (!this.backAfterPost) {
+				// 		if (!this.response.body.data) {
+				// 			this.remind.remindMsg='更新成功'
+				// 			var url=publicFun.urlConcat('/loan_deal',this.$route.query)
+				// 			console.log('url',url)
+				// 			this.remind.remindOpts = [{
+				// 				msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
+				// 				callback: () => {
+				// 					let paths=this.$route.path.split('/')
+				// 					paths.pop()
+				// 					publicFun.goPage(paths.join('/')+url)
+				// 				}
+				// 			}]
+				// 		}
+				// 	}
+				// })
 			},
 			get(){
-				publicFun.get(this.url,this,()=>{
-					console.log('res outer',this.response)
-					var data=this.response.body.data
-					if(!data){
-						return
-					}
-					this.jiedaibaoLiabilities=data.jiedaibaoLiabilities
-					this.jinjiedaoLiabilities=	data.jinjiedaoLiabilities			
-					this.otherLiabilities=data.otherLiabilities
-					this.zmxyScore=data.zmxyScore
-					this.zmxyScore2=data.zmxyScore2
-
+				let getPro=publicFun.singleGetPro(this.url)
+				getPro.then(res=>{
+					Object.assign(this,res)
 				})
+				return getPro
 			},
-			edit(){
-				this.editing=true
-			},
+			// edit(){
+			// 	this.editing=true
+			// },
 			blured($event){
 				var el=$event.target.parentElement.parentElement
 				el.className+=' validate'
 			},
-			// setFormData(dataKey){
-			// 	if(this[dataKey+'Valid']){
-			// 		this.formData[dataKey]=this[dataKey]
-			// 	}else{
-			// 		this.formData[dataKey]=null
-			// 	}
-			// },
-			
 		},
 		watch:{
 		
 		},
 		computed:{
+			isFilled(){
+				return publicFun.checkNullObj(this.data)
+			},
+			editing(){
+				// console.log('this info devt views',this.$parent)
+			  return this.$parent.editing
+			},
 			creditValid:function(){
 				// if(this.zmxyScore2<600){
 				// 	return false
@@ -176,24 +198,25 @@
 			},
 			allValid:function(){
 				var t=this
-				return t.jiedaibaoLiabilitiesValid&&t.jinjiedaoLiabilitiesValid&&t.otherLiabilitiesValid&&t.zmxyScoreValid&&t.zmxyScore2Valid&&true//&&
+				return t.jiedaibaoLiabilitiesValid&&t.jinjiedaoLiabilitiesValid&&t.otherLiabilitiesValid&&t.zmxyScoreValid&&t.zmxyScore2Valid&&t.creditValid&&true//&&
 				
 			},
 		},
 		created(){
-			var query=this.$route.query
-			if(query.action){
-				this.refreshFill=true
-				this.backAfterPost=false
-				this.editing=true
-			}else{
-			this.get()
-			}
+			// var query=this.$route.query
+			// console.log('query debt',this.$route)
+			// if(query.action){
+			// 	this.refreshFill=true
+			// 	this.backAfterPost=false
+			// 	this.editing=true
+			// }else{
+			// // this.get()
+			// }
 		}
 		,
 		events: {},
 		components: {
-			remind:remind,
+			// remind:remind,
 		}
 	}
 </script>

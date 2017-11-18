@@ -16,17 +16,14 @@
       <img :src="src.logo" alt="" class="logo-index">
     <div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
       开始借款
+
 		</div>
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <!-- <img :src='src' width="300"> -->
-    <!-- <img src='../assets/xh/bg_old_customer.png' width="300"> -->
-		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
-			<!-- 老用户 -->
-			<!--<img src="../assets/img/oldCustomer.png"/>-->
-		<!-- </div> -->
-	<!-- </div> -->
+    <!-- <img src="../assets/img/xh_public_qr.jpg" class="xh-public-qr"> -->
+
+		
 	<remind :remind='remind'></remind>
 		
 	</div>
@@ -157,23 +154,7 @@ export default {
 	.banner{
 		width: 100%;
 	}
-/*	#newBorrow {
-	    border: 1px solid #e71419;
-	    padding: 16px 0;
-	    margin-bottom: 50px;
-	    font-family: "microsoft yahei";
-	    font-size: 20px;
-	    font-weight: 700;
-	    color: #e71419;
-	}
-	#oldBorrow{
-		border: 1px solid #e49731;
-		padding: 16px 0;
-		font-family: "microsoft yahei";
-		font-size: 20px;
-		font-weight: 700;
-		color: #e49731;
-	}*/
+
   .cartoon-bg{
     width: 2.86rem;
     margin: 0.28rem 0 0.18rem
@@ -182,6 +163,7 @@ export default {
     width: 1.02rem;
     margin-bottom: 0.2rem;
   }
+
 	.mybtn {
     margin:0 auto;
     font-family: "PingFangSC";

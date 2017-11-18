@@ -31,14 +31,14 @@
 			<h3 class="subtitle">请完成以下信息后提交</h3>
 			<div class="container">
 
-				<div class="unordered-list"  v-for='(item,index) in fillStatus' @click='goPage(item.url)' v-if='!item.status'>
+				<div class="unordered-list"  v-for='(item,index) in unFilledItems' @click='goPage(item.url)' v-if='!item.status'>
 					{{item.label}}
 					<i class="el-icon-arrow-right"></i>
 				</div>
-				<div class="unordered-list"  v-for='(item,index) in fillStatus2' @click='goPage(item.url)' v-if='!(item.status&&item.status2)'>
+				<!-- <div class="unordered-list"  v-for='(item,index) in fillStatus2' @click='goPage(item.url)' v-if='!(item.status&&item.status2)'>
 					{{item.label}}
 					<i class="el-icon-arrow-right"></i>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<remind :remind='remind'></remind>
@@ -66,6 +66,7 @@
 						name: '',
 						phone: '',
 					},
+					unFilledItem:[],
 					lenderInfoAlert: '',
 					uniqueIdLender: null,
 					urlPhone: 'lendApply/phoneInfo?phone=',
@@ -93,6 +94,7 @@
 
 					//fillStatus 填写项的后台请求path，router path, 名称,填写状态，特殊验证方法
 
+
 					fillStatus: [{
 						status: 0,
 						url: '/index/apply_borrow/identity',
@@ -105,7 +107,6 @@
 						getUrl: 'credit/shujumoheSimQueryStatus',
 						checkMethod: function(data) {
 							this.status = 0
-
 							console.log('data', data.status)
 							if (data.status === 'success') {
 								this.status = 1
@@ -126,8 +127,8 @@
 						}
 					}, {
 						status: 0,
-						url: '/index/apply_borrow/upload',
-						label: '身份证上传',
+						url: '/index/apply_borrow/identity',
+						label: '个人信息',
 						getUrl: 'userInfo/addAccessory',
 						checkMethod: function(data) {
 							// console.log('data', data)
@@ -140,10 +141,11 @@
 								this.status = 1
 							}
 						}
-					}, {
+					}, 
+					{
 						status: 0,
-						url: '/index/apply_borrow/debt',
-						label: '负债调查',
+						url: '/index/apply_borrow/contact_way',
+						label: '其他信息',
 						getUrl: 'userInfo/liabilities',
 
 					}, 
@@ -180,7 +182,7 @@
 							status: 0,
 							status2: 0,
 							url: '/index/apply_borrow/contact_way',
-							label: '联系方式',
+							label: '其他信息',
 							getUrl: 'userInfo/contact',
 							getUrl2: 'userInfo/relatives',
 							checkMethod: function(data) {
@@ -334,7 +336,7 @@
 					}
 				},
 				checkFilled() {
-					// console.log('checking filled')
+					console.log('checking filled')
 					this.undoneRequest = this.ttlRequest
 					var u = this.fillStatus,
 						l = u.length,
@@ -348,6 +350,7 @@
 					for (i2 = 0; i2 < l2; i2++) {
 						this.getByUrls(u2, i2)
 					}
+
 				},
 				checkAllFilled() {
 					var u = this.fillStatus,
@@ -356,6 +359,7 @@
 						l2 = u2.length,
 						i
 					var flag = true
+					console.log('l,l2',l,l2)
 					for (i = 0; i < l; i++) {
 						flag = flag && u[i].status
 						console.log('status', i, '-->', u[i].status)
@@ -365,7 +369,23 @@
 						console.log('status 2', i, '-->', u2[i].status, u2[i].status2)
 
 					}
+					this.unFilledItems=[]
+					this.addUnfilledItems(u)
+					this.addUnfilledItems(u2)
 					return flag
+				},
+				addUnfilledItems(u){
+					u.forEach(item=>{
+						let exited=this.unFilledItems.find(i=>{
+							return i.label===item.label
+						})
+						if(exited){
+							return
+						}
+						if(item.status===0){
+							this.unFilledItems.push(item)
+						}
+					})
 				},
 				getLenderInfo(url) {
 					// console.log('getLenderInfo url',url)
@@ -509,7 +529,7 @@
 				},
 
 				undoneRequest: function(val) {
-					// console.log('undoneRequest', val)
+					console.log('undoneRequest', val)
 					if (val === 0) {
 						this.allFilled = this.checkAllFilled()
 					}

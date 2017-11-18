@@ -5,6 +5,7 @@ var publicFun = require('./js/public.js')
 var bus = new Vue({
 	data: {
 		detailTaskId: null,
+		loading:false,
 		phoneLender: '13777722216',
 		uniqueIdLender: '2qamam',
 		account: '请登录',
@@ -25,6 +26,14 @@ var bus = new Vue({
 			"liabilities": -1,
 			"personal": -1,
 			"relatives": -1,
+		},
+		remind:{
+		  isShow:false,
+		  remindMsg:'remind',
+		  self_:undefined,
+		  remindOpts:[
+		  {msg:'确定',},
+		  ],
 		},
 	},
 	created: function() {

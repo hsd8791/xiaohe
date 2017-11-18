@@ -12,6 +12,7 @@
 			</h1>
 		</div>
 		<re-audit v-if='auditing===4' :remark="auditingRemark" :auditing='4'></re-audit>
+
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
 			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
@@ -27,22 +28,21 @@
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p>
-			<img src="./../assets/img/QRxh.jpg" alt="" class="qrcode">
+			<!-- <p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p> -->
+			<!-- <img src="./../assets/img/QRxh.jpg" alt="" class="qrcode"> -->
+			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 
 		</div>
-		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
-		
-		<!-- <div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'> -->
 		<div class="container auditing" v-if='1' audit-ctrl='no-apply'>
 			无申请记录
 		</div>
+		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
+
 		<div class="input" v-if='auditing===2 || applyRecord.quotaStatus===3' audit-ctrl='reapply'>
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
 		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
-		<!-- <div class="container" v-if='true' audit-ctrl='bill-status' > -->
 			<div class="shadow-box">
 				<div class="inner-contaier loan-amount-container">
 					<div class="detail-li">
@@ -84,6 +84,10 @@
 			</div>
 		</div>
 		
+
+			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+		
+
 		<remind :remind='remind'></remind>
 	</div>
 </template>
@@ -125,6 +129,7 @@
 				bus.$on('quota_recieved',()=>{
 					this.get()
 				})
+
 				this.get()
 			},
 			filters: {
@@ -169,10 +174,14 @@
 							var remind=this.remind
 							remind.isShow=false
 							remind.remindMsgDscrp=null
-							var urlApply = publicFun.urlConcat(this.urlApply, {
+							let queryBody={
 								phone: '13777722216',
 								amount: this.amount * 100,
-							})
+							}
+							if(this.applyRecord.quotaStatus===3){
+								queryBody.applyType=1
+							}
+							var urlApply = publicFun.urlConcat(this.urlApply, queryBody)
 							publicFun.post(urlApply, {}, this, () => {
 								if(this.response.body.error){
 									return
@@ -191,7 +200,9 @@
 						}
 
 					remind.remindMsg = '请确定是否提交'
-					remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
+					if(!this.applyRecord.quotaStatus===3){
+						remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
+					}
 					remind.remindOpts = [{
 						msg: '确定',
 						callback: apply,
@@ -202,7 +213,7 @@
 				},
 				goP(key, act) {
 					console.log('act',act)
-					if(key==='repay'){
+					if(key==='repay'||key==='renewal'){
 						let url=publicFun.urlConcat('/loan_deal',{
 							action: key,
 							billId:this.loanInfo.id,
@@ -246,8 +257,15 @@
 						}
 					}
 					publicFun.get(this.url, this, () => {
+						function isOverDueOneWeek(repaymentTime){
+							return repaymentTime+345600000>(new Date()).getTime()
+						}
 						console.log('res loan info', this.response)
 						this.loanInfo = this.response.body.data
+						if(this.loanInfo){
+							this.loanInfo.canReborrow=isOverDueOneWeek(this.loanInfo.repaymentTime)
+						}
+						// this.loanInfo.repaymentTime
 							publicFun.get(this.urlApplyRecord, this, checkAuditing)
 						if (!this.loanInfo) {
 						}
@@ -255,6 +273,9 @@
 				},
 			},
 			computed: {
+				noApplyRecord(){
+					return this.applyRecord.apply_id===undefined
+				},
 				actions() {
 					var l = this.loanInfo
 						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
@@ -286,10 +307,10 @@
 							},
 						}
 						// temp.special.enable=(l.status===0||l.status==2)
-						temp.renewal.show=l.status===1||l.status===0
+						temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow
 						temp.repay.show=l.status===1||l.status===0
 						// temp.renewal.show=false
-						temp.reborrow.show=l.status===3 || l.status===2
+						temp.reborrow.show=(l.status===3 || l.status===2)
 
 					return temp
 				},
@@ -303,13 +324,20 @@
 </script>
 
 <style lang='scss' scoped>
-	*{
-		/*border:1px solid red;*/
-	}
 	.link{
 		color:#2447D1;
 	}
-
+/*<<<<<<< HEAD*/
+	
+	.more-loan{
+		margin: 0.1rem;
+		font-size: 0.14rem;
+	}
+	.loan-amount{
+		color:#000;
+		font-size: 0.2rem;
+		line-height: 0.15rem;
+	}
 	.auditing{
 		font-size: 0.28rem;
 		line-height: 1.4;
@@ -367,7 +395,9 @@
 		.qrcode{
 			width: 60%;
 			margin:0 auto;
+
 		}
+
 		.remind{
 			font-size: 0.16rem;
 			text-align: left;

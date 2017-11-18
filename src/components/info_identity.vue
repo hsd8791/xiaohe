@@ -1,9 +1,11 @@
 <template>
-	<div id='identityVue' class="input fixed-title-page"  v-loading='loading'  element-loading-text='请稍后'>
+	<div id='identityVue' class="input fixed-title-page"  v-loading='loading'  element-loading-text='请稍后' v-inner-scroll style="padding-bottom: 0.15rem">
+
 		<h1 class='title'>
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
+		<app-upload></app-upload>
 		<div class="container">
 			<div class="wraper">
 				<label>姓名：</label>
@@ -46,6 +48,8 @@
 </template>
 
 <script>
+	// import '../css/input.css'
+	import uploadId from './info_upload.vue'
 	import remind from './tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	import Bus from '../bus.js'
@@ -193,7 +197,8 @@
 		},
 		events: {},
 		components: {
-			remind:remind
+			remind:remind,
+			'app-upload':uploadId,
 		}
 	}
 </script>

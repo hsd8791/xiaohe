@@ -1,6 +1,6 @@
 <template>
   <div id="app" v-loading='loading' element-loading-text='请稍后' @touchmove.stop=''>
-
+    <div v-loading='globalLoading' element-loading-text='请稍后'></div>
     <div class="router-view-container" :class="{'show-foot':footNavShow}">
       <keep-alive>
       <!-- <transition :name='enter'> -->
@@ -17,6 +17,7 @@
   <foot-nav v-if='footNavShow'></foot-nav>
   <!-- </transition> -->
   <remind :remind='remind'></remind >
+  <button v-if='isTest' style="position:absolute;left:10px;bottom:100px" @click='test'>test</button>
   </div>
 </template>
 
@@ -33,6 +34,9 @@
   // import './css/input.css'
   // import './css/xh.scss'
 
+  // import './css/icons.css'
+  import '../static/icons.css'
+
   // import './libs/font-awesome.min.css'
   export default {
     name:'App',
@@ -48,16 +52,17 @@
         response:null,
         editing:true,
         backAfterPost:true,
-        remind:{
-          isShow:false,
-          remindMsg:'remind',
-          self_:this,
-          remindOpts:[
-          {msg:'确定',},
-          ],
-        },
+        // remind:{
+        //   isShow:false,
+        //   remindMsg:'remind',
+        //   self_:this,
+        //   remindOpts:[
+        //   {msg:'确定',},
+        //   ],
+        // },
       }
     },
+
   methods: {
     fromSales(w) {
       sessionStorage.setItem('salesWay', w)
@@ -99,7 +104,7 @@
       })
 
     },
-
+        // <<<<<<< HEAD
     checkNewer(){
       publicFun.get(this.urlLendInfo,this,()=>{
         console.log('this',this.response)
@@ -135,16 +140,39 @@
       // link.href = '../'+this.___subName+'_icon.css';
       // var head = document.getElementsByTagName('head')[0];
     },
+    test(){
+      console.log('bus',bus)
+      // let a=publicFun.singleGetPro('accounting/myLendInfo',{lendingUid:1})
+      // let b=publicFun.singleGetPro('userInfo/work',)
+      // let c=publicFun.singleGetPro('userInfo/liabilities',)
+      // console.log('Promise.all',Promise.all)
+      // let test=publicFun.handleGetPros([a,b,c])
+      // a.then((res)=>{
+      //   console.log('res from promise',res)
+      // },rej=>{
+      //   publicFun.errorHandle(rej,bus)
+      //   console.log('rej from promise',rej)
+      // })
+    },
   },
   created:function(){
     this.addCssLink()
     // bus.checkStatus()
+        // =======
+
+
+      
+            // },
+          // created:function(){
+        // >>>>>>> master
 
     var way=this.$route.query.qudao
-    console.log('way',this.$route)
+
+    // console.log('way',this.$route)
     if(way){
      this.fromSales(way)
      localStorage.qudao=way
+
     }else{
       // localStorage.removeItem('qudao')
     }
@@ -157,6 +185,17 @@
     this.checkSession()
     this.footNavShow=true
   },
+  computed:{
+    globalLoading(){
+      return bus.loading
+    },
+    remind(){
+      return bus.remind
+    },
+    isTest(){
+      return /test/.test(location.href)
+    },
+  },
   watch:{
       // account:function(val){
       //   // console.log('account change',val)
@@ -165,7 +204,6 @@
     },
     components: {
       'foot-nav':footNav,
-      remind:remind,
       contact:contact,
     }
   }

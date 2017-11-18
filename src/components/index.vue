@@ -33,7 +33,7 @@
 					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
 					<div class="item-icon">
 						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
-						<img :src="cell.imgNotfilled" v-if='cell.status===0' class="icon">
+						<img :src="cell.imgNotfilled" v-if='cell.status!==1' class="icon">
 						<!-- <i :class="cell.icon"></i> -->
 					</div>
 					<div class="item-name">{{cell.title}}</div>
@@ -50,7 +50,7 @@
 					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
 					<div class="item-icon">
 						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
-						<img :src="cell.imgNotfilled" v-if='cell.status===0' class="icon">
+						<img :src="cell.imgNotfilled" v-if='cell.status!==1' class="icon">
 						<!-- <i :class="cell.icon"></i> -->
 					</div>
 					<!-- <div class="item-icon"><i :class="cell.icon"></i></div> -->
@@ -83,7 +83,30 @@
 					{msg:'确定',},
 					],
 				},
+// <<<<<<< HEAD
 
+// =======
+// 				essentialCell:[
+// 				[
+// 				{title:'身份认证',link:'/identity',icon:'icon-address-book',},
+// 				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
+// 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
+// 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
+// 				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+// 				{title:'其他信息',link:'/contact_way',icon:'icon-phone',},
+// 				],
+// 				[
+// 				// {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
+// 				],
+// 				],
+// 				optionalCell:[
+// 				[
+// 				{title:'个人概况',link:'/profile',icon:'icon-documents',},
+// 				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
+// 				// {title:'行业名单',link:'/',icon:'icon-info',},
+// 				],
+// 				]
+// >>>>>>> master
 			}
 		},
 		methods:{
@@ -93,7 +116,6 @@
 
 		},
 		created(){
-			console.log('bus',bus)
 			publicFun.checkSession(this)
 		},
 		computed:{
@@ -101,33 +123,36 @@
 		    return bus.fillStatus
 		  },
 		  essentialCell(){
+		  	let status=bus.fillStatus
 		  	return [[
 				  {title:'身份认证',link:'/identity',icon:'icon-identify',
 				  	imgFilled:'../../static/xh/icon-identify.png',
 				  	imgNotfilled:'../../static/xh/icon-identify-enable.png',
-				  	status:bus.fillStatus.identity},
-				  {title:'联系方式',link:'/contact_way',icon:'icon-phone',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
-				  	status:bus.fillStatus.contact&&bus.fillStatus.relatives,},
-				  {title:'身份证上传',link:'/upload',icon:'icon-upload',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-id-upload.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-id-upload-enable.png'),
-				  	status:bus.fillStatus.idcardPic},
-				  ],
-				  [
+				  	status:status.identity},
+				 {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
+				 	imgFilled:require('../assets/'+this.___subName+'/icon-zhima.png'),
+				 	imgNotfilled:require('../assets/'+this.___subName+'/icon-zhima-enable.png'),
+				 	status:status.zmAuth},
+				  // {title:'身份证上传',link:'/upload',icon:'icon-upload',
+				  // 	imgFilled:require('../assets/'+this.___subName+'/icon-id-upload.png'),
+				  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-id-upload-enable.png'),
+				  // 	status:status.idcardPic},
+				  
 				  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
 				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
 				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
-				  	status:bus.fillStatus.sjmh},
-				  {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-debt.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-debt.png'),
-				  	status:bus.fillStatus.liabilities},
-				  {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-zhima.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-zhima-enable.png'),
-				  	status:bus.fillStatus.zmAuth},
+				  	status:status.sjmh},
+				  // {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
+				  // 	imgFilled:require('../assets/'+this.___subName+'/icon-debt.png'),
+				  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-debt.png'),
+				  // 	status:status.liabilities},
+				  ],
+				  [
+				  {title:'其他信息',link:'/contact_way',icon:'icon-phone',
+				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
+				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
+				  	status:status.contact&&status.relatives&&status.liabilities,},
+				  
 				 ],]
 			},
 		  optionalCell(){
@@ -135,11 +160,11 @@
 				  {title:'个人概况',link:'/profile',icon:'icon-test',
 				  	imgFilled:require('../assets/'+this.___subName+'/icon-profile.png'),
 				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-profile-enable.png'),
-				  	status:bus.fillStatus.personal&&bus.fillStatus.address},
+				  	status:status.personal&&status.address},
 				  {title:'工作信息',link:'/job_info',icon:'icon-profile',
 				  	imgFilled:require('../assets/'+this.___subName+'/icon-job.png'),
 				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-job-enable.png'),
-				  	status:bus.fillStatus.work},
+				  	status:status.work},
 			  ],]
 			}
 		},

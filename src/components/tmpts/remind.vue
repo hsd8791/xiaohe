@@ -15,11 +15,12 @@
 </template>
 
 <script>
-	import Bus from '../../bus.js'
+	import bus from '../../bus.js'
 	import publicFun from '../../js/public.js'
 	export default {
 		data() {
 			return {
+				bus:{},
 			}
 
 		},
@@ -33,8 +34,11 @@
 		},
 		methods: {
 			close(callback, vm) {
+				if(vm===undefined){
+					vm=this.bus
+				}
+
 				// this.isShow=false
-				// Bus.$emit('close_remind')
 				vm.remind.isShow = false
 
 				if (callback !== undefined && callback instanceof Function) {
@@ -49,7 +53,8 @@
 			}
 		},
 		created(){
-				// console.log('remind created',this)
+			this.bus=bus
+			// console.log('bus',bus)
 		},
 		events: {},
 		components: {}

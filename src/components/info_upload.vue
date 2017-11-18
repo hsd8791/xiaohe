@@ -1,7 +1,12 @@
 <template>
 
+<!-- <<<<<<< HEAD
   <div id="uploadVue" class="input fixed-title-page">
     <h1 class="title"><app-back></app-back>附件上传</h1>
+======= -->
+  <div id="upload-vue" class="input">
+    <!-- <h1 class="title"><app-back></app-back>附件上传</h1> -->
+<!-- >>>>>>> master -->
     <h2 class="sub-title">身份证正面：</h2>
     <pic-load :uploadConfig='uploadConfig[0]'></pic-load>
     <h2 class="sub-title">身份证背面：</h2>

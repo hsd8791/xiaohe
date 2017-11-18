@@ -8,6 +8,7 @@
 		<div class="intro">
 			<p class="intro-line">小禾微贷是为社会群体提供的微借贷服务平台。</p>
 			<p class="intro-line">平台目前覆盖全国，为用户提供借款服务。</p>
+
 		</div>
 		<div class="shadow-box contact-box">
 			<h2 class="contact-title">
@@ -47,6 +48,7 @@
 
 		<button type="button" class="log-bttn logout" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" class="log-bttn login" @click='login' v-if='accountName=="请登录"'>登录</button>
+
 
 		<remind :remind='remind'></remind>
 	</div>
