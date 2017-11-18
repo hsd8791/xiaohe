@@ -34,7 +34,7 @@
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 
 		</div>
-		<div class="container auditing" v-if='1' audit-ctrl='no-apply'>
+		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
 			无申请记录
 		</div>
 		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>

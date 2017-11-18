@@ -13,7 +13,8 @@ import index from '../components/index.vue'
 import Identity from '../components/info_identity.vue'
 import Profile from '../components/info_profile.vue'
 import JobInfo from '../components/info_job_info.vue'
-import ContactWay from '../components/info_contact_way.vue'
+// import ContactWay from '../components/info_contact_way.vue'
+import otherInfo from '../components/info_other.vue'
 import Upload from '../components/info_upload.vue'
 import Zhima from '../components/info_zhima.vue'
 import Debt from '../components/info_debt.vue'
@@ -110,7 +111,7 @@ indexRoutes = indexRoutes.concat(
 	newRoute(['/index/identity', '/*/identity'], 'Identity', Identity),
 	newRoute(['/index/profile', '/*/profile'], 'Profile', Profile),
 	newRoute(['/index/job_info', '/*/job_info'], 'JobInfo', JobInfo),
-	newRoute(['/index/contact_way', '/*/contact_way'], 'ContactWay', ContactWay),
+	newRoute(['/index/other', '/*/other'], 'other', otherInfo),
 	newRoute(['/index/upload', '/*/upload'], 'Upload', Upload),
 	newRoute(['/index/zhima', '/*/zhima'], 'Zhima', Zhima),
 	newRoute(['/index/debt', '/*/debt'], 'Debt', Debt),

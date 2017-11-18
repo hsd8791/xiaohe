@@ -93,7 +93,7 @@
 // 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
 // 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
 // 				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
-// 				{title:'其他信息',link:'/contact_way',icon:'icon-phone',},
+// 				{title:'其他信息',link:'/other',icon:'icon-phone',},
 // 				],
 // 				[
 // 				// {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
@@ -148,7 +148,7 @@
 				  // 	status:status.liabilities},
 				  ],
 				  [
-				  {title:'其他信息',link:'/contact_way',icon:'icon-phone',
+				  {title:'其他信息',link:'/other',icon:'icon-phone',
 				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
 				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
 				  	status:status.contact&&status.relatives&&status.liabilities,},

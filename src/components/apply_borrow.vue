@@ -144,7 +144,7 @@
 					}, 
 					{
 						status: 0,
-						url: '/index/apply_borrow/contact_way',
+						url: '/index/apply_borrow/other',
 						label: '其他信息',
 						getUrl: 'userInfo/liabilities',
 
@@ -181,7 +181,7 @@
 						{
 							status: 0,
 							status2: 0,
-							url: '/index/apply_borrow/contact_way',
+							url: '/index/apply_borrow/other',
 							label: '其他信息',
 							getUrl: 'userInfo/contact',
 							getUrl2: 'userInfo/relatives',

@@ -5,6 +5,7 @@
 				<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 			</h1>
 		<div class="container">
+			<h2 class="sub-title ">个人概况</h2>
 			<div class="wraper">
 				<label>学历：</label>
 				<el-select :disabled='!editing' v-model="education" placeholder="请选择">
