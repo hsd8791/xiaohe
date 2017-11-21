@@ -8,8 +8,8 @@
 				审核拒绝
 			</p>
 			<div class="auditing-remark">
-				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
+				<!-- <p class="auditing-description">审核意见：{{auditingRemark}}</p> -->
+        <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
 			</div>
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
@@ -38,7 +38,7 @@
 			</p>
 			<div class="auditing-remark">
 				<p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p>
-				<p class="auditing-description">审核意见：{{auditingRemark}}</p>
+        <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
 			</div>
 		</div>
 		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
@@ -82,6 +82,7 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
+		<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
 <!-- 		<div class="dscrp-container">
 			<div class="dscrp-part">
@@ -281,6 +282,9 @@
 				},
 			},
 			computed: {
+				noApplyRecord(){
+				  return this.applyRecord.apply_id===undefined
+				},
 				actions() {
 					var l = this.loanInfo
 						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
