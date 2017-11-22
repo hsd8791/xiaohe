@@ -42,7 +42,7 @@ $disabledColor:#777;
 	width: 100%;
 	.title{
 		// background:#37383b;
-		background:#2c65b9;
+		background:$mainColor;
 		color:#fff;
 		// background:#dfdfdf;
 		padding:0.13rem 0;
@@ -714,6 +714,77 @@ p.audit-remark{
 	}
 }
 
+#loanDealVue{
+	.container{
+		background:#fff;
+		margin-bottom: 0.15rem;
+	}
+	.price-box:last-child{
+		border-bottom-width: 0px;
+	}
+	.price-box{
+		margin-left: 0.15rem;
+		border:0px solid #c3c3c3;
+		border-bottom-width: 1px;
+		position: relative;
+		height: 0.5rem;
+		.amount-label{
+			font-size: 0.14rem;
+			display:block;
+			position: absolute;
+			left: 0;top:0;
+			width:50%;
+			height: 100%;
+			text-align: left;
+			color: #363636;
+			line-height: 0.5rem;
+		}
+		.amount{
+			color:$mainColor;
+			font-weight: bold;
+			font-size: 0.14rem;
+			margin-left: 50%;
+			text-align: right;
+			line-height: 0.5rem;
+			padding-right: 0.15rem;
+		}
+		.custom-pay{
+			color:$mainColor;
+			font-weight: bold;
+			font-size: 0.14rem;
+			margin-left: 50%;
+			text-align: right;
+			line-height: 0.5rem;
+			padding-right: 0.15rem;
+			width:50%;
+			border:0;
+			height: 100%;
+			.el-input__inner{
+				border:0;
+				text-align: right;
+				padding:0;
+				font-size: 0.16rem;
+				height: 100%;
+			}
+		}
+	}
+	.total-price{
+		.amount-label{
+			color: #999999;
+		}
+		.amount{
+			color:#999999;
+		}
+	}
+	.amount-emphasis{
+	  font-size: 0.4rem;
+	}
+	.description{
+		margin: 0.15rem;
+		// text-align: left;
+	}
+}
+
 // foot navigation
 $navColor:#8f8e94;
 $navHeight:0.44rem;
@@ -726,7 +797,7 @@ $navBackground:#fff;
 	height: $navHeight;
 	bottom: 0;
 	display: flex;
-  // border: 0px solid #efeff4;
+  border: 0px solid #d3d3d3;
   border-top-width: 1px;
   .nav-btn{
   	-webkit-tap-highlight-color: transparent;
@@ -784,9 +855,10 @@ $navBackground:#fff;
 	width: 100%;
 	overflow: scroll;
 	overflow-x: hidden;
+	background:#f3f3f3;
 }
 .show-foot{
-	margin-bottom: 0.5rem;
+	margin-bottom: 0.44rem;
 
 }
 

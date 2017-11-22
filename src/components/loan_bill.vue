@@ -34,9 +34,8 @@
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
 
 		</div>
-		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
-			无申请记录
-		</div>
+
+		<no-apply  v-if='(!loanInfo)&&auditing==null'></no-apply>
 		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
 
 		<div class="input" v-if='auditing===2 || applyRecord.quotaStatus===3' audit-ctrl='reapply'>
@@ -95,6 +94,7 @@
 <script>
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
+	import noApply from './views/no-apply.vue'
 	import quota from './views/quota.vue'
 	import reAudit from './views/re-auditing.vue'
 	export default {
@@ -319,6 +319,7 @@
 			components: {
 				'app-quota':quota,
 				're-audit':reAudit,
+				'no-apply':noApply,
 			}
 	}
 </script>
@@ -327,6 +328,7 @@
 	.link{
 		color:#2447D1;
 	}
+	
 /*<<<<<<< HEAD*/
 	
 	.more-loan{

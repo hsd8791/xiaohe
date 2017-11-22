@@ -5,6 +5,8 @@
 				<app-back></app-back>
 				{{action|actionParser}}
 			</h1>
+    </div>
+
 <!-- 			<div>
 				续期费:￥{{reBorrowFee | moneyParser}}
 				逾期费:￥{{overdueFee | moneyParser}}
@@ -12,41 +14,33 @@
 			</div> -->
 
       <div class="container phone-lender" >
-
-        <div class="wraper" v-if="action=='renewal'">
-          <label class="amout-label">续期费用：</label>
+        <div class="price-box" v-if="action=='renewal'">
+          <label class="amount-label">续期费用：</label>
           <div class="amount">{{reBorrowFee | moneyParser}}</div>
         </div>
-        <!-- <div class="wraper" v-if="action=='special'||action=='renewal'"> -->
-
-        <div class="wraper" v-if="action=='reborrow'">
-          <label class="amout-label">重借金额：</label>
+        <div class="price-box" v-if="action=='reborrow'">
+          <label class="amount-label">重借金额：</label>
           <div class="amount">{{moneyFee | moneyParser}}</div>
         </div>
-<!--         <div class="wraper" v-if="true">
-          <label class="amout-label">逾期费用：</label>
-          <div class="amount">{{overdueFee | moneyParser}}</div>
-        </div> -->
-        <div class="wraper" v-if="action==='repay'">
-          <label class="amout-label">还款费用：</label>
+        <div class="price-box" v-if="action==='repay'">
+          <label class="amount-label">还款费用：</label>
           <div class="amount">{{repaymentFee | moneyParser}}</div>
         </div>
-      </div>
-      <div class="container">
-        <div class="wraper"  v-if="action!=='special'&&action!=='reborrow'">
-          <label class="amout-label">总和：</label>
-          <div class="amount">{{ttlFee | moneyParser}}</div>
+      <!-- </div>
+      <div class="container"> -->
+        <div class="price-box total-price"  v-if="action!=='special'&&action!=='reborrow'">
+          <label class="amount-label">总和：</label>
+          <div class="amount">{{ttlFee | moneyParser}}元</div>
         </div>
-        <div class="wraper" v-if="action=='special'">
-          <label class="amout-label">支付:</label>
+        <div class="price-box" v-if="action=='special'">
+          <label class="amount-label">支付:</label>
           <el-input class='custom-pay' id='specialInput' v-model='specialAmount'  placeholder="0.00" type='number' @blur.once='blured'  :class='{"valid-border":specialAmountValid,"error-border":!specialAmountValid}'></el-input>
-          <!-- <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i> -->
         </div>
       </div>
       <div class="amount-emphasis" >￥{{amount | amountParser}}</div>
-      <el-button type='success' @click='submit' :disabled='amount==0||(action=="special"&&!specialAmountValid)'  >{{submitText}}</el-button>
-
-    </div>
+      <div class="input">
+        <el-button type='success' @click='submit' :disabled='amount==0||(action=="special"&&!specialAmountValid)'  >{{submitText}}</el-button>
+      </div>
     <p class="description" v-if='action=="special"'>
       说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
     </p>
@@ -296,19 +290,18 @@ export default {
 </script>
 
     <style lang='scss' scoped>
-      .amount{
+      /*.amount{
         height: 0.4rem;
         font-size: 0.20rem;
         text-align: right;
         padding-right: 0.15rem;
         line-height: 0.4rem;
-        /*font-weight: bold;*/
       }
       #loanDealVue{
         .phone-lender{
           margin-top:0.2rem;
         }
-        .amout-label{
+        .amount-label{
           color:#8e8e8e;
         }
       }
@@ -320,17 +313,9 @@ export default {
         margin:0.2rem;
         text-align:left;
         line-height: 1.6;
-      }
+      }*/
 
     </style>
     <style lang='scss'>
-      #loanDealVue{
-        .el-input__inner{
-          text-align: right;
-          padding-right:0.15rem;
-          font-size: 0.20rem;
-          /*font-weight: bold;*/
-        }
-      }
 
     </style>
