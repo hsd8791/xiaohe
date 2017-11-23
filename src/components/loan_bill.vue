@@ -35,7 +35,7 @@
 
 		</div>
 
-		<no-apply  v-if='(!loanInfo)&&auditing==null'></no-apply>
+		<no-apply  v-if='(!loanInfo)&&auditing===null&&auditing!==""'></no-apply>
 		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
 
 		<div class="input" v-if='auditing===2 || applyRecord.quotaStatus===3' audit-ctrl='reapply'>
@@ -103,7 +103,7 @@
 					response: null,
 					applyRecord:{},
 					auditingRemark:null,
-					auditing: null,
+					auditing: '',
 					loanInfo: null,
 					loading: true,
 					editing: true,
@@ -254,6 +254,7 @@
 							this.phoneLender = data.phone
 							this.applyRecord = data
 						} else {
+							this.auditing = null
 						}
 					}
 					publicFun.get(this.url, this, () => {

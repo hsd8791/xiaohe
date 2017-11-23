@@ -1,21 +1,23 @@
 <template>
 	<div id="cardBindView">
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
-			<div class="container">
-				<div class="wraper">
-          <label class="label" :disabled='!editing'>姓名：</label> 
-          <el-input :disabled='true'   placeholder='' v-model='name' @blur.once='blured'  :class='{"valid-border":nameValid,"error-border":!nameValid}'></el-input>
+        <img src="../../assets/xh/bankcard.png" alt="" class="card-pic">
+      <div class="bankcard-container">
+				<div class="horizontal-input-box">
+          <label class="horizontal-label" :disabled='!editing'>姓名：</label> 
+          <el-input :disabled='true'   placeholder=''  class='horizontal-input   name-box'v-model='name' @blur.once='blured'  :class='{"valid-border":nameValid,"error-border":!nameValid}'></el-input>
           <i class="icon-warning" @click='nameRemind'></i>
         </div>
-  			<div class="wraper">
-  				<label class="label" :disabled='!editing'>银行卡：</label> 
-  				<el-input :disabled='false'  type='number' placeholder='仅支持储蓄卡' v-model='bankcard' @blur.once='blured'  :class='{"valid-border":bankcardValid,"error-border":!bankcardValid}'></el-input>
+  			<div class="horizontal-input-box">
+  				<label class="horizontal-label" :disabled='!editing'>银行卡：</label> 
+  				<el-input :disabled='false'  type='number' class='horizontal-input ' placeholder='仅支持储蓄卡' v-model='bankcard' @blur.once='blured'  :class='{"valid-border":bankcardValid,"error-border":!bankcardValid}'></el-input>
   				<!-- <i :class="{'el-icon-check':bankcardValid,'el-icon-close':!bankcardValid}"></i> -->
   			</div>
 			</div>
-      <div class="card-remind">
-        <p>支持以下银行储蓄卡：工商银行、农业银行、中国银行、建设银行、储蓄银行、广发银行、光大银行、中信银行、兴业银行、交通银行、浦发银行、平安银行、民生银行、华夏银行、招商银行</p>
-      </div>
+        <p  class="card-remind">支持以下银行储蓄卡：</p>
+        <p  class="card-remind">工商银行 / 农业银行 / 中国银行 / 建设银行 / 民生银行 /</p>
+        <p  class="card-remind">储蓄银行 / 广发银行 / 光大银行 / 中信银行 / 华夏银行 /</p>
+        <p  class="card-remind">兴业银行 / 交通银行 / 浦发银行 / 平安银行 / 招商银行 </p>
 			<el-button type='success' :disabled='!bankcardValid' class='submit'  @click='submit'>提交</el-button>
 		</div>
 		<remind :remind='remind'></remind>
@@ -97,18 +99,56 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss' >
 #cardBindView{
 
-  .icon-warning{
-    color:#09bb07;
-    opacity: 1; 
-  }
+}
+
+#cardBindView{
   .card-remind{
-    padding:0.1rem 0.2rem;
+    /*padding:0.1rem 0.2rem;*/
+    margin:0.1rem 0.15rem;
     font-size: 0.14rem;
     text-align: left;
-    line-height: 1.4;
+    line-height: 1;
+
+    color: #999999;
+  }
+  .card-pic{
+    width: 3.45rem;
+    margin: 0.2rem 0;
+  }
+  .submit{
+    margin-top: 0.6rem;
+  }
+  .icon-warning{
+    display: block;
+    height: 0.16rem;
+    color:#09bb07;
+    opacity: 1; 
+    position: absolute;
+    top: 0;bottom: 0;
+    margin:auto 0;
+    right: 0.1rem;
+  }
+  .bankcard-container{
+    background: #fff;
+    .name-box{
+      input.el-input__inner{
+        /*border:1px solid red;*/
+        padding-right: 0.15rem;
+      }
+    }
+
+   /* .input-box{
+      height: 0.5rem;
+      .label{
+        position: absolute;
+        left: 0;top: 0;
+      }
+    }*/
   }
 }
+
 </style>
+

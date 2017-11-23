@@ -14,27 +14,27 @@
 			</div> -->
 
       <div class="container phone-lender" >
-        <div class="price-box" v-if="action=='renewal'">
-          <label class="amount-label">续期费用：</label>
-          <div class="amount">{{reBorrowFee | moneyParser}}</div>
+        <div class="horizontal-input-box" v-if="action=='renewal'">
+          <label class="horizontal-label">续期费用：</label>
+          <div class="horizontal-text">{{reBorrowFee | moneyParser}}</div>
         </div>
-        <div class="price-box" v-if="action=='reborrow'">
-          <label class="amount-label">重借金额：</label>
-          <div class="amount">{{moneyFee | moneyParser}}</div>
+        <div class="horizontal-input-box" v-if="action=='reborrow'">
+          <label class="horizontal-label">重借金额：</label>
+          <div class="horizontal-text">{{moneyFee | moneyParser}}</div>
         </div>
-        <div class="price-box" v-if="action==='repay'">
-          <label class="amount-label">还款费用：</label>
-          <div class="amount">{{repaymentFee | moneyParser}}</div>
+        <div class="horizontal-input-box" v-if="action==='repay'">
+          <label class="horizontal-label">还款费用：</label>
+          <div class="horizontal-text">{{repaymentFee | moneyParser}}</div>
         </div>
       <!-- </div>
       <div class="container"> -->
-        <div class="price-box total-price"  v-if="action!=='special'&&action!=='reborrow'">
-          <label class="amount-label">总和：</label>
-          <div class="amount">{{ttlFee | moneyParser}}元</div>
+        <div class="horizontal-input-box total-price"  v-if="action!=='special'&&action!=='reborrow'">
+          <label class="horizontal-label">总和：</label>
+          <div class="horizontal-text">{{ttlFee | moneyParser}}元</div>
         </div>
-        <div class="price-box" v-if="action=='special'">
-          <label class="amount-label">支付:</label>
-          <el-input class='custom-pay' id='specialInput' v-model='specialAmount'  placeholder="0.00" type='number' @blur.once='blured'  :class='{"valid-border":specialAmountValid,"error-border":!specialAmountValid}'></el-input>
+        <div class="horizontal-input-box" v-if="action=='special'">
+          <label class="horizontal-label">支付:</label>
+          <el-input class='horizontal-input' id='specialInput' v-model='specialAmount'  placeholder="0.00" type='number' @blur.once='blured'  :class='{"valid-border":specialAmountValid,"error-border":!specialAmountValid}'></el-input>
         </div>
       </div>
       <div class="amount-emphasis" >￥{{amount | amountParser}}</div>
@@ -301,7 +301,7 @@ export default {
         .phone-lender{
           margin-top:0.2rem;
         }
-        .amount-label{
+        .horizontal-label{
           color:#8e8e8e;
         }
       }
