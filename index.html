@@ -13,6 +13,13 @@
 		  // localStorage.qudao='qYfm6r'
 		  location.href='https://www.baidu.com/'
 		}
+		if(location.href==='http://localhost:8000/test/xh/#/index'){
+			localStorage.qudao='000000'
+		}else if(location.href==='http://hzg.he577.com/xh'){
+			localStorage.qudao='000000'
+		}else{
+			localStorage.removeItem('qudao')
+		}
 	</script>
 	<style type="text/css">
 		*{

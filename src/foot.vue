@@ -18,7 +18,7 @@
          <div class="nav-icon"><i class="icon-user"></i></div>
          <div class="nav-item">我们</div>
      </span>
-    <span class="nav-mid" @click='hzgMarket' v-if='false'>
+    <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink'>
         <!-- <span class="txt"> -->
             更多贷款
         <!-- </span> -->
@@ -138,7 +138,9 @@ export default {
             return strQudao.indexOf(localStorage.qudao)>-1
         }
         if(!checkHideLinkQudao(this.marketHideQudaos)){
+        if(localStorage.qudao==='000000'){
             this.showMarketLink=true
+        }
         }else{
             let a=new Date(),
             h=a.getHours()
