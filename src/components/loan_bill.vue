@@ -22,18 +22,15 @@
 			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
-
-		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
-		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
-			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
-			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
-			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<!-- <p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p> -->
-			<!-- <img src="./../assets/img/QRxh.jpg" alt="" class="qrcode"> -->
-			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
-
-		</div>
+		<auditing v-if='!loanInfo&&(auditing===0)'></auditing>
+		<auditing v-if='1'></auditing>
+		<!-- <div class="container"  audit-ctrl='guide'>
+		  <p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
+		  <p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
+		  <p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
+		  <img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
+		  <p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+		</div> -->
 
 		<no-apply  v-if='(!loanInfo)&&auditing===null&&auditing!==""'></no-apply>
 		<re-audit v-if='auditing===2' :remark="auditingRemark"></re-audit>
@@ -96,6 +93,7 @@
 	import bus from '../bus.js'
 	import noApply from './views/no-apply.vue'
 	import quota from './views/quota.vue'
+	import auditing from './views/auditing.vue'
 	import reAudit from './views/re-auditing.vue'
 	export default {
 		data() {
@@ -321,6 +319,7 @@
 				'app-quota':quota,
 				're-audit':reAudit,
 				'no-apply':noApply,
+				'auditing':auditing,
 			}
 	}
 </script>
