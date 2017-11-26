@@ -23,7 +23,7 @@
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 
 		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
-		<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
+			<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
@@ -48,8 +48,9 @@
 		<div class="input" v-if='auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3)' audit-ctrl='reapply'>
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
-		<!-- <div class="container" v-if='true'> -->
-		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
+		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
+
+		<div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">借款金额</span>
@@ -328,6 +329,9 @@
 
 					return temp
 				},
+				needRepayment(){
+					return this.loanInfo&&this.loanInfo.status!==3
+				}
 			},
 			events: {},
 			components: {
