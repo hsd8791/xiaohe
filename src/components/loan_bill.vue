@@ -30,7 +30,7 @@
 			<!-- <p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p> -->
 			<!-- <img src="./../assets/img/QRxh.jpg" alt="" class="qrcode"> -->
 			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+			<p class="remind">点击<span class="link" @click='hzgMarket'>【贷款超市】</span>可以直接申请其他贷款</p>
 
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
@@ -84,7 +84,7 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
-			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【更多贷款】</span>可以直接申请其他贷款</p>
+			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【贷款超市】</span>可以直接申请其他贷款</p>
 		
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
 <!-- 		<div class="dscrp-container">

@@ -1,5 +1,5 @@
 <template>
-	<div id="contactsVue">
+	<div id="contactsVue" v-if='showContacts'>
 		<div class="bar">
 			
 			<ul :class="{'active':isOpen}">
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import bus from './bus.js'
 	export default {
 		data() {
 				return {
@@ -95,6 +96,15 @@
 				baibai: function() {
 					this.qrcode = 0;
 				}
+			},
+			computed:{
+			  showContacts(){
+			  	console.log('localStorage.qudao,',localStorage.qudao,bus.account)
+			    if(localStorage.qudao==='QbERzq'&&bus.account==='请登录'){
+			    	return false
+			    }
+			    return true
+			  },
 			},
 			events: {},
 			components: {}

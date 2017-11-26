@@ -20,7 +20,7 @@
      </span>
     <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink'>
         <!-- <span class="txt"> -->
-            更多贷款
+            贷款超市
         <!-- </span> -->
     </span>
  </div>
