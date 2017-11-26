@@ -48,7 +48,7 @@
 			<el-button type='success' @click='reapply' > 重新申请</el-button>
 		</div>
 		<!-- <div class="container" v-if='true'> -->
-		<div class="container" v-if='auditing===3&&loanInfo' audit-ctrl='bill-status' >
+		<div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">借款金额</span>
@@ -322,6 +322,9 @@
 						temp.reborrow.show=(l.status===3 || l.status===2)
 
 					return temp
+				},
+				needRepayment(){
+				  return this.loanInfo&&this.loanInfo.status!==3
 				},
 			},
 			events: {},
