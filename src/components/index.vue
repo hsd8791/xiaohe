@@ -1,5 +1,5 @@
 <template>
-	<div id="indexVue" class="fixed-title-page">
+	<div id="indexVue" class="fixed-title-page identification">
 		<remind :remind='remind'></remind>
 		<!-- <h3 class="title">操作</h3> -->
 		<!-- <div class="container">
@@ -24,13 +24,10 @@
 		<div class="input">
 			<h1 class="title" style="text-align: center;">认证信息</h1>
 		</div>
-		<h3 class='sub-title first-title'>必填认证信息</h3>
+		<h3 class='section-title first-title'>必填认证信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in essentialCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
-					<!-- <i class="input-status icon-document-edit " v-if='cell.status===0'></i> -->
-					<!-- <i class="input-status icon-spinner " v-if='cell.status===-1'></i> -->
-					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
 					<div class="item-icon">
 						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
 						<img :src="cell.imgNotfilled" v-if='cell.status!==1' class="icon">
@@ -41,13 +38,10 @@
 			</div>
 		</div>
 		<div class="separator"></div>
-		<h3 class="sub-title option-title">可选认证信息</h3>
+		<h3 class="section-title option-title">可选认证信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
-					<!-- <i class="input-status icon-document-edit " v-if='cell.status===0'></i> -->
-					<!-- <i class="input-status icon-spinner " v-if='cell.status===-1'></i> -->
-					<!-- <i class="input-status icon-input-checked " v-if='cell.status===1'></i> -->
 					<div class="item-icon">
 						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
 						<img :src="cell.imgNotfilled" v-if='cell.status!==1' class="icon">
@@ -174,113 +168,12 @@
 </script>
 
 <style lang='scss' scoped>
-	/*$cellBorder:#c3c3c3;*/
-	$borderColor:#c3c3c3;
-	$cellHeight:1.12rem;
-	$cellWidth:1.25rem;
-	/*445/2*/
-	$itemNameColor:#363636;
-	/*#323233;*/
-	$itemIconColor:#8f8e94;
-	$bgColor:#fff;
-	h3.first-title{
-		/*margin-top: 1.52rem;*/
-	}
-	.cell{
-		background: transparent;
-		position: relative;
-		padding-top: 0.31em;
-		overflow: visible;
-		.item-icon{
-			margin:0.2rem 0 0;
-			/*border:1px solid red;*/
-			.icon{
-				height: 0.33rem;
-			}
-			i{
-				font-size:0.24rem;
-				line-height: 1.4;
-				color:$itemIconColor;
-			}
-		}
-		.item-name{
-			font-size:0.14rem;
-			color:$itemNameColor;
-			padding-top: 0.15rem;
-			/*border:1px solid red;*/
-		}
-
-		&:before{
-			content:'';
-			height: 0.44rem;
-			width: 1px;
-			background: #e3e3e3;
-			position: absolute;
-			right: -1px;
-			top: 0.37rem;
-
-		}
-	}
-	.input-status{
-		position: absolute;
-    right: 0.05rem;
-    top: 0.05rem;
-    font-size: 0.15rem;
-    /*display: none;*/
-	}
-	.container{
-		/*margin-bottom: 0.15em;*/
-		background: $bgColor;
-		.cell{
-			box-sizing: border-box;
-			width: $cellWidth;
-			height: $cellHeight;
-			
-		}
-		.cell:nth-child(4){
-			border-right-width: 0px;
-		}
-		.row{
-			display: flex;
-			box-sizing: border-box;
-		}
-		.row:first-child{
-			border-top-width: 0.5px;
-		}
-	}
 
 
-	.sub-title{
-		background: $bgColor;
-		border:0px solid $borderColor;
-		border-bottom-width: 1px;
-		text-align: left;
-		padding-left: 0.3rem;
-		color:#757575;
-		position: relative;
-		height: 0.46rem;
-		line-height: 0.46rem;
-		font-size: 0.16rem;
-		&:before{
-			content:'';
-			width: 0.05rem;
-			height: 0.16rem;
-			border-radius: 2px;
-			background:#5494f3;
-			position: absolute;
-			left: 0.15rem;top:0;bottom: 0;
-			margin:auto 0;
-		}
-	}
-	h3.title:first-child{
-	}
+
+
 	.separator{
 		height: 0.15rem;
-		/*background: */
 	}
-	.banner{
-		width: 100%;
-		position: fixed;
-		top: 0;left: 0;
-	}
+	
 </style>

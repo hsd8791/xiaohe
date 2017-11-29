@@ -26,6 +26,20 @@
 		</div>
 		<el-button type='success' class="confirm" @click='applyBorrow' :disabled='!(canApply&&allFilled&&amountValid)'>点击申请</el-button>
 		<!-- <el-button type='success' class="confirm" @click='applyBorrow' :disabled='!(canApply&&allFilled&&norecord)'>点击申请</el-button> -->
+		<h3 class="section-title">请完成以下信息后提交</h3>
+		<div class="container">
+			<div class="row" v-for='row in cellTest'>
+				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+					<div class="item-icon">
+						<img :src="cell.imgFilled" v-if='cell.status===1'  class="icon">
+						<img :src="cell.imgNotfilled" v-if='cell.status!==1' class="icon">
+						<!-- <i :class="cell.icon"></i> -->
+					</div>
+					<div class="item-name">{{cell.title}}</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div class="fill-status " v-if='!allFilled'>
 			<h3 class="subtitle">请完成以下信息后提交</h3>
@@ -41,11 +55,13 @@
 				</div> -->
 			</div>
 		</div>
-		<remind :remind='remind'></remind>
+		<!-- <remind :remind='remind'></remind> -->
 	</div>
 </template>
 
 <script>
+//借款金额
+//点击申请
 	import publicFun from '../js/public.js'
 	// import checkFill from '../js/checkFill.js'
 	import bus from '../bus.js'
@@ -536,6 +552,39 @@
 				}
 			},
 			computed: {
+				  cellTest(){
+				  	let status=bus.fillStatus
+				  	return [[
+						  {title:'身份认证',link:'/identity',icon:'icon-identify',
+						  	imgFilled:'../../static/xh/icon-identify.png',
+						  	imgNotfilled:'../../static/xh/icon-identify-enable.png',
+						  	status:status.identity},
+						 {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
+						 	imgFilled:require('../assets/'+this.___subName+'/icon-zhima.png'),
+						 	imgNotfilled:require('../assets/'+this.___subName+'/icon-zhima-enable.png'),
+						 	status:status.zmAuth},
+						  // {title:'身份证上传',link:'/upload',icon:'icon-upload',
+						  // 	imgFilled:require('../assets/'+this.___subName+'/icon-id-upload.png'),
+						  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-id-upload-enable.png'),
+						  // 	status:status.idcardPic},
+						  
+						  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
+						  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
+						  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
+						  	status:status.sjmh},
+						  // {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
+						  // 	imgFilled:require('../assets/'+this.___subName+'/icon-debt.png'),
+						  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-debt.png'),
+						  // 	status:status.liabilities},
+						  ],
+						  [
+						  {title:'其他信息',link:'/other',icon:'icon-phone',
+						  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
+						  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
+						  	status:status.contact&&status.relatives&&status.liabilities,},
+						  
+						 ],]
+					},
 				phoneLenderValid: function() {
 					var reg = publicFun.reg.cellphone
 					return reg.test(this.phoneLender)

@@ -292,6 +292,7 @@ $mainColor:#5494f3;
 	background: linear-gradient(145deg,  #5494f3 0%,#5494f3 40%,#3078e3 40%, #3078e3 100%);
 	.title{
 		color:#6ff792;
+		background: #2c65b9;
 	}
 	.container{
 		/*margin-top: 2rem;*/

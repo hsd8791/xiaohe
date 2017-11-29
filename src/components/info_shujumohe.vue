@@ -28,6 +28,12 @@
 
 			</div>
 		</div>
+		<div class="shadow-box">
+			<p class="shujumohe-status">{{queryRslt.status | statusParse}}</p>
+			<p class="shujumohe-status">查询时间：{{queryRslt.time | timeParse}}</p>
+
+			<img src="../assets/xh/img-phone.png" alt="" class="start-bind-pic">
+		</div>
 		<!-- <a href="https://open.shujumohe.com/box/yys?box_token=BB2D93B9B972461A989EB491C1C3EE23&real_name=黄树栋&identity_code=321282199902022222&user_mobile=13816938525&cb=http%3A%2F%2Flocalhost%3A8080%2Fm%2F%23%2Fshujumoh">1111</a>
 		<a href="https://open.shujumohe.com/box/yys?box_token=BB2D93B9B972461A989EB491C1C3EE23&real_name=lalala&identity_code=321282199902022222&user_mobile=13816938525&cb=http%3A%2F%2Flocalhost%3A8080%2Fm%2F%23%2Fshujumoh">full</a>
 		<a href="https://open.shujumohe.com/box/yys?box_token=BB2D93B9B972461A989EB491C1C3EE23&real_name=lalala">real_name</a>
@@ -196,7 +202,6 @@
 				}
 				switch (val) {
 					case 'doing':
-					
 						s = '等待用户处理或服务器完成查询'
 						break;
 					case 'success':
@@ -219,7 +224,7 @@
 		events: {},
 		components: {
 			remind:remind,
-		}
+		},
 	}
 </script>
 
@@ -281,5 +286,17 @@
 			}
 			*/
 		}
+	}
+</style>
+<style type="text/css">
+	.start-bind-pic{
+		width: 1.12rem;
+		margin-top: 0.3rem;
+		margin-bottom: -0.05rem;
+	}
+	.shujumohe-status{
+		font-size: 0.14rem;
+		color: #999999;
+		margin-top: 0.3rem;
 	}
 </style>

@@ -301,6 +301,7 @@
 	}
 	.title{
 		color:#6ff792;
+		background: #2c65b9;
 	}
 	.getVerify{
 		/*position: absolute;*/

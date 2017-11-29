@@ -1,9 +1,10 @@
 <template>
 	<div id="profileVue" class='input fixed-title-page' >
-			<h1 class="title" v-loading='loading' element-loading-text='请稍后'>
+			<h1 class="title" >
 				<app-back></app-back>个人信息
 				<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 			</h1>
+			<div v-loading='loading' element-loading-text='请稍后'></div>
 		<div class="container">
 			<h2 class="sub-title ">个人概况</h2>
 			<div class="wraper">
@@ -235,31 +236,46 @@
 					this.formData[dataKey]=null
 				}
 			},
+			addMapJs(){
+				this.loading=true
+			  var mapScript=document.createElement('script')
+			  mapScript.setAttribute('id','AMAP')
+			  var mapSrc='http://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
+			  mapScript.src=mapSrc
+			  document.body.appendChild(mapScript)
+			  return mapScript
+			},
 		},
 		created:function(){
 			var self_=this
-			// var mapScript=document.createElement('script')
-			// var mapSrc='http://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
-			// mapScript.src=mapSrc
-			// document.body.appendChild(mapScript)
-			// mapScript.onload=function(){
-			// 	console.log('amap loaded')
-			// 	AMap.service('AMap.DistrictSearch',function(){
-			// 		self_.districtSearch = new AMap.DistrictSearch({
-			// 			level : 'country',  
-			// 			subdistrict : 3    
-			// 		});
-			// 		self_.districtSearch.search('中国',function(status,result){
-			// 			var searchRslt=result.districtList[0].districtList
-			// 			self_.options.province=[]
-			// 			var len=searchRslt.length,i
-			// 			for(i=0;i<len;i++){
-			// 				self_.options.province.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
-			// 			}
-			// 			self_.get()
-			// 		})
-			// 	})
-			// }
+			var mapScript=document.querySelector('#AMAP')
+			var configMap=()=>{
+				AMap.service('AMap.DistrictSearch',function(){
+					self_.districtSearch = new AMap.DistrictSearch({
+						level : 'country',  
+						subdistrict : 3    
+					});
+					self_.districtSearch.search('中国',function(status,result){
+						var searchRslt=result.districtList[0].districtList
+						self_.options.province=[]
+						var len=searchRslt.length,i
+						for(i=0;i<len;i++){
+							self_.options.province.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
+						}
+						self_.get()
+					})
+				})
+			}
+			if(!mapScript){
+				mapScript=this.addMapJs()
+				mapScript.onload=function(){
+					configMap()
+				}
+			}else{
+				configMap()
+			}
+
+
 
 		},
 		watch:{
