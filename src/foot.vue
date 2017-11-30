@@ -158,6 +158,14 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
+/*    .foot-nav{
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        border: 0px solid #d3d3d3;
+        border-top-width: 1px;
+    }*/
 	.hide-foot{
 		display: none;
 	}

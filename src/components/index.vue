@@ -113,54 +113,13 @@
 			publicFun.checkSession(this)
 		},
 		computed:{
-		  fillStatus(){
-		    return bus.fillStatus
-		  },
-		  essentialCell(){
-		  	let status=bus.fillStatus
-		  	return [[
-				  {title:'身份认证',link:'/identity',icon:'icon-identify',
-				  	imgFilled:'../../static/xh/icon-identify.png',
-				  	imgNotfilled:'../../static/xh/icon-identify-enable.png',
-				  	status:status.identity},
-				 {title:'芝麻认证',link:'/zhima',icon:'icon-zhima',
-				 	imgFilled:require('../assets/'+this.___subName+'/icon-zhima.png'),
-				 	imgNotfilled:require('../assets/'+this.___subName+'/icon-zhima-enable.png'),
-				 	status:status.zmAuth},
-				  // {title:'身份证上传',link:'/upload',icon:'icon-upload',
-				  // 	imgFilled:require('../assets/'+this.___subName+'/icon-id-upload.png'),
-				  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-id-upload-enable.png'),
-				  // 	status:status.idcardPic},
-				  
-				  {title:'手机认证',link:'/shujumohe',icon:'icon-mobile',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
-				  	status:status.sjmh},
-				  // {title:'负债调查',link:'/debt',icon:'icon-coin-yen',
-				  // 	imgFilled:require('../assets/'+this.___subName+'/icon-debt.png'),
-				  // 	imgNotfilled:require('../assets/'+this.___subName+'/icon-debt.png'),
-				  // 	status:status.liabilities},
-				  ],
-				  [
-				  {title:'其他信息',link:'/other',icon:'icon-phone',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-phone.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-phone-enable.png'),
-				  	status:status.contact&&status.relatives&&status.liabilities,},
-				  
-				 ],]
+			essentialCell(){
+			  return bus.essentialCell
 			},
-		  optionalCell(){
-		  	return[[
-				  {title:'个人概况',link:'/profile',icon:'icon-test',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-profile.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-profile-enable.png'),
-				  	status:status.personal&&status.address},
-				  {title:'工作信息',link:'/job_info',icon:'icon-profile',
-				  	imgFilled:require('../assets/'+this.___subName+'/icon-job.png'),
-				  	imgNotfilled:require('../assets/'+this.___subName+'/icon-job-enable.png'),
-				  	status:status.work},
-			  ],]
-			}
+			optionalCell(){
+			  return bus.optionalCell
+			},
+		  
 		},
 		events: {},
 		components: {}

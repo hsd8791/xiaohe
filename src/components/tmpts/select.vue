@@ -1,8 +1,13 @@
 <template>
-  <div class="el-select app-select">
+  <div class="app-select">
 
-    <div class="select-value " :style="selectValue?{}:{'color':placeholderColor}" :class="{'__disabled':disabled}">{{selectValue||placeholder}}</div>
-    <select class="select__"  @change='handleValueChange($event)' :disabled='disabled'>
+    <div class="select-value " :style="selectValue?{}:{'color':placeholderColor}" :class="{'__disabled':disabled}" >
+      <p class="text">
+        {{parsedValue||placeholder}}
+      </p>
+    </div>
+     <!-- @change='handleValueChange($event)' -->
+    <select class="select__"  :disabled='disabled' >
       <option v-for='item in options' :value="item.value" :key='item.value'>{{item.value}}</option>
       <!-- <option value ="volvo">Volvo</option>
       <option value ="saab">Saab</option>
@@ -16,7 +21,6 @@
 export default {
   data() {
     return {
-      // selectValue:'',
     }
   },
   props:{
@@ -33,11 +37,24 @@ export default {
     selectValue:{
       default:'',
     },
+    filter:{
+      default :false,
+    },
+  },
+  computed:{
+    parsedValue(){
+      console.log('process',process)
+      if(this.filter){
+        return this.filter(this.selectValue)
+      }else{
+        return this.selectValue
+      }
+    },
   },
   methods:{
     handleValueChange(e){
-      console.log('e',e,e.target)
-      this.selectValue=e.target.value
+      // console.log('e',e,e.target)
+      // this.selectValue=e.target.value
     },
   },
   created(){
@@ -54,27 +71,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-/*.app-select{
-  height: 100%;
-  height: 0.42rem;
-  .select__{
-    position: absolute;
-    top: 0;left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    height: 0.42rem;
-  }
-  .select-value{
-    font-size: 0.16rem;
-    text-align: left;
-    padding: 0 0.1rem;
-    line-height: 0.42rem;
 
-  }
-  .__disabled{
-    color:#777;
-  }
-}*/
 
 </style>

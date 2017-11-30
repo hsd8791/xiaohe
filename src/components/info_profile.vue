@@ -7,20 +7,20 @@
 			<div v-loading='loading' element-loading-text='请稍后'></div>
 		<div class="container">
 			<h2 class="sub-title ">个人概况</h2>
-			<div class="wraper">
+<!-- 			<div class="wraper">
 				<label>学历：</label>
 				<el-select :disabled='!editing' v-model="education" placeholder="请选择">
 				<el-option v-for="item in options.education" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
-			</div>
+			</div> -->
 			<div class="wraper"  >
 				<label>学历：</label>
 				<app-select :options="options.education"  v-select='education' :select-value='education' :disabled='!editing' ></app-select>
 			</div>
-			<div class="wraper">
+<!-- 			<div class="wraper">
 				<label>婚姻状况：</label>
 				<el-select :disabled='!editing' v-model="marriage" placeholder="请选择">
 				<el-option v-for="item in options.marriage" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
-			</div>
+			</div> -->
 			<div class="wraper">
 				<label>婚姻状况：</label>
 				<app-select :options="options.marriage"  v-select='marriage' :select-value='marriage' :disabled='!editing' ></app-select>

@@ -3,7 +3,7 @@
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<h1 class="title">
 				我的借款
-				<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh' @click='get'>
+				<div class=" bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh' @click='get'>
 					<i class="icon-refresh refresh-icon"></i>
 					<span>
 						刷新

@@ -233,6 +233,7 @@ publicFun.onConnectFail = function() {
 }
 publicFun.onPostIdentificationSucc = function(vm) {
 	let vmRemind=bus.remind
+	bus.checkStatus()
 	vmRemind.remindMsg = '提交成功'
 	vmRemind.remindOpts = [{
 		msg: '确定',
@@ -369,6 +370,7 @@ publicFun.postRes = function(res, vm) {
 			}
 		}
 	} else {
+		bus.checkStatus()
 		vmRemind.remindMsg = '提交成功'
 		vmRemind.remindOpts = [{
 			msg: '确定',
