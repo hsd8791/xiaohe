@@ -162,11 +162,13 @@
 			},
 			changeP: function($event) {
 				var input = $event.target.parentElement.parentElement.getElementsByTagName('input')[0]
-				console.log('input.files[0].size',input.files[0].size)
-				console.log('input.files[0].size',input.files[0].type)
-				if(input.files[0].size>3*1024*1024-10){
-					var r = this.remind
-					r.remindMsg='大小不得超过3M'
+				// console.log('input.files[0].size',input.files[0].size)
+				// console.log('input.files[0].size',input.files[0].type)
+				let size=input.files[0].size
+				let mByte=1024*1024
+				if(size>5*mByte-10){
+					let r = this.remind
+					r.remindMsg='大小不得超过5M'
 					r.isShow=true
 					return
 				}
