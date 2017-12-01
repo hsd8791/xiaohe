@@ -1,7 +1,7 @@
 <template>
 	<div id="loanBillVue">
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
-			<h1 class="title">我的借款</h1>
+			<h1 class="title">{{___borrowText}}</h1>
 		</div>
 		<div class="container auditing" v-if='auditing===4' audit-ctrl='refused'>
 			<p>
@@ -14,7 +14,7 @@
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
-			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">小禾微贷</span> 审核中
+			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">{{___companyName}}</span> 审核中
 			</p>
 		</div>
 		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
@@ -27,10 +27,8 @@
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<!-- <p class="remind">识别以下二维码关注【小禾微贷公众号】，输入“审核”咨询结果。</p> -->
-			<!-- <img src="./../assets/img/QRxh.jpg" alt="" class="qrcode"> -->
 			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【贷款超市】</span>可以直接申请其他贷款</p>
+			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他贷款</p>
 
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
@@ -84,7 +82,7 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
-			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【贷款超市】</span>可以直接申请其他贷款</p>
+			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他贷款</p>
 		
 				<!-- <el-button type='success' @click='test'>test</el-button> -->
 <!-- 		<div class="dscrp-container">

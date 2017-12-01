@@ -10,7 +10,7 @@
 		因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>-->
 	<img class="banner" src="../assets/img/banner.jpg"/>
 	<div class="box">
-		<img src="../assets/img/logo.jpg" alt="" class="sub-banner" />
+		<img :src='pics.logo'     alt="" class="sub-banner" />
 		<p class="slogan">安全 · 快速 · 便捷</p>
 		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
 			开始借款
@@ -19,8 +19,8 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <img src="../assets/img/xh_public_qr.jpg" class="xh-public-qr">
-    <p class="slogan">小禾微贷 · 微信服务号</p>
+    <img :src="pics.qrcode" class="xh-public-qr">
+    <p class="slogan">{{___companyName}} · 微信服务号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
@@ -38,6 +38,11 @@ import bus from '../bus.js'
 export default {
   data() {
     return {
+      pics:{
+        logo:require("../assets/img/logo"+this.___logo+".png"),
+        qrcode:require("../assets/img/xh_public_qr"+this.___logo+".jpg"),
+      },
+      
     	isNewer:false,
       response:null,
       loading:true,

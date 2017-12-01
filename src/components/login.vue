@@ -2,8 +2,7 @@
 	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='登录中'>
 	<h1 class="title"><app-back></app-back>登录</h1>
 	<div class="logo-container" >
-	<!-- v-if='action=="login"' -->
-	<!-- <h2 class="log-title">验证手机找回密码</h2> -->
+		<img :src="logoSrc" alt="" class="logo">
 	</div>
 
 		<!-- <div class="change"  >
@@ -61,6 +60,7 @@
 	export default {
 		data() {
 			return {
+      	logoSrc:require("../assets/img/logo"+this.___logo+".png"),
 				fromRoute:{},
 				pwdLogin:true,
 				actions:['login','signup','findPwd'],
@@ -284,10 +284,13 @@
 	.logo-container{
 		width: 100%;
 		height: 2.05rem;
-		background: url(../assets/img/logo.png) center center no-repeat;
+		padding-top: 0.5rem;
+		position: relative;
+		background: url(#) center center no-repeat;
 		background-size: 80%;
 		.logo{
-			width: 100%;
+			width: 80%;
+			position: relative;
 		}
 	}
 	.getVerify{

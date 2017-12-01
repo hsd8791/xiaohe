@@ -12,7 +12,7 @@
      </span>
      <span class='nav-btn' :class='{active:activeI===2}' @click='goPage(2)'>
          <div class="nav-icon"><i class="icon-file-text"></i></div>
-         <div class="nav-item">借单</div>
+         <div class="nav-item">{{___billName}}</div>
      </span>
      <span class='nav-btn' :class='{active:activeI===3}' @click='goPage(3)'>
          <div class="nav-icon"><i class="icon-user"></i></div>
@@ -20,7 +20,7 @@
      </span>
     <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink'>
         <!-- <span class="txt"> -->
-            贷款超市
+            {{___marketName}}
         <!-- </span> -->
     </span>
  </div>

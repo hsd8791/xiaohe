@@ -2,9 +2,9 @@
 	<div id="introduceVue">
 
 		<h3 class="title">
-			小禾微贷丨关于小禾微贷
+			{{___companyName}}丨关于{{___companyName}}
 		</h3>
-		<p class="total">小禾微贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p>
+		<p class="total">{{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。</p>
 		<div class="input">
 			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>

@@ -48,6 +48,23 @@ Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
+Vue.prototype.___logo=''
+Vue.prototype.___companyName='小禾微贷'
+Vue.prototype.___borrowText='我的借款'
+Vue.prototype.___billName='借单'
+Vue.prototype.___marketName='贷款超市'
+Vue.prototype.___loanName='放米'
+
+document.querySelector('title').innerHTML='小禾微贷'
+if(/qudao=A7NBVf/.test(location.href)){
+	Vue.prototype.___logo='_wallet'
+	Vue.prototype.___companyName='小禾钱包'
+	Vue.prototype.___borrowText='我要收米'
+	Vue.prototype.___billName='收米'
+	Vue.prototype.___marketName='放米超市'
+	Vue.prototype.___loanName='放米'
+	document.querySelector('title').innerHTML='小禾钱包'
+}
 Vue.directive('scroll-load', {
 	bind: function(el, binding, vnode) {
 		el.addEventListener('scroll', () => {
