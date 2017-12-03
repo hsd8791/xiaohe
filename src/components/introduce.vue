@@ -5,9 +5,9 @@
 			壹号贷丨关于壹号贷
 		</h3>
 		<!-- <p class="total">壹号贷是为社会群体提供的微借贷服务平台。平台目前覆盖全国，为用户提供借款服务。</p> -->
-		<div v-if='false'>
+		<div v-if='1'>
 		<div class="input">
-			<a class="download-app" href="" @click='testWechat' >
+			<a class="download-app" href="https://cdn.yi576.com/yfz.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
@@ -16,7 +16,8 @@
 					</div>
 				</el-button>
 			</a>
-			<a class="download-app" href="https://itunes.apple.com/cn/app/%E7%A6%BE%E6%8E%8C%E6%9F%9C%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' >
+			<a class="download-app" @click='downloadIos' >
+			 <!-- href="https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" -->
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-apple platfor-icon"></i>
 					<div class="download-text">
@@ -91,8 +92,24 @@
   			r.remindMsgDscrp='请点击右上方用浏览器打开后下载'
   			r.remindOpts=[{msg:'确定'}]
   			r.isShow=true
+  			return true
+  		}
+  		return false
+  	},
+  	downloadIos(){
+  		if(!this.testWechat()){
+  			this.remindPlatformChoose()
   		}
   	},
+  	remindPlatformChoose(){
+  		let r=this.remind
+  		r.remindMsg='重要提示'
+  		r.remindMsgDscrp='进入App后平台请填写【壹号】'
+  		r.remindOpts=[{msg:'确认',callback:()=>{
+
+  		},href:'https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8'}]
+  		r.isShow=true
+  	}
   	// joinQQ(){
 			// window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
   	// }
