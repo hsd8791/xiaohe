@@ -2,7 +2,7 @@
 	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='登录中'>
 	<h1 class="title"><app-back></app-back>登录</h1>
 	<div class="logo-container" >
-		<img :src="logoSrc" alt="" class="logo">
+		<img :src="logoSrc" alt="" class="logo" v-if='___logo!==false'>
 	</div>
 
 		<!-- <div class="change"  >
@@ -60,7 +60,7 @@
 	export default {
 		data() {
 			return {
-      	logoSrc:require("../assets/img/logo"+this.___logo+".png"),
+      	logoSrc:this.___logo!==false?require("../assets/img/logo"+this.___logo+".png"):'#',
 				fromRoute:{},
 				pwdLogin:true,
 				actions:['login','signup','findPwd'],

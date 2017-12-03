@@ -15,7 +15,7 @@
 			</div>
 			<div class="menu-row-item loanRecup">
 				<p>
-					<!-- 我的借款单 -->我的账户
+					<!-- 我的{{___loanName}}单 -->我的账户
 				</p>
 			</div>
 		</div>

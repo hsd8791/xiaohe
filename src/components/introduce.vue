@@ -15,7 +15,8 @@
 					</div>
 				</el-button>
 			</a>
-			<a class="download-app" href="https://itunes.apple.com/cn/app/%E7%A6%BE%E6%8E%8C%E6%9F%9C%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' >
+			<!-- <a class="download-app" href="https://itunes.apple.com/cn/app/%E7%A6%BE%E6%8E%8C%E6%9F%9C%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' > -->
+			<a class="download-app" href="https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-apple platfor-icon"></i>
 					<div class="download-text">
@@ -25,16 +26,6 @@
 				</el-button>
 			</a>
 		</div>
-		<!-- <div class="sub-title">
-			<img class="title-img" src="../assets/img/readem.png"/>
-		</div>
-		<p>无前期无押金，通过今借到、借贷宝、无忧借条等多个平台放款，首次500~1000额度；点击“借款”，填写借款申请，最快7分钟放款。</p> -->
-		<div class="sub-title">
-			<img class="title-img" src="../assets/img/conect.png"/>
-		</div>
-		<!-- <p>手机号：18968991186</p>
-		<p>微信/支付宝/借贷宝/无忧借条：18968991186</p>
-		<p>今借到：18958856806</p> -->
 		<p>客服电话：400-0577-009</p>
 		<p>小禾商务QQ公众号：4000577009</p>
 		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>

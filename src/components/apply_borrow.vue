@@ -11,12 +11,12 @@
 				<i :class="{'el-icon-check':phoneLenderValid,'el-icon-close':!phoneLenderValid}"></i>
 			</div>
 			<!-- <div class="wraper">
-				<label>借款金额：</label>
+				<label>金额：</label>
 				<el-input :disabled='true' type='number' placeholder='申请借款金额' v-model='amount' @blur.once='blured'  :class='{"valid-border":amountValid,"error-border":!amountValid}'></el-input>
 				<i :class="{'el-icon-check':amountValid,'el-icon-close':!amountValid}"></i>
 			</div> -->
 			<div class="wraper">
-				<label>借款金额：</label>
+				<label>金额：</label>
 				<el-select :disabled='false' type='number' placeholder='请选择借款金额' v-model='amount' @blur.once='blured'  :class='{"valid-border":amountValid,"error-border":!amountValid}'>
 					<el-option  :key="" :label="1000" :value="1000"></el-option>
 					<el-option  :key="" :label="2000" :value="2000"></el-option>

@@ -11,7 +11,7 @@
           <el-input :disabled='true' placeholder='' v-model='quota' @blur.once='blured'  :class='{"valid-border":quota,"error-border":!quota}'></el-input>
           <!-- <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i> -->
         </div>
-        <el-checkbox v-model='clause' v-show='quotaCfg.quotaStatus==0&&!specialQuota'>我同意《借款服务与隐私协议》</el-checkbox>
+        <el-checkbox v-model='clause' v-show='quotaCfg.quotaStatus==0&&!specialQuota'>我同意《{{___loanName}}服务与隐私协议》</el-checkbox>
         <el-button type='success' :disabled='!clause'  @click='chooseReceiveCard' v-if='quotaCfg.quotaStatus==0&&!specialQuota'>领取</el-button>
 			</div>
       <!-- <div class="container" v-if='quotaCfg.quotaStatus===3'>

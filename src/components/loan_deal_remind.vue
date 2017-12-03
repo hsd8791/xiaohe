@@ -11,18 +11,18 @@
 			<div class="paid-remind">
 				您好：您已完成支付
 			</div>
-			<p class="action" v-if="platform=='借贷宝'">请在<span class="emphasis" >借贷宝</span>发布借款给借贷宝好友陈芝昆：<span class="emphasis">18968991186</span></p>
-			<p class="action" v-if="platform=='今借到'">请在<span class="emphasis" >今借到</span>发布借款给微信好友小禾微贷：<span class="emphasis">nongfu0577</span></p>
+			<p class="action" v-if="platform=='借贷宝'">请在<span class="emphasis" >借贷宝</span>发布{{___loanName}}给借贷宝好友陈芝昆：<span class="emphasis">18968991186</span></p>
+			<p class="action" v-if="platform=='今借到'">请在<span class="emphasis" >今借到</span>发布{{___loanName}}给微信好友小禾微贷：<span class="emphasis">nongfu0577</span></p>
 			
-			<p class="description" v-if="action=='reborrow'&&platform=='今借到'">借条发布格式【求借款】：{{loanAmount}}元0利率0服务费6天。</p>
+			<p class="description" v-if="action=='reborrow'&&platform=='今借到'">借条发布格式【求{{___loanName}}】：{{loanAmount}}元0利率0服务费6天。</p>
 			<p class="description" v-if="action=='reborrow'&&platform=='借贷宝'">借条发布格式：{{loanAmount}}元0利率5天。</p>
-			<p class="description" v-if="action=='renewal'&&platform=='今借到'">借条发布格式【求借款】：{{loanAmount}}元0利率0服务费7天。</p>
+			<p class="description" v-if="action=='renewal'&&platform=='今借到'">借条发布格式【求{{___loanName}}】：{{loanAmount}}元0利率0服务费7天。</p>
 			<p class="description" v-if="action=='renewal'&&platform=='借贷宝'">借条发布格式：{{loanAmount}}元0利率6天。</p>
 			<!-- <p class="description"> -->
 			<!-- 以完成<span v-if="action=='reborrow'">重借</span><span v-if="action=='renewal'">续期</span> -->
 			<!-- </p> -->
 			<p class="description">
-				<span v-if="platform=='今借到'">长按以下二维码进入今借到【发布借款】</span><span v-if="platform=='借贷宝'">长按以下二维码进入借贷宝【发布借款】</span>
+				<span v-if="platform=='今借到'">长按以下二维码进入今借到【发布{{___loanName}}】</span><span v-if="platform=='借贷宝'">长按以下二维码进入借贷宝【发布{{___loanName}}】</span>
 			</p>
 		</div>
 

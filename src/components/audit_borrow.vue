@@ -1,10 +1,10 @@
 <template>
 	<div id="applyBorrowVue" class='input' >
-		<h1 class="title"><app-back></app-back>审核借款人信息</h1>
+		<h1 class="title"><app-back></app-back>审核{{___loanName}}人信息</h1>
 		<div class="checkFill"></div>
 
 		<div class="info-user">
-			<h3 class="subtitle">借款人基本信息</h3>
+			<h3 class="subtitle">{{___loanName}}人基本信息</h3>
 			<p>姓名：*树栋</p>
 			<p>手机号：138****5255</p>
 			<p>身份证号：******************16</p>

@@ -2,7 +2,7 @@
 	<div id="loginVue" class="input" v-loading='loading'  element-loading-text='请稍后'>
 	<h1 class="title"><app-back></app-back>{{action=='signup'?'注册':'找回密码'}}</h1>
 	<div class="logo-container" >
-		<img :src="logoSrc" alt="" class="logo">
+		<img :src="logoSrc" alt="" class="logo" v-if='___logo!==false'>
 	<!-- v-if='action=="login"' -->
 	<!-- <h2 class="log-title">验证手机找回密码</h2> -->
 	</div>
@@ -50,7 +50,7 @@
 	export default {
 		data() {
 			return {
-      	logoSrc:require("../assets/img/logo"+this.___logo+".png"),
+      	logoSrc:this.___logo!==false?require("../assets/img/logo"+this.___logo+".png"):'#',
 				pwdLogin:false,
 				actions:['login','signup','findPwd'],
 				action:'signup',

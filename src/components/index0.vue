@@ -10,17 +10,18 @@
 		因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>-->
 	<img class="banner" src="../assets/img/banner.jpg"/>
 	<div class="box">
-		<img :src='pics.logo'     alt="" class="sub-banner" />
-		<p class="slogan">安全 · 快速 · 便捷</p>
+		<img :src='pics.logo'  v-if='___logo!==false'   alt="" class="sub-banner" />
+		<p class="slogan" v-if='___logo!==false' >安全 · 快速 · 便捷</p>
+    <div class="logo-holder sub-banner"  v-if='___logo===false'></div>
 		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
-			开始借款
+			开始{{___loanName}}
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
 		</div>
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <img :src="pics.qrcode" class="xh-public-qr">
-    <p class="slogan">{{___companyName}} · 微信服务号</p>
+    <img :src="pics.qrcode"  v-if='___logo!==false'class="xh-public-qr">
+    <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信服务号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
@@ -39,8 +40,8 @@ export default {
   data() {
     return {
       pics:{
-        logo:require("../assets/img/logo"+this.___logo+".png"),
-        qrcode:require("../assets/img/xh_public_qr"+this.___logo+".jpg"),
+        logo:this.___logo!==false?require("../assets/img/logo"+this.___logo+".png"):'#',
+        qrcode:this.___logo!==false?require("../assets/img/xh_public_qr"+this.___logo+".jpg"):'#',
       },
       
     	isNewer:false,
@@ -178,6 +179,9 @@ export default {
 		font-weight: 700;
 		color: #e49731;
 	}
+  .logo-holder{
+    height: 0.5rem;
+  }
 	.slogan{
 		margin-top: 0;
     margin-bottom: 10px;

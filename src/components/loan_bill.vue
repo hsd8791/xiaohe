@@ -28,7 +28,7 @@
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
 			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他贷款</p>
+			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
 
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
@@ -51,13 +51,13 @@
 		<div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
-					<span class="li-title">借款金额</span>
+					<span class="li-title">{{___loanName}}金额</span>
 					<span class="li-content loan-amount">￥{{loanInfo.moneyFee | moneyParser}}</span>
 				</div>
 			</div>
 			<div class="inner-contaier loan-date">
 				<div class="detail-li">
-					<span class="li-title">借款日期</span>
+					<span class="li-title">{{___loanName}}日期</span>
 					<span class="li-content">{{loanInfo.borrowTime|timeParser}}</span>
 				</div>
 				<div class="detail-li">
@@ -82,23 +82,8 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
-			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他贷款</p>
-		
-				<!-- <el-button type='success' @click='test'>test</el-button> -->
-<!-- 		<div class="dscrp-container">
-			<div class="dscrp-part">
-				<p class="dscrp-line">还款：</p>
-				<p class="dscrp-line">若有逾期则按照每日3%的逾期费用，本金封顶的方式进行支付结算</p>
-			</div>
-			<div class="dscrp-part">
-				<p class="dscrp-line">续期：</p>
-				<p class="dscrp-line">收取逾期（若有）+续期手续费</p>
-			</div>
-			<div class="dscrp-part">
-				<p class="dscrp-line">重借：</p>
-				<p class="dscrp-line">最后一笔借款完成之后可以重借</p>
-			</div>
-		</div> -->
+			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
+
 		<remind :remind='remind'></remind>
 	</div>
 </template>
