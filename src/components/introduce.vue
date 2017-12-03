@@ -16,7 +16,7 @@
 				</el-button>
 			</a>
 			<!-- <a class="download-app" href="https://itunes.apple.com/cn/app/%E7%A6%BE%E6%8E%8C%E6%9F%9C%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' > -->
-			<a class="download-app" href="https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' >
+			<a class="download-app" @click='downloadIos' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-apple platfor-icon"></i>
 					<div class="download-text">
@@ -82,6 +82,14 @@
   			r.isShow=true
   		}
   	},
+  	downloadIos(){
+      let r=this.remind
+      r.remindMsg='重要提示'
+      r.remindMsgDscrp='进入App后平台请填写【小禾】'
+      r.remindOpts=[{msg:'确认',callback:()=>{
+      },href:'https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8'}]
+      r.isShow=true
+    },
   	joinQQ(){
 			window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
   	}
@@ -102,7 +110,7 @@
 
 <style lang='scss' scoped>
 	#introduceVue{
-		padding:0.5rem 0.05rem;
+		/*padding:0.5rem 0.05rem;*/
 		.title{
 			font-size: 13*0.01rem;
 			color: #b9b8b8;
