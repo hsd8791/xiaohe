@@ -96,12 +96,8 @@
   		}
   		return false
   	},
+
   	downloadIos(){
-  		if(!this.testWechat()){
-  			this.remindPlatformChoose()
-  		}
-  	},
-  	remindPlatformChoose(){
   		let r=this.remind
   		r.remindMsg='重要提示'
   		r.remindMsgDscrp='进入App后平台请填写【壹号】'
