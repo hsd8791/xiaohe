@@ -126,7 +126,7 @@
 
 <style lang='scss' scoped>
 	#introduceVue{
-		padding:0.5rem 0.05rem;
+		/*padding:0.5rem 0.05rem;*/
 		.title{
 			font-size: 13*0.01rem;
 			color: #b9b8b8;
