@@ -37,7 +37,7 @@ import bankcard_bind from '../components/pay_bankcard_bind.vue'
 
 //小禾专用
 import introduce from '../components/introduce.vue'
-import pay_intrest from '../components/pay_intrest.vue'
+// import pay_intrest from '../components/pay_intrest.vue'
 import loan_bill from '../components/loan_bill.vue'
 import loan_deal from '../components/loan_deal.vue'
 import loan_deal_remind from '../components/loan_deal_remind.vue'
