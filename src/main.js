@@ -25,8 +25,8 @@ Vue.component('app-bind-card',bindCard)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'http://hzg.he577.com';
-// Vue.http.options.root = 'http://hzg.he577.com/test';
+Vue.http.options.root = 'http://www.suyin668.xin/api';
+Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
@@ -48,9 +48,9 @@ Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
-Vue.prototype.___logo=false
+Vue.prototype.___logo='_wallet'
 Vue.prototype.___companyName='速银微贷'
-Vue.prototype.___companyName='速银'
+Vue.prototype.___companyName='疾速之家'
 Vue.prototype.___borrowText='我的借款'
 Vue.prototype.___borrowText='我要收米'
 Vue.prototype.___billName='借单'

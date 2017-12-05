@@ -54,7 +54,7 @@ export default {
 #bankcardBindVue{
 
   .icon-warning{
-    color:#09bb07;
+    color:#e94f4f;
     opacity: 1; 
   }
   .card-remind{

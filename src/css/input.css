@@ -84,9 +84,9 @@
       padding: 0.03rem 0.1rem;
       padding-right: 0.5rem; }
   .input .wraper .el-icon-check {
-    background: #09bb07;
+    background: #e94f4f;
     color: white;
-    border-color: #09bb07; }
+    border-color: #e94f4f; }
     .input .wraper .el-icon-check:before {
       padding-right: 0.04rem;
       padding-top: 0.01rem; }
@@ -144,7 +144,7 @@
   .input .validate i {
     opacity: 0.9; }
   .input .validate .valid-border .el-input__inner {
-    border-color: #09bb07; }
+    border-color: #e94f4f; }
   .input .validate .error-border .el-input__inner {
     border-color: #e94f4f; }
 
@@ -163,7 +163,7 @@
 .input .el-button--success, .input .el-button--success:focus, .input .el-button--success:hover {
   color: #fff;
   cursor: not-allowed;
-  background-color: #09bb07;
+  background-color: #e94f4f;
   border-color: #9ad499; }
 .input .el-button--danger, .input .el-button--danger:focus, .input .el-button--danger:hover {
   background: #e94f4f;
@@ -184,8 +184,8 @@
   width: 90%;
   margin-top: 0.15rem; }
 .input .el-checkbox__input.is-checked .el-checkbox__inner {
-  background-color: #09bb07;
-  border-color: #09bb07; }
+  background-color: #e94f4f;
+  border-color: #e94f4f; }
 .input .el-checkbox + .el-checkbox {
   margin-left: auto;
   margin-right: auto; }

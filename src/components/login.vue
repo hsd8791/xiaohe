@@ -275,21 +275,24 @@
 
 <style lang='scss' scoped>
 #loginVue{
+	background: #fff;
+	height: 100%;
 	.container{
 		/*margin-top: 2rem;*/
 		/*margin-left:0.5rem;*/
 		margin:auto auto;
 		width: 80%;
+		border:1px solid #ccc;
 	}
 	.logo-container{
 		width: 100%;
 		height: 2.05rem;
-		padding-top: 0.5rem;
+		padding-top: 0.2rem;
 		position: relative;
 		background: url(#) center center no-repeat;
 		background-size: 80%;
 		.logo{
-			width: 80%;
+			width: 45%;
 			position: relative;
 		}
 	}
@@ -343,6 +346,7 @@
 		width: 80%;
 		background-color:#d6322c;
 		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
+		background: linear-gradient(90deg, #e0306d 0%, #e0306d 30%, #f4b7d0);
 		border-width: 0;
 		border-radius: 0.1rem;
     /*border-color: #ff6231;*/

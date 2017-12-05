@@ -28,7 +28,7 @@
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
 			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
 			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
-			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
+			<!-- <p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p> -->
 
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
@@ -82,7 +82,7 @@
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
-			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
+			<!-- <p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p> -->
 
 		<remind :remind='remind'></remind>
 	</div>
@@ -164,7 +164,7 @@
 				// },
 				hzgMarket(){
 				    console.log('hzg market_list')
-				    location.href='http://hzg.he577.com/m/#/market_list'
+				    // location.href='http://www.suyin668.xin/m/#/market_list'
 				},
 				reapply() {
 					var remind=this.remind
@@ -422,7 +422,7 @@
 	#loanBillVue{
 		.container{
 			.enable{
-				/*color:#09bb07;*/
+				/*color:#e94f4f;*/
 				opacity: 1;
 			}
 			.danger{

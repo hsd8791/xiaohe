@@ -163,6 +163,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    background: #fff;
     width: 100%;
     overflow: scroll;
     overflow-x: hidden;
@@ -200,7 +201,7 @@
   $navColor:#8f8e94;
   $navHeight:0.5rem;
   /*$activeColor:#cd331c;*/
-  $activeColor:#cc2a1b;
+  $activeColor:#e0306d;
   /*$navBackground:#eee;*/
   $navBackground:#fcf9fe;
   /*$itemNameColor:#8f8e94;*/

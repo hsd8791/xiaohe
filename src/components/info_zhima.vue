@@ -196,7 +196,7 @@
 			margin: 0.8rem auto 0.3rem ;
 		}
 		.binded{
-			background: #09bb07;
+			background: #e94f4f;
 		}
 		.unbinded{
 			background: #e94f4f;

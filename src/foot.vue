@@ -50,7 +50,7 @@ export default {
     methods: {
         hzgMarket(){
             console.log('hzg market_list')
-            location.href='http://hzg.he577.com/m/#/market_list'
+            location.href='http://www.suyin668.xin/m/#/market_list'
         },
         goPage: function(index) {
             setTimeout(() => { //incase same foot component

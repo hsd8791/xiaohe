@@ -6,7 +6,7 @@
 		</h3>
 		<p class="total">{{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。</p>
 		<div class="input">
-			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
+			<a class="download-app"  @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
@@ -26,8 +26,8 @@
 				</el-button>
 			</a>
 		</div>
-		<p>客服电话：400-0577-009</p>
-		<p>小禾商务QQ公众号：4000577009</p>
+		<p>客服电话：2506460948</p>
+		<p>{{___companyName}}商务QQ号：2506460948</p>
 		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
@@ -41,6 +41,7 @@
 	import bus from '../bus.js'
 	export default {
 		data() {
+      
 			return {
 				accountName:'请登录',
 				response:null,
@@ -85,7 +86,7 @@
   	downloadIos(){
       let r=this.remind
       r.remindMsg='重要提示'
-      r.remindMsgDscrp='进入App后平台请填写【小禾】'
+      r.remindMsgDscrp='进入App后平台请填写【速银】'
       r.remindOpts=[{msg:'确认',callback:()=>{
       },href:'https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8'}]
       r.isShow=true
@@ -153,7 +154,7 @@
 				right: 88*0.01rem;
 				bottom: 0;
 				height: 1*0.01rem;
-				background: #dd524d;
+				background: #e0306d;
 			}
 		}
 		#loginOut {
@@ -165,7 +166,7 @@
 			color: white;
 			font-weight: 700;
 			border: none;
-			background: #dd524d;
+			background: #e0306d;
 			border-radius: 10*0.01rem;
 		}
 	}
