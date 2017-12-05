@@ -15,6 +15,7 @@ var bus = new Vue({
 		loanInfo: null,
 		qualified: 0,
 		firstEnterApp: true,
+		isNewer:true,
 		fillStatus: {
 			"address": -1,
 			"idcardPic": -1,
@@ -124,8 +125,8 @@ var bus = new Vue({
 						title: '其他信息',
 						link: '/other',
 						icon: 'icon-phone',
-						imgFilled: require('./assets/' + this.___subName + '/icon-phone.png'),
-						imgNotfilled: require('./assets/' + this.___subName + '/icon-phone-enable.png'),
+						imgFilled: require('./assets/' + this.___subName + '/icon-profile.png'),
+						imgNotfilled: require('./assets/' + this.___subName + '/icon-profile-enable.png'),
 						status: status.contact && status.relatives && status.liabilities,
 					},
 

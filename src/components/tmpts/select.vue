@@ -7,7 +7,7 @@
       </p>
     </div>
      <!-- @change='handleValueChange($event)' -->
-    <select class="select__"  :disabled='disabled' >
+    <select class="select__"  :disabled='disabled'@change='handleValueChange($event)' >
       <option v-for='item in options' :value="item.value" :key='item.value'>{{item.value}}</option>
       <!-- <option value ="volvo">Volvo</option>
       <option value ="saab">Saab</option>
@@ -53,7 +53,7 @@ export default {
   },
   methods:{
     handleValueChange(e){
-      // console.log('e',e,e.target)
+      console.log('CHANGE',this)
       // this.selectValue=e.target.value
     },
   },

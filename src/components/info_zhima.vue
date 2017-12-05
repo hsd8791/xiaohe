@@ -6,23 +6,28 @@
 
 		<!-- <el-button type='success' @click='getScore'>芝麻分：{{score.score||'未查询'}}</el-button> -->
 		<!-- <el-button type='success' @click='applyWatchList'>行业关注名单：{{watchStatus?'已申请':'未申请'}}</el-button> -->
+		<div class="shadow-box">
+			<p class="bind-status">{{authorized.status|statusParse}}</p>
+			<p class="bind-time" v-if='authorized.time'>查询时间：{{authorized.time | timeParse}}</p>
 
-		<div class="binding" :class='authBinded?"binded":"unbinded"' >
+			<img src="../assets/xh/zhima_0.png" alt="" class="zhima-bind-pic" v-if='!authBinded'>
+			<!-- <img src="../assets/xh/shujumohe_0.png" alt="" class="zhima-bind-pic" v-if='false'> -->
+			<img src="../assets/xh/shujumohe_4.png" alt="" class="zhima-bind-pic" v-if='authBinded'>
+		</div>
+
+
+<!-- 		<div class="binding" :class='authBinded?"binded":"unbinded"' >
 			<i v-if='authBinded' class="icon-checkmark icon-binding"></i>
 			<i v-if='!(authBinded)' class="icon-cross icon-binding"></i>
 		</div>
-		<!-- authBinded&&faceBinded -->
-		<!-- authBinded&&faceBinded -->
-		<!-- authBinded&&faceBinded -->
 		<div class="binding-text">
 			<div  class="binding-detail" >
 				芝麻信用<span v-if='authBinded'>已</span><span v-if='!authBinded'>未</span>绑定
 			</div>
-			<!-- <div class="binding-detail binding-time" v-if='authBinded'>绑定时间：{{authorized.time | timeParse}}</div> -->
 
-			<el-button type='success' @click='authorize' v-if='true'><span v-if='authBinded'>重新</span>绑定芝麻信用</el-button>
-		</div>
+		</div> -->
 
+			<el-button type='success' @click='authorize' class='submit-bttn' v-if='true'><span v-if='authBinded'>重新</span>绑定芝麻信用</el-button>
 
 		<!-- <div class="" v-if='authBinded'> -->
 		<div class="" v-if='false'>
@@ -71,6 +76,36 @@
 					{msg:'确定',},
 					],
 				},
+			}
+		},
+		filters:{
+			statusParse(val){
+				var s,r
+				console.log('this',this)
+				if(!val){
+					return '尚未绑定,请尽快完成认证'
+				}
+				switch (val) {
+
+					case 'doing':
+						s = '等待用户处理或服务器完成查询'
+						break;
+					case 'success':
+						s = '查询绑定成功'
+						break;
+					default:
+						r = val.slice(val.indexOf(':') + 1)
+						s = '绑定失败,失败原因：' + r
+				}
+				return s
+			},
+			timeParse(v){
+				return publicFun.getTimeString(v)
+			},
+			mixRsltParse(v){
+				console.log('v',v)
+				// console.log(typeof(v))
+				return publicFun.parseMixRslt(v)
 			}
 		},
 		methods:{
@@ -168,16 +203,7 @@
 			// this.checkScoreStatus()
 			// this.checkWatchListStatus()
 		},
-		filters:{
-			timeParse(v){
-				return publicFun.getTimeString(v)
-			},
-			mixRsltParse(v){
-				console.log('v',v)
-				// console.log(typeof(v))
-				return publicFun.parseMixRslt(v)
-			}
-		},
+
 		events: {},
 		components: {
 			remind:remind
@@ -187,7 +213,9 @@
 
 <style lang='scss' scoped>
 	#zhimaVue{
-
+		.submit-bttn{
+			margin-top: 0.6rem;
+		}
 		.binding{
 			width: 1rem;
 			height: 1rem;

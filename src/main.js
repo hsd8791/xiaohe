@@ -83,7 +83,10 @@ Vue.directive('select',{
 		let select=el.getElementsByClassName('select__')[0]
 			// console.log('',select.value,select.selectedIndex,valueName)
 		select.addEventListener('change',(e)=>{
-			// console.log('e',e)
+			// alert('test change',select.value)
+			console.log('e',select.value,vnode.componentInstance)
+			console.log('valueName',valueName)
+			// nameArr=valueName.split('.')
 			// vnode.context.$parent.education=select.value
 			// vnode.education=select.value="opel
 			vnode.componentInstance.$parent[valueName]=select.value

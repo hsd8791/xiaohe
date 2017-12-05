@@ -540,6 +540,33 @@ div.el-loading-mask{
 	box-shadow: 0 4px 16px 0 rgba(153, 153, 153, 0.38);
 	overflow:hidden;
 	// margin-bottom: 0.15rem;
+	.start-bind-pic{
+		width: 1.12rem;
+		margin-top: 0.3rem;
+		margin-bottom: -0.05rem;
+	}
+	.un-bind-pic,.fail-bind-pic{
+		width: 0.78rem;
+		margin-top: 0.3rem;
+		margin-bottom: -0.05rem;
+	}
+	.zhima-bind-pic{
+		width: 0.75rem;
+		margin-top: 0.3rem;
+	}
+	.bind-status{
+		width: 2.8rem;
+		/*border:1px solid red;*/
+		margin: 0 auto;
+		color:#383838;
+		font-size: 0.16rem;
+		margin-top: 0.4rem;
+	}
+	.bind-time{
+		font-size: 0.14rem;
+		color: #999999;
+		margin-top: 0.3rem;
+	}
 }
 img.audit-icon{
 	height: 0.33rem;

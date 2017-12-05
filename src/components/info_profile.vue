@@ -16,19 +16,20 @@
 				<label>学历：</label>
 				<app-select :options="options.education"  v-select='education' :select-value='education' :disabled='!editing' ></app-select>
 			</div>
-<!-- 			<div class="wraper">
+			<div class="wraper">
 				<label>婚姻状况：</label>
 				<el-select :disabled='!editing' v-model="marriage" placeholder="请选择">
 				<el-option v-for="item in options.marriage" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
-			</div> -->
+			</div>
 			<div class="wraper">
 				<label>婚姻状况：</label>
 				<app-select :options="options.marriage"  v-select='marriage' :select-value='marriage' :disabled='!editing' ></app-select>
 			</div>
 			<div class="wraper">
 				<label>子女情况：</label>
-				<el-select :disabled='!editing' v-model="kids" placeholder="请选择">
-				<el-option v-for="item in options.kids" :key="item.value" :label="item.label" :value="item.value"></el-option></el-select>
+				<app-select :options="options.kids"  v-select='kids' :select-value='kids' :disabled='!editing' ></app-select>
+
+			
 			</div>
 		</div>
 

@@ -13,26 +13,13 @@
 
 
 		</div> -->
-		<h2 class="sub-title">绑定状态</h2>
-		<div class="container status">
-			<div class="wraper">
-				<div class="icon icon-mobile" >
-					<!-- <i class="icon-mobile"></i> -->
-				</div>
-				<div class="info phone">{{queryRslt.phone}}</div>
-				<!-- <div class="info">黄树栋</div> -->
-				<div class="info info-time">{{queryRslt.time | timeParse}}</div>
-				<!-- <div class="status">等待用户处理或服务器完成查询</div> -->
-				<div class="info" v-if='queryRslt.status'>{{queryRslt.status | statusParse}}</div>
-				
-
-			</div>
-		</div>
 		<div class="shadow-box">
-			<p class="shujumohe-status">{{queryRslt.status | statusParse}}</p>
-			<p class="shujumohe-status">查询时间：{{queryRslt.time | timeParse}}</p>
+			<p class="bind-status">{{queryRslt.status | statusParse}}</p>
+			<p class="bind-time" v-if='queryRslt.status'>查询时间：{{queryRslt.time | timeParse}}</p>
 
-			<img src="../assets/xh/img-phone.png" alt="" class="start-bind-pic">
+			<img src="../assets/xh/img-phone.png" alt="" class="start-bind-pic" v-if='!queryRslt.status'>
+			<img src="../assets/xh/shujumohe_0.png" alt="" class="un-bind-pic" v-if='queryRslt.status==="doing"||queryRslt.status===undefined'>
+			<img src="../assets/xh/shujumohe_4.png" alt="" class="fail-bind-pic" v-if='/fail/.test(queryRslt.status)'>
 		</div>
 		<!-- <a href="https://open.shujumohe.com/box/yys?box_token=BB2D93B9B972461A989EB491C1C3EE23&real_name=黄树栋&identity_code=321282199902022222&user_mobile=13816938525&cb=http%3A%2F%2Flocalhost%3A8080%2Fm%2F%23%2Fshujumoh">1111</a>
 		<a href="https://open.shujumohe.com/box/yys?box_token=BB2D93B9B972461A989EB491C1C3EE23&real_name=lalala&identity_code=321282199902022222&user_mobile=13816938525&cb=http%3A%2F%2Flocalhost%3A8080%2Fm%2F%23%2Fshujumoh">full</a>
@@ -198,9 +185,10 @@
 				var s,r
 				console.log('this',this)
 				if(!val){
-					return
+					return '尚未绑定,请尽快完成认证'
 				}
 				switch (val) {
+
 					case 'doing':
 						s = '等待用户处理或服务器完成查询'
 						break;
@@ -289,14 +277,5 @@
 	}
 </style>
 <style type="text/css">
-	.start-bind-pic{
-		width: 1.12rem;
-		margin-top: 0.3rem;
-		margin-bottom: -0.05rem;
-	}
-	.shujumohe-status{
-		font-size: 0.14rem;
-		color: #999999;
-		margin-top: 0.3rem;
-	}
+
 </style>

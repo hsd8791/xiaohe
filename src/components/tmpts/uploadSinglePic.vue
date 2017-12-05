@@ -3,21 +3,20 @@
 		<!-- <div></div> -->
 		<!-- accept只能过滤上传类型，限定需使用JS的正则表达式 -->
 		<!-- <form action="http://hzg.he577.com/userInfo/addAccessory" enctype="multipart/form-data" method="post">  -->
-		<div class="container input" v-loading='loading' :element-loading-text='loadingText'>
+		<div class="container-upload " v-loading='loading' :element-loading-text='loadingText'>
 			
 			<input type="file" name='imgFile' :id='uploadConfig.id' @change='changeP($event)' accept="image/*" >
-			<div class="thumb"  v-if='urlF' @click.prevent='' :style="{backgroundImage: 'url('+urlF+')'}">
+			<div class="thumb"  @click.prevent='' :style="{backgroundImage: 'url('+urlPic+')'}">
 				
 				<!-- <img class="img" :src="urlF" v-if='urlF'> -->
 			</div>
-			<div class="img-ctrl" >
-				<el-button  class='img-ctrl-btn' type='success' v-if='!editing' @click='reUpload'>重新上传</el-button>
+			<p class="label-text">{{label}}</p>
+			<div  class='img-ctrl-btn' type='success'  @click='reUpload'>{{urlF?'重新上传':'点击上传'}}</div>
 			<!-- 	<el-button class='img-ctrl-btn' :disabled='!urlF||!editing' type='warning' @click.prevent='deleteP($event)' v-if='editing'>删除</el-button>
 				<p></p>
 				<el-button class='img-ctrl-btn' :disabled='!urlF||!editing' type='success' @click.prevent='submit($event)' v-if='editing'>上传</el-button> -->
-			</div>
-			<label :for="uploadConfig.id" v-if='!urlF'> 
-				<add-btn class='select'></add-btn> 
+			<label :for="uploadConfig.id" class="label" v-if='!urlF'> 
+				<!-- <add-btn class='select'></add-btn>  -->
 			</label>
 
 		</div>
@@ -69,6 +68,12 @@
 		},
 		props:{
 			uploadConfig:{},
+			picHolderUrl:{
+				default:require('../../assets/xh/id-front.png')
+			},
+			label:{
+			  default:'请上传'
+			},
       // {url:'userInfo/addAccessory',data:{type:0},resKey:'idcardUrl',id:'IDscanFront'},
     },
     methods: {
@@ -219,6 +224,11 @@
 				return urlF;
 			}
 		},
+		computed:{
+		  urlPic(){
+		    return this.urlF||this.picHolderUrl
+		  },
+		},
 		created:function(){
 			// this.testdata=new FormData()
 			// this.testdata.append('testkey','testvalue')
@@ -266,85 +276,56 @@
 		opacity: 0;
 		z-index: -1;
 	}
-	div.container{
+	div.container-upload{
+		border:1px solid transparent;
 		width: 100%;
-		display: flex;
-		height: $outerHeight;
-		background: #fff;
-		text-align: left;
-		align-items:center;
-		margin: 0;
+		height: 100%;
+		position: relative;
 		.thumb{
-			width:$boxSize;
-			height:$boxSize;
-			border:1px solid #cccccc;
+			width:1.13rem;
+			height: 0.66rem;
+			/*border:1px solid red;*/
+		}
+		.thumb{
 			background:url(#) no-repeat center center;
 			background-size: contain;
-			margin-left: 0.15rem;
+			position: relative;
+			margin: 0 auto;
+			margin-top: 0.2rem;
 		}
-		label{
-			display: inline;
-			width: $boxSize;
-			height: $boxSize;
-			margin-left: 0.15rem;
-			/*line-height: inherit;*/
-			line-height: $outerHeight;
-			/*width: 100%;*/
-			/*margin: 0 auto;*/
-			/*display: block;*/
-			/*height: $outerHeight;*/
-		}
-		.img-ctrl{
+		.label{
+			display: block;
+			/*background: rgba(0,222,0,0.1);*/
+			width: 100%;
+			height: 100%;
 			position: absolute;
-			right: 0.15rem;
+			top: 0;left: 0;
+			&:active{
+				background:rgba(0,0,0,0.1);
+			}
 		}
-		.img-ctrl-label{
-			display: block;
-			width: 0.6rem;
-			height: 0.2rem;
-			margin: 0;padding: 0;
-		}
-		.img-ctrl-btn{
-			display: block;
-			font-size: 0.14rem;
-			height: 0.25rem;
-			width: 0.7rem;
-			line-height: 0.2rem;
-			padding: 0;
-			margin:0.05rem;
-
-		}
-	}
-	.delete{
-		width: 1rem;
-		height: 0.25rem;
-		font-size: 0.16rem;
-		line-height: 0.25rem;
-		/*position: absolute;*/
-		/*bottom: 0;*/
-	}
-	.input-file-box{
-		width: $outerWidth;
-		position: relative;
-		margin: 0 auto;
-		overflow: hidden;
-		/*height: $outerHeight;*/
-		.file-name{
-			height: 0.16rem;
+		.label-text{
 			font-size: 0.16rem;
+			color:#383838;
+			margin-top: 0.14rem;
 			line-height: 1;
 		}
-		.submit{
-			position: relative;
-			background: red;
-			opacity: 1;
-			height: 2rem;
-			width: 1rem;
-			position: absolute;
-			bottom: -1rem;
+		.img-ctrl{
+			
 		}
-		.img{
-			width: 1rem;
+		.img-ctrl-label{
+		
 		}
+		.img-ctrl-btn{
+			padding: 0.07rem;
+			line-height: 1;
+			font-size: 0.13rem;
+			color:#5494f3;
+		}
+	}
+
+	.input-file-box{
+		width:1.87rem;
+		height: 1.44rem;
 	}
 </style>
