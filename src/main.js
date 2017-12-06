@@ -76,24 +76,25 @@ Vue.directive('scroll-load', {
 			// console.log('value', this)
 	}
 })
-Vue.directive('select',{
-	bind: function(el, binding, vnode) {
-		// console.warn('el',el,vnode.componentInstance)
-		let valueName=binding.expression
-		let select=el.getElementsByClassName('select__')[0]
-			// console.log('',select.value,select.selectedIndex,valueName)
-		select.addEventListener('change',(e)=>{
-			// alert('test change',select.value)
-			console.log('e',select.value,vnode.componentInstance)
-			console.log('valueName',valueName)
-			// nameArr=valueName.split('.')
-			// vnode.context.$parent.education=select.value
-			// vnode.education=select.value="opel
-			vnode.componentInstance.$parent[valueName]=select.value
-			// select.selectedIndex=0
-		})
-	}
-})
+// Vue.directive('select',{
+// 	bind: function(el, binding, vnode) {
+// 		console.warn('el',el,binding.value)
+// 		let valueName=binding.expression
+// 		vnode.componentInstance.selectValue=binding.value
+// 		// let select=el.getElementsByClassName('select__')[0]
+// 			// console.log('',select.value,select.selectedIndex,valueName)
+// 		// select.addEventListener('change',(e)=>{
+// 		// 	// alert('test change',select.value)
+// 		// 	console.log('e',select.value,vnode.componentInstance)
+// 		// 	console.log('valueName',valueName)
+// 		// 	// nameArr=valueName.split('.')
+// 		// 	// vnode.context.$parent.education=select.value
+// 		// 	// vnode.education=select.value="opel
+// 		// 	vnode.componentInstance.$parent[valueName]=select.value
+// 		// 	// select.selectedIndex=0
+// 		// })
+// 	}
+// })
 Vue.directive('input',{
 	bind: function(el, binding, vnode) {
 		let valueName=binding.expression

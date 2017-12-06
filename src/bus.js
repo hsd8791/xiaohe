@@ -125,8 +125,8 @@ var bus = new Vue({
 						title: '其他信息',
 						link: '/other',
 						icon: 'icon-phone',
-						imgFilled: require('./assets/' + this.___subName + '/icon-profile.png'),
-						imgNotfilled: require('./assets/' + this.___subName + '/icon-profile-enable.png'),
+						imgFilled: require('./assets/' + this.___subName + '/icon-other.png'),
+						imgNotfilled: require('./assets/' + this.___subName + '/icon-other-enable.png'),
 						status: status.contact && status.relatives && status.liabilities,
 					},
 

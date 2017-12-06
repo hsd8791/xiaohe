@@ -40,9 +40,10 @@
 				<el-select :disabled='!editing' v-model="item.relative" placeholder="关系"  @change='validateRelative(item)'  class=''>
 				<el-option v-for="relation in relationOpts[index]" :key="relation.value" :label="relation.label" :value="relation.value"></el-option></el-select>
 			</div> -->
+
 			<div class="wraper">
 				<label>关系：</label>
-				<app-select :options="relationOpts[index]"  v-select='item.relative' :select-value='item.relative' :disabled='!editing' ></app-select>
+				<app-select :options="relationOpts[index]"  v-model='item.relative'  :disabled='!editing' ></app-select>
 			</div>
 			<!-- <div class="wraper">
 				<label>关系：</label>
@@ -94,15 +95,15 @@ import infoDebt from './views/info_debt_view.vue'
 				// relationPlaceholders: ['直系亲属', ''],
 				relationPlaceholders: ['', ''],
 				relatives: [{
-					relative: null,
+					relative: '',
 					phone: null,
 					name: null
 				}, {
-					relative: null,
+					relative: '',
 					phone: null,
 					name: null
 				}],
-				relativesAllVailid: false,
+				// relativesAllVailid: false,
 				response: null,
 				// loading:false,
 				loading: false,
@@ -188,7 +189,7 @@ import infoDebt from './views/info_debt_view.vue'
 			  		for (i = 0; i < r.length; i++) {
 			  			// console.log('validtae', i)
 			  			this.validatename(r[i])
-			  			this.validateRelative(r[i])
+			  			// this.validateRelative(r[i])
 			  			this.validatePhone(r[i])
 			  		}
 			  	}
@@ -206,39 +207,40 @@ import infoDebt from './views/info_debt_view.vue'
 				})
 			},
 
-			validateAllRelations() {
-				var l = this.relatives.length,
-					i, flag = true
-				for (i = 0; i < l; i++) {
-					flag = flag && this.relatives[i].validAll
-					if (!flag) {
-						this.relativesAllVailid = false
-						return
-					}
-				}
-				this.relativesAllVailid = true
-			},
+			// validateAllRelations() {
+			// 	console.log('validate relations')
+			// 	var l = this.relatives.length,
+			// 		i, flag = true
+			// 	for (i = 0; i < l; i++) {
+			// 		flag = flag && this.relatives[i].validAll
+			// 		if (!flag) {
+			// 			this.relativesAllVailid = false
+			// 			return
+			// 		}
+			// 	}
+			// 	this.relativesAllVailid = true
+			// },
 			validatename(it) {
 				// console.log('validate name')
 				var reg = /.+/
 				var t = reg.test(it.name)
 				it.nameValid = t
-				it.validAll = it.nameValid && it.relativeValid && it.phoneValid
-				this.validateAllRelations()
+				// it.validAll = it.nameValid && it.relativeValid && it.phoneValid
+				// this.validateAllRelations()
 			},
-			validateRelative(it) {
-				var reg = /.+/
-				var t = reg.test(it.relative)
-				it.relativeValid = t
-				it.validAll = it.nameValid && it.relativeValid && it.phoneValid
-				this.validateAllRelations()
-			},
+			// validateRelative(it) {
+			// 	var reg = /.+/
+			// 	var t = reg.test(it.relative)
+			// 	it.relativeValid = t
+			// 	it.validAll = it.nameValid && it.relativeValid && it.phoneValid
+			// 	// this.validateAllRelations()
+			// },
 			validatePhone(it) {
 				var reg = /.+/
 				var t = reg.test(it.phone)
 				it.phoneValid = t
-				it.validAll = it.nameValid && it.relativeValid && it.phoneValid
-				this.validateAllRelations()
+				// it.validAll = it.nameValid && it.relativeValid && it.phoneValid
+				// this.validateAllRelations()
 			},
 			edit() {
 				this.editing = true
@@ -257,6 +259,7 @@ import infoDebt from './views/info_debt_view.vue'
 
 		},
 		watch: {
+
 			nickQq: function() {
 				this.setFormData('nickQq')
 			},
@@ -271,6 +274,16 @@ import infoDebt from './views/info_debt_view.vue'
 			},
 		},
 		computed: {
+			relativesAllVailid(){
+				let r=this.relatives
+				let l=r.length
+				for (let i=0;i<l;i++){
+					if(!(r[i].name&&r[i].phone&&r[i].relative)){
+						return false
+					}
+				}
+				return true
+			},
 			isFilled: function() {
 				return !!(this.relatives[0].name && this.acQQ)
 			},
@@ -320,6 +333,7 @@ import infoDebt from './views/info_debt_view.vue'
 			// console.log('relationOpts[index]',this.relationOpts[0])
 			// this.relatives[0].value='父亲'
 		},
+
 		events: {},
 		components: {
 			remind: remind,

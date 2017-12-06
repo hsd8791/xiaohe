@@ -1,18 +1,13 @@
 <template>
   <div class="app-select">
-
-    <div class="select-value " :style="selectValue?{}:{'color':placeholderColor}" :class="{'__disabled':disabled}" >
+    <div class="select-value " :style="value?{}:{'color':placeholderColor}" :class="{'__disabled':disabled}" >
       <p class="text">
         {{parsedValue||placeholder}}
       </p>
     </div>
-     <!-- @change='handleValueChange($event)' -->
-    <select class="select__"  :disabled='disabled'@change='handleValueChange($event)' >
+    <select class="select__" ref='select'  :disabled='disabled'@change='handleValueChange($event)' @select='testSelect($event)' >
+      <option disabled selected value>-请选择-</option>
       <option v-for='item in options' :value="item.value" :key='item.value'>{{item.value}}</option>
-      <!-- <option value ="volvo">Volvo</option>
-      <option value ="saab">Saab</option>
-      <option value="opel">Opel</option>
-      <option value="audi">Audi</option> -->
     </select>
   </div>
 </template>
@@ -24,6 +19,7 @@ export default {
     }
   },
   props:{
+    value:{},//v-model  directive binding.value
     options:{},
     disabled:{
       default:false,
@@ -34,39 +30,30 @@ export default {
     placeholderColor:{
       default:'#97a7be'
     },
-    selectValue:{
-      default:'',
-    },
     filter:{
       default :false,
     },
   },
   computed:{
     parsedValue(){
-      console.log('process',process)
       if(this.filter){
-        return this.filter(this.selectValue)
+        return this.filter(this.value)
       }else{
-        return this.selectValue
+        return this.value
       }
     },
   },
   methods:{
+   
     handleValueChange(e){
-      console.log('CHANGE',this)
-      // this.selectValue=e.target.value
+      // this.$emit('select',e.target.value)
+      this.$emit('input',e.target.value) // v-model used on this component will register $on event listenr for parent component
+      // this.$emit('change',e.target.value)
     },
   },
   created(){
-    console.log('select options',this.options)
+    // console.log('value',this.value)
   },
-  watch:{
-    // selectValue(v){
-    //   this.$emit('update:selectValue', v)
-    // }
-  },
-  events: {},
-  components: {}
 }
 </script>
 
