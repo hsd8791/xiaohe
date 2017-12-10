@@ -1,7 +1,9 @@
 require('./check-versions')()
-
 process.env.NODE_ENV = 'production'
-
+process.env.COMPANY_NAME = 'xh'//fot test
+var srcs=require('./pic.js')
+process.env.BANNER_DYNAMIC="../assets/"+'xh2'+"/banner.png"
+process.env.PIC_SRC=srcs
 var ora = require('ora')
 var rm = require('rimraf')
 var path = require('path')
@@ -10,7 +12,8 @@ var webpack = require('webpack')
 var config = require('../config')
 var webpackConfig = require('./webpack.prod.conf')
 
-var spinner = ora('building for production...')
+var spinner = ora('building for '+process.env.COMPANY_NAME?'default':process.env.COMPANY_NAME+' production...')
+
 spinner.start()
 
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {

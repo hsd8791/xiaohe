@@ -4,7 +4,12 @@ var config = require('../config')
 if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
-
+// process.env.BANNER='../assets/xh2/banner.png''
+process.env.COMPANY_NAME = 'xh'//fot test
+var srcs=require('./pic.js')
+process.env.BANNER_DYNAMIC="../assets/"+'xh2'+"/banner.png"
+process.env.PIC_SRC=srcs
+console.log('process.env.BANNER_DYNAMIC',process.env.BANNER_DYNAMIC,process.env.PIC_SRC)
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
@@ -74,6 +79,8 @@ var readyPromise = new Promise(resolve => {
 console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
   console.log('> Listening at ' + uri + '\n')
+  process.env.COMPANY_NAME = 'xh'//fot test
+
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
     // opn(uri)

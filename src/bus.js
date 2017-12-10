@@ -36,6 +36,7 @@ var bus = new Vue({
 				msg: '确定',
 			}, ],
 		},
+		testSrc:'',
 	},
 	created: function() {
 		// this.getLenderInfo()

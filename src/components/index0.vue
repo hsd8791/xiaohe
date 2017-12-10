@@ -8,7 +8,8 @@
 		这种模式适合简单业务系统，因为每个选项卡内容要写在一个DIV中，
 		若逻辑复杂，会导致当前页面DOM结构繁杂，造成webview响应缓慢，甚至崩溃；
 		因此若系统较复杂，需要下拉刷新等操作，推荐使用webview模式的选项卡；</div>-->
-	<img class="banner" :src="src.banner"/>
+  <img class="banner" :src="src.banner"/>
+	<img class="banner" :src="src.banner2"/>
 	<!-- <div class="box"> -->
 		<!-- <img src="../assets/img/logo.jpg" alt="" class="sub-banner" /> -->
 		<!-- <p>安全 · 快速 · 便捷</p> -->
@@ -39,7 +40,11 @@ export default {
         back:require("../assets/"+this.___imgPath+"/bg_old_customer.png"),
         newer:require("../assets/"+this.___imgPath+"/bg_new_customer.png"),
         logo:require("../assets/"+this.___imgPath+"/logo.png"),
-        banner:require("../assets/"+this.___imgPath+"/banner.png"),
+        // banner:require("../assets/"+this.___testImgPath+"/banner.png"),
+        // banner:require(this.pics.banner2),
+        banner:require(process.env.banner2),
+        // banner:require(bus.testSrc),
+        // banner2:require("../assets/"+this.___testImgPath+"/banner.png"),
       },
     	
       response:null,
@@ -61,6 +66,16 @@ export default {
     }
   },
   created(){
+    console.log('this index0',this)
+    console.log('this require(this.pics.banner2)',require('../assets/xh/banner.png'))
+    console.log('testSrc',bus.testSrc)
+    console.log('Vue.pic',this.pics)
+    // this.src.banner=require(process.env.BANNER),
+    console.log('process in index0',process.env)
+    // console.log('process in pics',this.pics.banner2)
+    console.log('process in index0',process.env.BANNER)
+    // console.log('compare',process.env.BANNER===this.pics.banner2)
+    // console.log('this.___testImgPath',this.___testImgPath,this.___imgPath)
   	// this.checkNewer()
   },
   computed:{
@@ -69,8 +84,8 @@ export default {
     },
   },
   beforeRouteEnter (to, from,next){
-  	console.log('to',to)
-  	console.log('from',from)
+  	// console.log('to',to)
+  	// console.log('from',from)
   	
   	next(vm=>{
   		if(!from.name){

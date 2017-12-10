@@ -29,7 +29,6 @@ Vue.component('app-input-login',inputLogin)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-// import env from '../config/index.js'
 
 if(/test\/xh/.test(location.href)){
 	Vue.http.options.root = 'http://hzg.he577.com/test';
@@ -180,11 +179,31 @@ Vue.directive('inner-scroll',{
 var url=location.href
 // console.log('host',url.slice(0,url.indexOf('#')-1))
 var host=url.slice(0,url.indexOf('#')-1)
-var path=pathMap[host]
+
+let path=pathMap[host]
 console.log('img path',path)
-console.log('process',process.env)
 Vue.prototype.___imgPath=path
 Vue.prototype.___subName=path
+Vue.prototype.___banner=process.env.banner
+let str=JSON.stringify(process.env.PIC_SRC)
+
+// console.log('JSON.stringify(process.env.PIC_SRC)',str)
+// console.log('parsed str',JSON.parse(str))
+// Vue.prototype.pics=JSON.parse(str)
+Vue.prototype.pics=process.env.PIC_SRC
+bus.testSrc="../assets/xh2/banner.png"
+
+console.log('process',process.env)
+if(process.env.NODE_ENV=="development"){
+	// let path=pathMap[host]
+	// Vue.prototype.___imgPath=path
+	// Vue.prototype.___subName=path
+	Vue.prototype.___testImgPath='xh2'
+	// 
+}else if(process.env.NODE_ENV==='production'){
+	Vue.prototype.___testImgPath=process.env.COMPANY_NAME
+}
+console.log('__testImgPath',Vue.prototype.___testImgPath,process.env.NODE_ENV=="development")
 new Vue({
 	el: '#app',
 	router,
