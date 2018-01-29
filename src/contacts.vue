@@ -24,11 +24,11 @@
 						<img src="./assets/img/zfb.png" alt="">
 					</a>
 				</li>
-				<li @click="doit(5)">
+<!-- 				<li @click="doit(5)">
 					<a href="javascript:void(0)">
 						<img src="./assets/img/pay-icon.png" alt="">
 					</a>
-				</li>
+				</li> -->
 				<!-- <li @click="doit(6)">
 					<a href="javascript:void(0)">
 						<img src="./assets/img/gongzhonghao_icon.png" alt="">
@@ -41,9 +41,9 @@
 		</div>
 		<div id="qrcode" v-show="qrcode > 0 " @click="baibai()">
 			<img @click.stop='' v-show="qrcode == 1" src="./assets/img/wechatMe.jpeg" alt="">
-			<img @click.stop='' v-show="qrcode == 2" src="./assets/img/qqMe.png" alt="">
+			<!-- <img @click.stop='' v-show="qrcode == 2" src="./assets/img/qqMe.png" alt=""> -->
 			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/zfbMe.jpeg" alt="">
-			<img @click.stop='' v-show="qrcode == 4" src="./assets/img/pay.jpg" alt="">
+			<!-- <img @click.stop='' v-show="qrcode == 4" src="./assets/img/pay.jpg" alt=""> -->
 			<!-- <img @click.stop='' v-show="qrcode == 5" src="./assets/img/qrcode_xh.jpg" alt=""> -->
 		</div>
 	</div>
