@@ -4,21 +4,21 @@
 			
 			<ul :class="{'active':isOpen}">
 
-				<li @click="doit(1)">
+<!-- 				<li @click="doit(1)">
 					<a href="javascript:void(0)">
 						<img src="./assets/img/qq.png" alt="">
 					</a>
-				</li>
+				</li> -->
 				<li @click="doit(2)">
 					<a href="javascript:void(0)">
 						<span class="icon-wechat"></span>
 					</a>
 				</li>
-				<li @click="doit(3)">
+				<!-- <li @click="doit(3)">
 					<a href="tel:4000577009">
 						<span class="icon-phone-hang-up"></span>
 					</a>
-				</li>
+				</li> -->
 				<li @click="doit(4)">
 					<a href="javascript:void(0)">
 						<img src="./assets/img/zfb.png" alt="">
@@ -40,9 +40,9 @@
 			</div>
 		</div>
 		<div id="qrcode" v-show="qrcode > 0 " @click="baibai()">
-			<img @click.stop='' v-show="qrcode == 1" src="./assets/img/wechatMe.jpeg" alt="">
+			<img @click.stop='' v-show="qrcode == 1" src="./assets/img/wechat.png" alt="">
 			<!-- <img @click.stop='' v-show="qrcode == 2" src="./assets/img/qqMe.png" alt=""> -->
-			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/zfbMe.jpeg" alt="">
+			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/allipay.jpg"  alt="">
 			<!-- <img @click.stop='' v-show="qrcode == 4" src="./assets/img/pay.jpg" alt=""> -->
 			<!-- <img @click.stop='' v-show="qrcode == 5" src="./assets/img/qrcode_xh.jpg" alt=""> -->
 		</div>
@@ -152,7 +152,7 @@ import bus from './bus.js'
 			    	color: black;
 			    }
 				}
-				&:nth-child(2),&:nth-child(3){
+				&:nth-child(1),&:nth-child(3){
 					background: #75c34b;
 					a {
 						color: white;
@@ -166,7 +166,7 @@ import bus from './bus.js'
 				&:nth-child(3){
 					background: #fbb021;
 				}
-				&:nth-child(4),	&:nth-child(5),&:nth-child(6){
+				&:nth-child(2),	&:nth-child(5),&:nth-child(6){
 					a{
 						padding: 0;
 					}

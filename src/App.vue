@@ -37,6 +37,8 @@
     data:function() {
       return {
         enter:'',
+        urlLendInfo:'accounting/myLendInfo?lendingUid=1',
+        urlApply:'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
         urlSales:'qudao/pv?qudao=',
         loading:false,
         vueName:'App',
@@ -95,12 +97,38 @@
 
         })
       },
+      checkNewer(){
+
+
+        console.log('%c checkNewer','color:red',)
+        publicFun.get(this.urlLendInfo,this,()=>{
+          // console.log('----',this.response.body.data)
+          // return
+          if(this.response.body.data){
+            bus.isNewer=false
+            // this.notNewerRedirect()
+
+          }else{
+            publicFun.get(this.urlApply,this,()=>{
+              console.log('---',this.response.body.data)
+              if(this.response.body.data.data.length){
+                bus.isNewer=false
+                // this.notNewerRedirect()
+              }else{
+                bus.isNewer=true
+              }
+            })
+          }
+        })
+        
+      },
       test(){
-        let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
-        let b=publicFun.singleGetPro('userInfo/work',)
-        let c=publicFun.singleGetPro('userInfo/liabilities',)
-        console.log('Promise.all',Promise.all)
-        let test=publicFun.handleGetPros([a,b,c])
+        console.log('bus',bus)
+        // let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
+        // let b=publicFun.singleGetPro('userInfo/work',)
+        // let c=publicFun.singleGetPro('userInfo/liabilities',)
+        // console.log('Promise.all',Promise.all)
+        // let test=publicFun.handleGetPros([a,b,c])
         // a.then((res)=>{
         //   console.log('res from promise',res)
         // },rej=>{
@@ -109,44 +137,58 @@
         // })
       },
     },
-  created:function(){
+    created:function(){
+      var way=this.$route.query.qudao
 
-    var way=this.$route.query.qudao
+      // console.log('way',this.$route)
+      if(way){
+       this.fromSales(way)
+       localStorage.qudao=way
 
-    // console.log('way',this.$route)
-    if(way){
-     this.fromSales(way)
-     localStorage.qudao=way
+      }else{
+        // localStorage.removeItem('qudao')
+      }
+      bus.$on('foot_show_change',(footShow)=>{
+        this.footNavShow=footShow
+      })
+      bus.$on('url_change',(action)=>{
+        this.enter=action
+      })
+      this.checkSession()
+      this.footNavShow=true
+    },
+    computed:{
+      globalLoading(){
+        return bus.loading
+      },
+      remind(){
+        return bus.remind
+      },
+      isTest(){
+        return /test/.test(location.href)
+      },
+      isLoged(){
+        // if(bus.account!=='请登录'){
+        //   this.$nextTick(()=>{
 
-    }else{
-      // localStorage.removeItem('qudao')
-    }
-    bus.$on('foot_show_change',(footShow)=>{
-      this.footNavShow=footShow
-    })
-    bus.$on('url_change',(action)=>{
-      this.enter=action
-    })
-    this.checkSession()
-    this.footNavShow=true
-  },
-  computed:{
-    globalLoading(){
-      return bus.loading
+        //   })
+        // }
+        return bus.account!=='请登录'
+      },
+      // checkNewerWatch(){
+      //   if(this.isLoged){
+      //     this.checkNewer()
+      //   }
+      //   return this.isLoged
+      // },
     },
-    remind(){
-      return bus.remind
-    },
-    isTest(){
-      return /test/.test(location.href)
-    },
-  },
-  watch:{
-      // account:function(val){
-      //   // console.log('account change',val)
-      //   Bus.$emit('account change',val)
-      // }
-    },
+    watch:{
+      isLoged(v){
+        if(v){
+          this.checkNewer()
+        }
+      },
+    },  
     components: {
       'foot-nav':footNav,
       contact:contact,
@@ -200,7 +242,7 @@
   $navColor:#8f8e94;
   $navHeight:0.5rem;
   /*$activeColor:#cd331c;*/
-  $activeColor:#cc2a1b;
+  $activeColor:#d42e84;
   /*$navBackground:#eee;*/
   $navBackground:#fcf9fe;
   /*$itemNameColor:#8f8e94;*/
@@ -220,6 +262,7 @@
     .nav-btn{
       -webkit-tap-highlight-color: transparent;
       width: 50%;
+      flex-grow:1;
       height: 100%;
       text-decoration: none;
       display: inline-block;

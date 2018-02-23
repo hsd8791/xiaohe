@@ -4,14 +4,15 @@ var bus = new Vue({
 	data: {
 		detailTaskId: null,
 		loading:false,
-		phoneLender: '13777722216',
-		uniqueIdLender: '2qamam',
+		phoneLender: '13868562997',
+		// uniqueIdLender: '2qamam',
 		account: '请登录',
 		uniqueId: '',
 		test: 'tstMSG',
 		response: null,
 		loanInfo: null,
 		qualified: 0,
+		isNewer:true,
 		firstEnterApp: true,
 		remind:{
 		  isShow:false,
@@ -44,9 +45,10 @@ var bus = new Vue({
 		// },
 	},
 	watch: {
-
+		
 	},
 	computed: {
+
 		relativeUrlTest() {
 			if (/test/.test(this.$http.options.root)) {
 				return '/test'

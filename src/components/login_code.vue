@@ -125,6 +125,7 @@
 				var url=publicFun.urlConcat(this.urlGetVerifyCode,{
 					phone:this.cellphone,
 					code:this.picCode,
+					platform:'xh',
 				})
 				publicFun.get(url,this,()=>{
 					console.log('get code response',this.response)
@@ -311,8 +312,9 @@
 		background: url(#) center center no-repeat;
 		background-size: 80%;
 		.logo{
-			width: 80%;
+			width: 60%;
 			position: relative;
+			top:0.3rem;
 		}
 	}
 	.pic-code{
@@ -374,8 +376,8 @@
 	.submit{
 		/*transition: 0.2s;*/
 		width: 80%;
-		background-color:#d6322c;
-		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
+		background-color:#d42e84;
+		background: linear-gradient(90deg,#d42e84 0%,#d42e84 30%,#f4a8de);
 		border-width: 0;
 		border-radius: 0.1rem;
     /*border-color: #ff6231;*/

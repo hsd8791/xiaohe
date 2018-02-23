@@ -14,22 +14,34 @@
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
 			<p class="auditing-txt">
-			<span v-if="loanInfo">重借</span><span v-if="!loanInfo">{{___companyName}}</span> 审核中
+			<span v-if="renewalAuditing">续期</span>
+			<span v-if="reborrowAuditing">重借</span>
+			<span v-if="!loanInfo">{{___companyName}}</span> 审核中
 			</p>
 		</div>
 		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
-			<app-quota :quotaCfg='applyRecord'></app-quota>
+			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
+			<p></p>
+			<p class="remind"></p>
+			<p>
+				申请通过
+			</p>
+			<div class="auditing-remark">
+				<p class="auditing-description">等待客服联系后完成放款。</p>
+			</div>
 		</div>
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 
 		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
 			<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
+			<p class="remind">提交申请，QQ客服会添加您进行审核，或添加QQ群：68128711，联系群【管理员】进行审核。</p>
+			<p class="remind">点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 			<p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
 			<p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
-			<p class="remind">必须添加QQ公众号【4000577009】才能进行审核。</p>
-			<img src="./../assets/img/hzg_qr.jpg" alt="" class="qrcode">
+			<p class="remind">必须添加指定的柒彩虹客服才能进行审核。</p>
+			<!-- <p class="remind">点击【放米超市】可以直接申请其他放米</p> -->
+			<!-- <img src="./../assets/img/groupQQ.jpg" alt="" class="qrcode"> -->
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
-
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
 			<p>
@@ -89,241 +101,347 @@
 </template>
 
 <script>
-	import publicFun from '../js/public.js'
-	import bus from '../bus.js'
-	import quota from './views/quota.vue'
-	export default {
-		data() {
-				return {
-					response: null,
-					applyRecord:{},
-					auditingRemark:null,
-					auditing: null,
-					loanInfo: null,
-					loading: true,
-					editing: true,
-					backAfterPost: false,
-					url: 'accounting/myLendInfo?lendingUid=1',
-					urlApply: 'lendApply/lendApply',
-					phoneLender: null,
-					amount: 2000,
-					urlApplyRecord: 'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
-					remind: {
-						isShow: false,
-						remindMsg: 'remind',
-						self_: this,
-						remindOpts: [{
-							msg: '确定',
-						}, ],
-					},
-
-				}
-			},
-			created() {
-				publicFun.checkSession(this)
-				bus.$on('quota_recieved',()=>{
-					this.get()
-				})
-				// setTimeout(()=> {
-				// 	this.auditing=1
-				// 	this.loanInfo.status=1
-				// }, 2000);
-				this.get()
-			},
-			filters: {
-				moneyParser(v) {
-					return Number(v / 100).toFixed(2)
-				},
-				timeParser(v) {
-					return publicFun.getTimeString(v, 0, 10)
-				},
-				statusParser(v) {
-					var s
-					switch (v) {
-						case 0:
-							s = '逾期未还本金'
-							break;
-						case 1:
-							s = '待还款'
-							break;
-						case 2:
-							s = '逾期已还本金'
-							break;
-						case 3:
-							s = '已还款'
-							break;
-						default:
-							s = '未知'
-					}
-					return s
-				},
-			},
-			methods: {
-				// test() {
-				// 	this.auditing = 1
-				// },
-				hzgMarket(){
-				    console.log('hzg market_list')
-				    location.href='http://hzg.he577.com/m/#/market_list'
-				},
-				reapply() {
-					var remind=this.remind
-					var apply = () => {
-							var remind=this.remind
-							remind.isShow=false
-							remind.remindMsgDscrp=null
-							let queryBody={
-								phone: '13777722216',
-								amount: this.amount * 100,
-							}
-							if(this.applyRecord.quotaStatus===3){
-								queryBody.applyType=1
-							}
-							var urlApply = publicFun.urlConcat(this.urlApply, queryBody)
-							publicFun.post(urlApply, {}, this, () => {
-								if(this.response.body.error){
-									return
-								}
-								remind.remindMsg = '提交完成'
-									// remind.remindMsgDscrp='请添加微信或手机联系人以便客服联系'
-								remind.remindMsgDscrp = null
-								remind.remindOpts = [{
-									msg: '确定',
-									callback: () => {
-										// publicFun.goPage('/loan_bill')
-										this.get()
-									}
-								}]
-							}, () => {})
-						}
-
-					remind.remindMsg = '请确定是否提交'
-					if(!this.applyRecord.quotaStatus===3){
-						remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
-					}
-					remind.remindOpts = [{
+import publicFun from '../js/public.js'
+import bus from '../bus.js'
+import quota from './views/quota.vue'
+export default {
+	data() {
+			return {
+				response: null,
+				applyRecord:{},
+				auditingRemark:null,
+				auditing: null,
+				loanInfo: null,
+				loading: true,
+				editing: true,
+				backAfterPost: false,
+				url: 'accounting/myLendInfo?lendingUid=1',
+				urlApply: 'lendApply/lendApply',
+				phoneLender: null,
+				amount: 2000,
+				urlApplyRecord: 'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
+				remind: {
+					isShow: false,
+					remindMsg: 'remind',
+					self_: this,
+					remindOpts: [{
 						msg: '确定',
-						callback: apply,
-					}, {
-						msg: '取消',
-					}, ]
-					remind.isShow = true
+					}, ],
 				},
-				goP(key, act) {
-					console.log('act',act)
-					if(key==='repay'||key==='renewal'){
-						let url=publicFun.urlConcat('/loan_deal',{
-							action: key,
-							billId:this.loanInfo.id,
-							v:Math.random().toFixed(5),
-						})
-						publicFun.goPage(this.$route.path+url)
-						return
+
+			}
+		},
+		created() {
+			publicFun.checkSession(this)
+			bus.$on('quota_recieved',()=>{
+				this.get()
+			})
+			setTimeout(()=> {
+				// test_放款等待还款()
+				// this.loanInfo.status=3
+			}, 2000);
+			this.get()
+			var test_审核通过等待放款=()=>{
+				this.auditing=1
+			}
+			var test_审核中=()=>{
+				// !loanInfo&&(auditing===0)
+				this.loanInfo=null
+				this.auditing=0
+			}
+			var test_退回重审=()=>{
+				this.auditing=2
+			}
+			var test_申请通过待放款=()=>{
+				this.auditing=1
+			}
+			var test_放款等待还款=()=>{
+				// (auditing===3&&loanInfo)|
+				this.auditing=3
+				this.loanInfo = {
+					"overdueFee": 0, //逾期金额分
+					"reBorrowFee": 4800, //续期手续费分(若有逾期，包括逾期费用，即重借费用+逾期费用)
+					"phone": "17702103430", //借款人手机号
+					"moneyFee": 20000, //借款金额
+					"borrowTime": 1499616000000, //借款时间戳，毫秒
+					"lendingWay": "借贷宝", //借款方式
+					"name": "taoyu", //借款人名字
+					"idCardNum": "330329199110021432", //借款人身份证
+					"id": 3, //借款id
+					"repaymentTime": 1499702400000, //应还时间
+					"status": 2 //0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
+				}
+			}
+		},
+
+		filters: {
+			moneyParser(v) {
+				return Number(v / 100).toFixed(2)
+			},
+			timeParser(v) {
+				return publicFun.getTimeString(v, 0, 10)
+			},
+			statusParser(v) {
+				var s
+				switch (v) {
+					case 0:
+						s = '逾期未还本金'
+						break;
+					case 1:
+						s = '待还款'
+						break;
+					case 2:
+						s = '逾期已还本金'
+						break;
+					case 3:
+						s = '已还款'
+						break;
+					default:
+						s = '未知'
+				}
+				return s
+			},
+		},
+		methods: {
+			// test() {
+			// 	this.auditing = 1
+			// },
+	  	joinQQ(){
+				window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
+	  	},
+			hzgMarket(){
+			    console.log('hzg market_list')
+			    location.href='https://www.ho163.com/m/#/market_list'
+			},
+			reapply() {
+				var remind=this.remind
+				var apply = () => {
+						var remind=this.remind
+						remind.isShow=false
+						remind.remindMsgDscrp=null
+						let queryBody={
+							phone: bus.phoneLender,
+							amount: this.amount * 100,
+						}
+						if(this.applyRecord.quotaStatus===3){
+							queryBody.applyType=1
+						}
+						if(this.loanInfo&&this.loanInfo.status===3){
+							queryBody.applyType=1
+						}
+						if(this.loanInfo&&this.loanInfo.status===1){
+							queryBody.applyType=2
+						}
+						var urlApply = publicFun.urlConcat(this.urlApply, queryBody)
+						publicFun.post(urlApply, {}, this, () => {
+							if(this.response.body.error){
+								return
+							}
+							remind.remindMsg = '提交完成'
+								// remind.remindMsgDscrp='请添加微信或手机联系人以便客服联系'
+							remind.remindMsgDscrp = null
+							remind.remindOpts = [{
+								msg: '确定',
+								callback: () => {
+									// publicFun.goPage('/loan_bill')
+									this.get()
+								}
+							}]
+						}, () => {})
 					}
-					// var url = publicFun.urlConcat('/loan_deal', {
-					let url = publicFun.urlConcat('/debt', {
+
+				remind.remindMsg = '请确定是否提交'
+				if(!this.applyRecord.quotaStatus===3){
+					remind.remindMsgDscrp = '提示：与客服沟通后完善相应信息后提交'
+				}
+				remind.remindOpts = [{
+					msg: '确定',
+					callback: apply,
+				}, {
+					msg: '取消',
+				}, ]
+				remind.isShow = true
+			},
+			submitByAction(type){
+				var action,applyType
+				switch(type){
+					case 'renewal':action='续期'; applyType=2;break;
+					case 'reborrow':action='重借'; applyType=1;break;
+				}
+				var apply = () => {
+					console.log('xuqi')
+					let urlApply = publicFun.urlConcat(this.urlApply, {
+						phone: bus.phoneLender,
+						amount: this.amount * 100,
+						applyType:applyType,
+					})
+					publicFun.post(urlApply, {}, this, () => {
+						if (this.response.body.error) {
+							return
+						}
+						remind.remindMsg = '提交完成'
+							// remind.remindMsgDscrp='请添加微信或手机联系人以便客服联系'
+						remind.remindMsgDscrp = null
+						remind.remindOpts = [{
+							msg: '确定',
+							callback: () => {
+								// publicFun.goPage('/loan_bill')
+								this.get()
+							}
+						}]
+					}, () => {})
+				}
+				var remind=this.remind
+				remind.remindMsg = '提交'+action
+				remind.remindOpts = [{
+					msg: '确定',
+					callback: apply,
+				}, {
+					msg: '取消',
+				}, ]
+				remind.isShow = true
+
+			},
+			goP(key, act) {
+				console.log('act',act,key)
+				if(key==='repay'){   
+					let url=publicFun.urlConcat('/loan_deal',{
 						action: key,
 						billId:this.loanInfo.id,
 						v:Math.random().toFixed(5),
-						// title:act.act,
-						// amount:this.loanInfo.moneyFee,
+						lendingWay:this.loanInfo.lendingWay,
 					})
-					// console.log('gopage', url)
-					var r=this.remind
-					r.remindMsg='请更新负债调查'
-					r.remindOpts=[
-
-					{msg:'确认',callback:()=>{
-						publicFun.goPage(this.$route.path+url)
-					}},
-					{msg:'取消',},
-					]
-					r.isShow=true
-				},
-				get() {
-					var checkAuditing = () => {
-						// var r=this.remind
-						console.log('res apply record', this.response.body.data.data)
-						var data = this.response.body.data.data[0]
-						if (data) {
-							// console.log('have records means auditing')
-							this.auditing = data.status
-							this.auditingRemark = data.remark
-							this.phoneLender = data.phone
-							this.applyRecord = data
-						} else {
-						}
-					}
-					publicFun.get(this.url, this, () => {
-						function isOverDueOneWeek(repaymentTime){
-							return repaymentTime+345600000>(new Date()).getTime()
-						}
-						console.log('res loan info', this.response)
-						this.loanInfo = this.response.body.data
-						if(this.loanInfo){
-							this.loanInfo.canReborrow=isOverDueOneWeek(this.loanInfo.repaymentTime)
-						}
-						// this.loanInfo.repaymentTime
-							publicFun.get(this.urlApplyRecord, this, checkAuditing)
-						if (!this.loanInfo) {
-						}
-					})
-				},
-			},
-			computed: {
-				noApplyRecord(){
-					return this.applyRecord.apply_id===undefined
-				},
-				actions() {
-					var l = this.loanInfo
-						//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
-					var temp = {
-
-							renewal: {
-								act: '续期',
-								enable: true,
-								show:true,
-								index: 1
-							},
-							reborrow: {
-								act: '重借',
-								enable: true,
-								show:true,
-								index: 1
-							},
-							repay:{
-								act:'还款',
-								enable:true,
-								show:true,
-								index:1,
-							},
-							special: {
-								act: '特殊',
-								enable: true,
-								show:true,
-								index: 1
-							},
-						}
-						// temp.special.enable=(l.status===0||l.status==2)
-						temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow
-						temp.repay.show=l.status===1||l.status===0
-						// temp.renewal.show=false
-						temp.reborrow.show=(l.status===3 || l.status===2)
-
-					return temp
-				},
-				needRepayment(){
-					return this.loanInfo&&this.loanInfo.status!==3
+					publicFun.goPage(this.$route.path+url)
+					return
 				}
+				if(key==='renewal'){
+					this.submitByAction('renewal')
+				}
+				if(key==='reborrow'){
+					this.submitByAction('reborrow')
+				}
+				// var url = publicFun.urlConcat('/loan_deal', {
+				// let url = publicFun.urlConcat('/debt', {
+				// 	action: key,
+				// 	billId:this.loanInfo.id,
+				// 	v:Math.random().toFixed(5),
+				// 	// title:act.act,
+				// 	// amount:this.loanInfo.moneyFee,
+				// })
+				// console.log('gopage', url)
+				// var r=this.remind
+				// r.remindMsg='请更新负债调查'
+				// r.remindOpts=[
+
+				// {msg:'确认',callback:()=>{
+				// 	publicFun.goPage(this.$route.path+url)
+				// }},
+				// {msg:'取消',},
+				// ]
+				// r.isShow=true
 			},
-			events: {},
-			components: {
-				'app-quota':quota,
+			get() {
+				var checkAuditing = () => {
+					// var r=this.remind
+					console.log('res apply record', this.response.body.data.data)
+					var data = this.response.body.data.data[0]
+					if (data) {
+						// console.log('have records means auditing')
+						this.auditing = data.status
+
+						this.auditingRemark = data.remark
+						this.phoneLender = data.phone
+						this.applyRecord = data
+					} else {
+					}
+				}
+				publicFun.get(this.url, this, () => {
+					function isOverDueOneWeek(repaymentTime){
+						return repaymentTime+345600000>(new Date()).getTime()
+					}
+					console.log('res loan info', this.response)
+					this.loanInfo = this.response.body.data
+					if(this.loanInfo){
+						this.loanInfo.canReborrow=isOverDueOneWeek(this.loanInfo.repaymentTime)
+					}
+					// this.loanInfo.repaymentTime
+						publicFun.get(this.urlApplyRecord, this, checkAuditing)
+					if (!this.loanInfo) {
+					}
+				})
+			},
+		},
+		computed: {
+			renewalAuditing(){
+				var l = this.loanInfo
+			  return this.auditing===0&&l&&(l.status===1||l.status===2)
+			},
+			reborrowAuditing(){
+			  	var l = this.loanInfo
+			    return this.auditing===0&&l&&l.status===3
+			},
+			noApplyRecord(){
+				return this.applyRecord.apply_id===undefined
+			},
+			actions() {
+				var l = this.loanInfo
+					//0:逾期未还（本金和逾期费用都未还），1:等待还款（未逾期）, 2:逾期本金已还（需要处理逾期） 3：已还款（正常。可以重借）
+				var temp = {
+
+						renewal: {
+							act: '续期',
+							enable: true,
+							show:true,
+							index: 1
+						},
+						reborrow: {
+							act: '重借',
+							enable: true,
+							show:true,
+							index: 1
+						},
+						repay:{
+							act:'还款',
+							enable:true,
+							show:true,
+							index:1,
+						},
+						// special: {
+						// 	act: '特殊',
+						// 	enable: true,
+						// 	show:true,
+						// 	index: 1
+						// },
+					}
+					temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow&&!this.renewalAuditing
+					temp.repay.show=l.status===1||l.status===0
+					temp.reborrow.show=(l.status===3 || l.status===2)
+				return temp
+			},
+			needRepayment(){
+				return this.loanInfo&&this.loanInfo.status!==3
 			}
-	}
+		},
+		events: {},
+		components: {
+			'app-quota':quota,
+		}
+}
 </script>
 
 <style lang='scss' scoped>
+#qq{
+	background: #24bdff url(../assets/img/add.png) no-repeat 5*0.01rem center;
+	background-size: 15*0.01rem auto;
+	font-size: 12*0.01rem;
+	width: 100*0.01rem;
+	color: white;
+	padding: 5*0.01rem 10*0.01rem 5*0.01rem 25*0.01rem;
+	border-radius: 5*0.01rem;
+	margin-bottom: 10*0.01rem;
+	text-shadow: none;
+	cursor: pointer;
+}
 	*{
 		/*border:1px solid red;*/
 	}
@@ -373,7 +491,7 @@
 			.remind{
 				font-size: 0.16rem;
 				text-align: left;
-				padding:0.05rem 0.25rem;
+				margin:0.1rem 0.25rem;
 			}
 			.inner-contaier{
 				margin-left: 0.2rem;
@@ -406,12 +524,13 @@
 				font-size: 0.16rem;
 				padding:0 0.15rem;
 				color:#8e8e8e;
+				justify-content:center;
 				.action-bttn{
 					width: 40%;
 					margin:0.1rem 0.15rem;
 					padding:0.1rem 0;
 					opacity: 0.5;
-					
+					flex-grow:0;
 				}
 				.action-bttn:last-child{
 					margin-right:0.45rem;

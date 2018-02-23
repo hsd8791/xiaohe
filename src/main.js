@@ -25,7 +25,8 @@ Vue.component('app-bind-card',bindCard)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'http://hzg.he577.com';
+Vue.http.options.root = 'https://www.ho163.com/api';
+// Vue.http.options.root = 'http://hzg.he577.com';
 // Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
@@ -48,9 +49,8 @@ Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
-Vue.prototype.___logo=false
-Vue.prototype.___companyName='小禾微贷'
-Vue.prototype.___companyName='小禾'
+Vue.prototype.___logo=''
+Vue.prototype.___companyName='柒彩虹'
 Vue.prototype.___borrowText='我的借款'
 Vue.prototype.___borrowText='我要收米'
 Vue.prototype.___billName='借单'
@@ -63,8 +63,7 @@ Vue.prototype.___daikuan='贷款'
 Vue.prototype.___daikuan='放米'
 
 
-document.querySelector('title').innerHTML='小禾微贷'
-document.querySelector('title').innerHTML='小禾'
+document.querySelector('title').innerHTML='柒彩虹'
 if(0){
 // if(/qudao=A7NBVf/.test(location.href)){
 	Vue.prototype.___logo='_wallet'

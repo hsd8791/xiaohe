@@ -5,57 +5,91 @@
 				<app-back></app-back>
 				{{action|actionParser}}
 			</h1>
-<!-- 			<div>
-				续期费:￥{{reBorrowFee | moneyParser}}
-				逾期费:￥{{overdueFee | moneyParser}}
-				重借利息:￥{{reBorrowFee____ | moneyParser}}
-			</div> -->
+      <div v-if='0'>
 
-      <div class="container phone-lender" >
+        <div class="container phone-lender" v-if='0' >
+          <div class="wraper" v-if="action=='renewal'">
+            <label class="amout-label">续期费用：</label>
+            <div class="amount">{{reBorrowFee | moneyParser}}</div>
+          </div>
+          <div class="wraper" v-if="action=='reborrow'">
+            <label class="amout-label">重借金额：</label>
+            <div class="amount">{{moneyFee | moneyParser}}</div>
+          </div>
 
-        <div class="wraper" v-if="action=='renewal'">
-          <label class="amout-label">续期费用：</label>
-          <div class="amount">{{reBorrowFee | moneyParser}}</div>
+          <div class="wraper" v-if="action==='repay'">
+            <label class="amout-label">还款费用：</label>
+            <div class="amount">{{repaymentFee | moneyParser}}</div>
+          </div>
         </div>
-        <!-- <div class="wraper" v-if="action=='special'||action=='renewal'"> -->
+        <div class="container" v-if='0'>
+          <div class="wraper"  v-if="action!=='special'&&action!=='reborrow'">
+            <label class="amout-label">总和：</label>
+            <div class="amount">{{ttlFee | moneyParser}}</div>
+          </div>
+          <div class="wraper" v-if="action=='special'">
+            <label class="amout-label">支付:</label>
+            <el-input class='custom-pay' id='specialInput' v-model='specialAmount'  placeholder="0.00" type='number' @blur.once='blured'  :class='{"valid-border":specialAmountValid,"error-border":!specialAmountValid}'></el-input>
+            <!-- <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i> -->
+          </div>
+        </div>
+        <div class="amount-emphasis" >￥{{amount | amountParser}}</div>
+        <el-button type='success' @click='submit' :disabled='amount==0||(action=="special"&&!specialAmountValid)'  >{{submitText}}</el-button>
 
-        <div class="wraper" v-if="action=='reborrow'">
-          <label class="amout-label">重借金额：</label>
-          <div class="amount">{{moneyFee | moneyParser}}</div>
-        </div>
-<!--         <div class="wraper" v-if="true">
-          <label class="amout-label">逾期费用：</label>
-          <div class="amount">{{overdueFee | moneyParser}}</div>
-        </div> -->
-        <div class="wraper" v-if="action==='repay'">
-          <label class="amout-label">还款费用：</label>
-          <div class="amount">{{repaymentFee | moneyParser}}</div>
-        </div>
+        <p class="description" v-if='action=="special"' >
+          说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
+        </p>
       </div>
-      <div class="container">
-        <div class="wraper"  v-if="action!=='special'&&action!=='reborrow'">
-          <label class="amout-label">总和：</label>
-          <div class="amount">{{ttlFee | moneyParser}}</div>
-        </div>
-        <div class="wraper" v-if="action=='special'">
-          <label class="amout-label">支付:</label>
-          <el-input class='custom-pay' id='specialInput' v-model='specialAmount'  placeholder="0.00" type='number' @blur.once='blured'  :class='{"valid-border":specialAmountValid,"error-border":!specialAmountValid}'></el-input>
-          <!-- <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i> -->
-        </div>
+      <div class="guide">
+        <p>如何{{action|actionParser}}？</p>
       </div>
-      <div class="amount-emphasis" >￥{{amount | amountParser}}</div>
-      <el-button type='success' @click='submit' :disabled='amount==0||(action=="special"&&!specialAmountValid)'  >{{submitText}}</el-button>
-
+      <div class="guide" v-if='action=="repay"'>
+        <div v-if='lendingWay==="借贷宝"'>
+          <p>请在借贷宝APP内点击钱包，点击【借入】在里面找到借条，再点击还款。</p>
+        </div>
+        <div v-if='lendingWay==="今借到"'>
+          <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
+        </div>
+        <div v-if='lendingWay==="无忧借条"'>
+          <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
+        </div>
+        <p>或者联系指定微信号【柒彩虹：13868562997】，微信或支付宝支付费用还款，借贷宝再进行销账。</p>
+      </div>
+      <div class="guide" v-if='action=="renewal"'>
+        <div v-if='lendingWay==="借贷宝"'>
+          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，我们将在借贷宝里发起展期。请再去借贷宝点击展期确认。</p>
+        </div>
+        <div v-if='lendingWay==="今借到"'>
+          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再去今借到发布一笔新借款1000元7天0利率0服务费，会借你一笔新的借款，收到新借款【不要提现】再去还上笔到期的借款，完成续期。</p>
+        </div>
+        <div v-if='lendingWay==="无忧借条"'>
+          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再进入无忧借条APP——点击借条中心——点击（我欠谁钱）——找到到期借条申请延期（利息、补偿金填0，延期补偿金填0，还款时间：延迟时长为7天）。</p>
+        </div>
+        <!-- <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p> -->
+      </div>
+      <div class="guide" v-if='action=="reborrow"'>
+        <div v-if='lendingWay==="借贷宝"'>
+          <p>借贷宝点击“我要借钱”，发布1张借条，1000元0利率5天，到期还本付息。请将已添加的借贷宝好友【马焕力】设定为指定发布对象。</p>
+        </div>
+        <div v-if='lendingWay==="今借到"'>
+          <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
+        </div>
+        <div v-if='lendingWay==="无忧借条"'>
+          <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
+        </div>
+        <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p>
+      </div>
+      <div class="guide">
+        <p>如有疑问请联系指定微信号【柒彩虹：13868562997】</p>
+      </div>
     </div>
-    <p class="description" v-if='action=="special"'>
-      说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
-    </p>
     <remind :remind='remind'></remind>
   </div>
 </template>
 
 <script>
 import publicFun from '../js/public.js'
+import bus from '../bus.js'
 // import Vue from 'Vue'
 export default {
   data() {
@@ -78,6 +112,7 @@ export default {
         action: null,
         specialAmount: null,
         billId: null,
+        lendingWay:null,
         remind: {
           isShow: false,
           remindMsg: 'remind',
@@ -128,6 +163,7 @@ export default {
       // this.title=q.title
     this.action = q.action
     this.billId = q.billId
+    this.lendingWay=q.lendingWay
       //部分设备直接唤起数字键盘
     var T = setInterval(function() {
         var input = document.querySelector('.el-input__inner')
@@ -142,10 +178,10 @@ export default {
       //   console.log('input',input)
       //   input.setAttribute('pattern','[0-9]*')
       // }, 1000);
-    if (this.action === 'reborrow') {
-      this.submitText = '提交'
-    }
-    this.getFee()
+    // if (this.action === 'reborrow') {
+    //   this.submitText = '提交'
+    // }
+    // this.getFee()
   },
   methods: {
     blured($event) {
@@ -157,12 +193,14 @@ export default {
         console.log('res lender', this.response)
         var data = this.response.body.data
         console.log('data lending info', data)
-        this.myLendInfo = data
-        this.overdueFee = data.overdueFee
-        this.moneyFee = data.moneyFee
-        this.reBorrowFee = data.reBorrowFee
-        this.platform = data.lendingWay
-        this.repaymentFee = data.repaymentFee
+        if(data){
+          this.myLendInfo = data
+          this.overdueFee = data.overdueFee
+          this.moneyFee = data.moneyFee
+          this.reBorrowFee = data.reBorrowFee
+          this.platform = data.lendingWay
+          this.repaymentFee = data.repaymentFee
+        }
       })
     },
     submit() {
@@ -207,7 +245,7 @@ export default {
     reborrowSubmit() {
       let postBody = {}
       postBody.applyType = 1
-      postBody.phone = '13777722216'
+      postBody.phone = bus.phoneLender
       postBody.amount = this.moneyFee
       publicFun.post(this.urlLendApply, postBody, this, () => {
         this.remind.remindOpts = [{
@@ -292,42 +330,51 @@ export default {
 }
 </script>
 
-    <style lang='scss' scoped>
-      .amount{
-        height: 0.4rem;
-        font-size: 0.20rem;
-        text-align: right;
-        padding-right: 0.15rem;
-        line-height: 0.4rem;
-        /*font-weight: bold;*/
-      }
-      #loanDealVue{
-        .phone-lender{
-          margin-top:0.2rem;
-        }
-        .amout-label{
-          color:#8e8e8e;
-        }
-      }
-      .amount-emphasis{
-        font-size: 0.4rem;
-      }
-      .description{
-        font-size: 0.18rem;
-        margin:0.2rem;
-        text-align:left;
-        line-height: 1.6;
-      }
+<style lang='scss' scoped>
+  .guide{
+    padding:0 0.15rem;
+    margin:0.15rem 0;
+    text-align: left;
+    p{
+      font-size: 0.14rem;
+      line-height: 1.6;
+    }
+  }
+  .amount{
+    height: 0.4rem;
+    font-size: 0.20rem;
+    text-align: right;
+    padding-right: 0.15rem;
+    line-height: 0.4rem;
+    /*font-weight: bold;*/
+  }
+  #loanDealVue{
+    .phone-lender{
+      margin-top:0.2rem;
+    }
+    .amout-label{
+      color:#8e8e8e;
+    }
+  }
+  .amount-emphasis{
+    font-size: 0.4rem;
+  }
+  .description{
+    font-size: 0.18rem;
+    margin:0.2rem;
+    text-align:left;
+    line-height: 1.6;
+  }
 
-    </style>
-    <style lang='scss'>
-      #loanDealVue{
-        .el-input__inner{
-          text-align: right;
-          padding-right:0.15rem;
-          font-size: 0.20rem;
-          /*font-weight: bold;*/
-        }
-      }
+</style>
+<style lang='scss'>
+  #loanDealVue{
+    .el-input__inner{
+      text-align: right;
+      padding-right:0.15rem;
+      font-size: 0.20rem;
+      /*font-weight: bold;*/
+    }
+  }
 
-    </style>
+</style>

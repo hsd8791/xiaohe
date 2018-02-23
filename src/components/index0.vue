@@ -13,7 +13,7 @@
 		<img :src='pics.logo'  v-if='___logo!==false'   alt="" class="sub-banner" />
 		<p class="slogan" v-if='___logo!==false' >安全 · 快速 · 便捷</p>
     <div class="logo-holder sub-banner"  v-if='___logo===false'></div>
-		<div class="mybtn" id="newBorrow" @click="user" v-if='isNewer'>
+		<div class="mybtn" id="newBorrow" @click="goApply" v-if='isNewer'>
 			开始{{___loanName}}
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
 		</div>
@@ -21,7 +21,8 @@
 			欢迎回来
 		</div>
     <img :src="pics.qrcode"  v-if='___logo!==false'class="xh-public-qr">
-    <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信服务号</p>
+    <!-- <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信服务号</p> -->
+    <p class="slogan" v-if='___logo!==false'>长按识别图中二维码关注微信公众号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
@@ -41,10 +42,9 @@ export default {
     return {
       pics:{
         logo:this.___logo!==false?require("../assets/img/logo"+this.___logo+".png"):'#',
-        qrcode:this.___logo!==false?require("../assets/img/xh_public_qr"+this.___logo+".jpg"):'#',
+        qrcode:this.___logo!==false?require("../assets/img/public_qr"+this.___logo+".jpg"):'#',
       },
       
-    	isNewer:false,
       response:null,
       loading:true,
       editing:true,
@@ -64,11 +64,11 @@ export default {
     }
   },
   created(){
-  	this.checkNewer()
+  	// this.checkNewer()
   },
   beforeRouteEnter (to, from,next){
-  	console.log('to',to)
-  	console.log('from',from)
+  	// console.log('to',to)
+  	// console.log('from',from)
   	
   	next(vm=>{
   		if(!from.name){
@@ -84,7 +84,7 @@ export default {
 
   	// 	})
   	// },
-  	noNewerRedirect(){
+  	notNewerRedirect(){
   		if(this.noFromRoute){
  				publicFun.goPage('/loan_bill')
   		}
@@ -93,53 +93,57 @@ export default {
   		// 	bus.firstEnterApp=false
   		// }
   	},
-  	checkNewer(){
-  		publicFun.get(this.urlLendInfo,this,()=>{
-  			console.log('this',this.response)
-  			if(this.response.body.data){
-  				this.isNewer=false
-  				this.noNewerRedirect()
+  	// checkNewer(){
+   //    if(!this.isLoged){
+   //      return
+   //    }
+  	// 	publicFun.get(this.urlLendInfo,this,()=>{
+  	// 		// console.log('this',this.response)
+  	// 		if(this.response.body.data){
+  	// 			this.isNewer=false
+  	// 			this.notNewerRedirect()
 
-  			}else{
-  				publicFun.get(this.urlApply,this,()=>{
-  					console.warn('this urlApply',this.response)
-  					if(this.response.body.data.data.length){
-  						this.isNewer=false
-  						this.noNewerRedirect()
-  					}else{
-  						this.isNewer=true
-  					}
-  				})
-  			}
-  		})
+  	// 		}else{
+  	// 			publicFun.get(this.urlApply,this,()=>{
+  	// 				// console.warn('this urlApply',this.response)
+  	// 				if(this.response.body.data.data.length){
+  	// 					this.isNewer=false
+  	// 					this.notNewerRedirect()
+  	// 				}else{
+  	// 					this.isNewer=true
+  	// 				}
+  	// 			})
+  	// 		}
+  	// 	})
   		
-  	},
+  	// },
 
   	dealBill(){
   		publicFun.goPage('/loan_bill')
   	},
-  	user() {
-					publicFun.goPage('/index/apply_borrow')
-					// if(index == 0) {
-					// 	//新用户
-					// 	// sessionStorage.setItem("oldman","no");
-					// 	// if(limitFlag) {
-					// 	// 	alert("系统正在维护中，开放时间10:00～17:00");
-					// 	// 	return;
-					// 	// }
-					// 	// window.location = "newCustomer.html";
-					// } else if(index == 1){
-					// 	//老用户
-					// 	// sessionStorage.setItem("oldman","yes");
-					// 	// if(limitFlag) {
-					// 	// 	alert("系统正在维护中，开放时间10:00～17:00");
-					// 	// 	return;
-					// 	// }
-					// 	window.location = "oldCustomer.html";
-					// } else {
-					// 	window.location = "oldCustomer2.html";
-					// }
-				},
+  	goApply() {
+      if(!this.isLoged){
+        publicFun.goPage(this.$route.path+'/login')
+        return
+      }
+			publicFun.goPage('/index/apply_borrow')
+		},
+  },
+  watch:{
+    isNewer(v){
+      if(!v){
+        this.notNewerRedirect()
+      }
+    },
+  },
+  computed:{
+    isLoged(){
+      return bus.account!=='请登录'
+    },
+    isNewer(){
+      return bus.isNewer
+    },
+
   },
   events: {},
   components: {}
@@ -162,13 +166,13 @@ export default {
     width: 80%;
   }
 	#newBorrow {
-	    border: 1px solid #e71419;
+	    border: 1px solid #d42f84;
 	    padding: 16px 0;
 	    margin: 0.4rem 0;
 	    font-family: "microsoft yahei";
 	    font-size: 20px;
 	    font-weight: 700;
-	    color: #e71419;
+	    color: #d42f84;
 	}
 	#oldBorrow{
 		border: 1px solid #e49731;

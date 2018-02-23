@@ -171,21 +171,7 @@
 				border: 0px solid #d2d2d2;
 				border-bottom-width: 1px;
 			}
-			.ctrl-box{
-				display: flex;
-				.ctrl-btn{
-					width: 100%;
-					height: 0.4rem;
-					line-height: 0.4rem;
-					font-size: 0.18rem;
-					border: 0px solid #d2d2d2 ;
-					border-right-width: 1px;
-					color:#0081ff;
-				}
-				.ctrl-btn:last-child{
-					border-width: 0px;
-				}
-			}
+
 		}
 	}
 

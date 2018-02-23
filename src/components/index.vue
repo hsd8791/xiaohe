@@ -91,12 +91,17 @@
 		},
 		methods:{
 			goP(path){
+				if(bus.account==='请登录'){
+					publicFun.goPage(this.$route.path+'/login')
+					return
+				}
 				publicFun.goPage('/index'+path)
 			},
 
 		},
+
 		created(){
-			publicFun.checkSession(this)
+			// publicFun.checkSession(this)
 		},
 		events: {},
 		components: {}

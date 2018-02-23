@@ -158,8 +158,8 @@
 .input .el-button--success.is-disabled, .input .el-button--success.is-disabled:focus, .input .el-button--success.is-disabled:hover {
   color: #dbf4db;
   cursor: not-allowed;
-  background-color: #9de49c;
-  border-color: #9de49c; }
+  background-color: #e39ce4;
+  border-color: #e39ce4; }
 .input .el-button--success, .input .el-button--success:focus, .input .el-button--success:hover {
   color: #fff;
   cursor: not-allowed;

@@ -289,8 +289,9 @@
 		background: url(#) center center no-repeat;
 		background-size: 80%;
 		.logo{
-			width: 80%;
+			width: 60%;
 			position: relative;
+			top:0.3rem;
 		}
 	}
 	.getVerify{
@@ -309,40 +310,12 @@
 	button[class~='el-button--warning'].is-disabled{
 		opacity: 0.3;
 	}
-	.change{
 
-		/*margin-bottom: 0.3rem;*/
-
-		color:#6a7fa5;
-		color:#666;
-		font-size: 0.18rem;
-		display: flex;
-		width: 80%;
-		height: 0.45rem;
-		position: relative;
-		margin:0.1rem auto;
-
-		/*font-weight: bold;*/
-		.logOpts{
-			display: block;
-			width: 50%;
-			padding:0.1rem 0.2rem;
-			border: 0px solid #e5e5e5 ;
-			border-bottom-width: 0.01rem;
-		}
-		.find-pwd{
-			width: 100%;
-		}
-		.active{
-			border-bottom-color: #d6322c;
-			border-bottom-width: 0.04rem;
-		}
-	}
 	.submit{
 		/*transition: 0.2s;*/
 		width: 80%;
-		background-color:#d6322c;
-		background: linear-gradient(90deg,#d6322c 0%,#d6322c 30%,#eda29a);
+		background-color:#d42e84;
+		background: linear-gradient(90deg,#d42e84 0%,#d42e84 30%,#f4a8de);
 		border-width: 0;
 		border-radius: 0.1rem;
     /*border-color: #ff6231;*/

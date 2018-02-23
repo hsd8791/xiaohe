@@ -80,12 +80,12 @@
 		methods: {
 			submit(){
 				var postBody = {
-					box_token:'BB2D93B9B972461A989EB491C1C3EE23',
+					box_token:'2B7DC823735B42EC990771E9B8AFAA7F',
 					real_name:this.real_name,
 					identity_code:this.identity_code,
 					user_mobile:this.phone,
 					// cb:encodeURIComponent('http://localhost:8080/m/#/shujumohe'),
-					cb:'http://hzg.he577.com/xh/#/index0',
+					cb:'https://www.ho163.com/qch/#/index0',
 					// v:Math.random(),//防止location.href 失效
 					// cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
 				}

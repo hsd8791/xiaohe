@@ -50,7 +50,7 @@ export default {
     methods: {
         hzgMarket(){
             console.log('hzg market_list')
-            location.href='http://hzg.he577.com/m/#/market_list'
+            location.href='https://www.ho163.com/m/#/market_list'
         },
         goPage: function(index) {
             setTimeout(() => { //incase same foot component
@@ -160,7 +160,7 @@ export default {
     .nav-mid{
         width: 0.5rem;
         height: 0.5rem;
-        background: #dd524d;
+        background: #d42e84;
         position: absolute;
         border-radius: 50%;
         top: -0.25rem;
@@ -177,15 +177,15 @@ export default {
     @keyframes beat{
         0% {
             /*transform: scale(1);*/
-            box-shadow: 0px 0px 2px #dd524d;
+            box-shadow: 0px 0px 2px #d42e84;
         }
         50% {
             /*transform: scale(0.9);*/
-            box-shadow: 0px 0px 8px #dd524d;
+            box-shadow: 0px 0px 8px #d42e84;
         }
         100% {
             /*transform: scale(1);*/
-            box-shadow: 0px 0px 2px #dd524d;
+            box-shadow: 0px 0px 2px #d42e84;
         }
     }
 </style>

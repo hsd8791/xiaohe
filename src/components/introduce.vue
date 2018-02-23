@@ -5,8 +5,11 @@
 			{{___companyName}}丨关于{{___companyName}}
 		</h3>
 		<p class="total">{{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。</p>
+    <p class="total">
+      关注微信公众号【{{___companyName}}】，填写申请表，稍后会有QQ客服联系您或进入{{___companyName}}QQ官方群联系群内管理员查询申请进度。如果有其他非管理员QQ或其他非指定微信联系您，一律为骗子。
+    </p>
 		<div class="input">
-			<a class="download-app" href="http://cdn.he577.com/hzg.0.0.1.apk" @click='testWechat' >
+			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
@@ -26,8 +29,9 @@
 				</el-button>
 			</a>
 		</div>
-		<p>客服电话：400-0577-009</p>
-		<p>小禾商务QQ公众号：4000577009</p>
+		<!-- <p>客服电话：400-0577-009</p> -->
+		<!-- <p>{{___companyName}}商务QQ公众号：4000577009</p> -->
+    <p>柒彩虹指定微信号：13868562997</p>
 		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
@@ -70,6 +74,7 @@
   		publicFun.get('account/logout',this,()=>{
   			// console.log('res outer',this.response)
   			// console.log('app',bus)
+        bus.isNewer=true 
   			bus.$emit('account_change','请登录','','')//para1 for account, para2 for uniqueId
   		})
   	},
@@ -138,7 +143,7 @@
 		}
 		.sub-title{
 			text-align: left;
-			color: #dd524d;
+			color: #d42e84;
 			position: relative;
 			padding-bottom: 5*0.01rem;
 			margin: 20*0.01rem 15*0.01rem 10*0.01rem;
@@ -153,7 +158,7 @@
 				right: 88*0.01rem;
 				bottom: 0;
 				height: 1*0.01rem;
-				background: #dd524d;
+				background: #d42e84;
 			}
 		}
 		#loginOut {
@@ -165,7 +170,7 @@
 			color: white;
 			font-weight: 700;
 			border: none;
-			background: #dd524d;
+			background: #d42e84;
 			border-radius: 10*0.01rem;
 		}
 	}
@@ -189,6 +194,7 @@
 		white-space: wrap;
 	}
 	#androidAppDownload{
+    background: #00d2b2;
 		p{
 			font-size: 0.24rem;
 			color:#fff;

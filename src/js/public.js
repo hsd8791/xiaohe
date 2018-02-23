@@ -580,6 +580,7 @@ publicFun.isWeiXin = function() {
 	}
 }
 publicFun.wechatAuth = function(vm) {
+	return
 	// console.log('authorize wechat')
 	var back = location.href
 	var i = back.match('/login')

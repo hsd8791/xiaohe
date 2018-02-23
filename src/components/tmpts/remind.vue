@@ -120,6 +120,7 @@
 					border-top-width: 1px;
 					color:#0081ff;
 					position: relative;
+					flex-grow:1;
 					.href{
 						width: 100%;
 						height: 100%;

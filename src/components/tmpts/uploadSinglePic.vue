@@ -275,6 +275,7 @@
 		align-items:center;
 		margin: 0;
 		.thumb{
+			flex-grow:0;
 			width:$boxSize;
 			height:$boxSize;
 			border:1px solid #cccccc;
@@ -295,6 +296,7 @@
 			/*height: $outerHeight;*/
 		}
 		.img-ctrl{
+			flex-grow:0;
 			position: absolute;
 			right: 0.15rem;
 		}

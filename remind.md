@@ -12,3 +12,9 @@
   if(this.loanInfo){
     this.loanInfo.canReborrow=this.loanInfo.repaymentTime+604800000>(new Date()).getTime()
   }
+
+#提交申请
+#等待申请
+#申请成功
+#客服联系放款，客服选择放款平台
+#已放款，等待还款。提醒还款时间，不显示逾期费用 同时显示三种，续期（重借），逾期，还款的操作方式
