@@ -100,7 +100,7 @@ import bus from '../../bus.js'
   		    }})
   		  // c.back=this.cancelChoose.bind(this)
   		  c.chooseOpts=options
-  		  c.title='请选择发放禾贷的银行卡'
+  		  c.title='请选择发放的银行卡'
   		  c.isShow=true
   		})
   	},

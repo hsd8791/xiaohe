@@ -74,7 +74,7 @@
   		publicFun.get('account/logout',this,()=>{
   			// console.log('res outer',this.response)
   			// console.log('app',bus)
-        bus.isNewer=true 
+        bus.isNewer=true
   			bus.$emit('account_change','请登录','','')//para1 for account, para2 for uniqueId
   		})
   	},
@@ -90,7 +90,7 @@
   	downloadIos(){
       let r=this.remind
       r.remindMsg='重要提示'
-      r.remindMsgDscrp='进入App后平台请填写【小禾】'
+      r.remindMsgDscrp='进入App后平台请填写【柒彩虹】'
       r.remindOpts=[{msg:'确认',callback:()=>{
       },href:'https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8'}]
       r.isShow=true

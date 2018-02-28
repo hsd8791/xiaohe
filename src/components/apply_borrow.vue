@@ -271,7 +271,7 @@
 								// this.remind.remindMsg='提示:添加联系方式'
 								this.remind.remindMsg='提交完成'
 								// this.remind.remindMsgDscrp='请添加微信或手机联系人以便客服联系'
-								this.remind.remindMsgDscrp='请添加QQ公众号：4000577009，否则不能完成借款'
+								// this.remind.remindMsgDscrp='请添加QQ公众号：4000577009，否则不能完成借款'
 								this.remind.remindOpts = [{
 									msg: '确定',
 									callback: () => {

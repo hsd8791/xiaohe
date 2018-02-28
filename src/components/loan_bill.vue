@@ -9,7 +9,25 @@
 			</p>
 			<div class="auditing-remark">
 				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
+				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
 				<p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
+				<p class="remind remind-refused">您好，您在柒彩虹的借款申请未通过审核，感谢您的配合。</p>
+				<p class="remind remind-refused">审核未通过可能是以下原因：</p>
+				<p class="remind remind-refused">1、年龄未达到要求。</p>
+				<p class="remind remind-refused">2、手机非实名、入网时间短或手机号存在异常。</p>
+				<p class="remind remind-refused">3、支付宝芝麻分或花呗为达到借款要求。</p>
+				<p class="remind remind-refused">4、其他借款平台负债高或检测到有逾期记录。</p>
+				<p class="remind remind-refused">
+					如需咨询请使用QQ联系QQ：356308275。
+				</p>
+				<p class="remind remind-refused">
+					温馨提示：
+				</p>
+				<p class="remind remind-refused">使用微信搜索【陈管家】或点击
+					<span @click='hzgMarket' class="link">【放米超市】</span>
+					可以直接申请其他贷款
+				</p>
+				<huabei></huabei>
 			</div>
 		</div> 
 		<div class="container auditing" v-if='auditing===0' audit-ctrl='auditing' >
@@ -42,6 +60,7 @@
 			<!-- <p class="remind">点击【放米超市】可以直接申请其他放米</p> -->
 			<!-- <img src="./../assets/img/groupQQ.jpg" alt="" class="qrcode"> -->
 			<p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
+			<huabei></huabei>
 		</div>
 		<div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
 			<p>
@@ -56,7 +75,7 @@
 			无申请记录
 		</div>
 		<div class="input" v-if='auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3)' audit-ctrl='reapply'>
-			<el-button type='success' @click='reapply' > 重新申请</el-button>
+			<el-button type='success' @click='reapply' >重新申请</el-button>
 		</div>
 		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
 
@@ -104,6 +123,7 @@
 import publicFun from '../js/public.js'
 import bus from '../bus.js'
 import quota from './views/quota.vue'
+import huabei from './views/tixian.vue'
 export default {
 	data() {
 			return {
@@ -139,6 +159,7 @@ export default {
 			setTimeout(()=> {
 				// test_放款等待还款()
 				// this.loanInfo.status=3
+				this.auditing=4
 			}, 2000);
 			this.get()
 			var test_审核通过等待放款=()=>{
@@ -425,6 +446,7 @@ export default {
 		events: {},
 		components: {
 			'app-quota':quota,
+			'huabei':huabei,
 		}
 }
 </script>
@@ -491,7 +513,12 @@ export default {
 			.remind{
 				font-size: 0.16rem;
 				text-align: left;
-				margin:0.1rem 0.25rem;
+				margin:0.1rem 0.15rem;
+			}
+			.remind-refused{
+				line-height: 1.2;
+				font-size: 0.14rem;
+				margin:0.05rem 0.15rem;
 			}
 			.inner-contaier{
 				margin-left: 0.2rem;
