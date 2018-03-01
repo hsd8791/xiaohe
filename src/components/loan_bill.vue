@@ -10,7 +10,7 @@
 			<div class="auditing-remark">
 				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
 				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
-				<p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
+				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
 				<p class="remind remind-refused">您好，您在柒彩虹的借款申请未通过审核，感谢您的配合。</p>
 				<p class="remind remind-refused">审核未通过可能是以下原因：</p>
 				<p class="remind remind-refused">1、年龄未达到要求。</p>
@@ -159,7 +159,7 @@ export default {
 			setTimeout(()=> {
 				// test_放款等待还款()
 				// this.loanInfo.status=3
-				this.auditing=4
+				// this.auditing=4
 			}, 2000);
 			this.get()
 			var test_审核通过等待放款=()=>{

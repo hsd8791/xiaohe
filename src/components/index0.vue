@@ -20,9 +20,9 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <img :src="pics.qrcode"  v-if='___logo!==false'class="xh-public-qr">
+    <!-- <img :src="pics.qrcode"  v-if='___logo!==false'class="xh-public-qr"> -->
     <!-- <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信服务号</p> -->
-    <p class="slogan" v-if='___logo!==false'>长按识别图中二维码关注微信公众号</p>
+    <!-- <p class="slogan" v-if='___logo!==false'>长按识别图中二维码关注微信公众号</p> -->
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
@@ -156,6 +156,7 @@ export default {
 		width: 100%;
 	}
 	.box {
+    margin-top: 0.5rem;
 		padding: 0 80px 30px;
 		.sub-banner{
 			margin-top: 40px;
@@ -166,21 +167,11 @@ export default {
     width: 80%;
   }
 	#newBorrow {
-	    border: 1px solid #d42f84;
-	    padding: 16px 0;
-	    margin: 0.4rem 0;
-	    font-family: "microsoft yahei";
-	    font-size: 20px;
-	    font-weight: 700;
-	    color: #d42f84;
+    border: 1px solid #d42f84;
+    color: #d42f84;
 	}
 	#oldBorrow{
 		border: 1px solid #e49731;
-		padding: 16px 0;
-    margin: 0.4rem 0;
-		font-family: "microsoft yahei";
-		font-size: 20px;
-		font-weight: 700;
 		color: #e49731;
 	}
   .logo-holder{
@@ -195,6 +186,12 @@ export default {
 	}
 	.mybtn {
     border-radius: 10px;
+    padding: 16px 0;
+    margin: 0.4rem 0;
+    margin-top: 0.7rem;
+    font-family: "microsoft yahei";
+    font-size: 20px;
+    font-weight: 700;
 	}
 }
 </style>

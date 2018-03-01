@@ -6,7 +6,7 @@
 		</h3>
 		<p class="total">{{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。</p>
     <p class="total">
-      关注微信公众号【{{___companyName}}】，填写申请表，稍后会有QQ客服联系您或进入{{___companyName}}QQ官方群联系群内管理员查询申请进度。如果有其他非管理员QQ或其他非指定微信联系您，一律为骗子。
+      关注微信公众号【新{{___companyName}}】，填写申请表，稍后会有QQ客服联系您或进入{{___companyName}}QQ官方群联系群内管理员查询申请进度。如果有其他非管理员QQ或其他非指定微信联系您，一律为骗子。
     </p>
 		<div class="input">
 			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
