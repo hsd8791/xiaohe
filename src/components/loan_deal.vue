@@ -5,9 +5,9 @@
 				<app-back></app-back>
 				{{action|actionParser}}
 			</h1>
-      <div v-if='0'>
+      <div >
 
-        <div class="container phone-lender" v-if='0' >
+        <div class="container phone-lender"  >
           <div class="wraper" v-if="action=='renewal'">
             <label class="amout-label">续期费用：</label>
             <div class="amount">{{reBorrowFee | moneyParser}}</div>
@@ -21,8 +21,12 @@
             <label class="amout-label">还款费用：</label>
             <div class="amount">{{repaymentFee | moneyParser}}</div>
           </div>
+          <div class="wraper" v-if="action!=='special'">
+            <label class="amout-label">{{action=='repay'?'退还':""}}保证金：</label>
+            <div class="amount">{{myLendInfo.securityFee||0 | moneyParser}}</div>
+          </div>
         </div>
-        <div class="container" v-if='0'>
+        <div class="container" >
           <div class="wraper"  v-if="action!=='special'&&action!=='reborrow'">
             <label class="amout-label">总和：</label>
             <div class="amount">{{ttlFee | moneyParser}}</div>
@@ -40,10 +44,10 @@
           说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
         </p>
       </div>
-      <div class="guide">
+      <div class="guide" v-if=0>
         <p>如何{{action|actionParser}}？</p>
       </div>
-      <div class="guide" v-if='action=="repay"'>
+      <div class="guide" v-if='action=="repay"&&false'>
         <div v-if='lendingWay==="借贷宝"'>
           <p>请在借贷宝APP内点击钱包，点击【借入】在里面找到借条，再点击还款。</p>
         </div>
@@ -55,7 +59,7 @@
         </div>
         <p>或者联系指定微信号【柒彩虹：13868562997】，微信或支付宝支付费用还款，借贷宝再进行销账。</p>
       </div>
-      <div class="guide" v-if='action=="renewal"'>
+      <div class="guide" v-if='action=="renewal"&&false'>
         <div v-if='lendingWay==="借贷宝"'>
           <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，我们将在借贷宝里发起展期。请再去借贷宝点击展期确认。</p>
         </div>
@@ -67,7 +71,7 @@
         </div>
         <!-- <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p> -->
       </div>
-      <div class="guide" v-if='action=="reborrow"'>
+      <div class="guide" v-if='action=="reborrow"&&false'>
         <div v-if='lendingWay==="借贷宝"'>
           <p>借贷宝点击“我要借钱”，发布1张借条，1000元0利率5天，到期还本付息。请将已添加的借贷宝好友【马焕力】设定为指定发布对象。</p>
         </div>
@@ -79,7 +83,7 @@
         </div>
         <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p>
       </div>
-      <div class="guide">
+      <div class="guide" v-if=0>
         <p>如有疑问请联系指定微信号【柒彩虹：13868562997】</p>
       </div>
     </div>
@@ -109,6 +113,7 @@ export default {
         moneyFee: null,
         reBorrowFee: null,
         repaymentFee: null,
+        securityFee:null,
         action: null,
         specialAmount: null,
         billId: null,
@@ -181,7 +186,7 @@ export default {
     // if (this.action === 'reborrow') {
     //   this.submitText = '提交'
     // }
-    // this.getFee()
+    this.getFee()
   },
   methods: {
     blured($event) {
@@ -200,6 +205,7 @@ export default {
           this.reBorrowFee = data.reBorrowFee
           this.platform = data.lendingWay
           this.repaymentFee = data.repaymentFee
+          // this.securityFee = data.securityFee
         }
       })
     },
@@ -258,6 +264,13 @@ export default {
     }
   },
   computed: {
+    securityRefund(){
+      let status=this.myLendInfo.status
+      if(status===1){
+        return this.myLendInfo.securityFee
+      }
+      return 0
+    },
     serviceType() {
       var s
       switch (this.action) {
@@ -354,6 +367,7 @@ export default {
     }
     .amout-label{
       color:#8e8e8e;
+      font-size: 0.14rem;
     }
   }
   .amount-emphasis{

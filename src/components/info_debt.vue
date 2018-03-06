@@ -90,7 +90,8 @@
 						if (!this.response.body.data) {
 							this.remind.remindMsg='更新成功'
 							var url=publicFun.urlConcat('/loan_deal',this.$route.query)
-							console.log('url',url)
+							// console.log('url',url)
+							console.log('this.$route.query.action',this.$route.query.action)
 							this.remind.remindOpts = [{
 								msg: this.$route.query.action=='reborrow'?'确定':'前往付款',
 								callback: () => {

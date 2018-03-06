@@ -41,14 +41,14 @@
 			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 			<p></p>
 			<p class="remind"></p>
-			<p>
+			<!-- <p>
 				申请通过
 			</p>
 			<div class="auditing-remark">
 				<p class="auditing-description">等待客服联系后完成放款。</p>
-			</div>
+			</div> -->
+			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
-			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
 
 		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
 			<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
@@ -79,7 +79,8 @@
 		</div>
 		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
 
-		<div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' >
+		<!-- <div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' > -->
+		<div class="container" v-if='(auditing===3&&applyRecord.quotaStatus===2)||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">{{___loanName}}金额</span>
@@ -99,6 +100,18 @@
 					<span class="li-title">当前状态</span>
 					<span class="li-content" :class="{'enable':loanInfo.status===3,'danger':loanInfo.status!==0||loanInfo.status!==2}">
 						{{loanInfo.status | statusParser}}
+					</span>
+				</div>
+				<div class="detail-li" v-if="loanInfo.status!==3">
+					<span class="li-title">保证金【按时还款退还】</span>
+					<span class="li-content" >
+						{{loanInfo.securityFee|moneyParser}}元
+					</span>
+				</div>
+				<div class="detail-li" v-if="loanInfo.status===3">
+					<span class="li-title">退还保证金金额</span>
+					<span class="li-content" >
+						{{loanInfo.returnSecurityFee|moneyParser}}元
 					</span>
 				</div>
 			</div>
@@ -335,29 +348,66 @@ export default {
 					publicFun.goPage(this.$route.path+url)
 					return
 				}
-				if(key==='renewal'){
-					this.submitByAction('renewal')
+				// if(key==='renewal'){
+					// this.submitByAction('renewal')
+				// }
+				// if(key==='reborrow'){
+				// 	this.submitByAction('reborrow')
+				// }
+				if(key==="special"||key==='renewal'){
+					console.log('%c special','color:red',)
+					let url=publicFun.urlConcat('/loan_deal',{
+						action: key,
+						billId:this.loanInfo.id,
+						v:Math.random().toFixed(5),
+						lendingWay:this.loanInfo.lendingWay,
+					})
+					publicFun.goPage(this.$route.path+url)
+					return
 				}
 				if(key==='reborrow'){
-					this.submitByAction('reborrow')
+					let url = publicFun.urlConcat('/debt', {
+						action: key,
+						billId: this.loanInfo.id,
+						v: Math.random().toFixed(5),
+						// title:act.act,
+						// amount:this.loanInfo.moneyFee,
+					})
+					console.log('gopage', url)
+					var r=this.remind
+					r.remindMsg='请更新负债调查'
+					r.remindOpts = [
+						{
+							msg: '确认',
+							callback: () => {
+								publicFun.goPage(this.$route.path + url)
+							}
+						}, {
+							msg: '取消',
+						},
+					]
+					r.isShow=true
 				}
-				// var url = publicFun.urlConcat('/loan_deal', {
+				// // var url = publicFun.urlConcat('/loan_deal', {
 				// let url = publicFun.urlConcat('/debt', {
 				// 	action: key,
-				// 	billId:this.loanInfo.id,
-				// 	v:Math.random().toFixed(5),
+				// 	billId: this.loanInfo.id,
+				// 	v: Math.random().toFixed(5),
 				// 	// title:act.act,
 				// 	// amount:this.loanInfo.moneyFee,
 				// })
 				// console.log('gopage', url)
 				// var r=this.remind
 				// r.remindMsg='请更新负债调查'
-				// r.remindOpts=[
-
-				// {msg:'确认',callback:()=>{
-				// 	publicFun.goPage(this.$route.path+url)
-				// }},
-				// {msg:'取消',},
+				// r.remindOpts = [
+				// 	{
+				// 		msg: '确认',
+				// 		callback: () => {
+				// 			publicFun.goPage(this.$route.path + url)
+				// 		}
+				// 	}, {
+				// 		msg: '取消',
+				// 	},
 				// ]
 				// r.isShow=true
 			},
@@ -427,12 +477,12 @@ export default {
 							show:true,
 							index:1,
 						},
-						// special: {
-						// 	act: '特殊',
-						// 	enable: true,
-						// 	show:true,
-						// 	index: 1
-						// },
+						special: {
+							act: '特殊',
+							enable: true,
+							show:true,
+							index: 1
+						},
 					}
 					temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow&&!this.renewalAuditing
 					temp.repay.show=l.status===1||l.status===0

@@ -28,6 +28,11 @@
 				<el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
 				<!-- <i :class="{'el-icon-check':verifyCodeValid,'el-icon-close':!verifyCodeValid}"></i> -->
 			</div>
+			<!-- <div class="wraper">
+				<label>密码：</label>
+				<el-input placeholder='数字和字母 8位以上' v-model='pwd' @blur.once='blured'  :class='{"valid-border":pwdValid,"error-border":!pwdValid}' ></el-input>
+				<i :class="{'el-icon-check':pwdValid,'el-icon-close':!pwdValid}"></i>
+			</div> -->
 		</div>
 
 		<el-button class='submit' type="success" :disabled='!((allValid&&verifyCodeValid&&!pwdLogin)||(allValid&&pwdValid&&pwdLogin))' @click='login'>{{action=='signup'?'注册':'确认'}}</el-button>
@@ -273,12 +278,12 @@
 				return reg.test(this.picCode)
 			},
 			pwdValid:function(){
-				var reg=/^.{6,}$/;
+				var reg=/^.{8,}$/;
 				return reg.test(this.pwd)
 			},
 			allValid:function(){
 				var t=this
-				return (t.verifyCodeValid||t.pwdValid||t.picCodeValid)&&t.cellphoneValid&&true//&&
+				return (t.verifyCodeValid||t.picCodeValid)&&t.cellphoneValid&&true//&&t.pwdValid
 			},
 		},
 		events: {},
