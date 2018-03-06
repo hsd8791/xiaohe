@@ -133,15 +133,17 @@
 				if(!this.idCardNumValid){
 					return false
 				}
+				const minAge=20
+				const maxAge=39// 40-1
 				var ID=this.idCardNum
 				var bornY=ID.slice(6,10)*1,bornM=ID.slice(10,12)*1,bornD=ID.slice(12,14)*1
 				var today=new Date()
 				var todayY=today.getFullYear(),todayM=today.getMonth()+1,todayD=today.getDate()
 
-				if((bornY+20)<todayY&&(bornY+35)>todayY){
+				if((bornY+minAge)<todayY&&(bornY+maxAge)>todayY){
 					return true
 				}else{
-					if(bornY+20===todayY){
+					if(bornY+minAge===todayY){
 						if(bornM<todayM){
 							return true
 						}else if(bornM===todayM){
@@ -150,7 +152,7 @@
 							}
 						}
 					}
-					if(bornY+35===todayY){
+					if(bornY+maxAge===todayY){
 						if(bornM>todayM){
 							return true
 						}else if(bornM===todayM){
