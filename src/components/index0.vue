@@ -20,9 +20,9 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <!-- <img :src="pics.qrcode"  v-if='___logo!==false'class="xh-public-qr"> -->
-    <!-- <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信服务号</p> -->
-    <!-- <p class="slogan" v-if='___logo!==false'>长按识别图中二维码关注微信公众号</p> -->
+    <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信客服</p>
+    <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false'class="xh-public-qr">
+    <p class="slogan" v-if='___logo!==false'>长按识别图中二维码客服微信号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->
@@ -156,7 +156,7 @@ export default {
 		width: 100%;
 	}
 	.box {
-    margin-top: 0.5rem;
+    margin-top: 0.0rem;
 		padding: 0 80px 30px;
 		.sub-banner{
 			margin-top: 40px;
@@ -187,8 +187,8 @@ export default {
 	.mybtn {
     border-radius: 10px;
     padding: 16px 0;
-    margin: 0.4rem 0;
-    margin-top: 0.7rem;
+    margin: 0.3rem 0;
+    margin-top: 0.3rem;
     font-family: "microsoft yahei";
     font-size: 20px;
     font-weight: 700;
