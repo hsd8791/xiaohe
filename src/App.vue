@@ -60,7 +60,7 @@
     methods: {
       fromSales(w) {
         sessionStorage.setItem('salesWay', w)
-        console.log('sales URL', this.urlSales + w)
+        // console.log('sales URL', this.urlSales + w)
         publicFun.get(this.urlSales + w, this, () => {
 
         })
@@ -98,16 +98,12 @@
         })
       },
       checkNewer(){
-
-
         console.log('%c checkNewer','color:red',)
         publicFun.get(this.urlLendInfo,this,()=>{
-          // console.log('----',this.response.body.data)
-          // return
+
           if(this.response.body.data){
             bus.isNewer=false
             // this.notNewerRedirect()
-
           }else{
             publicFun.get(this.urlApply,this,()=>{
               console.log('---',this.response.body.data)
@@ -213,28 +209,7 @@
     margin-bottom: 0.5rem;
 
   }
-  #app {
-    position: absolute;
-    top: 0;bottom: 0;
-    width: 100%;
-    overflow: hidden;
-    left: 0;right: 0;
-    /*height: 100%;*/ 
-    /*height: 100%;*/
-    /*z-index: 2;*/
-    /*padding-bottom: 0.5rem;*/
-    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    padding-bottom: 0.65rem;
-    /*background: #fcf9fe;*/
-    background: #f4f4f4;
-    z-index: 9;
-    /*margin-top: 0.6rem;*/
-  }
+
 
 </style>
 <style type="text/css" lang='scss' >
@@ -308,4 +283,26 @@
   .back-leave-to{
     transform: translateX(-100%);
   }*/
+    #app {
+    position: absolute;
+    top: 0;bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    left: 0;right: 0;
+    /*height: 100%;*/ 
+    /*height: 100%;*/
+    /*z-index: 2;*/
+    /*padding-bottom: 0.5rem;*/
+    /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    padding-bottom: 0.65rem;
+    /*background: #fcf9fe;*/
+    background: #f4f4f4;
+    z-index: 9;
+    /*margin-top: 0.6rem;*/
+  }
 </style>
