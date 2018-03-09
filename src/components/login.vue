@@ -288,6 +288,7 @@
 		position: relative;
 		background: url(#) center center no-repeat;
 		background-size: 80%;
+		z-index: 999999;
 		.logo{
 			width: 60%;
 			position: relative;

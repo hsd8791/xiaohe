@@ -99,10 +99,10 @@ import bus from './bus.js'
 			},
 			computed:{
 			  showContacts(){
-			  	console.log('localStorage.qudao,',localStorage.qudao,bus.account)
-			    if(localStorage.qudao==='QbERzq'&&bus.account==='请登录'){
-			    	return false
-			    }
+			  	// console.log('localStorage.qudao,',localStorage.qudao,bus.account)
+			   //  if(localStorage.qudao==='QbERzq'&&bus.account==='请登录'){
+			   //  	return false
+			   //  }
 			    return true
 			  },
 			},

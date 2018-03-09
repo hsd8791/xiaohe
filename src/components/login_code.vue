@@ -234,7 +234,7 @@
 				if(v){
 					if(this.action==='signup'){
 						publicFun.get(this.urlPhoneUsed+'?phone='+this.cellphone,this,()=>{
-							console.log('res phone used',this.response.body)
+							// console.log('res phone used',this.response.body)
 							if(this.response.body.data.status){
 								let r=this.remind
 								r.remindOpts=[{
