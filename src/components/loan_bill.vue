@@ -169,11 +169,11 @@ export default {
 			bus.$on('quota_recieved',()=>{
 				this.get()
 			})
-			setTimeout(()=> {
+			// setTimeout(()=> {
 				// test_放款等待还款()
 				// this.loanInfo.status=3
 				// this.auditing=4
-			}, 2000);
+			// }, 2000);
 			this.get()
 			var test_审核通过等待放款=()=>{
 				this.auditing=1
@@ -344,6 +344,7 @@ export default {
 						billId:this.loanInfo.id,
 						v:Math.random().toFixed(5),
 						lendingWay:this.loanInfo.lendingWay,
+						expired:this.loanInfo.status===0?1:"",
 					})
 					publicFun.goPage(this.$route.path+url)
 					return

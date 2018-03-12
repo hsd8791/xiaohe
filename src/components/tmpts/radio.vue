@@ -1,111 +1,118 @@
 <template>
-	<div class='input-radio-box'>
-		<div class="wrapper"  v-for='item in infos.options' >
-			<input type="radio" :checked='defaultV==item.value':id='item.id' :name="infos.name"  :value="item.value" @change='emitChange($event)' :key='item.id'/>
-			<label :for='item.id' ><span class="checking"></span>{{item.value}}</label>
-		</div>
-	</div>
+<!--   <div class="input-radio">
+    <div class="box-radio__" v-for='(item,index) in temp' >
+      <input type="radio" :value="item.value" class="radio__" :name="name" :id="name+'_'+item.value">
+      <label :for="name+'_'+item.value" class="content-radio__">
+        <slot>
+        </slot>
+      </label>
+    </div>
+  </div> -->
+  <div class="box-radio__" ref='container'>
+    <label :for="id" class="content-radio__">
+      <slot>
+      </slot>
+    </label>
+    <input type="radio" ref='radio' :checked='value===label' :value="'test_value'" class="radio__" :name="name" :id="id"  @change='onChange'>
+  </div>
 </template>
 
 <script>
-	import bus from '../../bus.js'
-	export default {
-		data() {
-			return {
-			}
-		},
-		props: {
-		// id: {},
-		// value: {},
-		// name:{},
-		// options:{},
-		infos:{
-			type:Object,
-			required:true
-		}
-		,
-		defaultV:{
-			required:true
-		}
-	},
-	computed:{},
-	methods:{
-		emitChange:function($event){
-			bus.$emit('sex',$event.target.value)
-		}
-	},
-	events: {},
-	components: {}
+//name = this.id+radio || v-model
+export default {
+  data() {
+    return {
+      temp:[
+        {value:1,},
+        {value:2,},
+        {value:3,},
+      ],
+      // label:null,
+      name:null,
+      // note: changing this line won't causes changes
+      // with hot-reload because the reloaded component
+      // preserves its current state and we are modifying
+      // its initial state.
+    }
+  },
+  props:{
+    value:{
+    	default:'value',
+    },
+    label:{
+    	default:'label',
+    },
+  },
+  created(){
+
+  },
+  mounted(){
+    // console.log('context',this.$vnode.data.model.expression)
+    // console.log('this.$refs.container',this.$refs.container)
+    // console.log('this.$refs.container lable',this.$refs.container.getAttribute('label'))
+    // this.label=this.$refs.container.getAttribute('label')
+    console.log('%c this.$vnode.data','color:red',this.$vnode.data)
+    if(!this.$vnode.data.model){
+    	// console.error('need v-model in radio component')
+    	this.name='temple name'
+    }else{
+    	this.name=this.$vnode.data.model.expression
+    }
+    //inspect change by click event
+    //emit input value
+  },
+  computed:{
+    id(){
+      return 'radio_he_'+this._uid
+    },
+    label__(){
+      // console.log('this.$refs.container',this.$refs.container,this.$refs.container.$el)
+      if(this.$refs.container){
+        return this.$refs.container.getAttribute('label')
+      }
+      return null
+    },
+  },  
+  methods:{
+    onChange(){
+      // console.log('changed',this.$refs.radio.checked)
+      this.$emit('input',this.label)
+    },
+  },
+  events: {},
+  components: {}
 }
 </script>
 
-<style scoped lang='scss'>
-	$outerWidth:80%;
-	$outerHeight:0.4rem;
-	$labelColor:#666;
-	$checkBoxSize:0.15rem;
-	*{
-		/*border:1px solid red;*/
-	}
+<style lang='scss' scoped>
+.radio__{
+  display: block;
+  font-size: 0.2rem;
+  border:1px solid red;
+  height: 0.2rem;
+  width: 0.2rem;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  right: 0;
+}
+.box-radio__{
+  /*border:1px solid red;*/
+  position: relative;
+  min-height: 0.1rem;
+  height: 100%;
+  /*display: inline-block;*/
+}
+.container{
+  position: relative;
+}
+.content-radio__{
+  /*border:2px solid yellow;*/
+  position: relative;  
+  width: 100%;
+  height: 100%;
+  display: block;
+  min-height: 0.1rem;
 
-	label{
-		font-size: 0.25rem;
-		line-height: $outerHeight;
-		/*height: $outerHeight;*/
-		width: 100%;
-		color:$labelColor;
-	}
-	.input-radio-box{
-		position: relative;
-		/*height: 0.4rem;*/
-	}
-	.wrapper{
-		position: relative;
-		overflow: hidden;
-		margin: 0 auto;
-		height: 0.4rem;
-		width:$outerWidth;
-		border:1px #c3c9d0 solid;
-		/*background: rgb(224,224,224);*/
-	}
-	input,label{
-		box-sizing: border-box;
-		position: absolute;
-		top: 0;left: 0;
-		/*height: $outerHeight;*/
-		-webkit-tap-highlight-color:rgba(153,204,102,0.25);
-		transition: 0.5s cubic-bezier(0.09, 0.7, 0.4, 0.93);
-
-	}
-	label:active{
-		background: rgba(153,204,102,0.25);
-	}
-	input + label{
-		padding-left: 0.4rem;
-		/*width: auto;*/
-		text-align: left;
-		vertical-align: middle;
-		/*background: */
-	}
-	.checking{
-		display: inline-block;
-		width:$checkBoxSize;
-		height:$checkBoxSize;
-		position: absolute;
-		left: 0.15rem;
-		top: 0;bottom: 0;
-		margin:auto 0;
-		border: 0.02rem solid rgb(192,192,192);
-		border-radius: 50%;
-		background: rgb(224,224,224);
-		transition: 0.3s cubic-bezier(0.73, 0.18, 0.87, 0.56);
-		/*background-image: linear-gradient(rgb(240,240,240),rgb(224,224,224));*/
-	}
-	input[type='radio']{
-		opacity: 0;
-	}
-	input[type=radio]:checked + label> .checking{
-		background: rgb(153,204,102)
-	}
-	
+}
 </style>

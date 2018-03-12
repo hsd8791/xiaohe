@@ -6,7 +6,6 @@
 				{{action|actionParser}}
 			</h1>
       <div >
-
         <div class="container phone-lender"  >
           <div class="wraper" v-if="action=='renewal'">
             <label class="amout-label">续期费用：</label>
@@ -19,9 +18,9 @@
 
           <div class="wraper" v-if="action==='repay'">
             <label class="amout-label">还款费用：</label>
-            <div class="amount">{{repaymentFee | moneyParser}}</div>
+            <div class="amount">{{computedRepayFee | moneyParser}}</div>
           </div>
-          <div class="wraper" v-if="action!=='special'">
+          <div class="wraper" v-if="action=='repay'&&repaymentType==0">
             <label class="amout-label">{{action=='repay'?'退还':""}}保证金：</label>
             <div class="amount">{{myLendInfo.securityFee||0 | moneyParser}}</div>
           </div>
@@ -37,9 +36,22 @@
             <!-- <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i> -->
           </div>
         </div>
+        <div class="repay-type-box" v-if='action==="repay"'>
+          <app-radio v-model='repaymentType' label=0>
+            <div class="type-box">
+              <app-check class='check' :value='repaymentType==0'></app-check>
+              <p>全额还款，还款后保证金退还</p>
+            </div>
+          </app-radio>
+          <app-radio v-model='repaymentType' label=1 value="1">
+            <div class="type-box">
+              <app-check class='check' :value='repaymentType==1'></app-check>
+              <p>将保证金扣除后还款</p>
+            </div>
+          </app-radio>
+        </div>
         <div class="amount-emphasis" >￥{{amount | amountParser}}</div>
         <el-button type='success' @click='submit' :disabled='amount==0||(action=="special"&&!specialAmountValid)'  >{{submitText}}</el-button>
-
         <p class="description" v-if='action=="special"' >
           说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
         </p>
@@ -98,6 +110,8 @@ import bus from '../bus.js'
 export default {
   data() {
       return {
+        repaymentType:'',
+        repaymentTyepArr:[0,1],
         submitText: '支付',
         title: '',
         response: null,
@@ -164,10 +178,14 @@ export default {
 
   },
   created() {
+    // setTimeout(()=> {
+    //   this.repaymentFee=100000
+    // }, 2000);
     var q = this.$route.query
       // this.title=q.title
     this.action = q.action
     this.billId = q.billId
+
     this.lendingWay=q.lendingWay
       //部分设备直接唤起数字键盘
     var T = setInterval(function() {
@@ -264,6 +282,16 @@ export default {
     }
   },
   computed: {
+    repayExpired(){
+      return Boolean(this.$route.query.expired)
+    },
+    computedRepayFee(){
+      if(this.repaymentType==0){
+        return this.repaymentFee
+      }else{
+        return this.repaymentFee*0.9
+      }
+    },
     securityRefund(){
       let status=this.myLendInfo.status
       if(status===1){
@@ -284,7 +312,11 @@ export default {
           s = 2;
           break;
         default:
-          s = 3;
+          if(this.repaymentType==0){
+            s=3
+          }else{
+            s=4
+          }
           break;
       }
       return s
@@ -307,7 +339,7 @@ export default {
           m += t.overdueFee;
           break;
         case 'repay':
-          m += t.repaymentFee;
+          m += t.computedRepayFee;
           break;
       }
       return m
@@ -344,6 +376,22 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+  .type-box{
+    position: relative;
+    display: flex;
+    padding:0.025rem 0;
+    p{
+      flex-grow:0;
+      font-size: 0.14rem;
+      color:#666;
+    }
+    .check{
+      flex-grow:0;
+      /*position: absolute;*/
+      /*left: 0;*/
+      /*right: 0;*/
+    }
+  }
   .guide{
     padding:0 0.15rem;
     margin:0.15rem 0;
@@ -352,6 +400,11 @@ export default {
       font-size: 0.14rem;
       line-height: 1.6;
     }
+  }
+  .repay-type-box{
+    margin:0.1rem 0;
+    background: #fff;
+    padding: 0.05rem 0.15rem;
   }
   .amount{
     height: 0.4rem;

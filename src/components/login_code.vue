@@ -17,7 +17,7 @@
 			<div class="wraper">
 				<label>图片码：</label>
 				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input placeholder='图片验证码' v-model='picCode' @blur.once='blured'  :class='{"valid-border":picCodeValid,"error-border":!picCodeValid}'></el-input>
+				<el-input placeholder='4位数字' v-model='picCode' @blur.once='blured'  :class='{"valid-border":picCodeValid,"error-border":!picCodeValid}'></el-input>
 				<img class='pic-code' :src="picCodeSrc" alt='填手机号获取' @click='getPicCode'>
 				<!-- <i :class="{'el-icon-check':verifyCodeValid,'el-icon-close':!verifyCodeValid}"></i> -->
 			</div>

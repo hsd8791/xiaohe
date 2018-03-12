@@ -13,11 +13,18 @@ import back from './components/tmpts/route_back.vue'
 import record from './components/tmpts/record.vue'
 import choose from './components/tmpts/choose_remind.vue'
 import bindCard from './components/views/card_bind.vue'
+import radio from './components/tmpts/radio.vue'
+import check from './components/tmpts/check.vue'
 import bus from './bus.js'
-
+// console.log('process.argv',process.argv)
+// process.argv.forEach((val, index) => {
+//   console.log(`${index}: ${val}`);
+// });
 Vue.use(VueResource)
 Vue.component('remind', remind)
 Vue.component('app-back', back)
+Vue.component('app-check', check)
+Vue.component('app-radio', radio)
 Vue.component('app-record', record)
 Vue.component('app-choose', choose)
 Vue.component('app-bind-card',bindCard)
@@ -26,8 +33,8 @@ Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
 // Vue.http.options.root = 'https://www.ho163.com/api';
-// Vue.http.options.root = 'http://hzg.he577.com';
-Vue.http.options.root = 'http://hzg.he577.com/test';
+Vue.http.options.root = 'http://hzg.he577.com';
+// Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
