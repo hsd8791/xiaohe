@@ -36,7 +36,7 @@
             <!-- <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i> -->
           </div>
         </div>
-        <div class="repay-type-box" v-if='action==="repay"'>
+        <div class="repay-type-box" v-if='action==="repay"&&myLendInfo.securityFee>0'>
           <app-radio v-model='repaymentType' label=0>
             <div class="type-box">
               <app-check class='check' :value='repaymentType==0'></app-check>
@@ -289,7 +289,9 @@ export default {
       if(this.repaymentType==0){
         return this.repaymentFee
       }else{
-        return this.repaymentFee*0.9
+        // return this.repaymentFee*0.9
+        return this.repaymentFee-this.myLendInfo.securityFee
+
       }
     },
     securityRefund(){
@@ -312,10 +314,14 @@ export default {
           s = 2;
           break;
         default:
-          if(this.repaymentType==0){
-            s=3
+          if(this.myLendInfo.securityFee>0){
+            if(this.repaymentType==0){
+              s=3
+            }else{
+              s=4
+            }
           }else{
-            s=4
+            s=3
           }
           break;
       }
