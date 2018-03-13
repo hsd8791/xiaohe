@@ -40,13 +40,13 @@
           <app-radio v-model='repaymentType' label=0>
             <div class="type-box">
               <app-check class='check' :value='repaymentType==0'></app-check>
-              <p>全额还款，还款后保证金退还</p>
+              <p>还{{Number(repaymentFee/100).toFixed(0)}}退保证金</p>
             </div>
           </app-radio>
           <app-radio v-model='repaymentType' label=1 value="1">
             <div class="type-box">
               <app-check class='check' :value='repaymentType==1'></app-check>
-              <p>将保证金扣除后还款</p>
+              <p>还{{Number(repaymentFee/100*0.9).toFixed(0)}}不退保证金</p>
             </div>
           </app-radio>
         </div>
@@ -110,7 +110,7 @@ import bus from '../bus.js'
 export default {
   data() {
       return {
-        repaymentType:'',
+        repaymentType:1,
         repaymentTyepArr:[0,1],
         submitText: '支付',
         title: '',

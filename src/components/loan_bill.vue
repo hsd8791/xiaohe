@@ -102,7 +102,7 @@
 						{{loanInfo.status | statusParser}}
 					</span>
 				</div>
-				<div class="detail-li" v-if="loanInfo.status!==3">
+				<!-- <div class="detail-li" v-if="loanInfo.status!==3">
 					<span class="li-title">保证金【按时还款退还】</span>
 					<span class="li-content" >
 						{{loanInfo.securityFee|moneyParser}}元
@@ -113,7 +113,7 @@
 					<span class="li-content" >
 						{{loanInfo.returnSecurityFee|moneyParser}}元
 					</span>
-				</div>
+				</div> -->
 			</div>
 
 			<div class="inner-contaier loan-action input">
