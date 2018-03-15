@@ -5,7 +5,8 @@
 				<app-back></app-back>
 				{{action|actionParser}}
 			</h1>
-      <div >
+      <!-- <div v-if='lendingWay===___companyName'> -->
+      <div v-if='showUnspay'>
         <div class="container phone-lender"  >
           <div class="wraper" v-if="action=='renewal'">
             <label class="amout-label">续期费用：</label>
@@ -56,48 +57,53 @@
           说明：【特殊】用于补交费用或其他方式还款，金额可以自定义输入,至少10元。
         </p>
       </div>
-      <div class="guide" v-if=0>
-        <p>如何{{action|actionParser}}？</p>
+
+      <!-- <div v-if='lendingWay!==___companyName'> -->
+      <div v-if='!showUnspay'>
+        <div class="guide" >
+          <p>如何{{action|actionParser}}？</p>
+        </div>
+        <div class="guide" v-if='action=="repay"'>
+          <div v-if='lendingWay==="借贷宝"'>
+            <p>请在借贷宝APP内点击钱包，点击【借入】在里面找到借条，再点击还款。</p>
+          </div>
+          <div v-if='lendingWay==="今借到"'>
+            <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
+          </div>
+          <div v-if='lendingWay==="无忧借条"'>
+            <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
+          </div>
+          <p>或者联系指定微信号【柒彩虹：13868562997】，微信或支付宝支付费用还款，借贷宝再进行销账。</p>
+        </div>
+        <div class="guide" v-if='action=="renewal"'>
+          <div v-if='lendingWay==="借贷宝"'>
+            <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，我们将在借贷宝里发起展期。请再去借贷宝点击展期确认。</p>
+          </div>
+          <div v-if='lendingWay==="今借到"'>
+            <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再去今借到发布一笔新借款1000元7天0利率0服务费，会借你一笔新的借款，收到新借款【不要提现】再去还上笔到期的借款，完成续期。</p>
+          </div>
+          <div v-if='lendingWay==="无忧借条"'>
+            <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再进入无忧借条APP——点击借条中心——点击（我欠谁钱）——找到到期借条申请延期（利息、补偿金填0，延期补偿金填0，还款时间：延迟时长为7天）。</p>
+          </div>
+          <!-- <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p> -->
+        </div>
+        <div class="guide" v-if='action=="reborrow"'>
+          <div v-if='lendingWay==="借贷宝"'>
+            <p>借贷宝点击“我要借钱”，发布1张借条，1000元0利率5天，到期还本付息。请将已添加的借贷宝好友【马焕力】设定为指定发布对象。</p>
+          </div>
+          <div v-if='lendingWay==="今借到"'>
+            <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
+          </div>
+          <div v-if='lendingWay==="无忧借条"'>
+            <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
+          </div>
+          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p>
+        </div>
+        <div class="guide" >
+          <p>如有疑问请联系指定微信号【柒彩虹：13868562997】</p>
+        </div>
       </div>
-      <div class="guide" v-if='action=="repay"&&false'>
-        <div v-if='lendingWay==="借贷宝"'>
-          <p>请在借贷宝APP内点击钱包，点击【借入】在里面找到借条，再点击还款。</p>
-        </div>
-        <div v-if='lendingWay==="今借到"'>
-          <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
-        </div>
-        <div v-if='lendingWay==="无忧借条"'>
-          <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
-        </div>
-        <p>或者联系指定微信号【柒彩虹：13868562997】，微信或支付宝支付费用还款，借贷宝再进行销账。</p>
-      </div>
-      <div class="guide" v-if='action=="renewal"&&false'>
-        <div v-if='lendingWay==="借贷宝"'>
-          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，我们将在借贷宝里发起展期。请再去借贷宝点击展期确认。</p>
-        </div>
-        <div v-if='lendingWay==="今借到"'>
-          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再去今借到发布一笔新借款1000元7天0利率0服务费，会借你一笔新的借款，收到新借款【不要提现】再去还上笔到期的借款，完成续期。</p>
-        </div>
-        <div v-if='lendingWay==="无忧借条"'>
-          <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，再进入无忧借条APP——点击借条中心——点击（我欠谁钱）——找到到期借条申请延期（利息、补偿金填0，延期补偿金填0，还款时间：延迟时长为7天）。</p>
-        </div>
-        <!-- <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p> -->
-      </div>
-      <div class="guide" v-if='action=="reborrow"&&false'>
-        <div v-if='lendingWay==="借贷宝"'>
-          <p>借贷宝点击“我要借钱”，发布1张借条，1000元0利率5天，到期还本付息。请将已添加的借贷宝好友【马焕力】设定为指定发布对象。</p>
-        </div>
-        <div v-if='lendingWay==="今借到"'>
-          <p>请进入今借到微信公众号（或者今借到APP），点击（我的），在点击（待还金额），找到借条还款，再点击还款。</p>
-        </div>
-        <div v-if='lendingWay==="无忧借条"'>
-          <p>请进入无忧借条APP，点击借条中心，点击（我欠谁钱），在点击还款</p>
-        </div>
-        <p>向指定微信或支付宝【柒彩虹：13868562997】支付续期费用300元后，{{lendingWay}}再放款。</p>
-      </div>
-      <div class="guide" v-if=0>
-        <p>如有疑问请联系指定微信号【柒彩虹：13868562997】</p>
-      </div>
+
     </div>
     <remind :remind='remind'></remind>
   </div>
@@ -282,6 +288,18 @@ export default {
     }
   },
   computed: {
+    showUnspay(){
+      console.log('___companyName',this.lendingWay,this.___companyName)
+      if(this.lendingWay==this.___companyName){
+        return true
+      }
+      let action=this.action
+      if(action==='special'||action==='reborrow'){
+        return true
+      }
+      //action=== 'repay'||'renewal'
+      return false
+    },
     repayExpired(){
       return Boolean(this.$route.query.expired)
     },
