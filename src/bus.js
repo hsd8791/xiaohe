@@ -4,8 +4,8 @@ var bus = new Vue({
 	data: {
 		detailTaskId: null,
 		loading:false,
-		phoneLender:13777722216,
-		// phoneLender: '13868562997',
+		// phoneLender:13777722216,
+		phoneLender: '13868562997',
 		// uniqueIdLender: '2qamam',
 		account: '请登录',
 		uniqueId: '',

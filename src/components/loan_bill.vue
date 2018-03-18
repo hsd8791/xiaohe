@@ -80,7 +80,7 @@
 		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
 
 		<!-- <div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' > -->
-		<div class="container" v-if='(auditing===3&&applyRecord.quotaStatus===2)||needRepayment' audit-ctrl='bill-status' >
+		<div class="container" v-if='thirdPartRepayed||qchRepayed||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">{{___loanName}}金额</span>
@@ -444,6 +444,14 @@ export default {
 			},
 		},
 		computed: {
+			// (auditing===3&&(applyRecord.quotaStatus===2)||(loanInfo&&loanInfo.lendingWay!="___companyName"))||needRepayment
+			// 
+			qchRepayed(){
+			  return this.auditing===3&&this.applyRecord.quotaStatus===2
+			},
+			thirdPartRepayed(){
+			  return this.loanInfo&&this.loanInfo.lendingWay!="___companyName"
+			},
 			renewalAuditing(){
 				var l = this.loanInfo
 			  return this.auditing===0&&l&&(l.status===1||l.status===2)
