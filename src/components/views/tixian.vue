@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if='false'>
     <div class="box">
       <div class="dscrp">
         <p>24小时花贝自助码</p>

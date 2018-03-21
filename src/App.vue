@@ -135,7 +135,6 @@
     },
     created:function(){
       var way=this.$route.query.qudao
-
       // console.log('way',this.$route)
       if(way){
        this.fromSales(way)
@@ -152,6 +151,8 @@
       })
       this.checkSession()
       this.footNavShow=true
+      // console.log('%c created','color:red',)
+      
     },
     computed:{
       globalLoading(){

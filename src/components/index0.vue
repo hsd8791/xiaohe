@@ -21,7 +21,8 @@
 			欢迎回来
 		</div>
     <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信客服</p>
-    <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false'class="xh-public-qr">
+    <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false&&!showFakeQr'class="xh-public-qr">
+    <img src="../assets/img/cgj_qr_wechat.png"  v-if='___logo!==false&&showFakeQr'class="xh-public-qr">
     <p class="slogan" v-if='___logo!==false'>长按识别图中二维码客服微信号</p>
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
@@ -137,6 +138,16 @@ export default {
     },
   },
   computed:{
+    showFakeQr(){
+      // console.error('bus',bus)
+      // 借360的渠道id: bym2Uj  去哪贷的渠道id: 26vINf   @黄树栋 
+      // if(localStorage.)
+      let qudao=localStorage.qudao//??
+      if(qudao==='bym2Uj'||qudao==='26vINf'){
+        return true
+      }
+      return false
+    },
     isLoged(){
       return bus.account!=='请登录'
     },

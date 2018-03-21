@@ -16,6 +16,15 @@ import bindCard from './components/views/card_bind.vue'
 import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
 import bus from './bus.js'
+// Vue.mixin({
+//   created: function () {
+//     // var myOption = this.$options.myOption
+//     if (this) {
+//       // console.log(this)
+//       console.log(this)
+//     }
+//   }
+// })
 // console.log('process.argv',process.argv)
 // process.argv.forEach((val, index) => {
 //   console.log(`${index}: ${val}`);

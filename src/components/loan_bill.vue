@@ -11,12 +11,12 @@
 				<!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
 				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
 				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
-				<p class="remind remind-refused">您好，您在柒彩虹的借款申请未通过审核，感谢您的配合。</p>
+				<p class="remind remind-refused">您好，您在柒彩虹的申请未通过审核，感谢您的配合。</p>
 				<p class="remind remind-refused">审核未通过可能是以下原因：</p>
 				<p class="remind remind-refused">1、年龄未达到要求。</p>
 				<p class="remind remind-refused">2、手机非实名、入网时间短或手机号存在异常。</p>
-				<p class="remind remind-refused">3、支付宝芝麻分或花呗为达到借款要求。</p>
-				<p class="remind remind-refused">4、其他借款平台负债高或检测到有逾期记录。</p>
+				<p class="remind remind-refused">3、支付宝芝麻分或花呗为达到要求。</p>
+				<p class="remind remind-refused">4、其他平台负债高或检测到有逾期记录。</p>
 				<p class="remind remind-refused">
 					如需咨询请使用QQ联系QQ：356308275。
 				</p>
@@ -25,7 +25,7 @@
 				</p>
 				<p class="remind remind-refused">使用微信搜索【陈管家】或点击
 					<span @click='hzgMarket' class="link">【放米超市】</span>
-					可以直接申请其他贷款
+					可以直接申请其他平台
 				</p>
 				<huabei></huabei>
 			</div>
