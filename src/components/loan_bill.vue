@@ -67,8 +67,16 @@
 				发回重审
 			</p>
 			<div class="auditing-remark">
-				<p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p>
-				<p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p>
+				<p class="auditing-description">
+					说明：您好，您在柒彩虹的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。
+					如需咨询请联系QQ:356308275
+				</p>
+				<p class="auditing-description">
+					温馨提醒：
+					使用微信搜索【陈管家】或点击<span @click='hzgMarket' class="link">【放米超市】</span>可以直接申请其他平台
+				</p>
+				<!-- <p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p> -->
+				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
 			</div>
 		</div>
 		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
