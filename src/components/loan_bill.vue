@@ -88,7 +88,7 @@
 		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
 
 		<!-- <div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' > -->
-		<div class="container" v-if='thirdPartRepayed||qchRepayed||needRepayment' audit-ctrl='bill-status' >
+		<div class="container" v-if='(thirdPartRepayed||qchRepayed)||needRepayment' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">{{___loanName}}金额</span>
@@ -177,11 +177,12 @@ export default {
 			bus.$on('quota_recieved',()=>{
 				this.get()
 			})
-			// setTimeout(()=> {
-				// test_放款等待还款()
-				// this.loanInfo.status=3
-				// this.auditing=4
-			// }, 2000);
+			setTimeout(()=> {
+				test_放款等待还款()
+				// this.applyRecord.quotaStatus=1
+				// // this.loanInfo.status=3
+				// this.auditing=1
+			}, 2000);
 			this.get()
 			var test_审核通过等待放款=()=>{
 				this.auditing=1
@@ -454,6 +455,10 @@ export default {
 		computed: {
 			// (auditing===3&&(applyRecord.quotaStatus===2)||(loanInfo&&loanInfo.lendingWay!="___companyName"))||needRepayment
 			// 
+			// quotaNotReleased(){
+			// 	let record=this.applyRecord
+			// 	return record.quotaStatus===1||record.quotaStatus===0
+			// },
 			qchRepayed(){
 			  return this.auditing===3&&this.applyRecord.quotaStatus===2
 			},
@@ -467,6 +472,10 @@ export default {
 			reborrowAuditing(){
 			  	var l = this.loanInfo
 			    return this.auditing===0&&l&&l.status===3
+			},
+			waitReleasing(){
+				// l=this.loanInfo
+			  return this.auditing==1
 			},
 			noApplyRecord(){
 				return this.applyRecord.apply_id===undefined
@@ -503,7 +512,7 @@ export default {
 					}
 					temp.renewal.show=(l.status===1||l.status===0)&&l.canReborrow&&!this.renewalAuditing
 					temp.repay.show=l.status===1||l.status===0
-					temp.reborrow.show=(l.status===3 || l.status===2)
+					temp.reborrow.show=(l.status===3 || l.status===2)&&(!this.reborrowAuditing)&&(!this.waitReleasing)
 				return temp
 			},
 			needRepayment(){
