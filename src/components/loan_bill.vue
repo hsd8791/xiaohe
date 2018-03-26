@@ -3,6 +3,12 @@
 		<div class="input" v-loading='loading' element-loading-text='请稍后'>
 			<h1 class="title">{{___borrowText}}</h1>
 		</div>
+		<div class="mainBox" v-if='!loading'>
+
+
+		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
+			无申请记录
+		</div>
 		<div class="container auditing" v-if='auditing===4' audit-ctrl='refused'>
 			<p>
 				审核拒绝
@@ -37,19 +43,6 @@
 			<span v-if="!loanInfo">{{___companyName}}</span> 审核中
 			</p>
 		</div>
-		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
-			<!-- <app-quota :quotaCfg='applyRecord'></app-quota> -->
-			<p></p>
-			<p class="remind"></p>
-			<!-- <p>
-				申请通过
-			</p>
-			<div class="auditing-remark">
-				<p class="auditing-description">等待客服联系后完成放款。</p>
-			</div> -->
-			<app-quota :quotaCfg='applyRecord'></app-quota>
-		</div>
-
 		<div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
 			<!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
 			<p class="remind">提交申请，QQ客服会添加您进行审核，或添加QQ群：68128711，联系群【管理员】进行审核。</p>
@@ -79,16 +72,19 @@
 				<!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
 			</div>
 		</div>
-		<div class="container auditing" v-if='(!loanInfo)&&auditing==null' audit-ctrl='no-apply'>
-			无申请记录
+
+
+		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
+			<p></p>
+			<p class="remind"></p>
+			<app-quota :quotaCfg='applyRecord'></app-quota>
 		</div>
+
 		<div class="input" v-if='auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3)' audit-ctrl='reapply'>
 			<el-button type='success' @click='reapply' >重新申请</el-button>
 		</div>
-		<!-- <div class="container" v-if='true'>  loanInfo.status!==3-->
 
-		<!-- <div class="container" v-if='(auditing===3&&loanInfo)||needRepayment' audit-ctrl='bill-status' > -->
-		<div class="container" v-if='(thirdPartRepayed||qchRepayed)||needRepayment' audit-ctrl='bill-status' >
+		<div class="container" v-if='needRepayment||fullRepayedAndNotReborrow' audit-ctrl='bill-status' >
 			<div class="inner-contaier loan-amount">
 				<div class="detail-li">
 					<span class="li-title">{{___loanName}}金额</span>
@@ -110,18 +106,6 @@
 						{{loanInfo.status | statusParser}}
 					</span>
 				</div>
-				<!-- <div class="detail-li" v-if="loanInfo.status!==3">
-					<span class="li-title">保证金【按时还款退还】</span>
-					<span class="li-content" >
-						{{loanInfo.securityFee|moneyParser}}元
-					</span>
-				</div>
-				<div class="detail-li" v-if="loanInfo.status===3">
-					<span class="li-title">退还保证金金额</span>
-					<span class="li-content" >
-						{{loanInfo.returnSecurityFee|moneyParser}}元
-					</span>
-				</div> -->
 			</div>
 
 			<div class="inner-contaier loan-action input">
@@ -130,12 +114,15 @@
 				</el-button>
 			</div>
 		</div>
-		
+
+
+
 		<div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
 				<el-button type='success' @click='get' >刷新</el-button>
 		</div>
 			<p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
-
+		
+		</div>
 		<remind :remind='remind'></remind>
 	</div>
 </template>
@@ -148,6 +135,7 @@ import huabei from './views/tixian.vue'
 export default {
 	data() {
 			return {
+				gettingBillStatud:false,
 				response: null,
 				applyRecord:{},
 				auditingRemark:null,
@@ -177,12 +165,12 @@ export default {
 			bus.$on('quota_recieved',()=>{
 				this.get()
 			})
-			setTimeout(()=> {
-				test_放款等待还款()
-				// this.applyRecord.quotaStatus=1
-				// // this.loanInfo.status=3
-				// this.auditing=1
-			}, 2000);
+			// setTimeout(()=> {
+			// 	// test_放款等待还款()
+			// 	// this.applyRecord.quotaStatus=1
+			// 	// // this.loanInfo.status=3
+			// 	// this.auditing=1
+			// }, 2000);
 			this.get()
 			var test_审核通过等待放款=()=>{
 				this.auditing=1
@@ -423,6 +411,7 @@ export default {
 			},
 			get() {
 				var checkAuditing = () => {
+					this.gettingBillStatud=false
 					// var r=this.remind
 					console.log('res apply record', this.response.body.data.data)
 					var data = this.response.body.data.data[0]
@@ -436,6 +425,7 @@ export default {
 					} else {
 					}
 				}
+				this.gettingBillStatud=true
 				publicFun.get(this.url, this, () => {
 					function isOverDueOneWeek(repaymentTime){
 						return repaymentTime+345600000>(new Date()).getTime()
@@ -453,18 +443,8 @@ export default {
 			},
 		},
 		computed: {
-			// (auditing===3&&(applyRecord.quotaStatus===2)||(loanInfo&&loanInfo.lendingWay!="___companyName"))||needRepayment
-			// 
-			// quotaNotReleased(){
-			// 	let record=this.applyRecord
-			// 	return record.quotaStatus===1||record.quotaStatus===0
-			// },
-			qchRepayed(){
-			  return this.auditing===3&&this.applyRecord.quotaStatus===2
-			},
-			thirdPartRepayed(){
-			  return this.loanInfo&&this.loanInfo.lendingWay!="___companyName"
-			},
+
+
 			renewalAuditing(){
 				var l = this.loanInfo
 			  return this.auditing===0&&l&&(l.status===1||l.status===2)
@@ -515,9 +495,29 @@ export default {
 					temp.reborrow.show=(l.status===3 || l.status===2)&&(!this.reborrowAuditing)&&(!this.waitReleasing)
 				return temp
 			},
+			//billStatus 未全还且无已过审批的申请（needRepayment）||已全还且无重借申请（fullRepayedAndNotReborrow）
 			needRepayment(){
-				return this.loanInfo&&this.loanInfo.status!==3
-			}
+				var notAllRepayed=this.loanInfo&&this.loanInfo.status!==3
+				return notAllRepayed&&this.auditing!==1
+			},
+			fullRepayedAndNotReborrow(){
+			  return this.auditing!==0&&this.loanInfo&&this.loanInfo.status===3
+			},
+
+
+			// xiaoheRepayed(){
+			//   return this.loanInfo&&this.loanInfo.status===3&&this.applyRecord.quotaStatus===2
+			// },
+			// thirdPartRepayed(){
+			// 	if(!this.loanInfo){
+			// 		return false
+			// 	}
+			// 	let isThirdPart=this.loanInfo.lendingWay!="___companyName"
+			//   return this.loanInfo&&this.loanInfo.status===3&&isThirdPart
+			// },
+			// reBorrowAfterFullRepayed(){
+			//   return this.auditing===0&&this.loanInfo.status===3
+			// },
 		},
 		events: {},
 		components: {

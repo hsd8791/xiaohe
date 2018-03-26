@@ -20,6 +20,7 @@ import Debt from '../components/info_debt.vue'
 import shujumohe from '../components/info_shujumohe.vue'
 import login from '../components/login.vue'
 import login_code from '../components/login_code.vue'
+import login_signup_new from '../components/login_signup_new.vue'
 import Signup from '../components/signup.vue'
 // import paidServiceCreate from '../components/paid_service_create.vue'
 import Pwd from '../components/pwd.vue'
@@ -92,6 +93,7 @@ var newRoute = function(paths, name, component, options) {
 }
 mineRoutes = mineRoutes.concat(
 	newRoute(['/*/login_code', '/login_code', ], 'login&pwd&signup via code', login_code),
+	newRoute(['/*/login_signup_new', '/login_signup_new', ], 'login&pwd&signup via code new', login_signup_new),
 	newRoute(['/*/login', '/login', ], 'login via pwd', login),
 	newRoute(['/signup', '/*/signup', ], 'signup', Signup),
 	newRoute(['/pwd', '/*/pwd', ], 'pwd', Pwd),

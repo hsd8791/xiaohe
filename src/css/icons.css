@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?bi9811');
-  src:  url('fonts/icomoon.eot?bi9811#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?bi9811') format('truetype'),
-    url('fonts/icomoon.woff?bi9811') format('woff'),
-    url('fonts/icomoon.svg?bi9811#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?2ynxwe');
+  src:  url('fonts/icomoon.eot?2ynxwe#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?2ynxwe') format('truetype'),
+    url('fonts/icomoon.woff?2ynxwe') format('woff'),
+    url('fonts/icomoon.svg?2ynxwe#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-contact:before {
+  content: "\e901";
+}
+.icon-id-card:before {
+  content: "\e923";
+}
+.icon-special:before {
+  content: "\e924";
+}
+.icon-refresh:before {
+  content: "\e925";
+}
+.icon-status:before {
+  content: "\e926";
+}
+.icon-icon-audit:before {
+  content: "\e912";
+}
+.icon-icon-back:before {
+  content: "\e913";
+}
+.icon-icon-close:before {
+  content: "\e914";
+}
+.icon-icon-code:before {
+  content: "\e915";
+}
+.icon-icon-contact-way:before {
+  content: "\e916";
+}
+.icon-icon-entry:before {
+  content: "\e917";
+  color: #5057a4;
+}
+.icon-icon-fee:before {
+  content: "\e918";
+}
+.icon-icon-help:before {
+  content: "\e919";
+}
+.icon-icon-id:before {
+  content: "\e91a";
+}
+.icon-icon-identification:before {
+  content: "\e91b";
+}
+.icon-icon-index:before {
+  content: "\e91c";
+}
+.icon-icon-loan-bill:before {
+  content: "\e91d";
+}
+.icon-icon-me:before {
+  content: "\e91e";
+}
+.icon-icon-phone:before {
+  content: "\e91f";
+}
+.icon-icon-pic:before {
+  content: "\e920";
+}
+.icon-icon-refresh:before {
+  content: "\e921";
+  color: #505151;
+}
 .icon-brand:before {
   content: "\e911";
   color: #999;
@@ -52,9 +117,6 @@
 .icon-file-text:before {
   content: "\e922";
 }
-.icon-profile:before {
-  content: "\e923";
-}
 .icon-file-zip:before {
   content: "\e92b";
 }
@@ -69,9 +131,6 @@
 }
 .icon-phone-hang-up:before {
   content: "\e943";
-}
-.icon-address-book:before {
-  content: "\e944";
 }
 .icon-envelop:before {
   content: "\e945";
@@ -163,35 +222,8 @@
 .icon-wechat:before {
   content: "\e909";
 }
-.icon-documents:before {
-  content: "\e901";
-}
-.icon-document-checked:before {
-  content: "\e90b";
-}
-.icon-document-edit:before {
-  content: "\e90c";
-}
-.icon-lock:before {
-  content: "\e904";
-}
-.icon-phone2:before {
-  content: "\e905";
-}
-.icon-mail:before {
-  content: "\e906";
-}
-.icon-banknote:before {
-  content: "\e907";
-}
-.icon-data:before {
-  content: "\e908";
-}
 .icon-clipboard-checked:before {
   content: "\e90a";
-}
-.icon-documents:before {
-  content: "\e901";
 }
 .icon-document-checked:before {
   content: "\e90b";

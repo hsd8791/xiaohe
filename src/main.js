@@ -16,6 +16,8 @@ import bindCard from './components/views/card_bind.vue'
 import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
 import bus from './bus.js'
+import inputLogin from './components/tmpts/input-login.vue'
+
 // Vue.mixin({
 //   created: function () {
 //     // var myOption = this.$options.myOption
@@ -37,13 +39,14 @@ Vue.component('app-radio', radio)
 Vue.component('app-record', record)
 Vue.component('app-choose', choose)
 Vue.component('app-bind-card',bindCard)
+Vue.component('app-input-login',inputLogin)
 
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'https://www.ho163.com/api';
 // Vue.http.options.root = 'http://hzg.he577.com';
-// Vue.http.options.root = 'http://hzg.he577.com/test';
+Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,
 	Select,
@@ -91,6 +94,15 @@ if(0){
 	Vue.prototype.___loanName='放米'
 	document.querySelector('title').innerHTML='小禾钱包'
 }
+Vue.directive('input',{
+	bind: function(el, binding, vnode) {
+		let valueName=binding.expression
+		let input=el.getElementsByClassName('___input')[0]
+		input.addEventListener('input',(e)=>{
+			vnode.componentInstance.$parent[valueName]=input.value
+		})
+	}
+})
 Vue.directive('scroll-load', {
 	bind: function(el, binding, vnode) {
 		el.addEventListener('scroll', () => {
