@@ -55,6 +55,7 @@ export default {
   methods:{
   	submit(){
   		publicFun.get(this.url+this.bankcard,this,()=>{
+
   			let r=this.remind
   			r.remindMsg='绑定成功'
   			r.remindOpts=[{msg:'确定',callback:()=>{
@@ -63,7 +64,8 @@ export default {
           }
         }}]
   			r.isShow=true
-  		})
+  		},null,()=>{
+      })
   	},
     nameRemind(){
       let r=this.remind
@@ -101,7 +103,7 @@ export default {
 #cardBindView{
 
   .icon-warning{
-    color:#09bb07;
+    color:#d42e84;
     opacity: 1; 
   }
   .card-remind{

@@ -1,5 +1,5 @@
 <template>
-	<div id="quotaVue">
+	<div id="quotaVue" v-loading='loading' element-loading-text='请稍后'>
 		<p class="audit-msg">
       {{auditMsg}}
     </p>

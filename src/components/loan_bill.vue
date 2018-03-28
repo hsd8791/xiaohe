@@ -75,6 +75,7 @@
 
 
 		<div class="container auditing" v-if='auditing===1' audit-ctrl='approved quota' >
+		<!-- <div class="container auditing" v-if='true' audit-ctrl='approved quota' > -->
 			<p></p>
 			<p class="remind"></p>
 			<app-quota :quotaCfg='applyRecord'></app-quota>

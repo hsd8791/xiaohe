@@ -8,7 +8,7 @@
 				<i :class="{'el-icon-check':pwdValid,'el-icon-close':!pwdValid}"></i>
 			</div>
 		</div>
-		<el-button type='success' :disabled='!pwdValid' class='submit' @click='setPwd'>提交</el-button>
+		<el-button type='success' :disabled='false' class='submit' @click='setPwd'>提交</el-button>
 <!-- 		<div class="cover" v-if='remind'>
 			<div class="remind">
 				<div class="remind-msg">{{remindMsg}}</div>
@@ -66,6 +66,13 @@
 				}
 			},
 			setPwd(){
+				if(!this.pwdValid){
+					this.remind.remindMsg='密码至少8位以上'
+					// console.log('set success')
+					this.remind.isShow=true
+					this.remind.remindOpts=[{msg:'确定',}]
+					return
+				}
 				this.loading=true				
 				var url = publicFun.urlConcat('account/setPwd',{password:this.pwd})
 				console.log('url',url)
@@ -79,7 +86,7 @@
 						console.log('res',res,res.msg)
 					}else{
 						this.remind.remindMsg='设置成功'
-						console.log('set success')
+						// console.log('set success')
 						this.remind.isShow=true
 						this.remind.remindOpts=[{msg:'确定',callback:()=>{
 							var r = location.hash.replace("#", '')

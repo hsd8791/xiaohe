@@ -30,7 +30,6 @@
   import remind from './components/tmpts/remind.vue'
   import './css/icons.css'
   import './css/input.scss'
-  // import './libs/font-awesome.min.css'
   export default {
     name:'App',
     // cmpt:/borrow/,
