@@ -49,7 +49,7 @@ export default {
     },
     methods: {
         hzgMarket(){
-            console.log('hzg market_list')
+            // console.log('hzg market_list')
             location.href='https://www.ho163.com/m/#/market_list'
         },
         goPage: function(index) {

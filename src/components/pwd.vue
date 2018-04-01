@@ -89,10 +89,11 @@
 						// console.log('set success')
 						this.remind.isShow=true
 						this.remind.remindOpts=[{msg:'确定',callback:()=>{
-							var r = location.hash.replace("#", '')
-							var arr = r.split('/')
-							console.log('arr',arr)
-							publicFun.goPage('/'+arr[1])
+							// var r = location.hash.replace("#", '')
+							// var arr = r.split('/')
+							// console.log('arr',arr)
+							// publicFun.goPage('/'+arr[1])
+							publicFun.goPage('/index0')
 						}}]
 						// setTimeout(() =>{
 							

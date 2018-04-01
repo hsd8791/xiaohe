@@ -467,7 +467,7 @@
 			events: {},
 			created: function() {
 
-				publicFun.qualify(this)
+				// publicFun.qualify(this)
 				this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
 				// 以上两个函数只会有一个出现提示框
 				this.checkFilled()
