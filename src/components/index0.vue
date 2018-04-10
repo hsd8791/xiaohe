@@ -14,7 +14,7 @@
 		<p class="slogan" v-if='___logo!==false' >安全 · 快速 · 便捷</p>
     <div class="logo-holder sub-banner"  v-if='___logo===false'></div>
 		<div class="mybtn" id="newBorrow" @click="goApply" v-if='isNewer'>
-			开始{{___loanName}}
+		  立刻申请
 			<!--<img src="../assets/img/oldCustomer.png"/>-->
 		</div>
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
@@ -139,6 +139,7 @@ export default {
   },
   computed:{
     showFakeQr(){
+      return false
       // console.error('bus',bus)
       // 借360的渠道id: bym2Uj  去哪贷的渠道id: 26vINf   @黄树栋 
       // if(localStorage.)
@@ -170,8 +171,8 @@ export default {
     margin-top: 0.0rem;
 		padding: 0 80px 30px;
 		.sub-banner{
-			margin-top: 40px;
-			width: 55%;
+			margin-top: 0.15rem;
+			width: 45%;
 		}
 	}
   .xh-public-qr{
@@ -198,8 +199,8 @@ export default {
 	.mybtn {
     border-radius: 10px;
     padding: 16px 0;
-    margin: 0.3rem 0;
-    margin-top: 0.3rem;
+    margin: 0.15rem 0;
+    margin-top: 0.15rem;
     font-family: "microsoft yahei";
     font-size: 20px;
     font-weight: 700;

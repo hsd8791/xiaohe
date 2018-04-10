@@ -502,7 +502,7 @@ export default {
 				return notAllRepayed&&this.auditing!==1
 			},
 			fullRepayedAndNotReborrow(){
-			  return this.auditing!==0&&this.loanInfo&&this.loanInfo.status===3
+			  return this.auditing!==0&&this.loanInfo&&this.loanInfo.status===3&&this.auditing!==4
 			},
 
 

@@ -95,6 +95,7 @@
 
 			signup(){
 				publicFun.goPage(this.$route.fullPath+'/login_code?signup=1')
+				// publicFun.goPage(this.$route.fullPath+'/login_signup_new?signup=1')
 				// this.remind.remindMsg='注册：选择手机登录'
 				// this.remind.remindMsgDscrp='将为您直接注册，登录后请设置密码'
 				// this.remind.remindOpts=[{msg:'确定'}]
@@ -283,16 +284,16 @@
 	}
 	.logo-container{
 		width: 100%;
-		height: 2.05rem;
+		height: 2.35rem;
 		padding-top: 0.5rem;
 		position: relative;
 		background: url(#) center center no-repeat;
 		background-size: 80%;
 		z-index: 999999;
 		.logo{
-			width: 60%;
+			width: 40%;
 			position: relative;
-			top:0.3rem;
+			top:-0.0rem;
 		}
 	}
 	.getVerify{
@@ -316,7 +317,8 @@
 		/*transition: 0.2s;*/
 		width: 80%;
 		background-color:#d42e84;
-		background: linear-gradient(90deg,#d42e84 0%,#d42e84 30%,#f4a8de);
+		background-color:#d61111;
+		background: linear-gradient(90deg,#d61111 0%,#d61111 30%,#e28000);
 		border-width: 0;
 		border-radius: 0.1rem;
     /*border-color: #ff6231;*/

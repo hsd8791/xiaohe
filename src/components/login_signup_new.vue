@@ -8,15 +8,17 @@
       <img src="../../static/xh/fast_auditing.png"  id='fast_auditing'> -->
       <!-- <img :src="src.bg" id='bg_signup'> -->
       <div class="bg-container">
-      <img src="../../static/xh/bg_signup.png"  id='bg_signup'>
+        <div class="cover"></div>
+        <img src="./../assets/img/logo_qch.png" alt="" class="logo">
+        <img src="../../static/xh/bg_signup.png"  id='bg_signup'>
       </div>
-      <app-input-login  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
+      <app-input-login :placeholder="'请输入手机号'"  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
         
       </app-input-login>
-      <app-input-login  v-input='picCode' :value='picCode' :icon="'icon-icon-pic'" :iconSize='"0.18rem"' class='input'>
+      <app-input-login  :placeholder="'输入4位图片验证码'" v-input='picCode' :value='picCode' :icon="'icon-icon-pic'" :iconSize='"0.18rem"' class='input'>
         <img class='pic-code' :src="picCodeSrc" alt='填手机号获取' @click='getPicCode'>
       </app-input-login>
-      <app-input-login  v-input='verifyCode' :value='verifyCode' :icon="'icon-icon-code'" class='input'>
+      <app-input-login :placeholder="'请输入6位手机验证码'"  v-input='verifyCode' :value='verifyCode' :icon="'icon-icon-code'" class='input'>
         <el-button class='getVerify' type="warning" @click='getCode' :disabled="banGetCode||!cellphoneValid||!picCodeValid">{{codeBtnMsg}}</el-button>
       </app-input-login>
     <div class='submit' type="success"  @click='login' :class="{'disabled':!canSubmit}">
@@ -279,6 +281,22 @@
     height: 2.6rem;
     margin-bottom: 0.22rem;
     margin-top: 0.18rem;
+    position: relative;
+    .cover {
+      position: absolute;
+      width: 1.1rem;
+      height: 0.3rem;
+      left: 0.12rem;
+      top: 0.1rem;
+      background: #5493f3;
+    }
+    .logo {
+      height: 1.0rem;
+      left: 0.13rem;
+      top:-0.3rem;
+      position: absolute;
+
+    }
   }
   #bg_signup{
     width: 100%;

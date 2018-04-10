@@ -92,7 +92,7 @@ var newRoute = function(paths, name, component, options) {
 	return routes
 }
 mineRoutes = mineRoutes.concat(
-	newRoute(['/*/login_code', '/login_code', ], 'login&pwd&signup via code', login_code),
+	newRoute(['/*/login_code', '/login_code', ], 'login&pwd&signup via code', login_signup_new),
 	newRoute(['/*/login_signup_new', '/login_signup_new', ], 'login&pwd&signup via code new', login_signup_new),
 	newRoute(['/*/login', '/login', ], 'login via pwd', login),
 	newRoute(['/signup', '/*/signup', ], 'signup', Signup),

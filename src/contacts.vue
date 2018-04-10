@@ -42,7 +42,7 @@
 		<div id="qrcode" v-show="qrcode > 0 " @click="baibai()">
 			<img @click.stop='' v-show="qrcode == 1" src="./assets/img/wechat.png" alt="">
 			<!-- <img @click.stop='' v-show="qrcode == 2" src="./assets/img/qqMe.png" alt=""> -->
-			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/allipay.jpg"  alt="">
+			<img @click.stop='' v-show="qrcode == 3" src="./assets/img/alipay.png"  alt="">
 			<!-- <img @click.stop='' v-show="qrcode == 4" src="./assets/img/pay.jpg" alt=""> -->
 			<!-- <img @click.stop='' v-show="qrcode == 5" src="./assets/img/qrcode_xh.jpg" alt=""> -->
 		</div>
@@ -103,6 +103,10 @@ import bus from './bus.js'
 			   //  if(localStorage.qudao==='QbERzq'&&bus.account==='请登录'){
 			   //  	return false
 			   //  }
+			   	let isSignUp = /login_code/.test(this.$route.path)
+			   	if(isSignUp){
+			   		return false
+			   	}
 			    return true
 			  },
 			},
