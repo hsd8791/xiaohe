@@ -155,66 +155,95 @@
 					this.education=data.education
 					this.marriage=data.marriage
 					this.kids=data.kids
+					publicFun.get(this.url2,this,()=>{
+						console.log('res outer 2',this.response.body)
+						var data=this.response.body.data
+						if(!data){
+							return
+						}
+						if(!data){
+							return
+						}
+						this.province=data.province //provinceChange 会将以下的赋值清空
+						this.city=data.city
+						this.addDetail=data.fullAddress
+						this.district=data.region
+					})
 				})
-				publicFun.get(this.url2,this,()=>{
-					console.log('res outer 2',this.response.body)
-					var data=this.response.body.data
-					if(!data){
-						return
-					}
-					if(!data){
-						return
-					}
-					this.province=data.province //provinceChange 会将以下的赋值清空
-					this.city=data.city
-					this.addDetail=data.fullAddress
-					this.district=data.region
-				})
+				
 			},
 			edit(){
 				this.editing=true
 			},
 			provinceChange(){
-				var self_=this
-				self_.city=''
-				self_.district=''
-				self_.options.district=[]
-				self_.street=''
-				self_.options.street=[]
-				// console.log('province',this.province)
-				self_.districtSearch.search(self_.province,function(status,result){
-					var searchRslt=result.districtList[0].districtList
-					// console.log('city',searchRslt)
-					self_.options.city=[]
-					var len=searchRslt.length,i
-					for(i=0;i<len;i++){
-						self_.options.city.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
-					}
-					if(self_.response.body.data){
-						self_.city=self_.response.body.data.city
-						self_.response.body.data.city=''
-					}
-				})
+				if(this.province===''){
+					return
+				}
+				console.log('%c on province change','color:red',)
+				try{
+					var self_=this
+					self_.city=''
+					self_.district=''
+					self_.options.district=[]
+					self_.street=''
+					self_.options.street=[]
+					// console.log('province',this.province)
+					self_.districtSearch.search(self_.province,function(status,result){
+						var searchRslt=result.districtList[0].districtList
+						console.log('provinceChange',result)
+						self_.options.city=[]
+						var len=searchRslt.length,i
+						for(i=0;i<len;i++){
+							self_.options.city.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
+						}
+						if(self_.response.body.data){
+							self_.city=self_.response.body.data.city
+							console.log('city---',self_.city)
+							self_.response.body.data.city=''
+						}
+					})
+				}catch(error){
+					this.unexpectError(error)
+				}
+
 			},
 			cityChange(){
-				var self_=this
-				self_.district=''
-				self_.street=''
-				self_.options.street=[]
-				// console.log('province',this.province)
-				self_.districtSearch.search(self_.city,function(status,result){
-					var searchRslt=result.districtList[0].districtList
-					// console.log('city',searchRslt)
-					self_.options.district=[]
-					var len=searchRslt.length,i
-					for(i=0;i<len;i++){
-						self_.options.district.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
-					}
-					if(self_.response.body.data){
-						self_.district=self_.response.body.data.region
-						self_.response.body.data.region=''
-					}
-				})
+				if(this.city===''){
+					return
+				}
+				console.log('%c city on city change','color:red',)
+				try{
+					var self_=this
+					self_.district=''
+					self_.street=''
+					self_.options.street=[]
+					// console.log('province',this.province)
+					console.log('self_.city',self_.city)
+					self_.districtSearch.search(self_.city,function(status,result){
+						console.log('%c result','color:red',result)
+						var searchRslt=result.districtList[0].districtList
+						// console.log('city',searchRslt)
+						self_.options.district=[]
+						var len=searchRslt.length,i
+						for(i=0;i<len;i++){
+							self_.options.district.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
+						}
+						if(self_.response.body.data){
+							self_.district=self_.response.body.data.region
+							self_.response.body.data.region=''
+						}
+					})
+				}catch(error){
+					this.unexpectError(error)
+				}
+			},
+			unexpectError(error){
+				console.error("error",error)
+			  let remind=this.remind
+			  r.remindMsg='系统异常，请刷新重试'
+			  r.remindMsgDscrp=error.toString().slice(0,25)
+			  r.remindOpts=[{msg:'确定'}]
+			  r.isShow=true
 			},
 			blured($event){
 				var el=$event.target.parentElement.parentElement
@@ -228,42 +257,42 @@
 				}
 			},
 		},
-		mounted:function(){
-			var self_=this
+		created:function(){
 			// var mapScript=document.createElement('script')
 			// var mapSrc='https://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
 			// mapScript.src=mapSrc
 			// document.body.appendChild(mapScript)
-			
-			var mapScript = document.querySelector('#AMAP')
-			var onAmapLoaded = function() {
-				console.log('amap loaded')
-				AMap.service('AMap.DistrictSearch', function() {
-					self_.districtSearch = new AMap.DistrictSearch({
-						level: 'country',
-						subdistrict: 3
-					});
-					self_.districtSearch.search('中国', function(status, result) {
-						var searchRslt = result.districtList[0].districtList
-						self_.options.province = []
-						var len = searchRslt.length,
-							i
-						for (i = 0; i < len; i++) {
-							self_.options.province.push({
-								label: searchRslt[i].name,
-								value: searchRslt[i].adcode,
-							})
-						}
-						self_.get()
+				var self_ = this
+				var mapScript = document.querySelector('#AMAP')
+				var onAmapLoaded = function() {
+					console.log('amap loaded')
+					AMap.service('AMap.DistrictSearch', function() {
+						self_.districtSearch = new AMap.DistrictSearch({
+							level: 'country',
+							subdistrict: 3
+						});
+						self_.districtSearch.search('中国', function(status, result) {
+							var searchRslt = result.districtList[0].districtList
+							self_.options.province = []
+							var len = searchRslt.length,
+								i
+							for (i = 0; i < len; i++) {
+								self_.options.province.push({
+									label: searchRslt[i].name,
+									value: searchRslt[i].adcode,
+								})
+							}
+							self_.get()
+						})
 					})
-				})
-			}
-			console.log('window.__amapLoaded',window.__amapLoaded)
-			if(window.__amapLoaded){
-				onAmapLoaded()
-			}else{
-				mapScript.onload=onAmapLoaded
-			}
+				}
+				console.log('window.__amapLoaded', window.__amapLoaded)
+				if (window.__amapLoaded) {
+					onAmapLoaded()
+				} else {
+					mapScript.addEventListener('load',onAmapLoaded)
+				}
+
 		},
 		watch:{
 			// education:function(){
