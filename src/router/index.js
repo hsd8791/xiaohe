@@ -176,7 +176,7 @@ routes = routes.concat(indexRoutes.concat(
 	xiaoheRoutes,
 	bankcardRoutes
 ), basicRoutes)
-console.log('routes', routes)
+// console.log('routes', routes)
 export default new Router({
 	// mode: 'history',
 	routes: routes

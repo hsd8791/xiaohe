@@ -228,33 +228,42 @@
 				}
 			},
 		},
-		created:function(){
+		mounted:function(){
 			var self_=this
 			// var mapScript=document.createElement('script')
 			// var mapSrc='https://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
 			// mapScript.src=mapSrc
 			// document.body.appendChild(mapScript)
 			
-			let mapScript = document.querySelector('#AMAP')
-			mapScript.onload=function(){
+			var mapScript = document.querySelector('#AMAP')
+			var onAmapLoaded = function() {
 				console.log('amap loaded')
-				AMap.service('AMap.DistrictSearch',function(){
+				AMap.service('AMap.DistrictSearch', function() {
 					self_.districtSearch = new AMap.DistrictSearch({
-						level : 'country',  
-						subdistrict : 3    
+						level: 'country',
+						subdistrict: 3
 					});
-					self_.districtSearch.search('中国',function(status,result){
-						var searchRslt=result.districtList[0].districtList
-						self_.options.province=[]
-						var len=searchRslt.length,i
-						for(i=0;i<len;i++){
-							self_.options.province.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
+					self_.districtSearch.search('中国', function(status, result) {
+						var searchRslt = result.districtList[0].districtList
+						self_.options.province = []
+						var len = searchRslt.length,
+							i
+						for (i = 0; i < len; i++) {
+							self_.options.province.push({
+								label: searchRslt[i].name,
+								value: searchRslt[i].adcode,
+							})
 						}
 						self_.get()
 					})
 				})
 			}
-
+			console.log('window.__amapLoaded',window.__amapLoaded)
+			if(window.__amapLoaded){
+				onAmapLoaded()
+			}else{
+				mapScript.onload=onAmapLoaded
+			}
 		},
 		watch:{
 			// education:function(){
