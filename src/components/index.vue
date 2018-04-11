@@ -82,7 +82,7 @@
 				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
 
-				{title:'其他信息',link:'/contact_way',icon:'icon-phone',},
+				// {title:'其他信息',link:'/contact_way',icon:'icon-phone',},
 				],
 				[
 				// {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},

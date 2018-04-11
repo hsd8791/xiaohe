@@ -4,6 +4,7 @@
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
+		<h2 class="sub-title">基本信息</h2>
 		<div class="container">
 			<div class="wraper">
 				<label>姓名：</label>
@@ -39,6 +40,12 @@
 				<i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i>
 			</div>
 		</div>
+		<h2 class="sub-title">负债调查</h2>
+		<app-debt ref="input_debt"></app-debt>
+		<h2 class="sub-title">个人联系方式</h2>
+		<app-contacts ref="input_contacts"></app-contacts>
+		<h2 class="sub-title">紧急联系人</h2>
+		<app-relatives ref="input_relatives"></app-relatives>
 		<el-button type='success' :disabled='!(allValid&&ageValid)' class='submit' v-if='editing' @click='submit'>提交</el-button>
 		<!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
 		<remind :remind='remind'></remind>
@@ -51,6 +58,9 @@
 	import remind from './tmpts/remind.vue'
 	import publicFun from '../js/public.js'
 	import Bus from '../bus.js'
+	import debt from './views/info_debt_view.vue'
+	import contacts from './views/info_contacts.vue'
+	import relatives from './views/info_relatives.vue'
 	export default {
 		data() {
 			return {
@@ -82,32 +92,63 @@
 		},
 		methods: {
 			submit(){
-				var postBody = {}
+				let postProDebt = this.$refs.input_debt.submit()
+				let postProContacts = this.$refs.input_contacts.submit()
+				let postProIdentity = this.postIdentityPromise()
+				let postProRelatives = this.$refs.input_relatives.submit()
+				let postArr = [postProDebt, postProIdentity, postProRelatives, postProContacts]
+				let prosHandler = publicFun.handlePostPros(postArr)
+				prosHandler.then(values => {
+				  publicFun.onPostIdentificationSucc()
+				  console.log('prosHandler then', values)
+				})
+
+				// var postBody = {}
+				// postBody.idcardNum=this.idCardNum
+				// postBody.bankCard=this.bankCard
+				// postBody.phone=this.cellphone
+				// postBody.name=this.name
+				// postBody.idcardAdr=this.idcardAdr
+				// postBody.email=this.email
+				// publicFun.post(this.url,postBody,this,()=>{
+				// 	console.log('post res',this.response)
+				// })
+			},
+			postIdentityPromise(){
+			  var postBody = {}
 				postBody.idcardNum=this.idCardNum
 				postBody.bankCard=this.bankCard
 				postBody.phone=this.cellphone
 				postBody.name=this.name
 				postBody.idcardAdr=this.idcardAdr
 				postBody.email=this.email
-				publicFun.post(this.url,postBody,this,()=>{
-					console.log('post res',this.response)
-				})
+			  return publicFun.singlePostPro(this.url, postBody)
 			},
 			get(){
-				publicFun.get(this.url,this,()=>{
-					console.log('res outer',this.response)
-					var data=this.response.body.data
-					if(data){
-						
-						this.idCardNum=data.idcardNum
-						this.bankCard=data.bankCard
-						this.cellphone=data.phone
-						this.name=data.name
-						this.idcardAdr=data.idcardAdr
-						this.email=data.email
-					}
-
+      	let promiseDebt = this.$refs.input_debt.get()
+      	let promiseIdentity = this.getIdentity()
+      	let promiseContacts = this.$refs.input_contacts.get()
+      	let promiseRelatives = this.$refs.input_relatives.get()
+      	let promises = [promiseDebt, promiseIdentity, promiseContacts, promiseRelatives]
+				publicFun.handleGetPros(promises)
+				.then(res => {
+					console.log('res',res)
+        	publicFun.onGetIdentificationSucc(res, this)
+      	})
+			},
+			getIdentity(){
+			  let promise = publicFun.singleGetPro(this.url)
+			  promise.then(res => {
+			    console.log('%c res', 'color:red', res)
+			    if (!res) {
+			      return
+			    }
+					Object.assign(this, res, {
+						idCardNum: res.idcardNum,
+						cellphone: res.phone
+					})
 				})
+			  return promise
 			},
 			edit(){
 				this.editing=true
@@ -188,17 +229,23 @@
 				return reg.test(this.email)
 			},
 			allValid:function(){
-				var t=this
-				return t.idcardAdrValid&&t.idCardNumValid&&t.nameValid
+				let refs=this.$refs
+				return this.idCardNumValid&&this.nameValid
+				&&refs.input_debt.allValid
+				&&refs.input_contacts.allValid
+				&&refs.input_relatives.allValid
 			},
 		},
-		created:function(){
+		mounted:function(){
 			this.get()
 		},
 		events: {},
 		components: {
 			remind:remind,
 			'app-upload':uploadId,
+			'app-debt':debt,
+			'app-contacts':contacts,
+			'app-relatives':relatives,
 		}
 	}
 </script>

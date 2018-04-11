@@ -179,7 +179,7 @@
 				if(this.province===''){
 					return
 				}
-				console.log('%c on province change','color:red',)
+				// console.log('%c on province change','color:red',)
 				try{
 					var self_=this
 					self_.city=''
@@ -192,13 +192,12 @@
 						var searchRslt=result.districtList[0].districtList
 						console.log('provinceChange',result)
 						self_.options.city=[]
-						var len=searchRslt.length,i
+						var len=searchRslt.length,i 
 						for(i=0;i<len;i++){
 							self_.options.city.push({label:searchRslt[i].name,value:searchRslt[i].adcode,})
 						}
 						if(self_.response.body.data){
 							self_.city=self_.response.body.data.city
-							console.log('city---',self_.city)
 							self_.response.body.data.city=''
 						}
 					})
@@ -211,18 +210,15 @@
 				if(this.city===''){
 					return
 				}
-				console.log('%c city on city change','color:red',)
+				// console.log('%c city on city change','color:red',)
 				try{
 					var self_=this
 					self_.district=''
 					self_.street=''
 					self_.options.street=[]
-					// console.log('province',this.province)
-					console.log('self_.city',self_.city)
 					self_.districtSearch.search(self_.city,function(status,result){
 						console.log('%c result','color:red',result)
 						var searchRslt=result.districtList[0].districtList
-						// console.log('city',searchRslt)
 						self_.options.district=[]
 						var len=searchRslt.length,i
 						for(i=0;i<len;i++){
