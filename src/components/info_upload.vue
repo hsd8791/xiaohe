@@ -1,6 +1,10 @@
 <template>
 
   <div id="upload-vue" class="input">
+    <h1 class="title ">
+      <app-back></app-back>身份证上传
+      <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
+    </h1>
     <!-- <h1 class="title"><app-back></app-back>附件上传</h1> -->
     <h2 class="sub-title">身份证正面：</h2>
     <pic-load :uploadConfig='uploadConfig[0]'></pic-load>

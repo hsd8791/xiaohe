@@ -24,7 +24,7 @@
 				<!-- <i :class="{'el-icon-check':amountValid,'el-icon-close':!amountValid}"></i> -->
 			</div>
 		</div>
-		<el-button type='success' class="confirm" @click='applyBorrow' :disabled='!(canApply&&allFilled&&amountValid)'>点击申请</el-button>
+		<el-button type='success' class="confirm" @click='applyBorrow' :disabled='!(canApply&&allFilled&&amountValid&&undoneRequest===0)'>点击申请</el-button>
 		<!-- <el-button type='success' class="confirm" @click='applyBorrow' :disabled='!(canApply&&allFilled&&norecord)'>点击申请</el-button> -->
 
 		<div class="fill-status " v-if='!allFilled'>
@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 7, // qty of requset
+					ttlRequest: 1, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -98,76 +98,77 @@
 					fillStatus: [{
 						status: 0,
 						url: '/index/apply_borrow/identity',
-						label: '个人信息',
+						label: '基础信息',
 						getUrl: 'userInfo/identity',
-					}, {
-						status: 0,
-						url: '/index/apply_borrow/shujumohe',
-						label: '手机认证',
-						getUrl: 'credit/shujumoheSimQueryStatus',
-						checkMethod: function(data) {
-							this.status = 0
-							console.log('data', data.status)
-							if (data.status === 'success') {
-								this.status = 1
-							}else{
-								// console.log('/failure/.test(data.status)',/failure/.test('failure:超时！'))
-								// if(/failure/.test('failure:超时！')){
-								if(/failure/.test(data.status)){
-								var passed=new Date().getTime()-data.time
-									if(passed<24*3600*1000){
-										this.status=1
-									}
-								}
-								// console.log('data.status', data.status)
-								// console.log('data', data.time)
-								console.log('passed',passed)
-								// console.log('one day',24*3600*1000)
-							}
-						}
-					}, {
-						status: 0,
-						url: '/index/apply_borrow/identity',
-						label: '个人信息',
-						getUrl: 'userInfo/addAccessory',
-						checkMethod: function(data) {
-							// console.log('data', data)
-							// console.log('test filling')
-							this.status = 0
-							if (!data) {
-								return
-							}
-							if (data.idcardUrl && data.idcardUrl2&& data.idcardUrl3) {
-								this.status = 1
-							}
-						}
 					}, 
-					{
-						status: 0,
-						url: '/index/apply_borrow/contact_way',
-						label: '其他信息',
-						getUrl: 'userInfo/liabilities',
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/shujumohe',
+					// 	label: '手机认证',
+					// 	getUrl: 'credit/shujumoheSimQueryStatus',
+					// 	checkMethod: function(data) {
+					// 		this.status = 0
+					// 		console.log('data', data.status)
+					// 		if (data.status === 'success') {
+					// 			this.status = 1
+					// 		}else{
+					// 			// console.log('/failure/.test(data.status)',/failure/.test('failure:超时！'))
+					// 			// if(/failure/.test('failure:超时！')){
+					// 			if(/failure/.test(data.status)){
+					// 			var passed=new Date().getTime()-data.time
+					// 				if(passed<24*3600*1000){
+					// 					this.status=1
+					// 				}
+					// 			}
+					// 			// console.log('data.status', data.status)
+					// 			// console.log('data', data.time)
+					// 			console.log('passed',passed)
+					// 			// console.log('one day',24*3600*1000)
+					// 		}
+					// 	}
+					// }, {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/identity',
+					// 	label: '个人信息',
+					// 	getUrl: 'userInfo/addAccessory',
+					// 	checkMethod: function(data) {
+					// 		// console.log('data', data)
+					// 		// console.log('test filling')
+					// 		this.status = 0
+					// 		if (!data) {
+					// 			return
+					// 		}
+					// 		if (data.idcardUrl && data.idcardUrl2&& data.idcardUrl3) {
+					// 			this.status = 1
+					// 		}
+					// 	}
+					// }, 
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/contact_way',
+					// 	label: '其他信息',
+					// 	getUrl: 'userInfo/liabilities',
 
-					}, 
-					{
-						status: 0,
-						url: '/index/apply_borrow/zhima',
-						label: '芝麻认证',
-						getUrl: 'credit/zhimaAuthStatus',
-						checkMethod: function(data) {
-							console.warn('zhima data',data)
-							if(data.time<publicFun.zhimaAcChangeTime){
-								this.status=0
-								return
-							}
-							if(data.status){
-								this.status=0
-								if(data.status=='success'){
-									this.status=1
-								}
-							}
-						}
-					},
+					// }, 
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/zhima',
+					// 	label: '芝麻认证',
+					// 	getUrl: 'credit/zhimaAuthStatus',
+					// 	checkMethod: function(data) {
+					// 		console.warn('zhima data',data)
+					// 		if(data.time<publicFun.zhimaAcChangeTime){
+					// 			this.status=0
+					// 			return
+					// 		}
+					// 		if(data.status){
+					// 			this.status=0
+					// 			if(data.status=='success'){
+					// 				this.status=1
+					// 			}
+					// 		}
+					// 	}
+					// },
 					],
 					fillStatus2: [
 						// {
@@ -178,17 +179,17 @@
 						// 	getUrl: 'userInfo/personal',
 						// 	getUrl2: 'userInfo/address'
 						// },
-						{
-							status: 0,
-							status2: 0,
-							url: '/index/apply_borrow/contact_way',
-							label: '其他信息',
-							getUrl: 'userInfo/contact',
-							getUrl2: 'userInfo/relatives',
-							checkMethod: function(data) {
-								// this.status=0
-							}
-						},
+						// {
+						// 	status: 0,
+						// 	status2: 0,
+						// 	url: '/index/apply_borrow/contact_way',
+						// 	label: '其他信息',
+						// 	getUrl: 'userInfo/contact',
+						// 	getUrl2: 'userInfo/relatives',
+						// 	checkMethod: function(data) {
+						// 		// this.status=0
+						// 	}
+						// },
 						// {
 						// 	status: 0,
 						// 	status2: 1,

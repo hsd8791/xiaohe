@@ -230,10 +230,12 @@
 		},
 		created:function(){
 			var self_=this
-			var mapScript=document.createElement('script')
-			var mapSrc='http://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
-			mapScript.src=mapSrc
-			document.body.appendChild(mapScript)
+			// var mapScript=document.createElement('script')
+			// var mapSrc='https://webapi.amap.com/maps?v=1.3&key=88803f8a6ef6758ba4e2ba70b425e43c'
+			// mapScript.src=mapSrc
+			// document.body.appendChild(mapScript)
+			
+			let mapScript = document.querySelector('#AMAP')
 			mapScript.onload=function(){
 				console.log('amap loaded')
 				AMap.service('AMap.DistrictSearch',function(){

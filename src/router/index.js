@@ -108,7 +108,7 @@ mineRoutes = mineRoutes.concat(
 
 
 indexRoutes = indexRoutes.concat(
-	// newRoute('/apply_borrow', 'ApplyBorrow', ApplyBorrow),
+	newRoute('*/apply_borrow', 'ApplyBorrow', ApplyBorrow),
 	newRoute(['/index/identity', '/*/identity'], 'Identity', Identity),
 	newRoute(['/index/profile', '/*/profile'], 'Profile', Profile),
 	newRoute(['/index/job_info', '/*/job_info'], 'JobInfo', JobInfo),
@@ -147,7 +147,7 @@ basicRoutes = [{
 	name: 'coming',
 	component: coming,
 }, {
-	path: rootPath + '/index/apply_borrow',
+	path: rootPath + '/index0/apply_borrow',
 	name: 'ApplyBorrow',
 	component: ApplyBorrow,
 	meta: {

@@ -127,7 +127,7 @@ export default {
         publicFun.goPage(this.$route.path+'/login')
         return
       }
-			publicFun.goPage('/index/apply_borrow')
+			publicFun.goPage(this.$route.path+'/apply_borrow')
 		},
   },
   watch:{

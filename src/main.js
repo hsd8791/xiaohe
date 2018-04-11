@@ -44,8 +44,8 @@ Vue.component('app-input-login',inputLogin)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'https://www.ho163.com/api';
-// Vue.http.options.root = 'http://hzg.he577.com';
+// Vue.http.options.root = 'https://www.ho163.com/api';
+Vue.http.options.root = 'http://hzg.he577.com';
 // Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
 	Button,

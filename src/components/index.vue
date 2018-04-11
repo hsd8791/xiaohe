@@ -24,7 +24,7 @@
 		<div class="input">
 			<h1 class="title" style="text-align: center;">认证信息</h1>
 		</div>
-		<h3 class='sub-title first-title'>必填认证信息</h3>
+		<h3 class='sub-title first-title'>必填信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in essentialCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
@@ -33,7 +33,16 @@
 				</div>
 			</div>
 		</div>
-		<h3 class="sub-title">可选认证信息</h3>
+		<h3 class="sub-title">认证信息</h3>
+		<div class="container">
+			<div class="row" v-for='row in identifyCell'>
+				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+					<div class="item-icon"><i :class="cell.icon"></i></div>
+					<div class="item-name">{{cell.title}}</div>
+				</div>
+			</div>
+		</div>
+		<h3 class="sub-title">可选信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
@@ -69,16 +78,22 @@
 				},
 				essentialCell:[
 				[
-				{title:'身份认证',link:'/identity',icon:'icon-address-book',},
+				{title:'基础信息',link:'/identity',icon:'icon-address-book',},
 				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
-				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
-				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+
 				{title:'其他信息',link:'/contact_way',icon:'icon-phone',},
 				],
 				[
 				// {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
 				],
+				],
+				identifyCell:[
+				[
+				{title:'身份认证',link:'/upload',icon:'icon-upload',},
+				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
+				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+				]
 				],
 				optionalCell:[
 				[

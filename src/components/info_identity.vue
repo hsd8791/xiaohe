@@ -4,7 +4,6 @@
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
-		<app-upload></app-upload>
 		<div class="container">
 			<div class="wraper">
 				<label>姓名：</label>
@@ -18,11 +17,11 @@
 				<el-input :disabled='!editing' placeholder='身份证' v-model='idCardNum' @blur.once='blured'  :class='{"valid-border":idCardNumValid,"error-border":!idCardNumValid}' ></el-input>
 				<i :class="{'el-icon-check':idCardNumValid,'el-icon-close':!idCardNumValid}"></i>
 			</div>
-			<div class="wraper">
+			<!-- <div class="wraper">
 				<label>身份证地址：</label>
 				<el-input :disabled='!editing' placeholder='身份证地址 选填' v-model='idcardAdr'@blur.once='blured'  :class='{"valid-border":idcardAdrValid,"error-border":!idcardAdrValid}'></el-input>
 				<i :class="{'el-icon-check':idcardAdrValid,'el-icon-close':!idcardAdrValid}"></i>
-			</div>
+			</div> -->
 
 			<div class="wraper">
 				<label>银行卡号：</label>
