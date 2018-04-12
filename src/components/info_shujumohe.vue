@@ -90,12 +90,13 @@
 					// cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
 				}
 				// console.log('callback',postBody.cb)
-				console.log('this.taskId',this.taskId)
+				// console.log('this.taskId',this.taskId)
 				var url=publicFun.urlConcat(this.exUrl,postBody)
 				// var url=publicFun.urlConcat('----',postBody)
-				console.log('URL shujumohe',url)
+				// console.log('URL shujumohe',url)
 				// url=encodeURI(url)
 				// url='https://www.baidu.com'
+				publicFun.savePathForAuth()
 				location.href=url
 				// this.remind.isShow=true
 				// this.remind.remindMsg='传送门已开启，点击确定前往'

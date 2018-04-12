@@ -83,6 +83,7 @@
 				})
 				publicFun.get(url,this,()=>{
 					console.log('res',this.response.body.data.url)
+					publicFun.savePathForAuth()
 					window.location.href=this.response.body.data.url
 				})
 			},

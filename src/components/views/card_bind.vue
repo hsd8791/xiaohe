@@ -14,7 +14,7 @@
   			</div>
 			</div>
       <div class="card-remind">
-        <p>支持以下银行储蓄卡：工商银行、农业银行、中国银行、建设银行、储蓄银行、广发银行、光大银行、中信银行、兴业银行、交通银行、浦发银行、平安银行、民生银行、华夏银行、招商银行</p>
+        <p>支持以下银行储蓄卡：工商银行、中国银行、建设银行、储蓄银行、广发银行、光大银行、中信银行、兴业银行、交通银行、浦发银行、平安银行、民生银行、华夏银行、招商银行</p>
       </div>
 			<el-button type='success' :disabled='!bankcardValid' class='submit'  @click='submit'>提交</el-button>
 		</div>

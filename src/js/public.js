@@ -22,7 +22,12 @@ publicFun.resetLocalUserInfo = function() {
 	localStorage.removeItem('uniqueId')
 	localStorage.removeItem('pwd')
 }
-
+publicFun.savePathForAuth=()=>{
+	let hash=location.hash
+	let path=hash.slice(1,)
+	console.log('this.$route.fullPath',path)
+	localStorage.setItem('pathWhenAuth',path)
+}
 publicFun.parseMixRslt = function(s) {
 	// console.log('s', s)
 	// var obj = JSON.parse(s)

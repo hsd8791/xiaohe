@@ -57,6 +57,15 @@
       }
     },
     methods: {
+      goAuthingPage(){
+        let path=localStorage.getItem('pathWhenAuth')
+        if(!path){
+          return
+        }else{
+          localStorage.removeItem('pathWhenAuth')
+          publicFun.goPage(path)
+        }
+      },
       fromSales(w) {
         sessionStorage.setItem('salesWay', w)
         // console.log('sales URL', this.urlSales + w)
@@ -151,7 +160,7 @@
       this.checkSession()
       this.footNavShow=true
       // console.log('%c created','color:red',)
-      
+      this.goAuthingPage()
     },
     computed:{
       globalLoading(){

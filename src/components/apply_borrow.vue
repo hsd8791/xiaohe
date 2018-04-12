@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 1, // qty of requset
+					ttlRequest: 2, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -150,25 +150,25 @@
 					// 	getUrl: 'userInfo/liabilities',
 
 					// }, 
-					// {
-					// 	status: 0,
-					// 	url: '/index/apply_borrow/zhima',
-					// 	label: '芝麻认证',
-					// 	getUrl: 'credit/zhimaAuthStatus',
-					// 	checkMethod: function(data) {
-					// 		console.warn('zhima data',data)
-					// 		if(data.time<publicFun.zhimaAcChangeTime){
-					// 			this.status=0
-					// 			return
-					// 		}
-					// 		if(data.status){
-					// 			this.status=0
-					// 			if(data.status=='success'){
-					// 				this.status=1
-					// 			}
-					// 		}
-					// 	}
-					// },
+					{
+						status: 0,
+						url: '/index/apply_borrow/zhima',
+						label: '芝麻认证',
+						getUrl: 'credit/zhimaAuthStatus',
+						checkMethod: function(data) {
+							console.warn('zhima data',data)
+							if(data.time<publicFun.zhimaAcChangeTime){
+								this.status=0
+								return
+							}
+							if(data.status){
+								this.status=0
+								if(data.status=='success'){
+									this.status=1
+								}
+							}
+						}
+					},
 					],
 					fillStatus2: [
 						// {
@@ -268,17 +268,20 @@
 								amount: this.amount*100,
 							})
 							publicFun.post(urlApply, {}, this, () => {
-								// console.log('res apply_borrow', this.response)
-								// this.remind.remindMsg='提示:添加联系方式'
 								this.remind.remindMsg='提交完成'
-								// this.remind.remindMsgDscrp='请添加微信或手机联系人以便客服联系'
-								// this.remind.remindMsgDscrp='请添加QQ公众号：4000577009，否则不能完成借款'
+                this.remind.remindMsgDscrp='完善认证，加速放款速度！'
 								this.remind.remindOpts = [{
-									msg: '确定',
+									msg: '前往认证',
 									callback: () => {
-										publicFun.goPage('/loan_bill')
+										publicFun.goPage('/index')
 									}
-								}]
+								},{
+                  msg:'再等等',
+                  callback: () => {
+                    publicFun.goPage('/loan_bill')
+                  }
+                }]
+                this.remind.isShow=true
 							}, () => {
 							})
 						}
@@ -467,7 +470,6 @@
 			},
 			events: {},
 			created: function() {
-
 				// publicFun.qualify(this)
 				this.checkNewer()//非newer 不会有提示覆盖qulify 函数中的提示，
 				// 以上两个函数只会有一个出现提示框
@@ -475,25 +477,6 @@
 				if (bus.phoneLender) {
 					this.phoneLender = bus.phoneLender
 				}
-				// var query = this.$route.query
-				// 	// console.log('phone', query.phone)
-				// 	// if (query.phone) {
-				// 	// console.log('query',query)
-				// if (query.uniqueId) {
-				// 	//set phoneLender
-				// 	//触发phoneValid watch
-				// 	// bus.phoneLender = query.phone
-				// 	bus.uniqueIdLender = query.uniqueId
-				// 	this.uniqueIdLender = query.uniqueId
-				// 		// console.log('this.urlUniqueId',this.urlUniqueId)
-				// 	this.getLenderInfo(this.urlUniqueId + query.uniqueId)
-				// 	this.getById = true
-				// 	this.phoneLender = bus.phoneLender
-				// 		// console.log('fist res',this.response)
-				// 		// var data = this.response
-				// 		// }
-				// 		// this.checkFilled()
-				// }
 			},
 			filters: {
 				nameParse(val) {
