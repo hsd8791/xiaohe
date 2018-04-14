@@ -471,8 +471,11 @@ publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this
 	 * @param  {Function} callback  [同get function]
 	 * @return {[type]}             [同get function]
 	 */
-publicFun.post = function(url, body, vm, sccssCall, errCall, callback) { //paras:  this,url,
+publicFun.post = function(url, body, vm, sccssCall, errCall, callback,exclusive) { //paras:  this,url,
 	// console.log('posting')
+	if(exclusive&&vm.loading){
+		return
+	}
 	vm.loading = true
 	sccssCall = setNullFunc(sccssCall)
 	errCall = setNullFunc(errCall)

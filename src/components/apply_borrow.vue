@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 2, // qty of requset
+					ttlRequest: 5, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -143,13 +143,12 @@
 					// 		}
 					// 	}
 					// }, 
-					// {
-					// 	status: 0,
-					// 	url: '/index/apply_borrow/contact_way',
-					// 	label: '其他信息',
-					// 	getUrl: 'userInfo/liabilities',
-
-					// }, 
+					{
+						status: 0,
+						url: '/index/apply_borrow/identity',
+						label: '基础信息',
+						getUrl: 'userInfo/liabilities',
+					}, 
 					{
 						status: 0,
 						url: '/index/apply_borrow/zhima',
@@ -179,17 +178,17 @@
 						// 	getUrl: 'userInfo/personal',
 						// 	getUrl2: 'userInfo/address'
 						// },
-						// {
-						// 	status: 0,
-						// 	status2: 0,
-						// 	url: '/index/apply_borrow/contact_way',
-						// 	label: '其他信息',
-						// 	getUrl: 'userInfo/contact',
-						// 	getUrl2: 'userInfo/relatives',
-						// 	checkMethod: function(data) {
-						// 		// this.status=0
-						// 	}
-						// },
+						{
+							status: 0,
+							status2: 0,
+							url: '/index/apply_borrow/identity',
+							label: '基础信息',
+							getUrl: 'userInfo/contact',
+							getUrl2: 'userInfo/relatives',
+							checkMethod: function(data) {
+								// this.status=0
+							}
+						},
 						// {
 						// 	status: 0,
 						// 	status2: 1,
