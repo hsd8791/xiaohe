@@ -321,7 +321,7 @@ export default {
 								this.get()
 							}
 						}]
-					}, () => {})
+					}, () => {},()=>{},true)
 				}
 				var remind=this.remind
 				remind.remindMsg = '提交'+action
