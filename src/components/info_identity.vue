@@ -1,256 +1,255 @@
 <template>
-	<div id='identityVue' class="input title-fixed"  v-loading='loading'  element-loading-text='请稍后' v-inner-scroll style="padding-bottom: 0.15rem">
-		<h1 class='title'>
+  <div id='identityVue' class="input title-fixed" v-loading='loading' element-loading-text='请稍后' v-inner-scroll style="padding-bottom: 0.15rem">
+    <h1 class='title'>
 			<app-back></app-back>身份验证
 			<span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
 		</h1>
-		<h2 class="sub-title">基本信息</h2>
-		<div class="container">
-			<div class="wraper">
-				<label>姓名：</label>
-				<!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
-				<el-input :disabled='!editing' placeholder='请输入真实姓名' v-model='name' @blur.once='blured'  :class='{"valid-border":nameValid,"error-border":!nameValid}'></el-input>
-				<i :class="{'el-icon-check':nameValid,'el-icon-close':!nameValid}"></i>
-			</div>
-
-			<div class="wraper">
-				<label>身份证号：</label>
-				<el-input :disabled='!editing' placeholder='身份证' v-model='idCardNum' @blur.once='blured'  :class='{"valid-border":idCardNumValid,"error-border":!idCardNumValid}' ></el-input>
-				<i :class="{'el-icon-check':idCardNumValid,'el-icon-close':!idCardNumValid}"></i>
-			</div>
-			<!-- <div class="wraper">
+    <h2 class="sub-title">基本信息</h2>
+    <div class="container">
+      <div class="wraper">
+        <label>姓名：</label>
+        <!-- :class="{'valid':idCardNumValid,'error':!idCardNumValid}" -->
+        <el-input :disabled='!editing' placeholder='请输入真实姓名' v-model='name' @blur.once='blured' :class='{"valid-border":nameValid,"error-border":!nameValid}'></el-input>
+        <i :class="{'el-icon-check':nameValid,'el-icon-close':!nameValid}"></i>
+      </div>
+      <div class="wraper">
+        <label>身份证号：</label>
+        <el-input :disabled='!editing' placeholder='身份证' v-model='idCardNum' @blur.once='blured' :class='{"valid-border":idCardNumValid,"error-border":!idCardNumValid}'></el-input>
+        <i :class="{'el-icon-check':idCardNumValid,'el-icon-close':!idCardNumValid}"></i>
+      </div>
+      <!-- <div class="wraper">
 				<label>身份证地址：</label>
 				<el-input :disabled='!editing' placeholder='身份证地址 选填' v-model='idcardAdr'@blur.once='blured'  :class='{"valid-border":idcardAdrValid,"error-border":!idcardAdrValid}'></el-input>
 				<i :class="{'el-icon-check':idcardAdrValid,'el-icon-close':!idcardAdrValid}"></i>
 			</div> -->
-
-			<div class="wraper">
-				<label>银行卡号：</label>
-				<el-input :disabled='!editing' placeholder='银行卡/信用卡' v-model='bankCard'@blur.once='blured'  :class='{"valid-border":bankCardValid,"error-border":!bankCardValid}'></el-input>
-				<i :class="{'el-icon-check':bankCardValid,'el-icon-close':!bankCardValid}"></i>
-			</div>
-			<div class="wraper">
-				<label>邮箱：</label>
-				<el-input :disabled='!editing' placeholder='邮箱' v-model='email'@blur.once='blured'  :class='{"valid-border":emailValid,"error-border":!emailValid}' type='email'></el-input>
-				<i :class="{'el-icon-check':emailValid,'el-icon-close':!emailValid}"></i>
-			</div>
-			<div class="wraper">
-				<label>备用手机：</label>
-				<el-input :disabled='!editing' placeholder='备用手机号 选填' v-model='cellphone' @blur.once='blured'  :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}' type='tel'></el-input>
-				<i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i>
-			</div>
-		</div>
-		<h2 class="sub-title">负债调查</h2>
-		<app-debt ref="input_debt"></app-debt>
-		<h2 class="sub-title">个人联系方式</h2>
-		<app-contacts ref="input_contacts"></app-contacts>
-		<h2 class="sub-title">紧急联系人</h2>
-		<app-relatives ref="input_relatives"></app-relatives>
-		<el-button type='success' :disabled='!(allValid&&ageValid)' class='submit' v-if='editing' @click='submit'>提交</el-button>
-		<!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
-		<remind :remind='remind'></remind>
-	</div>
+      <div class="wraper">
+        <label>银行卡号：</label>
+        <el-input :disabled='!editing' placeholder='银行卡/信用卡' v-model='bankCard' @blur.once='blured' :class='{"valid-border":bankCardValid,"error-border":!bankCardValid}'></el-input>
+        <i :class="{'el-icon-check':bankCardValid,'el-icon-close':!bankCardValid}"></i>
+      </div>
+      <div class="wraper">
+        <label>邮箱：</label>
+        <el-input :disabled='!editing' placeholder='邮箱' v-model='email' @blur.once='blured' :class='{"valid-border":emailValid,"error-border":!emailValid}' type='email'></el-input>
+        <i :class="{'el-icon-check':emailValid,'el-icon-close':!emailValid}"></i>
+      </div>
+      <div class="wraper">
+        <label>备用手机：</label>
+        <el-input :disabled='!editing' placeholder='备用手机号 选填' v-model='cellphone' @blur.once='blured' :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}' type='tel'></el-input>
+        <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i>
+      </div>
+    </div>
+    <h2 class="sub-title">负债调查</h2>
+    <app-debt ref="input_debt"></app-debt>
+    <h2 class="sub-title">个人联系方式</h2>
+    <app-contacts ref="input_contacts"></app-contacts>
+    <h2 class="sub-title">紧急联系人</h2>
+    <app-relatives ref="input_relatives"></app-relatives>
+    <el-button type='success' :disabled='!(allValid&&ageValid)' class='submit' v-if='editing' @click='submit'>提交</el-button>
+    <!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
+    <remind :remind='remind'></remind>
+  </div>
 </template>
-
 <script>
-	// import '../css/input.css'
-	import uploadId from './info_upload.vue'
-	import remind from './tmpts/remind.vue'
-	import publicFun from '../js/public.js'
-	import Bus from '../bus.js'
-	import debt from './views/info_debt_view.vue'
-	import contacts from './views/info_contacts.vue'
-	import relatives from './views/info_relatives.vue'
-	export default {
-		data() {
-			return {
-				editing:false, //edit or review
-				loading:false,
-				response:null,
-				url:'userInfo/identity',
-				name:'',
-				idCardNum:'',
-				idcardAdr:'',
-				cellphone:'',
-				bankCard:'',
-				email:'',
-				formData:{
-					
-				},
-				backAfterPost:true,
-				remind:{
-					isShow:false,
-					remindMsg:'remind',
-					self_:this,
-					remindOpts:[
-					{msg:'确定',},
-					],
-				},
-				// isIDCard1:/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/,
-				// isIDCard2:/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
-			}
-		},
-		methods: {
-			submit(){
-				let postProDebt = this.$refs.input_debt.submit()
-				let postProContacts = this.$refs.input_contacts.submit()
-				let postProIdentity = this.postIdentityPromise()
-				let postProRelatives = this.$refs.input_relatives.submit()
-				let postArr = [postProDebt, postProIdentity, postProRelatives, postProContacts]
-				let prosHandler = publicFun.handlePostPros(postArr)
-				prosHandler.then(values => {
-				  publicFun.onPostIdentificationSucc()
-				  console.log('prosHandler then', values)
-				})
+// import '../css/input.css'
+import uploadId from './info_upload.vue'
+import remind from './tmpts/remind.vue'
+import publicFun from '../js/public.js'
+import Bus from '../bus.js'
+import debt from './views/info_debt_view.vue'
+import contacts from './views/info_contacts.vue'
+import relatives from './views/info_relatives.vue'
+export default {
+  data() {
+    return {
+      editing: false, //edit or review
+      loading: false,
+      response: null,
+      url: 'userInfo/identity',
+      name: '',
+      idCardNum: '',
+      idcardAdr: '',
+      cellphone: '',
+      bankCard: '',
+      email: '',
+      formData: {
 
-				// var postBody = {}
-				// postBody.idcardNum=this.idCardNum
-				// postBody.bankCard=this.bankCard
-				// postBody.phone=this.cellphone
-				// postBody.name=this.name
-				// postBody.idcardAdr=this.idcardAdr
-				// postBody.email=this.email
-				// publicFun.post(this.url,postBody,this,()=>{
-				// 	console.log('post res',this.response)
-				// })
-			},
-			postIdentityPromise(){
-			  var postBody = {}
-				postBody.idcardNum=this.idCardNum
-				postBody.bankCard=this.bankCard
-				postBody.phone=this.cellphone
-				postBody.name=this.name
-				postBody.idcardAdr=this.idcardAdr
-				postBody.email=this.email
-			  return publicFun.singlePostPro(this.url, postBody)
-			},
-			get(){
-      	let promiseDebt = this.$refs.input_debt.get()
-      	let promiseIdentity = this.getIdentity()
-      	let promiseContacts = this.$refs.input_contacts.get()
-      	let promiseRelatives = this.$refs.input_relatives.get()
-      	let promises = [promiseDebt, promiseIdentity, promiseContacts, promiseRelatives]
-				publicFun.handleGetPros(promises)
-				.then(res => {
-					console.log('res',res)
-        	publicFun.onGetIdentificationSucc(res, this)
-      	})
-			},
-			getIdentity(){
-			  let promise = publicFun.singleGetPro(this.url)
-			  promise.then(res => {
-			    console.log('%c res', 'color:red', res)
-			    if (!res) {
-			      return
-			    }
-					Object.assign(this, res, {
-						idCardNum: res.idcardNum,
-						cellphone: res.phone
-					})
-				})
-			  return promise
-			},
-			edit(){
-				this.editing=true
-			},
-			blured($event){
-				var el=$event.target.parentElement.parentElement
-				el.className+=' validate'
-			},
-			setFormData(dataKey){
-				if(this[dataKey+'Valid']){
-					this.formData[dataKey]=this[dataKey]
-				}else{
-					this.formData[dataKey]=null
-				}
-			},
-		},
-		watch:{
-			
-		},
-		computed:{
-			ageValid:function(){
-				if(!this.idCardNumValid){
-					return false
-				}
-				const minAge=20
-				const maxAge=39// 40-1
-				var ID=this.idCardNum
-				var bornY=ID.slice(6,10)*1,bornM=ID.slice(10,12)*1,bornD=ID.slice(12,14)*1
-				var today=new Date()
-				var todayY=today.getFullYear(),todayM=today.getMonth()+1,todayD=today.getDate()
+      },
+      backAfterPost: true,
+      remind: {
+        isShow: false,
+        remindMsg: 'remind',
+        self_: this,
+        remindOpts: [
+          { msg: '确定', },
+        ],
+      },
+      // isIDCard1:/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/,
+      // isIDCard2:/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/
+    }
+  },
+  methods: {
+    submit() {
+      var postProIdentity = this.postIdentityPromise()
+      var postProDebt
+      var postProContacts
+      var postProRelatives
+      var postArr = [postProDebt, postProIdentity, postProRelatives, postProContacts]
+      setTimeout(() => {
+        postProDebt = this.$refs.input_debt.submit()
+      }, 200);
+      setTimeout(() => {
+        postProContacts = this.$refs.input_contacts.submit()
+      }, 400);
+      setTimeout(() => {
+        postProRelatives = this.$refs.input_relatives.submit()
+        var prosHandler = publicFun.handlePostPros(postArr)
+        prosHandler.then(values => {
+          publicFun.onPostIdentificationSucc()
+          console.log('prosHandler then', values)
+        })
+      }, 600);
+    },
+    postIdentityPromise() {
+      var postBody = {}
+      postBody.idcardNum = this.idCardNum
+      postBody.bankCard = this.bankCard
+      postBody.phone = this.cellphone
+      postBody.name = this.name
+      postBody.idcardAdr = this.idcardAdr
+      postBody.email = this.email
+      return publicFun.singlePostPro(this.url, postBody)
+    },
+    get() {
+      let promiseDebt = this.$refs.input_debt.get()
+      let promiseIdentity = this.getIdentity()
+      let promiseContacts = this.$refs.input_contacts.get()
+      let promiseRelatives = this.$refs.input_relatives.get()
+      let promises = [promiseDebt, promiseIdentity, promiseContacts, promiseRelatives]
+      publicFun.handleGetPros(promises)
+        .then(res => {
+          console.log('res', res)
+          publicFun.onGetIdentificationSucc(res, this)
+        })
+    },
+    getIdentity() {
+      let promise = publicFun.singleGetPro(this.url)
+      promise.then(res => {
+        console.log('%c res', 'color:red', res)
+        if (!res) {
+          return
+        }
+        Object.assign(this, res, {
+          idCardNum: res.idcardNum,
+          cellphone: res.phone
+        })
+      })
+      return promise
+    },
+    edit() {
+      this.editing = true
+    },
+    blured($event) {
+      var el = $event.target.parentElement.parentElement
+      el.className += ' validate'
+    },
+    setFormData(dataKey) {
+      if (this[dataKey + 'Valid']) {
+        this.formData[dataKey] = this[dataKey]
+      } else {
+        this.formData[dataKey] = null
+      }
+    },
+  },
+  watch: {
 
-				if((bornY+minAge)<todayY&&(bornY+maxAge)>todayY){
-					return true
-				}else{
-					if(bornY+minAge===todayY){
-						if(bornM<todayM){
-							return true
-						}else if(bornM===todayM){
-							if(bornD<=todayD){
-								return true
-							}
-						}
-					}
-					if(bornY+maxAge===todayY){
-						if(bornM>todayM){
-							return true
-						}else if(bornM===todayM){
-							if(bornD>todayD){
-								return true
-							}
-						}
-					}
-				}
-				return false
-			},
-			idCardNumValid:function(){
-				var reg=publicFun.reg.idCardNum
-				return reg.test(this.idCardNum)
-			},
-			nameValid:function(){
-				var reg=/^[\u4e00-\u9fa5]+$/;
-				return reg.test(this.name)
-			},
-			idcardAdrValid:function(){
-				var reg=/.{0,}/;
-				return reg.test(this.idcardAdr)
-			},
-			cellphoneValid:function(){
-				var reg=publicFun.reg.cellphone,flag=(this.cellphone=='')
-				return reg.test(this.cellphone) || flag
-			},
-			bankCardValid:function(){
-				var reg=/^\d{12,19}$/;
-				return reg.test(this.bankCard)
-			},
-			emailValid:function(){
-				var reg=/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$/;
-				return reg.test(this.email)
-			},
-			allValid:function(){
-				let refs=this.$refs
-				return this.idCardNumValid&&this.nameValid
-				&&refs.input_debt.allValid
-				&&refs.input_contacts.allValid
-				&&refs.input_relatives.allValid
-			},
-		},
-		mounted:function(){
-			this.get()
-		},
-		events: {},
-		components: {
-			remind:remind,
-			'app-upload':uploadId,
-			'app-debt':debt,
-			'app-contacts':contacts,
-			'app-relatives':relatives,
-		}
-	}
+  },
+  computed: {
+    ageValid: function() {
+      if (!this.idCardNumValid) {
+        return false
+      }
+      const minAge = 20
+      const maxAge = 39 // 40-1
+      var ID = this.idCardNum
+      var bornY = ID.slice(6, 10) * 1,
+        bornM = ID.slice(10, 12) * 1,
+        bornD = ID.slice(12, 14) * 1
+      var today = new Date()
+      var todayY = today.getFullYear(),
+        todayM = today.getMonth() + 1,
+        todayD = today.getDate()
+
+      if ((bornY + minAge) < todayY && (bornY + maxAge) > todayY) {
+        return true
+      } else {
+        if (bornY + minAge === todayY) {
+          if (bornM < todayM) {
+            return true
+          } else if (bornM === todayM) {
+            if (bornD <= todayD) {
+              return true
+            }
+          }
+        }
+        if (bornY + maxAge === todayY) {
+          if (bornM > todayM) {
+            return true
+          } else if (bornM === todayM) {
+            if (bornD > todayD) {
+              return true
+            }
+          }
+        }
+      }
+      return false
+    },
+    idCardNumValid: function() {
+      var reg = publicFun.reg.idCardNum
+      return reg.test(this.idCardNum)
+    },
+    nameValid: function() {
+      var reg = /^[\u4e00-\u9fa5]+$/;
+      return reg.test(this.name)
+    },
+    idcardAdrValid: function() {
+      var reg = /.{0,}/;
+      return reg.test(this.idcardAdr)
+    },
+    cellphoneValid: function() {
+      var reg = publicFun.reg.cellphone,
+        flag = (this.cellphone == '')
+      return reg.test(this.cellphone) || flag
+    },
+    bankCardValid: function() {
+      var reg = /^\d{12,19}$/;
+      return reg.test(this.bankCard)
+    },
+    emailValid: function() {
+      var reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+(\.[a-zA-Z]{2,3})+$/;
+      return reg.test(this.email)
+    },
+    allValid: function() {
+      let refs = this.$refs
+      return this.idCardNumValid && this.nameValid &&
+        refs.input_debt.allValid &&
+        refs.input_contacts.allValid &&
+        refs.input_relatives.allValid
+    },
+  },
+  mounted: function() {
+    this.get()
+  },
+  events: {},
+  components: {
+    remind: remind,
+    'app-upload': uploadId,
+    'app-debt': debt,
+    'app-contacts': contacts,
+    'app-relatives': relatives,
+  }
+}
+
 </script>
-
-
 <style lang='scss' scoped>
 /*	$iconSize:0.2rem;
 	$validColor:#52f352;
@@ -259,4 +258,5 @@
 	*{
 	
 	}*/
+
 </style>
