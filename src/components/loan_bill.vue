@@ -107,6 +107,10 @@
 						{{loanInfo.status | statusParser}}
 					</span>
 				</div>
+				<div class="detail-li">
+					<span class="li-title">特别提醒</span>
+					<span class="li-content">逾期记录会被录入同盾</span>
+				</div>
 			</div>
 
 			<div class="inner-contaier loan-action input">
