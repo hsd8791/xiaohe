@@ -24,7 +24,7 @@
 				<p class="remind remind-refused">3、支付宝芝麻分或花呗为达到要求。</p>
 				<p class="remind remind-refused">4、其他平台负债高或检测到有逾期记录。</p>
 				<p class="remind remind-refused">
-					如需咨询请使用QQ联系QQ：400-0577-009。
+					如需咨询请联系QQ公众号：400-0577-009。
 				</p>
 				<p class="remind remind-refused">
 					温馨提示：
@@ -62,7 +62,7 @@
 			<div class="auditing-remark">
 				<p class="auditing-description">
 					说明：您好，您在柒彩虹的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。
-					如需咨询请联系QQ:400-0577-009
+					如需咨询请联系QQ公众号:400-0577-009
 				</p>
 				<p class="auditing-description">
 					温馨提醒：
