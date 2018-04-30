@@ -78,7 +78,7 @@
 				},
 				essentialCell:[
 				[
-				{title:'基础信息',link:'/identity',icon:'icon-address-book',},
+				{title:'基础信息',link:'/info_base',icon:'icon-address-book',},
 				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
