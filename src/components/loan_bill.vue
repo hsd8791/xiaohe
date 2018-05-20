@@ -74,7 +74,7 @@
         <p class="remind"></p>
         <app-quota :quotaCfg='applyRecord'></app-quota>
       </div>
-      <div class="input" v-if='auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3)' audit-ctrl='reapply'>
+      <div class="input" v-if='auditing!==4&&(auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3))' audit-ctrl='reapply'>
         <el-button type='success' @click='reapply'>重新申请</el-button>
       </div>
       <div class="container" v-if='needRepayment||fullRepayedAndNotReborrow' audit-ctrl='bill-status'>
