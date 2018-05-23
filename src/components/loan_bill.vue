@@ -77,7 +77,7 @@
       <div class="input" v-if='auditing!==4&&(auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3))' audit-ctrl='reapply'>
         <el-button type='success' @click='reapply'>重新申请</el-button>
       </div>
-      <div class="container" v-if='needRepayment||fullRepayedAndNotReborrow' audit-ctrl='bill-status'>
+      <div class="container" v-if='auditing!==4&&(needRepayment||fullRepayedAndNotReborrow)' audit-ctrl='bill-status'>
         <div class="inner-contaier loan-amount">
           <div class="detail-li">
             <span class="li-title">{{___loanName}}金额</span>

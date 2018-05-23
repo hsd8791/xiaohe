@@ -41,7 +41,6 @@
 					console.log('this.',this)
 					return
 				}
-				// console.log('url',location.hash)
 				var r=location.hash.replace("#",'')
 				var arr=r.split('/')
 				arr.pop()

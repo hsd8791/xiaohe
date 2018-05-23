@@ -103,6 +103,8 @@
           this.loading = false
         }, err => {
 
+        }).finally(() => {
+          bus.sessionChecked=true 
         })
       },
       checkNewer(){

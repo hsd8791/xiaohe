@@ -201,6 +201,7 @@ publicFun.handleGetPros = function(proArr) {
 			resolve(values)
 				//success
 		}, rej => {
+			console.log('bus',bus)
 			publicFun.errorHandle(rej, bus)
 			reject(rej)
 		}).finally(() => {
@@ -311,10 +312,13 @@ publicFun.errorHandle = function(resBody, vm) {
 			callback: () => {}
 		}]
 		if (err === 20002) {
+			console.log('vm',vm)
+			console.log('App',App)
+			console.log('router',router)
 			vmRemind.remindOpts = [{
 				msg: '确定',
 				callback: () => {
-					this.goPage(vm.$route.path + '/login')
+					this.goPage(router.history.current.path + '/login')
 				}
 			}, {
 				msg: '取消',

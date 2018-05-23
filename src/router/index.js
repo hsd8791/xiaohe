@@ -31,6 +31,7 @@ import Pwd from '../components/pwd.vue'
 import ApplyBorrow from '../components/apply_borrow.vue'
 import ApplyLend from '../components/apply_lend.vue'
 import coming from '../components/coming.vue'
+import jinjiedaoAuth from '../components/jinjiedaoAuth.vue'
 import pay from '../components/order_pay.vue'
 // import errorPage from '../components/tmpts/error.vue'
 
@@ -133,6 +134,7 @@ xiaoheRoutes = xiaoheRoutes.concat(
 		newRoute('*/loan_deal', 'loan_deal', loan_deal),
 		newRoute('*/loan_deal_remind', 'loan_deal_remind', loan_deal_remind),
 		newRoute('*/quota', 'quota', quota),
+		newRoute('*/jinjiedaoAuth', 'jinjiedaoAuth', jinjiedaoAuth),
 	)
 	// console.log('indexRoutes', indexRoutes)
 

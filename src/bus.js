@@ -14,6 +14,7 @@ var bus = new Vue({
 		loanInfo: null,
 		qualified: 0,
 		isNewer:true,
+		sessionChecked:false,
 		firstEnterApp: true,
 		remind:{
 		  isShow:false,
