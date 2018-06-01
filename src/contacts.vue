@@ -103,8 +103,13 @@ import bus from './bus.js'
 			   //  if(localStorage.qudao==='QbERzq'&&bus.account==='请登录'){
 			   //  	return false
 			   //  }
+			   	
 			   	let isSignUp = /login_code/.test(this.$route.path)
 			   	if(isSignUp){
+			   		return false
+			   	}
+			   	let notShow = this.$route.path!="/loan_bill"
+			   	if(notShow){
 			   		return false
 			   	}
 			    return true

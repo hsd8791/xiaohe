@@ -7,6 +7,7 @@ import App from './App'
 import 'element-ui/lib/theme-default/index.css'
 import router from './router'
 import VueResource from 'vue-resource'
+import bus from './bus.js'
 import publicFun from './js/public.js'
 import remind from './components/tmpts/remind.vue'
 import back from './components/tmpts/route_back.vue'
@@ -16,7 +17,6 @@ import bindCard from './components/views/card_bind.vue'
 import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
 import dialog from './components/tmpts/dialog.vue'
-import bus from './bus.js'
 import inputLogin from './components/tmpts/input-login.vue'
 
 // Vue.mixin({
@@ -47,7 +47,7 @@ Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'https://www.ho163.com/api';
-Vue.http.options.root = '/api';
+// Vue.http.options.root = '/api';
 // Vue.http.options.root = 'http://hzg.he577.com';
 // Vue.http.options.root = 'http://hzg.he577.com/test';
 import {

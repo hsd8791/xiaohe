@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       // account: null,
-      account: '13868562997',
+      account: null,
       password: null,
       showDialog: false,
       verifyCode:null,
@@ -80,7 +80,6 @@ export default {
         this.authNeedCode(res)
       }else{
       }
-      this.authNeedCode(res)
     },
     onAuthFailed(res){
       this.remind.isShow=true

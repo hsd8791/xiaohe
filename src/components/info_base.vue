@@ -22,7 +22,7 @@
         <el-input :disabled='!editing' placeholder='身份证地址 选填' v-model='baseInfo.idcardAdr'@blur.once='blured'  :class='{"valid-border":idcardAdrValid,"error-border":!idcardAdrValid}'></el-input>
         <i :class="{'el-icon-check':idcardAdrValid,'el-icon-close':!idcardAdrValid}"></i>
       </div> -->
-      <div class="wraper">
+      <!-- <div class="wraper">
         <label>银行卡号：</label>
         <el-input :disabled='!editing' placeholder='银行卡/信用卡' v-model='baseInfo.bankCard' @blur.once='blured' :class='{"valid-border":bankCardValid,"error-border":!bankCardValid}'></el-input>
         <i :class="{'el-icon-check':bankCardValid,'el-icon-close':!bankCardValid}"></i>
@@ -31,19 +31,19 @@
         <label>邮箱：</label>
         <el-input :disabled='!editing' placeholder='邮箱' v-model='baseInfo.email' @blur.once='blured' :class='{"valid-border":emailValid,"error-border":!emailValid}' type='email'></el-input>
         <i :class="{'el-icon-check':emailValid,'el-icon-close':!emailValid}"></i>
-      </div>
+      </div> -->
       <div class="wraper">
         <label>备用手机：</label>
         <el-input :disabled='!editing' placeholder='备用手机号 选填' v-model='baseInfo.cellphone' @blur.once='blured' :class='{"valid-border":cellphoneValid,"error-border":!cellphoneValid}' type='tel'></el-input>
         <i :class="{'el-icon-check':cellphoneValid,'el-icon-close':!cellphoneValid}"></i>
       </div>
     </div>
-    <h2 class="sub-title">负债调查</h2>
-    <app-debt  v-model="baseInfo" ref="input_debt"></app-debt>
+    <!-- <h2 class="sub-title">负债调查</h2> -->
+    <app-debt  type="2" v-model="baseInfo" ref="input_debt"></app-debt>
     <h2 class="sub-title">个人联系方式</h2>
     <app-contacts v-model="baseInfo" ref="input_contacts"></app-contacts>
-    <h2 class="sub-title">紧急联系人</h2>
-    <app-relatives v-model="baseInfo" ref="input_relatives"></app-relatives>
+    <!-- <h2 class="sub-title">紧急联系人</h2>
+    <app-relatives v-model="baseInfo" ref="input_relatives"></app-relatives> -->
     <el-button type='success' :disabled='!(allValid&&ageValid)' class='submit' v-if='editing' @click='submit'>提交</el-button>
     <!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
     <remind :remind='remind'></remind>
@@ -141,8 +141,13 @@ export default {
       publicFun.singleGetPro(this.urlBaseInfo).then(data => {
         bus.loading = false
         console.log('base info data', data)
+        if(data==null||!publicFun.notNullObj(data)){
+          this.editing = true
+          return
+        }
         this.baseInfo = Object.assign(this.baseInfo, data)
-        this.$refs.input_relatives.initialValidate()
+
+        // this.$refs.input_relatives.initialValidate()
       })
     },
     postBaseInfo() {
@@ -165,27 +170,27 @@ export default {
 
       // })
     },
-    _submit() {
-      var postProIdentity = this.postIdentityPromise()
-      var postProDebt
-      var postProContacts
-      var postProRelatives
-      var postArr = [postProDebt, postProIdentity, postProRelatives, postProContacts]
-      setTimeout(() => {
-        postProDebt = this.$refs.input_debt.submit()
-      }, 200);
-      setTimeout(() => {
-        postProContacts = this.$refs.input_contacts.submit()
-      }, 400);
-      setTimeout(() => {
-        postProRelatives = this.$refs.input_relatives.submit()
-        var prosHandler = publicFun.handlePostPros(postArr)
-        prosHandler.then(values => {
-          publicFun.onPostIdentificationSucc()
-          console.log('prosHandler then', values)
-        })
-      }, 600);
-    },
+    // _submit() {
+    //   var postProIdentity = this.postIdentityPromise()
+    //   var postProDebt
+    //   var postProContacts
+    //   var postProRelatives
+    //   var postArr = [postProDebt, postProIdentity, postProRelatives, postProContacts]
+    //   setTimeout(() => {
+    //     postProDebt = this.$refs.input_debt.submit()
+    //   }, 200);
+    //   setTimeout(() => {
+    //     postProContacts = this.$refs.input_contacts.submit()
+    //   }, 400);
+    //   setTimeout(() => {
+    //     postProRelatives = this.$refs.input_relatives.submit()
+    //     var prosHandler = publicFun.handlePostPros(postArr)
+    //     prosHandler.then(values => {
+    //       publicFun.onPostIdentificationSucc()
+    //       console.log('prosHandler then', values)
+    //     })
+    //   }, 600);
+    // },
     postIdentityPromise() {
       var postBody = {}
       postBody.idcardNum = this.idCardNum
@@ -196,18 +201,18 @@ export default {
       postBody.email = this.email
       return publicFun.singlePostPro(this.url, postBody)
     },
-    get() {
-      let promiseDebt = this.$refs.input_debt.get()
-      let promiseIdentity = this.getIdentity()
-      let promiseContacts = this.$refs.input_contacts.get()
-      let promiseRelatives = this.$refs.input_relatives.get()
-      let promises = [promiseDebt, promiseIdentity, promiseContacts, promiseRelatives]
-      publicFun.handleGetPros(promises)
-        .then(res => {
-          console.log('res', res)
-          publicFun.onGetIdentificationSucc(res, this)
-        })
-    },
+    // get() {
+    //   let promiseDebt = this.$refs.input_debt.get()
+    //   let promiseIdentity = this.getIdentity()
+    //   let promiseContacts = this.$refs.input_contacts.get()
+    //   let promiseRelatives = this.$refs.input_relatives.get()
+    //   let promises = [promiseDebt, promiseIdentity, promiseContacts, promiseRelatives]
+    //   publicFun.handleGetPros(promises)
+    //     .then(res => {
+    //       console.log('res', res)
+    //       publicFun.onGetIdentificationSucc(res, this)
+    //     })
+    // },
     getIdentity() {
       let promise = publicFun.singleGetPro(this.url)
       promise.then(res => {
@@ -312,10 +317,12 @@ export default {
     },
     allValid: function() {
       let refs = this.$refs
-      return this.idCardNumValid && this.nameValid &&
-        refs.input_debt.allValid &&
-        refs.input_contacts.allValid &&
-        refs.input_relatives.allValid
+      return this.idCardNumValid 
+        && this.nameValid 
+        &&refs.input_debt.allValid 
+        &&refs.input_contacts.allValid 
+        // &&
+        // refs.input_relatives.allValid
     },
   },
   mounted: function() {
@@ -326,7 +333,7 @@ export default {
   components: {
     remind: remind,
     'app-upload': uploadId,
-    'app-debt': debt,
+    'app-debt' : debt,
     'app-contacts': contacts,
     'app-relatives': relatives,
   }

@@ -5,17 +5,17 @@
       <span class="edit-input" v-if='!editing' @click='edit'>编辑</span>
     </h1> -->
     <div class="container">
-      <div class="wraper">
+      <div class="wraper" v-if="type==1">
         <label class="label" :disabled='!editing'>借贷宝负债：</label>
         <el-input :disabled='!editing' type='number' placeholder='借贷金额，无负债填0' v-model='baseInfo.jiedaibaoLiabilities' @blur.once='blured' :class='{"valid-border":jiedaibaoLiabilitiesValid,"error-border":!jiedaibaoLiabilitiesValid}'></el-input>
         <i :class="{'el-icon-check':jiedaibaoLiabilitiesValid,'el-icon-close':!jiedaibaoLiabilitiesValid}"></i>
       </div>
-      <div class="wraper">
+      <div class="wraper" v-if="type==1">
         <label class="label">今借到负债：</label>
         <el-input :disabled='!editing' type='number' placeholder='借贷金额，无负债填0' v-model='baseInfo.jinjiedaoLiabilities' @blur.once='blured' :class='{"valid-border":jinjiedaoLiabilitiesValid,"error-border":!jinjiedaoLiabilitiesValid}'></el-input>
         <i :class="{'el-icon-check':jinjiedaoLiabilitiesValid,'el-icon-close':!jinjiedaoLiabilitiesValid}"></i>
       </div>
-      <div class="wraper">
+      <div class="wraper" v-if="type==1">
         <label class="label">其他网贷负债：</label>
         <el-input :disabled='!editing' type='number' placeholder='借贷金额，无负债填0' v-model='baseInfo.otherLiabilities' @blur.once='blured' :class='{"valid-border":otherLiabilitiesValid,"error-border":!otherLiabilitiesValid}'></el-input>
         <i :class="{'el-icon-check':otherLiabilitiesValid,'el-icon-close':!otherLiabilitiesValid}"></i>
@@ -94,6 +94,9 @@ export default {
   props: {
     value:{
       required:true,
+    },
+    type:{
+      default:1
     },
     // editing:{
       
@@ -195,10 +198,13 @@ export default {
       var reg = /\d/;
       return reg.test(baseInfo.zmxyScore2)
     },
-    allValid: function() {
-      var t = this
-      return t.jiedaibaoLiabilitiesValid && t.jinjiedaoLiabilitiesValid && t.otherLiabilitiesValid && t.zmxyScoreValid && t.zmxyScore2Valid && t.creditValid && true //&&
-
+    allValid:function(){
+      var t=this
+      if(t.type==2){
+        return t.zmxyScoreValid&&t.zmxyScore2Valid&&true
+      }else if(t.type==1){
+        return t.jiedaibaoLiabilitiesValid&&t.jinjiedaoLiabilitiesValid&&t.otherLiabilitiesValid&&t.zmxyScoreValid&&t.zmxyScore2Valid&&true//&&
+      }
     },
   },
   created() {

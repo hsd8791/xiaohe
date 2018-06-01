@@ -1,6 +1,5 @@
 <template>
 	<div id="index0Vue">
-
 	<!--<div class="title">这是div模式选项卡中的第1个子页面.</div>
 	<div class="title">何谓div模式的选项卡？
 		其实就是通过DIV模拟一个独立页面，通过DIV的显示、隐藏模拟不同页面的切换，典型的SPA模式；</div>
@@ -20,7 +19,8 @@
 		<div class="mybtn" id='oldBorrow' @click='dealBill' v-if='!isNewer'>
 			欢迎回来
 		</div>
-    <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信客服</p>
+    <!-- <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信客服</p> -->
+    <p class="slogan">不向学生提供服务</p>
     <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false&&!showFakeQr'class="xh-public-qr">
     <img src="../assets/img/cgj_qr_wechat.png"  v-if='___logo!==false&&showFakeQr'class="xh-public-qr">
     <p class="slogan" v-if='___logo!==false'>长按识别图中二维码客服微信号</p>

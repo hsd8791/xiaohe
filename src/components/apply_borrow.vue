@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 5, // qty of requset
+					ttlRequest: 2, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -97,10 +97,19 @@
 
 					fillStatus: [{
 						status: 0,
-						url: '/index/apply_borrow/identity',
+						url: '/index/apply_borrow/info_base',
 						label: '基础信息',
-						getUrl: 'userInfo/identity',
+						getUrl: 'userInfo/baseInfo',
 					}, 
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/identity',
+					// 	label: '基础信息',
+					// 	getUrl: 'userInfo/contact',
+					// 	checkMethod: function(data) {
+					// 		// this.status=0
+					// 	}
+					// },
 					// {
 					// 	status: 0,
 					// 	url: '/index/apply_borrow/shujumohe',
@@ -143,12 +152,12 @@
 					// 		}
 					// 	}
 					// }, 
-					{
-						status: 0,
-						url: '/index/apply_borrow/identity',
-						label: '基础信息',
-						getUrl: 'userInfo/liabilities',
-					}, 
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/identity',
+					// 	label: '基础信息',
+					// 	getUrl: 'userInfo/liabilities',
+					// }, 
 					{
 						status: 0,
 						url: '/index/apply_borrow/zhima',
@@ -178,17 +187,17 @@
 						// 	getUrl: 'userInfo/personal',
 						// 	getUrl2: 'userInfo/address'
 						// },
-						{
-							status: 0,
-							status2: 0,
-							url: '/index/apply_borrow/identity',
-							label: '基础信息',
-							getUrl: 'userInfo/contact',
-							getUrl2: 'userInfo/relatives',
-							checkMethod: function(data) {
-								// this.status=0
-							}
-						},
+						// {
+						// 	status: 0,
+						// 	status2: 0,
+						// 	url: '/index/apply_borrow/identity',
+						// 	label: '基础信息',
+						// 	getUrl: 'userInfo/contact',
+						// 	getUrl2: 'userInfo/relatives',
+						// 	checkMethod: function(data) {
+						// 		// this.status=0
+						// 	}
+						// },
 						// {
 						// 	status: 0,
 						// 	status2: 1,
@@ -267,6 +276,7 @@
 								amount: this.amount*100,
 							})
 							publicFun.post(urlApply, {}, this, () => {
+								bus.isNewer=false
 								this.remind.remindMsg='提交完成'
                 this.remind.remindMsgDscrp='完善认证，加速放款速度！'
 								this.remind.remindOpts = [{

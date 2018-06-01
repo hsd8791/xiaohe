@@ -60,6 +60,7 @@
 	// import router from'../router'
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
+	import router from './../router/index.js'
 	export default {
 		data() {
 			return {
@@ -99,6 +100,7 @@
 				[
 				{title:'个人概况',link:'/profile',icon:'icon-documents',},
 				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
+				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
 				// {title:'行业名单',link:'/',icon:'icon-info',},
 				],
 				]
@@ -114,8 +116,13 @@
 			},
 
 		},
-
+		computed:{
+		  essentialInfoFilled(){
+		    return bus.essentialInfoFilled
+		  },
+		},
 		created(){
+			// console.log('router',router)
 			// publicFun.checkSession(this)
 		},
 		events: {},
