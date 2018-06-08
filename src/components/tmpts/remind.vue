@@ -5,8 +5,8 @@
 			<div class="remind-msg">{{remind.remindMsg}}</div>
 			<div class="remind-msg-description" v-if='remind.remindMsgDscrp'>{{remind.remindMsgDscrp}}</div>
 			<div class="ctrl-box">
-				<div class="ctrl-btn"  v-for='item in remind.remindOpts'  @click.once='close(item.callback,remind.self_)'>{{item.msg}}
-					<a  class="href" v-show='item.href' :href="item.href"  @click.once='close(item.callback,remind.self_)'>
+				<div class="ctrl-btn"  v-for='item in remind.remindOpts' :class="item.disabled?'disabled':''" @click.once='close(item,remind.self_)'>{{item.msg}}
+					<a  class="href" v-show='item.href' :href="item.href" >
 					</a>
 				</div>
 			</div>
@@ -33,7 +33,11 @@
 
 		},
 		methods: {
-			close(callback, vm) {
+			close(item, vm) {
+				if(item.disabled){
+					return
+				}
+				let callback = item.callback
 				if(vm===undefined){
 					vm=this.bus
 				}
@@ -109,6 +113,7 @@
 				bottom: 0;
 				margin-top:0.15rem;
 				width: 100%;
+
 				.ctrl-btn{
 					text-decoration: none;
 					width: 100%;
@@ -131,6 +136,9 @@
 				}
 				.ctrl-btn:last-child{
 					border-right-width: 0px;
+				}
+				.disabled{
+					color: #ccc;
 				}
 			}
 		}

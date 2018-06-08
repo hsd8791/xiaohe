@@ -221,7 +221,6 @@ publicFun.handleGetPros = function(proArr) {
   })
 }
 publicFun.singleGetPro = function(url, body = {}, { hideLoading } = {}) {
-  console.log('hideLoading', hideLoading)
   let fullUrl = publicFun.urlConcat(url, body)
   return new Promise((resolve, rej) => {
     if (!hideLoading) {

@@ -33,6 +33,7 @@ export default {
   // cmpt:/borrow/,
   data: function() {
     return {
+      jdtInterval: null,
       enter: '',
       urlLendInfo: 'accounting/myLendInfo?lendingUid=1',
       urlApply: 'lendApply/borrowLoanRecords?limit=1&lendingUid=1',
@@ -44,17 +45,49 @@ export default {
       response: null,
       editing: true,
       backAfterPost: true,
-      // remind:{
-      //   isShow:false,
-      //   remindMsg:'remind',
-      //   self_:this,
-      //   remindOpts:[
-      //   {msg:'确定',},
+      // remind: {
+      //   isShow: false,
+      //   remindMsg: '',
+      //   self_: this,
+      //   remindOpts: [
+      //     { msg: '', disabled:true},
       //   ],
       // },
     }
   },
   methods: {
+    waitJDT(remainSecond) {
+      let r = bus.remind
+      r.remindMsg = '请耐心等待申请结果'
+      let option = r.remindOpts[0]
+      option.disabled = true
+      option.msg = `最多等待${remainSecond}s`
+      r.isShow = true
+      // option = { msg: '最多等待59s', disabled:true}
+    },
+    startCheckJdtStatus() {
+      this.checkJdtApplyStatus()
+      this.countDown = 5
+      this.jdtInterval = setInterval(() => {
+        this.waitJDT(this.countDown)
+        if (this.countDown-- <= 0) {
+          clearInterval(this.jdtInterval)
+          this.onJdtCheckFail()
+        }
+      }, 1000)
+    },
+    onJdtCheckSuccess() {
+      clearInterval(this.jdtInterval)
+      bus.hideRemind()
+    },
+    onJdtCheckFail() {
+      //todo 文案
+      let r = bus.remind
+      r.remindMsg = '申请超时,请重新申请'
+      r.remindOpts = [{
+        msg: '确定',
+      }]
+    },
     goAuthingPage() {
       let path = localStorage.getItem('pathWhenAuth')
       if (!path) {
@@ -72,39 +105,54 @@ export default {
 
       })
     },
-
+    onAccountChange() {
+      bus.$emit('account_change', localStorage.userID,
+        localStorage.uniqueId, localStorage.qualified)
+    },
     checkSession() {
-      console.log('checkSession')
-      this.loading = true
-      this.$http.get('account/checkSession').then(res => {
-        var data = res.body.data
-        console.log('session data', data)
-        if (data) {
-          // bus.account=data.phone
-          // bus.uniqueId=data.uniqueId
-          bus.$emit('account_change', localStorage.userID, localStorage.uniqueId, localStorage.qualified)
-          if (data.isSetPwd == 0) {
-            // console.log('no set pwd')
-            var r = this.remind
-            r.remindOpts = [{
-              msg: '确定',
-              callback: () => {
-                publicFun.goPage('/pwd')
-              }
-            }]
-            r.remindMsg = '请设置密码'
-            r.isShow = true
-          }
-          publicFun.wechatAuth(this)
-        } else {
-          // publicFun.goPage('/login')
-        }
-        this.loading = false
-      }, err => {
+      let promise = publicFun.singleGetPro('account/checkSession', {}, {
+          hideLoading: true,
+        })
+        .then((response) => {
+          console.log('%c check session response', 'color:red', response)
+          if (response) {
 
-      }).finally(() => {
-        bus.sessionChecked = true
-      })
+          }
+          return response
+        })
+      return promise
+
+
+      // this.loading = true
+      // this.$http.get('account/checkSession').then(res => {
+      //   var data = res.body.data
+      //   console.log('session data', data)
+      //   if (data) {
+      //     // bus.account=data.phone
+      //     // bus.uniqueId=data.uniqueId
+      //     bus.$emit('account_change', localStorage.userID, localStorage.uniqueId, localStorage.qualified)
+      //     if (data.isSetPwd == 0) {
+      //       // console.log('no set pwd')
+      //       var r = bus.remind
+      //       r.remindOpts = [{
+      //         msg: '确定',
+      //         callback: () => {
+      //           publicFun.goPage('/pwd')
+      //         }
+      //       }]
+      //       r.remindMsg = '请设置密码'
+      //       r.isShow = true
+      //     }
+      //     publicFun.wechatAuth(this)
+      //   } else {
+      //     // publicFun.goPage('/login')
+      //   }
+      //   this.loading = false
+      // }, err => {
+
+      // }).finally(() => {
+      //   // bus.sessionChecked = true
+      // })
     },
     checkNewer() {
       publicFun.get(this.urlLendInfo, this, () => {
@@ -124,7 +172,91 @@ export default {
           })
         }
       })
+    },
+    checkJdtApplyStatus() {
+      let promise = publicFun.singleGetPro('lendApply/jdtLendApplyStatus', {}, {})
+      promise.then(response => {
+        console.log('%c response jdt status', 'color:red', response)
+        if (response.status === 1) {
+          this.onJdtCheckSuccess()
+        } else {
+          if (this.countDown >= 0) {
+            setTimeout(() => {
+              this.checkJdtApplyStatus()
+            }, 1000);
+          }
+        }
+      }).catch(err => {
+        console.log('err', err)
+      })
+    },
+    checkToken() {
+      var promise
+      let query = this.$route.query
+      if (query.jdt) {
+        console.log('%c token', 'color:red', query.token)
+        promise = publicFun.singleGetPro('account/loginByJdtToken', {
+          token: query.token
+        }, {
+          hideLoading: false,
+        }).finally(res => {
+          setTimeout(function() {
+            bus.loading = false
+          }, 2000);
+        })
+        // .then((response) => {
+        //   console.log('%c check token response','color:red',response) 
+        // })
+      } else {
+        console.log('%c no token', 'color:red', )
+        promise = Promise.resolve({
+          noToken: false,
+        })
+      }
+      return promise
 
+    },
+    onTokenLogin(response) {
+      localStorage.userID = response.phone
+      localStorage.uniqueId = response.uniqueId
+      this.onAccountChange()
+    },
+    onCookieLogin(response) {
+      this.onAccountChange()
+    },
+    autoLogin() {
+      let promiseSession = this.checkSession()
+      let promiseToken = this.checkToken()
+      Promise.all([promiseSession, promiseToken])
+        .then((values) => {
+          bus.sessionChecked = true
+          let isLoged = values.find(item => {
+            return item && item.userId
+          })
+          let sessionValue = values[0]
+          let tokenValue = values[1]
+          if (tokenValue.userId) {
+            this.onTokenLogin(tokenValue)
+          } else if (sessionValue.userId) {
+            this.onCookieLogin(sessionValue)
+          } else {
+            let r = bus.remind
+            r.remindMsg = "请登录"
+            r.remindOpts = [{
+              msg: '确定',
+              callback() {
+                publicFun.goPage(this.$route.path + '/login')
+              },
+            }]
+            r.isShow = true
+          }
+          if (isLoged) {
+            if (this.$route.query.jdt) {
+              this.startCheckJdtStatus()
+            }
+            publicFun.wechatAuth(this)
+          }
+        })
     },
     test() {
       console.log('bus', bus)
@@ -141,7 +273,10 @@ export default {
       // })
     },
   },
-  created: function() {
+  created() {
+    setTimeout((params) => {
+      // this.startCheckJdtStatus()
+    }, 2000);
     var way = this.$route.query.qudao
     if (way) {
       this.fromSales(way)
@@ -156,8 +291,13 @@ export default {
     bus.$on('url_change', (action) => {
       this.enter = action
     })
-    this.checkSession()
     this.footNavShow = true
+    // let query = this.$route.query
+    // if (query.jdt) {
+    //   console.log('%c token', 'color:red', query.token)
+    //   // checkToken(query.token)
+    // }
+    this.autoLogin()
   },
   mounted() {
     this.goAuthingPage()
@@ -226,13 +366,31 @@ body {
 $navColor:#8f8e94;
 $navHeight:0.5rem;
 
+
+
+
+
+
+
 /*$activeColor:#cd331c;*/
 
 $activeColor:#d42e84;
 
+
+
+
+
+
+
 /*$navBackground:#eee;*/
 
 $navBackground:#fcf9fe;
+
+
+
+
+
+
 
 /*$itemNameColor:#8f8e94;*/
 
@@ -291,6 +449,12 @@ $navBackground:#fcf9fe;
     color: $activeColor;
   }
 }
+
+
+
+
+
+
 
 
 /*.back-enter-active{
