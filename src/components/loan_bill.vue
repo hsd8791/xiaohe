@@ -42,8 +42,8 @@
       </div>
       <div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
         <!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
-        <p class="remind">提交申请，QQ客服会添加您进行审核，或添加QQ群：68128711，联系群【管理员】进行审核。</p>
-        <p class="remind">点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
+        <p class="remind">提交申请，QQ客服会添加您进行审核，或添加QQ公众号:400-0577-009，联系【管理员】进行审核。</p>
+        <!-- <p class="remind">点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p> -->
         <p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
         <p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
         <p class="remind">必须添加指定的柒彩虹客服才能进行审核。</p>
