@@ -31,7 +31,7 @@
 		</div>
 		<!-- <p>客服电话：400-0577-009</p> -->
 		<!-- <p>{{___companyName}}商务QQ公众号：4000577009</p> -->
-    <p>柒彩虹指定微信号：18968991186</p>
+    <p>柒彩虹指定微信号：18058399611</p>
 		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
