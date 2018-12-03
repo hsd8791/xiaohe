@@ -54,7 +54,7 @@
 		data() {
 				return {
 					norecord:false,
-					ttlRequest: 2, // qty of requset
+					ttlRequest: 1, // qty of requset
 					undoneRequest: null, //记录未完成的请求判断，全部完成后判断是否可以提交
 					getById: false, //判定是否由uniqueId 传入获取lenderPhone
 					canApply: false,
@@ -158,25 +158,25 @@
 					// 	label: '基础信息',
 					// 	getUrl: 'userInfo/liabilities',
 					// }, 
-					{
-						status: 0,
-						url: '/index/apply_borrow/zhima',
-						label: '芝麻认证',
-						getUrl: 'credit/zhimaAuthStatus',
-						checkMethod: function(data) {
-							console.warn('zhima data',data)
-							if(data.time<publicFun.zhimaAcChangeTime){
-								this.status=0
-								return
-							}
-							if(data.status){
-								this.status=0
-								if(data.status=='success'){
-									this.status=1
-								}
-							}
-						}
-					},
+					// {
+					// 	status: 0,
+					// 	url: '/index/apply_borrow/zhima',
+					// 	label: '芝麻认证',
+					// 	getUrl: 'credit/zhimaAuthStatus',
+					// 	checkMethod: function(data) {
+					// 		console.warn('zhima data',data)
+					// 		if(data.time<publicFun.zhimaAcChangeTime){
+					// 			this.status=0
+					// 			return
+					// 		}
+					// 		if(data.status){
+					// 			this.status=0
+					// 			if(data.status=='success'){
+					// 				this.status=1
+					// 			}
+					// 		}
+					// 	}
+					// },
 					],
 					fillStatus2: [
 						// {

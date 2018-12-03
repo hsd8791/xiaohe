@@ -251,7 +251,7 @@ export default {
         return false
       }
       const minAge = 20
-      const maxAge = 39 // 40-1
+      const maxAge = 40 // 40
       var ID = baseInfo.idCardNum
       var bornY = ID.slice(6, 10) * 1,
         bornM = ID.slice(10, 12) * 1,
