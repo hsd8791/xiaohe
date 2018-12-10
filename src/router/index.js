@@ -11,6 +11,7 @@ import index from '../components/index.vue'
 // import commissionDetail from '../components/mine_commission_detail.vue'
 // import Radio from '../components/tmpts/radio.vue'
 import Identity from '../components/info_identity.vue'
+import info_taobao from '../components/info_taobao.vue'
 import info_base from '../components/info_base.vue'
 import Profile from '../components/info_profile.vue'
 import JobInfo from '../components/info_job_info.vue'
@@ -113,6 +114,7 @@ indexRoutes = indexRoutes.concat(
 	newRoute('*/apply_borrow', 'ApplyBorrow', ApplyBorrow),
 	newRoute(['/index/identity', '/*/identity'], 'Identity', Identity),
 	newRoute(['/index/info_base', '/*/info_base'], 'info_base', info_base),
+	newRoute(['/index/info_taobao', '/*/info_taobao'], 'info_taobao', info_taobao),
 	newRoute(['/index/profile', '/*/profile'], 'Profile', Profile),
 	newRoute(['/index/job_info', '/*/job_info'], 'JobInfo', JobInfo),
 	newRoute(['/index/contact_way', '/*/contact_way'], 'ContactWay', ContactWay),

@@ -101,7 +101,7 @@
 				{title:'个人概况',link:'/profile',icon:'icon-documents',},
 				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
 				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
-				{title:'淘宝',link:'/debt',icon:'icon-taobao',},
+				{title:'淘宝',link:'/info_taobao',icon:'icon-taobao',},
 				// {title:'行业名单',link:'/',icon:'icon-info',},
 				],
 				]
