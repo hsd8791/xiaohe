@@ -47,7 +47,7 @@ Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
 Vue.http.options.root = 'https://www.ho163.com/api';
-// Vue.http.options.root = '/api';
+// Vue.http.options.root = 'http://118.31.42.82/qchapi';
 // Vue.http.options.root = 'http://hzg.he577.com';
 // Vue.http.options.root = 'http://hzg.he577.com/test';
 import {
