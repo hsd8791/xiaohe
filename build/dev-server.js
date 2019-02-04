@@ -63,9 +63,26 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
+let HOST = 'http://localhost:' 
 
-var uri = 'http://localhost:' + port
-
+function localIP() {
+  const interfaces = require('os').networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
+  var IPAddress = '';
+  for(var devName in interfaces){  
+    var iface = interfaces[devName];  
+    for(var i=0;i<iface.length;i++){  
+          var alias = iface[i];  
+          if(alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){  
+                IPAddress = alias.address;  
+          }  
+    }  
+  } 
+  return IPAddress
+}
+if(process.env.npm_lifecycle_event==="dev:ip"){
+  HOST = localIP()
+}
+var uri = HOST +":"+ port
 var _resolve
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
