@@ -1,25 +1,13 @@
 <template>
-  <div id="infoTaobao" class="input" v-loading='loading' element-loading-text='请稍后'>
+  <div id="infoContacts" class="input" v-loading='loading' element-loading-text='请稍后'>
     <h1 class="title">
       <app-back></app-back>
       淘宝绑定
       <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
     </h1>
     <h2 class="sub-title">绑定状态</h2>
-    <div class="container status">
-      <div class="wraper">
-        <div class="icon icon-taobao">
-          <!-- <i class="icon-mobile"></i> -->
-        </div>
-        <div class="info phone">{{queryRslt.phone}}</div>
-        <!-- <div class="info">黄树栋</div> -->
-        <div class="info info-time">{{queryRslt.time | timeParse}}</div>
-        <!-- <div class="status">等待用户处理或服务器完成查询</div> -->
-        <div class="info" v-if='queryRslt.status'>{{queryRslt.status | statusParse}}</div>
-      </div>
-    </div>
-    <el-button type='success' :disabled='false' class='submit' v-if='!isFirst' @click='get(1)'>重新查询</el-button>
-    <el-button type='success' :disabled='false' class='submit' v-if='isFirst' @click='get(0)'>开始绑定</el-button>
+    <el-button type='success' :disabled='false' class='submit' v-if='!isFirst' @click='get(1)'>重新上传</el-button>
+    <el-button type='success' :disabled='false' class='submit' v-if='isFirst' @click='get(0)'>开始上传</el-button>
 
     <!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
     <remind :remind='remind'></remind>
@@ -33,18 +21,15 @@ import remind from '../components/tmpts/remind.vue'
 export default {
   data() {
     return {
-      // useAccount:true,
       response: null,
-      isFirst: false,
-      // loading:true,
+      isFirst: true,
       loading: false,
       editing: false,
       phone: '',
       taskId: null,
-      urlStatus: 'credit/shujumoheTaobaoQueryStatus',
-      url: 'credit/createShujumoheTaobaoTask',
-      // exUrl:'https://open.shujumohe.com/box/yys',
-      exUrl: 'https://open.shujumohe.com/box/tb',
+      // urlStatus: 'credit/shujumoheTaobaoQueryStatus',
+      // url: 'credit/createShujumoheTaobaoTask',
+      url: 'userInfo/contactJson',
       real_name: '',
       identity_code: '',
       formData: {},
@@ -61,39 +46,52 @@ export default {
     }
   },
   methods: {
-    onMessage(){
-      
-    },
-    submit() {
-      let data = JSON.stringify({
-        action:"taobaoAuth",
-        data:{
-          name:this.real_name,
-          mobile:this.phone,
-          idCarNo:this.identity_code,
-          taskId:this.taskId,
-        },
-      })
-      window.postMessage(data,"*")
-      return
-      var postBody = {
-        box_token: '2B7DC823735B42EC990771E9B8AFAA7F',
-        real_name: this.real_name,
-        identity_code: this.identity_code,
-        user_mobile: this.phone,
-        // cb:encodeURIComponent('http://localhost:8080/m/#/shujumohe'),
-        passback_params:this.taskId,
-        cb: 'https://www.ho163.com/qch/#/index0',
-        v:Math.random(),//防止location.href 失效
-        // cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
+    formatContacts(contacts){
+      let str = "'全名','昵称','手机号','运营商'\n"
+      let datas = contacts
+      function trimPhone(phone){
+        phone = phone.replace(/[-| ]/gi,"")
+        return phone
       }
-      var url = publicFun.urlConcat(this.exUrl, postBody)
-      publicFun.savePathForAuth()
-      location.href = url
+      let phones = []
+      datas.forEach(item => {
+        item.phoneNumbers.forEach((phoneNumber) => {
+          str = str + `${item.familyName},${item.givenName},${trimPhone(phoneNumber.number)},\n`
+        })
+      })
+      return str
+    },
+    postContacts(contacts) {
+      let body = {
+        contacts: this.formatContacts(contacts),
+      }
+      console.log('body',body)
+      publicFun.post(this.url,body,this,(res) => {
+        console.log('res',res)
+        //success response
+      },(err) => {
+        //body 
+      })
+    },
+    onMessage(event){
+      let data = JSON.parse(event.data)
+      let contacts
+      if(data.action === "contactsResult"){
+        contacts = data.contacts
+      }else {
+        return
+      }
+      this.postContacts(contacts)
+    },
+    upload() {
+      let data = {
+        action:"getContacts",
+      }
+      window.postMessage(JSON.stringify(data),"*")
     },
     get(type) {
       if (type === 0) {
-        this.createTask()
+        this.upload()
         return
       } else if (type === 1) {
         this.remind.remindMsg = '覆盖现有记录'
@@ -101,7 +99,7 @@ export default {
         this.remind.remindOpts = [{
           msg: '确定',
           callback: () => {
-            this.createTask()
+            this.upload()
           }
         }, {
           msg: '取消',
@@ -109,17 +107,6 @@ export default {
       }
     },
     createTask() {
-      publicFun.get(this.url, this, () => {
-        var data = this.response.body.data
-        console.log('data', data)
-        if (data) {
-          this.taskId = data.taskId
-          this.real_name = data.name
-          this.phone = data.phone
-          this.identity_code = data.idCardNum
-          this.submit()
-        }
-      })
     },
     edit() {
       this.editing = true
@@ -194,7 +181,7 @@ export default {
     }
   },
   created() {
-    this.getStatus()
+    // this.getStatus()
     publicFun.checkSession(this)
     this.useAccount = true
     window.document.addEventListener("message", this.onMessage, false);

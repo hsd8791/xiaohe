@@ -27,6 +27,7 @@ import publicFun from './js/public.js'
 import bus from './bus.js'
 import remind from './components/tmpts/remind.vue'
 import './css/icons.css'
+// import ''
 import './css/input.scss'
 export default {
   name: 'App',

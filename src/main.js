@@ -18,7 +18,7 @@ import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
 import dialog from './components/tmpts/dialog.vue'
 import inputLogin from './components/tmpts/input-login.vue'
-
+window.__bus = bus
 // Vue.mixin({
 //   created: function () {
 //     // var myOption = this.$options.myOption
@@ -84,7 +84,10 @@ Vue.prototype.___loanName='借款'
 Vue.prototype.___loanName='放米'
 Vue.prototype.___daikuan='贷款'
 Vue.prototype.___daikuan='放米'
-
+// const messageManager = {
+// 	post:window.postMessage
+// }
+// Vue.protoType.message = messageManager
 document.querySelector('title').innerHTML='柒彩虹'
 
 

@@ -82,7 +82,6 @@
 				{title:'基础信息',link:'/info_base',icon:'icon-address-book',},
 				// {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
 				// {title:'身份证上传',link:'/upload',icon:'icon-upload',},
-
 				// {title:'其他信息',link:'/contact_way',icon:'icon-phone',},
 				],
 				[
@@ -94,6 +93,7 @@
 				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				{title:'身份认证',link:'/upload',icon:'icon-upload',},
 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
+				{title:'通讯录',link:'/info_contacts',icon:'icon-documents',},
 				]
 				],
 				optionalCell:[
