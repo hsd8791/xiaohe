@@ -31,7 +31,7 @@ module.exports = {
             '/api':{
                 // target:'http://106.14.119.213:9009/api',
                 // target:'https://hgj.wd577.cn/api',
-                target:'https://www.ho163.com/api',
+                target:'https://www.bohvi.com/api',
                 changeOrigin: true,
                 pathRewrite: {
                   '^/api': ''

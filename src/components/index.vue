@@ -115,7 +115,6 @@
 				}
 				publicFun.goPage('/index'+path)
 			},
-
 		},
 		computed:{
 		  essentialInfoFilled(){

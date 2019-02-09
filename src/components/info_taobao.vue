@@ -27,6 +27,9 @@
 </template>
 <script>
 // import '../css/input.css'
+const STATUS_CODE = {
+  50:"用户取消",
+}
 import publicFun from '../js/public.js'
 import bus from '../bus.js'
 import remind from '../components/tmpts/remind.vue'
@@ -61,8 +64,19 @@ export default {
     }
   },
   methods: {
-    onMessage(){
-      
+    onMessage(event){
+      let data = JSON.parse(event.data)
+      let contacts
+      console.log('data',data)
+      if(data.action === "taobaoAuthResult"){
+        this.remind.isShow = true
+        this.remind.remindMsg = STATUS_CODE[data.data.code]
+        this.remind.remindOpts=[{
+          msg:"确定"
+        }]
+      }else {
+        return
+      }
     },
     submit() {
       let data = JSON.stringify({
@@ -76,20 +90,6 @@ export default {
       })
       window.postMessage(data,"*")
       return
-      var postBody = {
-        box_token: '2B7DC823735B42EC990771E9B8AFAA7F',
-        real_name: this.real_name,
-        identity_code: this.identity_code,
-        user_mobile: this.phone,
-        // cb:encodeURIComponent('http://localhost:8080/m/#/shujumohe'),
-        passback_params:this.taskId,
-        cb: 'https://www.ho163.com/qch/#/index0',
-        v:Math.random(),//防止location.href 失效
-        // cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
-      }
-      var url = publicFun.urlConcat(this.exUrl, postBody)
-      publicFun.savePathForAuth()
-      location.href = url
     },
     get(type) {
       if (type === 0) {
@@ -174,7 +174,6 @@ export default {
     },
     statusParse(val) {
       var s, r
-      console.log('this', this)
       if (!val) {
         return
       }

@@ -273,8 +273,16 @@ export default {
       //   console.log('rej from promise',rej)
       // })
     },
+    onMessage(event) {
+      let data = JSON.parse(event.data)
+      if(data.action === "nativeBack") {
+        publicFun.goTopLv()
+      }
+    },
   },
   created() {
+    window.document.addEventListener("message", this.onMessage, false);
+
     setTimeout((params) => {
       // this.startCheckJdtStatus()
     }, 2000);
