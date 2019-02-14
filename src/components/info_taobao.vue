@@ -30,11 +30,11 @@
 const STATUS_CODE = {
   50:"用户取消",
   0:"操作成功",
-  10:"无法连接到服务",
-  11:"访问失败"
-  30:"网站改版或访问限制，请稍后重试",
-  31:"网站改版或访问限制，请稍后重试",
-  40:"网站改版或访问限制，请稍后重试",
+  10:"网络错误",
+  11:"网络错误",
+  30:"网络错误，请稍后重试",
+  31:"网络错误，请稍后重试",
+  40:"网络错误，请稍后重试",
   // -1:  任务失败  请反馈具体错误信息给技术支持
   // 0: 任务成功  客户端登录成功，等待回调通知
   // 50:  任务被用户强制关闭 用户关闭客户端
@@ -92,7 +92,7 @@ export default {
         if(message){
           this.remind.remindMsg = message
         }else {
-          this.remind.remindMsg = "其他错误，请联系客服"
+          this.remind.remindMsg = "未知错误，请联系客服"
         }
         // this.remind.remindMsgDscrp = STATUS_CODE[Number(data.data.code)]
         this.remind.remindOpts=[{

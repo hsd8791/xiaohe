@@ -42,8 +42,8 @@
 				</div>
 			</div>
 		</div>
-		<h3 class="sub-title">可选信息</h3>
-		<div class="container">
+		<h3 class="sub-title" v-if="false">可选信息</h3>
+		<div class="container" v-if="false">
 			<div class="row" v-for='row in optionalCell'>
 				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
