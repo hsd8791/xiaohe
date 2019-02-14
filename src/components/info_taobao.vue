@@ -29,6 +29,23 @@
 // import '../css/input.css'
 const STATUS_CODE = {
   50:"用户取消",
+  0:"操作成功",
+  10:"无法连接到服务",
+  11:"访问失败"
+  30:"网站改版或访问限制，请稍后重试",
+  31:"网站改版或访问限制，请稍后重试",
+  40:"网站改版或访问限制，请稍后重试",
+  // -1:  任务失败  请反馈具体错误信息给技术支持
+  // 0: 任务成功  客户端登录成功，等待回调通知
+  // 50:  任务被用户强制关闭 用户关闭客户端
+  // 10:  网络异常无法连接到服务 检查手机网络情况
+  // 11:  服务访问失败导致任务创建失败  检查手机网络情况
+  // 20:  任务创建失败  请反馈具体错误信息给技术支持
+  // 30:  数据解析失败  网站改版或访问限制，请稍后重试
+  // 31:  返回的数据为空 网站改版或访问限制，请稍后重试
+  // 40:  爬取网页失败  网站改版或访问限制，请稍后重试
+  // 1050: - 1100 内部请求异常引起的相关错误 请反馈具体错误信息给技术支持
+  // 2897:  未购买此服务  请和商务确认是否已开通流量
 }
 import publicFun from '../js/public.js'
 import bus from '../bus.js'
@@ -70,7 +87,14 @@ export default {
       console.log('data',data)
       if(data.action === "taobaoAuthResult"){
         this.remind.isShow = true
-        this.remind.remindMsg = STATUS_CODE[Number(data.data.code)]
+        let index = Number(data.data.code)
+        let message = STATUS_CODE[index]
+        if(message){
+          this.remind.remindMsg = message
+        }else {
+          this.remind.remindMsg = "其他错误，请联系客服"
+        }
+        // this.remind.remindMsgDscrp = STATUS_CODE[Number(data.data.code)]
         this.remind.remindOpts=[{
           msg:"确定"
         }]
