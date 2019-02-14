@@ -22,9 +22,9 @@
           <p class="remind remind-refused">3、支付宝芝麻分或花呗为达到要求。</p>
           <p class="remind remind-refused">4、其他平台负债高或检测到有逾期记录。</p>
           <p class="remind remind-refused">
-            如需咨询请联系QQ公众号：400-0577-009。
+            如需咨询请扫下方二维码联系客服
           </p>
-          <huabei></huabei>
+          <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
         </div>
       </div>
       <div class="container auditing" v-if='auditing===0' audit-ctrl='auditing'>
@@ -37,7 +37,6 @@
       <div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
         <!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
         <p class="remind">
-          <!-- 提交申请，QQ客服会添加您进行审核，或添加QQ公众号:400-0577-009，联系【管理员】进行审核。 -->
           提交申请后，查询审核进度请扫下方二维码联系客服。
         </p>
         <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
@@ -55,8 +54,9 @@
         </p>
         <div class="auditing-remark">
           <p class="auditing-description">
-            说明：您好，您在小海带的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。 如需咨询请联系QQ公众号:400-0577-009
+            说明：您好，您在小海带的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。 如需咨询请扫下方二维码联系客服。
           </p>
+          <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
           <!-- <p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p> -->
           <!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
         </div>
@@ -157,6 +157,8 @@ export default {
     setTimeout(()=> {
     	// test_放款等待还款()
       // test_审核中()
+      // test_审核拒绝()
+      // test_退回重审()
     	// this.applyRecord.quotaStatus=1
     	// // this.loanInfo.status=3
     	// this.auditing=1
@@ -164,6 +166,9 @@ export default {
     this.get()
     var test_审核通过等待放款 = () => {
       this.auditing = 1
+    }
+    var test_审核拒绝 = () => {
+      this.auditing = 4 
     }
     var test_审核中 = () => {
       // !loanInfo&&(auditing===0)
