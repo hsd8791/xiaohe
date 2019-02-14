@@ -230,6 +230,7 @@ export default {
       let promiseToken = this.checkToken()
       Promise.all([promiseSession, promiseToken])
         .then((values) => {
+          console.log('values',values)
           bus.sessionChecked = true
           let isLoged = values.find(item => {
             return item && item.userId
@@ -238,14 +239,14 @@ export default {
           let tokenValue = values[1]
           if (tokenValue.userId) {
             this.onTokenLogin(tokenValue)
-          } else if (sessionValue.userId) {
+          } else if (sessionValue&&sessionValue.userId) {
             this.onCookieLogin(sessionValue)
           } else {
             let r = bus.remind
             r.remindMsg = "请登录"
             r.remindOpts = [{
               msg: '确定',
-              callback() {
+              callback:()=> {
                 publicFun.goPage(this.$route.path + '/login')
               },
             }]

@@ -46,8 +46,8 @@ Vue.component('app-input-login',inputLogin)
 Vue.config.productionTip = false
 Vue.http.options.credentials = true;
 Vue.http.options.emulateJSON = true;
-Vue.http.options.root = 'https://www.bohvi.com/api';
-// Vue.http.options.root = 'https://www.ho163.com/api';
+// Vue.http.options.root = 'https://www.bohvi.com/api';
+Vue.http.options.root = '/api';
 // Vue.http.options.root = 'http://118.31.42.82/qchapi';
 // Vue.http.options.root = 'http://hzg.he577.com';
 // Vue.http.options.root = 'http://hzg.he577.com/test';
@@ -73,6 +73,7 @@ Vue.use(CollapseItem)
 Vue.use(Option)
 Vue.prototype.$loading = Loading.service
 Vue.prototype.___logo=''
+Vue.prototype.___companyName='小海带'
 Vue.prototype.___companyName='柒彩虹'
 // Vue.prototype.___companyName='小禾微贷'
 Vue.prototype.___borrowText='我的借款'
@@ -89,7 +90,7 @@ Vue.prototype.___daikuan='放米'
 // 	post:window.postMessage
 // }
 // Vue.protoType.message = messageManager
-document.querySelector('title').innerHTML='柒彩虹'
+document.querySelector('title').innerHTML='小海带'
 
 
 Vue.directive('input',{

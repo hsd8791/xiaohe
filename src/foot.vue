@@ -18,10 +18,10 @@
          <div class="nav-icon"><i class="icon-user"></i></div>
          <div class="nav-item">我们</div>
      </span>
-    <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink'>
-        <!-- <span class="txt"> -->
+    <span class="nav-mid" @click='hzgMarket' v-if='showMarketLink && false'>
+        <span class="txt">
             {{___marketName}}
-        <!-- </span> -->
+        </span>
     </span>
  </div>
  <!-- </transition> -->
@@ -50,7 +50,7 @@ export default {
     methods: {
         hzgMarket(){
             // console.log('hzg market_list')
-            location.href='https://www.ho163.com/m/#/market_list'
+            // location.href=''
         },
         goPage: function(index) {
             setTimeout(() => { //incase same foot component

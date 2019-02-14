@@ -2,7 +2,7 @@
   <div id="infoContacts" class="input" v-loading='loading' element-loading-text='请稍后'>
     <h1 class="title">
       <app-back></app-back>
-      淘宝绑定
+      通讯录上传
       <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
     </h1>
     <h2 class="sub-title">绑定状态</h2>
@@ -63,9 +63,9 @@ export default {
     },
     postContacts(contacts) {
       let body = {
-        contacts: this.formatContacts(contacts),
+        contact: this.formatContacts(contacts),
       }
-      console.log('body',body)
+      
       publicFun.post(this.url,body,this,(res) => {
         console.log('res',res)
         //success response
@@ -87,7 +87,13 @@ export default {
       let data = {
         action:"getContacts",
       }
-      window.postMessage(JSON.stringify(data),"*")
+      console.log('post message upload')
+      if(publicFun.isAndroid){
+        window.webView.postMessage(JSON.stringify(data))
+      }
+      if(publicFun.isIOS){
+         window.postMessage(JSON.stringify(data),"*")
+      }
     },
     get(type) {
       if (type === 0) {
@@ -105,8 +111,6 @@ export default {
           msg: '取消',
         }, ]
       }
-    },
-    createTask() {
     },
     edit() {
       this.editing = true

@@ -125,7 +125,6 @@
 				el.className+=' validate'
 			},
 			getCode(){
-
 				var url=this.urlGetVerifyCode+'?phone='+this.cellphone
 				var url=publicFun.urlConcat(this.urlGetVerifyCode,{
 					phone:this.cellphone,

@@ -9,7 +9,7 @@
       <!-- <img :src="src.bg" id='bg_signup'> -->
       <div class="bg-container">
         <div class="cover"></div>
-        <img src="./../assets/img/logo_qch.png" alt="" class="logo">
+        <img src="./../assets/img/logo.png" alt="" class="logo">
         <img src="../../static/xh/bg_signup.png"  id='bg_signup'>
       </div>
       <app-input-login :placeholder="'请输入手机号'"  v-input='cellphone' :value='cellphone' :icon="'icon-icon-phone'" class='input'>
@@ -291,11 +291,10 @@
       background: #5493f3;
     }
     .logo {
-      height: 1.0rem;
+      height: 0.6rem;
       left: 0.13rem;
-      top:-0.3rem;
+      top: -0.1rem;
       position: absolute;
-
     }
   }
   #bg_signup{

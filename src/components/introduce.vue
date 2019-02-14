@@ -4,17 +4,19 @@
 		<h3 class="title">
 			{{___companyName}}丨关于{{___companyName}}
 		</h3>
-		<p class="total">{{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。</p>
+		<p class="total">
+      {{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。
+    </p>
     <p class="total">
-      关注微信公众号【{{___companyName}}平台】，填写申请表，稍后会有QQ客服联系您或进入{{___companyName}}QQ官方群联系群内管理员查询申请进度。如果有其他非管理员QQ或其他非指定微信联系您，一律为骗子。
+      关注微信公众号【小海带2019】或点击下方网址安装APP，提交认证信息，联系微信客服查询审核进度。如果有其他非指定微信联系您，一律为骗子。
     </p>
 		<div class="input">
 			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
-						<p>下载安卓</p>
-						<p>同步助手</p>
+						<p>Android</p>
+						<p>下载</p>
 					</div>
 				</el-button>
 			</a>
@@ -23,16 +25,12 @@
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-apple platfor-icon"></i>
 					<div class="download-text">
-						<p>下载苹果</p>
-						<p>同步助手</p>
+						<p>IOS</p>
+						<p>下载</p>
 					</div>
 				</el-button>
 			</a>
 		</div>
-		<!-- <p>客服电话：400-0577-009</p> -->
-		<!-- <p>{{___companyName}}商务QQ公众号：4000577009</p> -->
-    <p>柒彩虹指定微信号：18058399611</p>
-		<p>点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p>
 		<button type="button" id="loginOut" class="" @click='logout' v-if='accountName!=="请登录"'>安全退出</button>
 		<button type="button" id="loginOut" class="" @click='login' v-if='accountName=="请登录"'>登录</button>
 
@@ -90,7 +88,7 @@
   	downloadIos(){
       let r=this.remind
       r.remindMsg='重要提示'
-      r.remindMsgDscrp='进入App后平台请填写【柒彩虹】'
+      r.remindMsgDscrp='进入App后平台请填写【小海带】'
       r.remindOpts=[{msg:'确认',callback:()=>{
       },href:'https://itunes.apple.com/cn/app/%E5%A4%A7%E6%A2%A6%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8'}]
       r.isShow=true
@@ -199,7 +197,7 @@
 			font-size: 0.24rem;
 			color:#fff;
 			line-height: 1.4;
-
+      text-align: center;
 		}
 	}
 }

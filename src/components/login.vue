@@ -293,7 +293,7 @@
 		.logo{
 			width: 40%;
 			position: relative;
-			top:-0.0rem;
+			top:-0.2rem;
 		}
 	}
 	.getVerify{

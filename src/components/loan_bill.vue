@@ -15,7 +15,7 @@
           <!-- <p class="auditing-description">说明：请根据审·核意见更新或修改资料后重新提交</p> -->
           <!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
           <!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
-          <p class="remind remind-refused">您好，您在柒彩虹的申请未通过审核，感谢您的配合。</p>
+          <p class="remind remind-refused">您好，您在小海带的申请未通过审核，感谢您的配合。</p>
           <p class="remind remind-refused">审核未通过可能是以下原因：</p>
           <p class="remind remind-refused">1、年龄未达到要求。</p>
           <p class="remind remind-refused">2、手机非实名、入网时间短或手机号存在异常。</p>
@@ -23,12 +23,6 @@
           <p class="remind remind-refused">4、其他平台负债高或检测到有逾期记录。</p>
           <p class="remind remind-refused">
             如需咨询请联系QQ公众号：400-0577-009。
-          </p>
-          <p class="remind remind-refused">
-            温馨提示：
-          </p>
-          <p class="remind remind-refused">使用微信搜索【陈管家】或点击
-            <span @click='hzgMarket' class="link">【放米超市】</span> 可以直接申请其他平台
           </p>
           <huabei></huabei>
         </div>
@@ -42,15 +36,18 @@
       </div>
       <div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
         <!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
-        <p class="remind">提交申请，QQ客服会添加您进行审核，或添加QQ公众号:400-0577-009，联系【管理员】进行审核。</p>
+        <p class="remind">
+          <!-- 提交申请，QQ客服会添加您进行审核，或添加QQ公众号:400-0577-009，联系【管理员】进行审核。 -->
+          提交申请后，查询审核进度请扫下方二维码联系客服。
+        </p>
+        <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
         <!-- <p class="remind">点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p> -->
-        <p class="remind">新用户审核时间：上午9：00-下午5：00。</p>
-        <p class="remind">下午5：00以后申请的将在第二天开始审核。</p>
-        <p class="remind">必须添加指定的柒彩虹客服才能进行审核。</p>
+        <p class="remind">新用户审核时间：9:30-17:00</p>
+        <p class="remind">17:00以后申请的用户将在第二天进行审核。</p>
+        <p class="remind">必须添加指定的小海带客服才能进行审核。</p>
         <!-- <p class="remind">点击【放米超市】可以直接申请其他放米</p> -->
         <!-- <img src="./../assets/img/groupQQ.jpg" alt="" class="qrcode"> -->
-        <p class="remind">点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
-        <huabei></huabei>
+        <!-- <huabei></huabei> -->
       </div>
       <div class="container auditing audit-refused" v-if='auditing===2' audit-ctrl='re-fill'>
         <p>
@@ -58,11 +55,7 @@
         </p>
         <div class="auditing-remark">
           <p class="auditing-description">
-            说明：您好，您在柒彩虹的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。 如需咨询请联系QQ公众号:400-0577-009
-          </p>
-          <p class="auditing-description">
-            温馨提醒： 使用微信搜索【陈管家】或点击
-            <span @click='hzgMarket' class="link">【放米超市】</span>可以直接申请其他平台
+            说明：您好，您在小海带的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。 如需咨询请联系QQ公众号:400-0577-009
           </p>
           <!-- <p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p> -->
           <!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
@@ -113,7 +106,6 @@
       <div class="input bttn-refresh" v-if='auditing!==4' audit-ctrl='refresh'>
         <el-button type='success' @click='get'>刷新</el-button>
       </div>
-      <p class="more-loan" v-if='!noApplyRecord'>点击<span class="link" @click='hzgMarket'>【{{___marketName}}】</span>可以直接申请其他{{___daikuan}}</p>
     </div>
     <remind :remind='remind'></remind>
   </div>
@@ -126,6 +118,11 @@ import huabei from './views/tixian.vue'
 export default {
   data() {
     return {
+      serviceQRs:[
+        require("../assets/img/server_qr_1.jpg"),
+        require("../assets/img/server_qr_2.jpg"),
+        require("../assets/img/server_qr_3.jpg"),
+      ],
       gettingBillStatud: false,
       response: null,
       applyRecord: {},
@@ -152,16 +149,18 @@ export default {
     }
   },
   created() {
+    console.log('bus',bus)
     publicFun.checkSession(this)
     bus.$on('quota_recieved', () => {
       this.get()
     })
-    // setTimeout(()=> {
-    // 	// test_放款等待还款()
-    // 	// this.applyRecord.quotaStatus=1
-    // 	// // this.loanInfo.status=3
-    // 	// this.auditing=1
-    // }, 2000);
+    setTimeout(()=> {
+    	// test_放款等待还款()
+      // test_审核中()
+    	// this.applyRecord.quotaStatus=1
+    	// // this.loanInfo.status=3
+    	// this.auditing=1
+    }, 2000);
     this.get()
     var test_审核通过等待放款 = () => {
       this.auditing = 1
@@ -230,10 +229,6 @@ export default {
     // },
     joinQQ() {
       window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
-    },
-    hzgMarket() {
-      console.log('hzg market_list')
-      location.href = 'https://www.ho163.com/m/#/market_list'
     },
     reapply() {
       var remind = this.remind
@@ -407,13 +402,9 @@ export default {
     get() {
       var checkAuditing = () => {
         this.gettingBillStatud = false
-        // var r=this.remind
-        console.log('res apply record', this.response.body.data.data)
         var data = this.response.body.data.data[0]
         if (data) {
-          // console.log('have records means auditing')
           this.auditing = data.status
-
           this.auditingRemark = data.remark
           this.phoneLender = data.phone
           this.applyRecord = data
@@ -436,7 +427,12 @@ export default {
     },
   },
   computed: {
-
+    serviceIndex(){
+      if(bus.account === '请登录'){
+        return -1
+      }
+      return bus.account%3
+    },
 
     renewalAuditing() {
       var l = this.loanInfo
@@ -643,7 +639,9 @@ export default {
     }
   }
 }
-
+  .xh-public-qr{
+    width: 60%;
+  }
 #loanBillVue {
   .container {
     .enable {

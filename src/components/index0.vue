@@ -21,9 +21,9 @@
 		</div>
     <!-- <p class="slogan" v-if='___logo!==false'>{{___companyName}} · 微信客服</p> -->
     <p class="slogan">不向学生提供服务</p>
-    <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false&&!showFakeQr'class="xh-public-qr">
-    <img src="../assets/img/cgj_qr_wechat.png"  v-if='___logo!==false&&showFakeQr'class="xh-public-qr">
-    <p class="slogan" v-if='___logo!==false'>长按识别图中二维码客服微信号</p>
+    <!-- <img src="../assets/img/service_qr_wechat.png"  v-if='___logo!==false&&!showFakeQr'class="xh-public-qr"> -->
+    <!-- <img src="../assets/img/cgj_qr_wechat.png"  v-if='___logo!==false&&showFakeQr'class="xh-public-qr"> -->
+    <!-- <p class="slogan" v-if='___logo!==false'>长按识别图中二维码客服微信号</p> -->
 
 		<!-- <div class="mybtn" id="oldBorrow" @click="user(1)"> -->
 			<!-- 老用户 -->

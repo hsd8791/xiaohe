@@ -11,6 +11,8 @@ var publicFun = {}
 // 		router.gopage(-1)
 // 	}
 // }]
+publicFun.isIOS = false
+publicFun.isAndroid = true
 publicFun.reg = {}
 publicFun.zhimaAcChangeTime = 1504195777508
 publicFun.reg.cellphone = /^1[1234567890]\d{9}$/
@@ -380,7 +382,9 @@ publicFun.errorHandle = function(resBody, vm) {
   // console.log('err res', resBody)
 }
 
-publicFun.postRes = function(res, vm) {
+publicFun.postRes = function(res, vm,{
+  goApply=false
+}={}) {
   vm.loading = false
   vm.response = res
   var vmRemind = vm.remind
@@ -400,7 +404,9 @@ publicFun.postRes = function(res, vm) {
     vmRemind.remindOpts = [{
       msg: '确定',
       callback: () => {
-        bus.$emit('auto_go_apply')
+        if(goApply){
+          bus.$emit('auto_go_apply')
+        }
         // console.log('posted success')
       }
     }, ]

@@ -80,12 +80,13 @@
 		methods: {
 			submit(){
 				var postBody = {
-					box_token:'2B7DC823735B42EC990771E9B8AFAA7F',
+					box_token:'BB2D93B9B972461A989EB491C1C3EE23',
 					real_name:this.real_name,
 					identity_code:this.identity_code,
 					user_mobile:this.phone,
+					passback_params:this.taskId,
 					// cb:encodeURIComponent('http://localhost:8080/m/#/shujumohe'),
-					cb:'https://www.ho163.com/qch/#/index0',
+					cb:'https://www.bohvi.com/m/#/index0',
 					// v:Math.random(),//防止location.href 失效
 					// cb:encodeURIComponent('http://hzg.he577.com/callback/shujumohe/createSimQuery?self_task_id='+this.taskId+'&phone='+this.phone),
 				}

@@ -90,10 +90,11 @@
 				],
 				identifyCell:[
 				[
-				{title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+				// {title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				{title:'身份认证',link:'/upload',icon:'icon-upload',},
 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
 				{title:'通讯录',link:'/info_contacts',icon:'icon-documents',},
+				{title:'淘宝',link:'/info_taobao',icon:'icon-taobao',},
 				]
 				],
 				optionalCell:[
@@ -101,7 +102,6 @@
 				{title:'个人概况',link:'/profile',icon:'icon-documents',},
 				{title:'工作信息',link:'/job_info',icon:'icon-profile',},
 				{title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
-				{title:'淘宝',link:'/info_taobao',icon:'icon-taobao',},
 				// {title:'行业名单',link:'/',icon:'icon-info',},
 				],
 				]

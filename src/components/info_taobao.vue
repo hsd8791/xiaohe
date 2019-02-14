@@ -70,16 +70,17 @@ export default {
       console.log('data',data)
       if(data.action === "taobaoAuthResult"){
         this.remind.isShow = true
-        this.remind.remindMsg = STATUS_CODE[data.data.code]
+        this.remind.remindMsg = STATUS_CODE[Number(data.data.code)]
         this.remind.remindOpts=[{
           msg:"确定"
         }]
+        this.getStatus()
       }else {
         return
       }
     },
     submit() {
-      let data = JSON.stringify({
+      let data = {
         action:"taobaoAuth",
         data:{
           name:this.real_name,
@@ -87,8 +88,15 @@ export default {
           idCarNo:this.identity_code,
           taskId:this.taskId,
         },
-      })
-      window.postMessage(data,"*")
+      }
+      if(publicFun.isAndroid){
+        window.webView.postMessage(JSON.stringify(data))
+      }
+      if(publicFun.isIOS){
+         window.postMessage(JSON.stringify(data),"*")
+      }
+      // window.webView.postMessage(JSON.stringify(data))
+      // window.postMessage(data,"*")
       return
     },
     get(type) {

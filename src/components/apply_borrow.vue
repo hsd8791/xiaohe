@@ -285,7 +285,7 @@
 										publicFun.goPage('/index')
 									}
 								},{
-                  msg:'再等等',
+                  msg:'联系客服',
                   callback: () => {
                     publicFun.goPage('/loan_bill')
                   }

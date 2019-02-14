@@ -96,7 +96,9 @@
 	    			this.response={}
 	    			this.response.body=JSON.parse(xhr.response)
     				// console.log('this,response',JSON.parse(xhr.response))    			
-    				publicFun.postRes(this.response,this)
+    				publicFun.postRes(this.response,this,{
+    					goApply:false,
+    				})
     			}
     			console.log('xhr ready change')
     			console.log('xhr',xhr.readyState)
