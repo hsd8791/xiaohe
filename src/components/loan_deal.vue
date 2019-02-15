@@ -59,7 +59,7 @@
       </div>
 
       <!-- <div v-if='lendingWay!==___companyName'> -->
-      <div v-if='!showUnspay'>
+      <div v-if='!showUnspay&&false'>
         <div class="guide" >
           <p>如何{{action|actionParser}}？</p>
         </div>
@@ -207,9 +207,9 @@ export default {
       //   console.log('input',input)
       //   input.setAttribute('pattern','[0-9]*')
       // }, 1000);
-    // if (this.action === 'reborrow') {
-    //   this.submitText = '提交'
-    // }
+    if (this.action === 'reborrow') {
+      this.submitText = '提交'
+    }
     this.getFee()
   },
   methods: {

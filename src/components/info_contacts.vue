@@ -34,7 +34,7 @@ export default {
       identity_code: '',
       formData: {},
       queryRslt: {},
-      // backAfterPost:true,
+      backAfterPost:true,
       remind: {
         isShow: false,
         remindMsg: 'remind',

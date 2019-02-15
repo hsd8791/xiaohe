@@ -89,6 +89,7 @@
 					if (!this.backAfterPost) {
 						if (!this.response.body.data) {
 							this.remind.remindMsg='更新成功'
+							debugger
 							var url=publicFun.urlConcat('/loan_deal',this.$route.query)
 							// console.log('url',url)
 							console.log('this.$route.query.action',this.$route.query.action)

@@ -25,6 +25,7 @@
             如需咨询请扫下方二维码联系客服
           </p>
           <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
+          <p class="scan-tip"></p>
         </div>
       </div>
       <div class="container auditing" v-if='auditing===0' audit-ctrl='auditing'>
@@ -33,6 +34,14 @@
           <span v-if="reborrowAuditing">重借</span>
           <span v-if="!loanInfo">{{___companyName}}</span> 审核中
         </p>
+        <p v-if="reborrowAuditing">
+          <p class="remind">提交重借申请后，查询审核进度请扫下方二维码联系客服</p>
+          <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
+          <p class="scan-tip"></p>
+          <p class="remind">重借审核时间：9:30-22:00。</p>
+          <p class="remind">22:00后提交的申请将在第二天进行审核。</p>
+          <p class="remind">必须添加指定的小海带客服才能进行审核。</p>
+        </p>
       </div>
       <div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
         <!-- <div class="container" v-if='true' audit-ctrl='guide'> -->
@@ -40,6 +49,7 @@
           提交申请后，查询审核进度请扫下方二维码联系客服。
         </p>
         <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
+        <p class="scan-tip"></p>
         <!-- <p class="remind">点击进入QQ官方群：<span id="qq" @click='joinQQ'>加入QQ群</span></p> -->
         <p class="remind">新用户审核时间：9:30-17:00</p>
         <p class="remind">17:00以后申请的用户将在第二天进行审核。</p>
@@ -57,6 +67,7 @@
             说明：您好，您在小海带的申请被暂时退回，请根据客服审核意见更新或修改资料后重新提交；若暂时不需要可在需要时重新进行提交。 如需咨询请扫下方二维码联系客服。
           </p>
           <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
+          <p class="scan-tip"></p>
           <!-- <p class="auditing-description">说明：请根据审核意见更新或修改资料后重新提交</p> -->
           <!-- <p class="auditing-description" v-html="'审核意见：'+auditingRemark"></p> -->
         </div>
@@ -70,7 +81,7 @@
       <div class="input" v-if='auditing!==4&&(auditing===2 ||(applyRecord.quotaStatus===3&&applyRecord.status!==3))' audit-ctrl='reapply'>
         <el-button type='success' @click='reapply'>重新申请</el-button>
       </div>
-      <div class="container" v-if='auditing!==4&&(needRepayment||fullRepayedAndNotReborrow)' audit-ctrl='bill-status'>
+      <div class="container" v-if='auditing!==4&&(needRepayment)' audit-ctrl='bill-status'>
         <div class="inner-contaier loan-amount">
           <div class="detail-li">
             <span class="li-title">{{___loanName}}金额</span>
@@ -658,5 +669,9 @@ export default {
     }
   }
 }
-
+.scan-tip{
+  &:after{
+    content:'微信扫一扫';
+  }
+}
 </style>

@@ -59,7 +59,7 @@
         urls: {
           pay: 'order/pay',
           cards: 'unspay/mycards',
-          getCode: 'order/unspay/prepare',
+          // getCode: 'order/unspay/prepare',
           reGetCode: 'unspay/sendVerCode',
         },
         statusUrl: 'order/status?payId=',
@@ -232,7 +232,7 @@
             }
             this.unspayCodeGetRecent=true
             this.tokenChoosed=cards[i].token
-            this.getCode(this.urls.getCode)
+            this.getCode(this.urls.reGetCode)
           }}
           options.push(temp)
         }
@@ -417,6 +417,7 @@
     .rechoose-card{
       width: 0.3rem;
       height: 0.5rem;
+      transform: scale(1,2);
     }
   }
 </style>
