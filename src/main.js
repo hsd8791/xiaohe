@@ -74,7 +74,6 @@ Vue.use(Option)
 Vue.prototype.$loading = Loading.service
 Vue.prototype.___logo=''
 Vue.prototype.___companyName='小海带'
-Vue.prototype.___companyName='柒彩虹'
 // Vue.prototype.___companyName='小禾微贷'
 Vue.prototype.___borrowText='我的借款'
 Vue.prototype.___borrowText='我要收米'

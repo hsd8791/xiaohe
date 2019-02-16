@@ -672,6 +672,7 @@ export default {
 .scan-tip{
   &:after{
     content:'微信扫一扫';
+    font-size: .12rem;
   }
 }
 </style>
