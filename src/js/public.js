@@ -19,7 +19,16 @@ publicFun.reg.cellphone = /^1[1234567890]\d{9}$/
 publicFun.reg.idCardNum = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/
 // publicFun.remindOpts={}
 // publicFun.remindOpts.confirm=[{msg:'确定'}]
-
+publicFun.needAppTip = function(){
+  bus.remind.remindOpts = [{
+    msg: '确定',
+    callback:()=>{
+      
+    }
+  }, ]
+  bus.remind.remindMsg = '需要在App内使用'
+  bus.remind.isShow = true
+}
 publicFun.resetLocalUserInfo = function() {
   localStorage.removeItem('uniqueId')
   localStorage.removeItem('pwd')
@@ -247,6 +256,10 @@ publicFun.singleGetPro = function(url, body = {}, { hideLoading } = {}) {
 }
 publicFun.onConnectFail = function() {
   bus.remind.remindOpts = [{
+    msg: '确定',
+  }, ]
+  bus.remind.remindMsg = '连接失败'
+  bus.remind.isShow = true.remindOpts = [{
     msg: '确定',
   }, ]
   bus.remind.remindMsg = '连接失败'

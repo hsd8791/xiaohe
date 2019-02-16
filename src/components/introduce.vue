@@ -10,7 +10,7 @@
     <p class="total">
       关注微信公众号【小海带0】或点击下方网址安装APP，提交认证信息，联系微信客服查询审核进度。如果有其他非指定微信联系您，一律为骗子。
     </p>
-		<div class="input">
+		<div class="input" v-if="!isApp">
 			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
@@ -96,6 +96,11 @@
   	joinQQ(){
 			window.location = "http://qm.qq.com/cgi-bin/qm/qr?k=FUte7gZXvGPuLJHt4DoPcoJzABIvE10W"
   	}
+  },
+  computed: {
+    isApp() {
+      return bus.isApp || window.__isApp
+    },
   },
   created(){
   	// publicFun.qualify(this)

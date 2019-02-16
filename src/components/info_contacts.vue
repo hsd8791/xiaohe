@@ -5,7 +5,7 @@
       通讯录上传
       <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
     </h1>
-    <h2 class="sub-title">绑定状态</h2>
+    <!-- <h2 class="sub-title">绑定状态</h2> -->
     <el-button type='success' :disabled='false' class='submit' v-if='!isFirst' @click='get(1)'>重新上传</el-button>
     <el-button type='success' :disabled='false' class='submit' v-if='isFirst' @click='get(0)'>开始上传</el-button>
 

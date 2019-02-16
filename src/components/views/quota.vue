@@ -25,7 +25,7 @@
           绑定新银行卡
         </h1>
       </div>
-      <app-bind-card></app-bind-card>
+      <app-bind-card :callback="onCardBound"></app-bind-card>
     </div>
     <remind :remind=remind></remind>
 		<app-choose :choose='choose'></app-choose>
@@ -80,6 +80,9 @@ import bus from '../../bus.js'
   		var el=$event.target.parentElement.parentElement
   		el.className+=' validate'
   	},
+    onCardBound(){
+      this.binding = false
+    },
   	chooseReceiveCard(){
       this.binding=false
   		publicFun.get(this.urls.cards,this,()=>{

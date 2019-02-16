@@ -34,14 +34,14 @@
           <span v-if="reborrowAuditing">重借</span>
           <span v-if="!loanInfo">{{___companyName}}</span> 审核中
         </p>
-        <p v-if="reborrowAuditing">
+        <div v-if="!!reborrowAuditing" remind>
           <p class="remind">提交重借申请后，查询审核进度请扫下方二维码联系客服</p>
           <img :src="serviceQRs[serviceIndex]" class="xh-public-qr">
           <p class="scan-tip"></p>
           <p class="remind">重借审核时间：9:30-22:00。</p>
           <p class="remind">22:00后提交的申请将在第二天进行审核。</p>
           <p class="remind">必须添加指定的小海带客服才能进行审核。</p>
-        </p>
+        </div>
       </div>
       <div class="container" v-if='!loanInfo&&(auditing===0)' audit-ctrl='guide'>
         <!-- <div class="container" v-if='true' audit-ctrl='guide'> -->

@@ -18,6 +18,7 @@ import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
 import dialog from './components/tmpts/dialog.vue'
 import inputLogin from './components/tmpts/input-login.vue'
+
 window.__bus = bus
 // Vue.mixin({
 //   created: function () {
@@ -71,6 +72,12 @@ Vue.use(Upload)
 Vue.use(Checkbox)
 Vue.use(CollapseItem)
 Vue.use(Option)
+console.log('window.__isApp',window.__isApp)
+// if(window.__isApp){
+// 	Vue.prototype.__isApp = true
+// }else{
+// 	Vue.prototype.__isApp = false
+// }
 Vue.prototype.$loading = Loading.service
 Vue.prototype.___logo=''
 Vue.prototype.___companyName='小海带'

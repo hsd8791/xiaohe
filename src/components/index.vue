@@ -27,7 +27,7 @@
 		<h3 class='sub-title first-title'>必填信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in essentialCell'>
-				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+				<div class="cell" v-for='cell in row' @click='goP(cell)'>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
@@ -36,7 +36,7 @@
 		<h3 class="sub-title">认证信息</h3>
 		<div class="container">
 			<div class="row" v-for='row in identifyCell'>
-				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+				<div class="cell" v-for='cell in row' @click='goP(cell)'>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
@@ -45,7 +45,7 @@
 		<h3 class="sub-title" v-if="false">可选信息</h3>
 		<div class="container" v-if="false">
 			<div class="row" v-for='row in optionalCell'>
-				<div class="cell" v-for='cell in row' @click='goP(cell.link)'>
+				<div class="cell" v-for='cell in row' @click='goP(cell)'>
 					<div class="item-icon"><i :class="cell.icon"></i></div>
 					<div class="item-name">{{cell.title}}</div>
 				</div>
@@ -93,8 +93,8 @@
 				// {title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
 				{title:'身份认证',link:'/upload',icon:'icon-upload',},
 				{title:'手机认证',link:'/shujumohe',icon:'icon-mobile',},
-				{title:'通讯录',link:'/info_contacts',icon:'icon-documents',},
-				{title:'淘宝',link:'/info_taobao',icon:'icon-taobao',},
+				{title:'通讯录',link:'/info_contacts',icon:'icon-documents',needApp:true},
+				{title:'淘宝',link:'/info_taobao',icon:'icon-taobao',needApp:true},
 				]
 				],
 				optionalCell:[
@@ -108,17 +108,25 @@
 			}
 		},
 		methods:{
-			goP(path){
+			goP(cell){
 				if(bus.account==='请登录'){
 					publicFun.goPage(this.$route.path+'/login')
 					return
 				}
-				publicFun.goPage('/index'+path)
+				if(cell.needApp && !this.isApp ){
+					publicFun.needAppTip()
+					return
+				}
+				console.log('cell',cell)
+				publicFun.goPage('/index'+cell.link)
 			},
 		},
 		computed:{
 		  essentialInfoFilled(){
 		    return bus.essentialInfoFilled
+		  },
+		  isApp() {
+		    return bus.isApp || window.__isApp
 		  },
 		},
 		created(){
