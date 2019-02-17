@@ -8,7 +8,7 @@
       {{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。
     </p>
     <p class="total">
-      关注微信公众号【小海带0】或点击下方网址安装APP，提交认证信息，联系微信客服查询审核进度。如果有其他非指定微信联系您，一律为骗子。
+      关注微信公众号【小海带2019】或点击下方网址安装APP，提交认证信息，联系微信客服查询审核进度。如果有其他非指定微信联系您，一律为骗子。
     </p>
 		<div class="input" v-if="!isApp">
 			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
