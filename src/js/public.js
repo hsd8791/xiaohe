@@ -11,8 +11,11 @@ var publicFun = {}
 // 		router.gopage(-1)
 // 	}
 // }]
-publicFun.isIOS = false
-publicFun.isAndroid = true
+var u = navigator.userAgent
+publicFun.isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+console.log('publicFun isIOS',publicFun.isIOS)
+publicFun.isAndroid = !!(u.indexOf('Android') > -1 || u.indexOf('Adr') > -1);
+console.log('publicFun isAndroid',publicFun.isAndroid)
 publicFun.reg = {}
 publicFun.zhimaAcChangeTime = 1504195777508
 publicFun.reg.cellphone = /^1[1234567890]\d{9}$/

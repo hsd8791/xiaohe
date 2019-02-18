@@ -63,7 +63,7 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-let HOST = 'http://localhost:' 
+// let HOST = 'http://localhost:' 
 
 function localIP() {
   const interfaces = require('os').networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
@@ -79,10 +79,12 @@ function localIP() {
   } 
   return IPAddress
 }
-if(process.env.npm_lifecycle_event==="dev:ip"){
-  HOST = localIP()
-}
-var uri = HOST +":"+ port
+// if(process.env.npm_lifecycle_event==="dev:ip"){
+// var HOST = localIP()+":"
+// }
+var wan_uir = localIP() +":" + port
+var local_uri = "http://localhost:" + port
+var uri = "http://0.0.0.0:"+port
 var _resolve
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
@@ -90,7 +92,8 @@ var readyPromise = new Promise(resolve => {
 
 console.log('> Starting dev server...')
 devMiddleware.waitUntilValid(() => {
-  console.log('> Listening at ' + uri + '\n')
+  console.log('> Listening at ' + wan_uir + '\n')
+  console.log('> Listening at ' + local_uri + '\n')
   // when env is testing, don't need open it
   if (autoOpenBrowser && process.env.NODE_ENV !== 'testing') {
     opn(uri)

@@ -1,8 +1,7 @@
 <template>
 	<div id="introduceVue">
-
 		<h3 class="title">
-			{{___companyName}}丨关于{{___companyName}}
+			{{___companyName}}丨关于{{___companyName}} {{version}}
 		</h3>
 		<p class="total">
       {{___companyName}}是为社会群体提供的微{{___loanName}}服务平台。平台目前覆盖全国，为用户提供{{___loanName}}服务。
@@ -41,9 +40,11 @@
 <script>
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
+  import version from '../verson.js'
 	export default {
 		data() {
 			return {
+        version,
 				accountName:'请登录',
 				response:null,
 				loading:true,
