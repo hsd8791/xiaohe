@@ -48,7 +48,7 @@
 				if (callback !== undefined && callback instanceof Function) {
 					callback()
 				}
-				if(vm.response){
+				if(vm.response&&!item.stayThisPage){
 					if(vm.backAfterPost&&vm.response.body.error===0){
 						publicFun.goPage(-1)
 					}

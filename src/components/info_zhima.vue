@@ -194,7 +194,7 @@ export default {
     background: #09bb07;
   }
   .unbinded {
-    background: #e94f4f;
+    background: #f56e6e;
   }
   .icon-binding {
     line-height: 1rem;

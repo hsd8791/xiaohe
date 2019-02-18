@@ -91,9 +91,9 @@
       padding-right: 0.04rem;
       padding-top: 0.01rem; }
   .input .wraper .el-icon-close {
-    background: #e94f4f;
+    background: #f56e6e;
     color: white;
-    border-color: #e94f4f; }
+    border-color: #f56e6e; }
     .input .wraper .el-icon-close:before {
       padding-top: 0.01rem; }
   .input .wraper .el-select {
@@ -146,7 +146,7 @@
   .input .validate .valid-border .el-input__inner {
     border-color: #09bb07; }
   .input .validate .error-border .el-input__inner {
-    border-color: #e94f4f; }
+    border-color: #f56e6e; }
 
 .input .el-button + .el-button {
   margin-left: 0; }
@@ -166,8 +166,8 @@
   background-color: #09bb07;
   border-color: #9ad499; }
 .input .el-button--danger, .input .el-button--danger:focus, .input .el-button--danger:hover {
-  background: #e94f4f;
-  border-color: #e94f4f; }
+  background: #f56e6e;
+  border-color: #f56e6e; }
 .input .el-button--warning, .input .el-button--warning:focus, .input .el-button--warning:hover {
   color: #fff;
   background-color: #ffbe00;

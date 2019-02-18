@@ -665,7 +665,7 @@ export default {
       opacity: 1;
     }
     .danger {
-      color: #e94f4f;
+      color: #f56e6e;
     }
   }
 }

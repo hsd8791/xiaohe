@@ -40,7 +40,7 @@
 <script>
 	import publicFun from '../js/public.js'
 	import bus from '../bus.js'
-  import version from '../verson.js'
+  import version from '../version.js'
 	export default {
 		data() {
 			return {

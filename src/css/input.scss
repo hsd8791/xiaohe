@@ -1,12 +1,12 @@
 $iconSize:0.13rem;
 $validColor:#d42e84;
-$errColor:#e94f4f;
+$errColor:#f56e6e;
 $inputHeight:0.42rem;
 $inputFontSzie:0.16rem;
 $underlineColor:#e5e5e5;
 $disabledSuccess:#ffbe00;
 $successColor:#d42e84;
-$dangerColor:#e94f4f;
+$dangerColor:#f56e6e;
 
 *{
 	box-sizing:border-box;
@@ -246,8 +246,8 @@ $dangerColor:#e94f4f;
 		border-color: #ef87bd;
 	}
 	.el-button--danger,.el-button--danger:focus,.el-button--danger:hover{
-		background:#e94f4f;
-		border-color:#e94f4f;
+		background:#f56e6e;
+		border-color:#f56e6e;
 	}
 	.el-button--warning,.el-button--warning:focus, .el-button--warning:hover{
 		color: #fff;

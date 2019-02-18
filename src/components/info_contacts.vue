@@ -6,9 +6,18 @@
       <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
     </h1>
     <!-- <h2 class="sub-title">绑定状态</h2> -->
-    <el-button type='success' :disabled='false' class='submit' v-if='!isFirst' @click='get(1)'>重新上传</el-button>
-    <el-button type='success' :disabled='false' class='submit' v-if='isFirst' @click='get(0)'>开始上传</el-button>
-
+    <div class="binding" :class='contactUploaded?"binded":"unbinded"'>
+      <i v-if='contactUploaded' class="icon-checkmark icon-binding"></i>
+      <i v-if='!(contactUploaded)' class="icon-cross icon-binding"></i>
+    </div>
+    <div class="binding-text">
+      <div class="binding-detail">
+        通讯录<span v-if='contactUploaded'>已</span><span v-if='!contactUploaded'>未</span>上传
+      </div>
+      <!-- <el-button type='success' @click='get(1)' v-if='true'><span v-if='contactUploaded'>重新</span>绑定芝麻信用</el-button> -->
+      <el-button type='success' :disabled='false' class='submit' v-if='contactUploaded' @click='get(1)'>重新上传</el-button>
+      <el-button type='success' :disabled='false' class='submit' v-if='!contactUploaded' @click='get(0)'>开始上传</el-button>
+    </div>
     <!-- <el-button type='warning'  class='submit' v-if='!editing' @click='edit'>修改</el-button> -->
     <remind :remind='remind'></remind>
   </div>
@@ -21,6 +30,7 @@ import remind from '../components/tmpts/remind.vue'
 export default {
   data() {
     return {
+      contactUploaded:false,
       response: null,
       isFirst: true,
       loading: false,
@@ -29,7 +39,10 @@ export default {
       taskId: null,
       // urlStatus: 'credit/shujumoheTaobaoQueryStatus',
       // url: 'credit/createShujumoheTaobaoTask',
-      url: 'userInfo/contactJson',
+      urls:{
+        upload: 'userInfo/contactJson',
+        status: 'userInfo/contactFile',
+      },
       real_name: '',
       identity_code: '',
       formData: {},
@@ -66,11 +79,13 @@ export default {
         contact: this.formatContacts(contacts),
       }
       
-      publicFun.post(this.url,body,this,(res) => {
+      publicFun.post(this.url.upload,body,this,(res) => {
         console.log('res',res)
         //success response
       },(err) => {
         //body 
+      },()=>{
+        this.loading = false
       })
     },
     onMessage(event){
@@ -84,6 +99,7 @@ export default {
       this.postContacts(contacts)
     },
     upload() {
+      this.loading = true
       let data = {
         action:"getContacts",
       }
@@ -104,11 +120,13 @@ export default {
         this.remind.isShow = true
         this.remind.remindOpts = [{
           msg: '确定',
+          stayThisPage:true,
           callback: () => {
             this.upload()
           }
         }, {
           msg: '取消',
+          stayThisPage:true,
         }, ]
       }
     },
@@ -126,23 +144,34 @@ export default {
         this.formData[dataKey] = null
       }
     },
-    getStatus() {
-      publicFun.get(this.urlStatus, this, () => {
+    checkAuth() {
+      publicFun.get(this.urls.status, this, () => {
+        console.log('res check authorize', this.response.body)
         var data = this.response.body.data
         if (data) {
-          this.queryRslt = data
-          var now = new Date().getTime()
-          var passed = now - data.time
-          if (passed >= 600 * 1000) {
-            this.queryRslt.status = 'failure:超时！'
-          }
-          // console.log('now',now-this.queryRslt.time)
-          console.log('data', data)
-        } else {
-          this.isFirst = true
+          this.contactUploaded = data
         }
+
+        // window.location.href=this.response.body.data.url
       })
     },
+    // getStatus() {
+    //   publicFun.get(this.urlStatus, this, () => {
+    //     var data = this.response.body.data
+    //     if (data) {
+    //       this.queryRslt = data
+    //       var now = new Date().getTime()
+    //       var passed = now - data.time
+    //       if (passed >= 600 * 1000) {
+    //         this.queryRslt.status = 'failure:超时！'
+    //       }
+    //       // console.log('now',now-this.queryRslt.time)
+    //       console.log('data', data)
+    //     } else {
+    //       this.isFirst = true
+    //     }
+    //   })
+    // },
 
   },
   watch: {
@@ -185,9 +214,7 @@ export default {
     }
   },
   created() {
-    // this.getStatus()
-    publicFun.checkSession(this)
-    this.useAccount = true
+    this.checkAuth()
     window.document.addEventListener("message", this.onMessage, false);
 
     // this.get()
@@ -261,5 +288,30 @@ a {
       */
   }
 }
-
+  .binding {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    /*margin: 0 auto;*/
+    margin: 0.8rem auto 0.3rem;
+  }
+    .binded {
+    background: #30d56f;
+  }
+  .unbinded {
+    background: #f56e6e;
+  }
+  .binding-text {
+    margin: 0.1rem 0;
+    font-size: 0.2rem;
+  }
+  .binding-detail {
+    margin: 0.1rem 0;
+  }
+  .icon-binding {
+    line-height: 1rem;
+    font-size: 0.55rem;
+    /*font-weight: 100;*/
+    color: #fff;
+  }
 </style>

@@ -1,0 +1,1 @@
+const version=2;export default "v1.0."+version;
