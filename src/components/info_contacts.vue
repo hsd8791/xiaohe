@@ -79,7 +79,7 @@ export default {
         contact: this.formatContacts(contacts),
       }
       
-      publicFun.post(this.url.upload,body,this,(res) => {
+      publicFun.post(this.urls.upload,body,this,(res) => {
         console.log('res',res)
         //success response
       },(err) => {
