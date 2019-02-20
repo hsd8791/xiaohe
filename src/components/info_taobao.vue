@@ -133,12 +133,31 @@ export default {
         this.remind.remindOpts = [{
           msg: '确定',
           callback: () => {
-            this.createTask()
+            if(publicFun.isIOS){
+              setTimeout(() =>{
+                this.iosRemind(this.createTask)
+              }, 10);
+            }else{
+              this.createTask()
+            }
           }
         }, {
           msg: '取消',
         }, ]
       }
+    },
+    iosRemind(cb){
+      let r = this.remind
+      r.isShow = true
+      r.remindMsg = "ios用户需知"
+      r.remindMsgDscrp = "如首次淘宝授权提示“非法表单”，请回到小海带此页面，再次发起淘宝授权；授权完成后需要手动切换回APP。"
+      r.remindOpts=[{
+        msg:'确定',
+        callback:() => {
+          cb()
+          r.isShow = false
+        }
+      }]
     },
     createTask() {
       publicFun.get(this.url, this, () => {

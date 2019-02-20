@@ -34,6 +34,7 @@
 		},
 		methods: {
 			close(item, vm) {
+				console.log('close')
 				if(item.disabled){
 					return
 				}

@@ -10,7 +10,7 @@
       关注微信公众号【小海带2019】或点击下方网址安装APP，提交认证信息，联系微信客服查询审核进度。如果有其他非指定微信联系您，一律为骗子。
     </p>
 		<div class="input" v-if="!isApp">
-			<a class="download-app" href=" https://www.ho163.com/uploads/dm.0.0.1.apk" @click='testWechat' >
+			<a class="download-app" href="https://www.pgyer.com/mrYw">
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-android platfor-icon"></i>
 					<div class="download-text">
@@ -20,7 +20,7 @@
 				</el-button>
 			</a>
 			<!-- <a class="download-app" href="https://itunes.apple.com/cn/app/%E7%A6%BE%E6%8E%8C%E6%9F%9C%E5%90%8C%E6%AD%A5%E5%8A%A9%E6%89%8B/id1282215244?mt=8" @click='testWechat' > -->
-			<a class="download-app" @click='downloadIos' >
+			<a class="download-app" href="https://www.pgyer.com/yj1t" >
 				<el-button type='success' id='androidAppDownload'>
 					<i class="icon-apple platfor-icon"></i>
 					<div class="download-text">
