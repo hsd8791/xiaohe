@@ -215,7 +215,6 @@ export default {
         })
       }
       return promise
-
     },
     onTokenLogin(response) {
       localStorage.userID = response.phone
@@ -225,12 +224,54 @@ export default {
     onCookieLogin(response) {
       this.onAccountChange()
     },
+    loginByLocalStorage(){
+      if(!localStorage.userID || !localStorage.pwd){
+        this.loginRemind()
+      }
+      
+      publicFun.singleGetPro('account/loginByPwd',{
+        phone:localStorage.userID,
+        password:localStorage.pwd,
+      })
+      .then((res) => {
+        console.log('res',res)
+        var data=res
+        localStorage.uniqueId=data.uniqueId
+        localStorage.qualified=data.mayiQualify
+        bus.$emit('account_change', data.phone,data.uniqueId,data.mayiQualify) 
+      })
+      .catch(err=>{
+        if(err.error){
+          this.loginRemind()
+        }
+      })
+      .finally(() => {
+        bus.loading = false 
+      })
+    },
+    loginRemind() {
+      let r = bus.remind
+      r.remindMsg = "请登录"
+      r.remindOpts = [{
+        msg: '确定',
+        callback:()=> {
+          publicFun.goPage(this.$route.path + '/login')
+        },
+      }]
+      r.isShow = true
+    },
     autoLogin() {
+      if(localStorage.manulLogout){
+        this.loginRemind()
+      }else{
+        this.loginByLocalStorage()
+      }
+
+      return
       let promiseSession = this.checkSession()
       let promiseToken = this.checkToken()
       Promise.all([promiseSession, promiseToken])
         .then((values) => {
-          console.log('values',values)
           bus.sessionChecked = true
           let isLoged = values.find(item => {
             return item && item.userId
@@ -242,15 +283,11 @@ export default {
           } else if (sessionValue&&sessionValue.userId) {
             this.onCookieLogin(sessionValue)
           } else {
-            let r = bus.remind
-            r.remindMsg = "请登录"
-            r.remindOpts = [{
-              msg: '确定',
-              callback:()=> {
-                publicFun.goPage(this.$route.path + '/login')
-              },
-            }]
-            r.isShow = true
+            if(localStorage.manulLogout){
+              this.loginRemind()
+            }else{
+              this.loginByLocalStorage()
+            }
           }
           if (isLoged) {
             if (this.$route.query.jdt) {

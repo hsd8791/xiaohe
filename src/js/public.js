@@ -433,6 +433,7 @@ publicFun.postRes = function(res, vm,{
 
 
 /**
+ *  该弃用了
  * get
  * @param  {string}   url       [description]
  * @param  {Vue object}   vm        usually this
@@ -442,23 +443,6 @@ publicFun.postRes = function(res, vm,{
  * @return {null}             [description]
  */
 publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this,url,
-  // console.log('geting', url)
-  // console.log('vm', vm)
-  // if (bus.account === '请登录') {
-  // 	vm.loading = false
-  // 	if (!vm.remind) {
-  // 		return
-  // 	}
-  // 	vm.remind.remindMsg = '请先登录'
-  // 	vm.remind.isShow = true
-  // 	vm.remind.remindOpts = [{
-  // 		msg: '确定',
-  // 		callback: () => {
-  // 			this.goPage('/login')
-  // 		}
-  // 	}]
-  // 	return
-  // }
   vm.loading = true
   var vmRemind = vm.remind
   sccssCall = setNullFunc(sccssCall)

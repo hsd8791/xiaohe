@@ -73,6 +73,7 @@
   		publicFun.get('account/logout',this,()=>{
   			// console.log('res outer',this.response)
   			// console.log('app',bus)
+        localStorage.manulLogout = true 
         bus.isNewer=true
   			bus.$emit('account_change','请登录','','')//para1 for account, para2 for uniqueId
   		})

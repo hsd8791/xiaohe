@@ -164,6 +164,7 @@
 					localStorage.qualified=data.mayiQualify
 					// console.log('login success',res)
 					bus.$emit('account_change', data.phone,data.uniqueId,data.mayiQualify)
+        	localStorage.manulLogout = false 
 					if(data.isSetPwd==='0'||(this.pwdLost===true&&this.pwdLogin===false)){
 							// console.log('pwd not set')
 							publicFun.goPage('/pwd')
@@ -183,42 +184,6 @@
 							publicFun.wechatAuth(this)
 						}
 				})
-
-				// this.$http.get(url).then(response => {
-					// console.log('response',response)
-					// var res=response.body
-					// this.loading=false
-					// if(res.error){
-					// 	this.remind.isShow=true
-					// 	this.remind.remindMsg=res.msg
-					// }else if(res.error===0){
-					// 	// console.log('bus',bus)
-					// 	var data=res.data
-					// 	localStorage.userID=data.cellphone
-					// 	localStorage.pwd=data.pwd
-					// 	localStorage.uniqueId=data.uniqueId
-					// 	console.log('login success',res)
-					// 	bus.$emit('account_change', data.cellphone,data.uniqueId,data.mayiQualify)
-				// 		if(data.isSetPwd==='0'||(this.pwdLost===true&&this.pwdLogin===false)){
-				// 			// console.log('pwd not set')
-				// 			publicFun.goPage('/pwd')
-				// 		}else{
-				// 			this.remind.remindOpts=[{msg:'确定',callback:()=>{
-				// 				publicFun.goPage(-1)
-				// 			}}]
-				// 			this.remind.remindMsg='登录成功'
-				// 			this.remind.isShow=true
-				// 		}
-				// 	}
-				// 	console.log('response.body',response.body)
-
-				// }, response => {
-				// 	this.loading=false
-				// 	console.log('res',response)
-				// 	this.remind.isShow=true
-				// 	this.remind.remindMsg='连接失败'
-				// 	this.remind.remindOpts=[{msg:'确定',callback:()=>{publicFun.goPage(-1)}}]
-				// });
 			},
 		},
 		created:function(){
