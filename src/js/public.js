@@ -453,6 +453,7 @@ publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this
     // console.log('getted', vm)
     vm.loading = false
     vm.response = res
+    console.log('res see head',res)
     var resBody = res.body
     // console.log('get res', res)
     // console.log('res', res.body)

@@ -164,7 +164,6 @@
 					localStorage.qualified=data.mayiQualify
 					// console.log('login success',res)
 					bus.$emit('account_change', data.phone,data.uniqueId,data.mayiQualify)
-        	localStorage.manulLogout = false 
 					if(data.isSetPwd==='0'||(this.pwdLost===true&&this.pwdLogin===false)){
 							// console.log('pwd not set')
 							publicFun.goPage('/pwd')

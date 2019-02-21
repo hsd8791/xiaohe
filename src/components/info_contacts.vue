@@ -149,7 +149,7 @@ export default {
         console.log('res check authorize', this.response.body)
         var data = this.response.body.data
         if (data) {
-          this.contactUploaded = data
+          this.contactUploaded = !!data.upload
         }
 
         // window.location.href=this.response.body.data.url

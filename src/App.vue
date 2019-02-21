@@ -224,32 +224,35 @@ export default {
     onCookieLogin(response) {
       this.onAccountChange()
     },
-    loginByLocalStorage(){
-      if(!localStorage.userID || !localStorage.pwd){
-        this.loginRemind()
-      }
+    // loginByLocalStorage(){
+    //   if(!localStorage.userID || !localStorage.pwd){
+    //     this.loginRemind()
+    //   }
       
-      publicFun.singleGetPro('account/loginByPwd',{
-        phone:localStorage.userID,
-        password:localStorage.pwd,
-      })
-      .then((res) => {
-        console.log('res',res)
-        var data=res
-        localStorage.uniqueId=data.uniqueId
-        localStorage.qualified=data.mayiQualify
-        bus.$emit('account_change', data.phone,data.uniqueId,data.mayiQualify) 
-      })
-      .catch(err=>{
-        if(err.error){
-          this.loginRemind()
-        }
-      })
-      .finally(() => {
-        bus.loading = false 
-      })
-    },
+    //   publicFun.singleGetPro('account/loginByPwd',{
+    //     phone:localStorage.userID,
+    //     password:localStorage.pwd,
+    //   })
+    //   .then((res) => {
+    //     console.log('res',res)
+    //     var data=res
+    //     localStorage.uniqueId=data.uniqueId
+    //     localStorage.qualified=data.mayiQualify
+    //     bus.$emit('account_change', data.phone,data.uniqueId,data.mayiQualify) 
+    //   })
+    //   .catch(err=>{
+    //     if(err.error){
+    //       this.loginRemind()
+    //     }
+    //   })
+    //   .finally(() => {
+    //     bus.loading = false 
+    //   })
+    // },
     loginRemind() {
+      if(/login/.test(location.hash)){
+        return
+      }
       let r = bus.remind
       r.remindMsg = "请登录"
       r.remindOpts = [{
@@ -261,13 +264,6 @@ export default {
       r.isShow = true
     },
     autoLogin() {
-      if(localStorage.manulLogout){
-        this.loginRemind()
-      }else{
-        this.loginByLocalStorage()
-      }
-
-      return
       let promiseSession = this.checkSession()
       let promiseToken = this.checkToken()
       Promise.all([promiseSession, promiseToken])
@@ -282,12 +278,9 @@ export default {
             this.onTokenLogin(tokenValue)
           } else if (sessionValue&&sessionValue.userId) {
             this.onCookieLogin(sessionValue)
+            console.log('cookie',document.cookie)
           } else {
-            if(localStorage.manulLogout){
-              this.loginRemind()
-            }else{
-              this.loginByLocalStorage()
-            }
+            this.loginRemind()
           }
           if (isLoged) {
             if (this.$route.query.jdt) {
