@@ -6,6 +6,7 @@ import App from './App'
 // Vue.use(ElementUI)
 import 'element-ui/lib/theme-default/index.css'
 import router from './router'
+import store from './store/index.js'
 import VueResource from 'vue-resource'
 import bus from './bus.js'
 import publicFun from './js/public.js'
@@ -16,7 +17,7 @@ import choose from './components/tmpts/choose_remind.vue'
 import bindCard from './components/views/card_bind.vue'
 import radio from './components/tmpts/radio.vue'
 import check from './components/tmpts/check.vue'
-import dialog from './components/tmpts/dialog.vue'
+import dialogue from './components/tmpts/dialog.vue'
 import inputLogin from './components/tmpts/input-login.vue'
 
 window.__bus = bus
@@ -37,7 +38,7 @@ Vue.use(VueResource)
 Vue.component('remind', remind)
 Vue.component('app-back', back)
 Vue.component('app-check', check)
-Vue.component('app-dialog', dialog)
+Vue.component('app-dialogue', dialogue)
 Vue.component('app-radio', radio)
 Vue.component('app-record', record)
 Vue.component('app-choose', choose)
@@ -188,19 +189,20 @@ Vue.directive('inner-scroll',{
 	}
 })
 /* eslint-disable no-new */
-new Vue({
+const vueApp = new Vue({
 	el: '#app',
 	router,
-	template: `<app></app>`,
+	store,
+	// template: `<app></app>`,
 	components: {
 		app: App
 	},
-	methods: {
+	// methods: {
 
-	},
+	// },
 	render: h => h(App),
 })
-
+window.vueApp = vueApp
 // function test() {
 // 	console.log('test global function')
 // }

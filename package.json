@@ -9,16 +9,18 @@
     "dev:ip": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
-    "publish":"node build/updateVersion.js && npm run build && ./deploy/index.sh",
+    "publish": "node build/updateVersion.js&& ./deploy/tag.sh && npm run build && ./deploy/index.sh",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
-    "vue": "^2.2.6",
+    "axios": "^0.18.0",
     "element-ui": "1.3.3",
+    "vue": "^2.2.6",
     "vue-resource": "^1.3.4",
-    "vue-router": "^2.3.1"
+    "vue-router": "^2.3.1",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

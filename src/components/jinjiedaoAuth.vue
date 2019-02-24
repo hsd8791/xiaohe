@@ -19,8 +19,8 @@
     <el-button type='success' :disabled='!(allValid)' class='submit-button' @click='submitAuth'>提交认证</el-button>
     <p class="clare">保护隐私安全，杜绝信息泄露</p>
     <p class="clare">本服务由京东云万象提供</p>
-    <app-dialog v-model="showDialog" placeholder="请输入短信验证码" :onOk='onConfirmSubmit'>
-    </app-dialog>
+    <app-dialogue v-model="showDialog" placeholder="请输入短信验证码" :onOk='onConfirmSubmit'>
+    </app-dialogue>
     <remind :remind=remind></remind>
   </div>
 </template>

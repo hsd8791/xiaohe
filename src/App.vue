@@ -20,6 +20,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router'
 import footNav from './foot.vue'
 import contact from './contacts.vue'
@@ -29,6 +30,26 @@ import remind from './components/tmpts/remind.vue'
 import './css/icons.css'
 // import ''
 import './css/input.scss'
+const STATUS_CODE = {
+  50: "用户取消",
+  0: "操作成功",
+  10: "网络错误",
+  11: "网络错误",
+  30: "网络错误，请稍后重试",
+  31: "网络错误，请稍后重试",
+  40: "网络错误，请稍后重试",
+  // -1:  任务失败  请反馈具体错误信息给技术支持
+  // 0: 任务成功  客户端登录成功，等待回调通知
+  // 50:  任务被用户强制关闭 用户关闭客户端
+  // 10:  网络异常无法连接到服务 检查手机网络情况
+  // 11:  服务访问失败导致任务创建失败  检查手机网络情况
+  // 20:  任务创建失败  请反馈具体错误信息给技术支持
+  // 30:  数据解析失败  网站改版或访问限制，请稍后重试
+  // 31:  返回的数据为空 网站改版或访问限制，请稍后重试
+  // 40:  爬取网页失败  网站改版或访问限制，请稍后重试
+  // 1050: - 1100 内部请求异常引起的相关错误 请反馈具体错误信息给技术支持
+  // 2897:  未购买此服务  请和商务确认是否已开通流量
+}
 export default {
   name: 'App',
   // cmpt:/borrow/,
@@ -115,7 +136,7 @@ export default {
           hideLoading: true,
         })
         .then((response) => {
-          console.log('%c check session response', 'color:red', response)
+          // console.log('%c check session response', 'color:red', response)
           if (response) {
 
           }
@@ -123,37 +144,6 @@ export default {
         })
       return promise
 
-
-      // this.loading = true
-      // this.$http.get('account/checkSession').then(res => {
-      //   var data = res.body.data
-      //   console.log('session data', data)
-      //   if (data) {
-      //     // bus.account=data.phone
-      //     // bus.uniqueId=data.uniqueId
-      //     bus.$emit('account_change', localStorage.userID, localStorage.uniqueId, localStorage.qualified)
-      //     if (data.isSetPwd == 0) {
-      //       // console.log('no set pwd')
-      //       var r = bus.remind
-      //       r.remindOpts = [{
-      //         msg: '确定',
-      //         callback: () => {
-      //           publicFun.goPage('/pwd')
-      //         }
-      //       }]
-      //       r.remindMsg = '请设置密码'
-      //       r.isShow = true
-      //     }
-      //     publicFun.wechatAuth(this)
-      //   } else {
-      //     // publicFun.goPage('/login')
-      //   }
-      //   this.loading = false
-      // }, err => {
-
-      // }).finally(() => {
-      //   // bus.sessionChecked = true
-      // })
     },
     checkNewer() {
       publicFun.get(this.urlLendInfo, this, () => {
@@ -177,7 +167,7 @@ export default {
     checkJdtApplyStatus() {
       let promise = publicFun.singleGetPro('lendApply/jdtLendApplyStatus', {}, {})
       promise.then(response => {
-        console.log('%c response jdt status', 'color:red', response)
+        // console.log('%c response jdt status', 'color:red', response)
         if (response.status === 1) {
           this.onJdtCheckSuccess()
         } else {
@@ -195,7 +185,7 @@ export default {
       var promise
       let query = this.$route.query
       if (query.jdt) {
-        console.log('%c token', 'color:red', query.token)
+        // console.log('%c token', 'color:red', query.token)
         promise = publicFun.singleGetPro('account/loginByJdtToken', {
           token: query.token
         }, {
@@ -209,7 +199,7 @@ export default {
         //   console.log('%c check token response','color:red',response) 
         // })
       } else {
-        console.log('%c no token', 'color:red', )
+        // console.log('%c no token', 'color:red', )
         promise = Promise.resolve({
           noToken: false,
         })
@@ -228,7 +218,7 @@ export default {
     //   if(!localStorage.userID || !localStorage.pwd){
     //     this.loginRemind()
     //   }
-      
+
     //   publicFun.singleGetPro('account/loginByPwd',{
     //     phone:localStorage.userID,
     //     password:localStorage.pwd,
@@ -250,14 +240,14 @@ export default {
     //   })
     // },
     loginRemind() {
-      if(/login/.test(location.hash)){
+      if (/login/.test(location.hash)) {
         return
       }
       let r = bus.remind
       r.remindMsg = "请登录"
       r.remindOpts = [{
         msg: '确定',
-        callback:()=> {
+        callback: () => {
           publicFun.goPage(this.$route.path + '/login')
         },
       }]
@@ -276,9 +266,8 @@ export default {
           let tokenValue = values[1]
           if (tokenValue.userId) {
             this.onTokenLogin(tokenValue)
-          } else if (sessionValue&&sessionValue.userId) {
+          } else if (sessionValue && sessionValue.userId) {
             this.onCookieLogin(sessionValue)
-            console.log('cookie',document.cookie)
           } else {
             this.loginRemind()
           }
@@ -291,7 +280,6 @@ export default {
         })
     },
     test() {
-      console.log('bus', bus)
       // let a=publicFun.singleGetPro('accounting1/myLendInfo',{lendingUid:1})
       // let b=publicFun.singleGetPro('userInfo/work',)
       // let c=publicFun.singleGetPro('userInfo/liabilities',)
@@ -306,10 +294,27 @@ export default {
     },
     onMessage(event) {
       let data = JSON.parse(event.data)
-      if(data.action === "nativeBack") {
+      if (data.action === "nativeBack") {
         publicFun.goTopLv()
       }
+      if (data.action === "taobaoAuthResult") {
+        this.remind.isShow = true
+        let index = Number(data.data.code)
+        let message = STATUS_CODE[index]
+        if (message) {
+          this.remind.remindMsg = message
+        } else {
+          this.remind.remindMsg = "未知错误，请联系客服"
+        }
+        // this.remind.remindMsgDscrp = STATUS_CODE[Number(data.data.code)]
+        this.remind.remindOpts = [{
+          msg: "确定"
+        }]
+        this.getStatus()
+      }
+
     },
+    ...mapActions('info', ['getAllInfo']),
   },
   created() {
     window.document.addEventListener("message", this.onMessage, false);
@@ -338,6 +343,7 @@ export default {
     //   // checkToken(query.token)
     // }
     this.autoLogin()
+    this.getAllInfo()
   },
   mounted() {
     this.goAuthingPage()
@@ -412,6 +418,7 @@ $navHeight:0.5rem;
 
 
 
+
 /*$activeColor:#cd331c;*/
 
 $activeColor:#d42e84;
@@ -422,9 +429,11 @@ $activeColor:#d42e84;
 
 
 
+
 /*$navBackground:#eee;*/
 
 $navBackground:#fcf9fe;
+
 
 
 
@@ -489,6 +498,7 @@ $navBackground:#fcf9fe;
     color: $activeColor;
   }
 }
+
 
 
 

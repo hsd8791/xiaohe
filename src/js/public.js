@@ -13,9 +13,7 @@ var publicFun = {}
 // }]
 var u = navigator.userAgent
 publicFun.isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-console.log('publicFun isIOS',publicFun.isIOS)
 publicFun.isAndroid = !!(u.indexOf('Android') > -1 || u.indexOf('Adr') > -1);
-console.log('publicFun isAndroid',publicFun.isAndroid)
 publicFun.reg = {}
 publicFun.zhimaAcChangeTime = 1504195777508
 publicFun.reg.cellphone = /^1[1234567890]\d{9}$/
@@ -24,11 +22,16 @@ publicFun.reg.idCardNum = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3
 // publicFun.remindOpts.confirm=[{msg:'确定'}]
 publicFun.needAppTip = function(){
   bus.remind.remindOpts = [{
-    msg: '确定',
+    msg: '下载APP',
     callback:()=>{
-      
+      publicFun.goPage('/introduce')
     }
-  }, ]
+  }, {
+    msg: '取消',
+    callback:() => {
+       
+    }
+  }]
   bus.remind.remindMsg = '需要在App内使用'
   bus.remind.isShow = true
 }
@@ -453,7 +456,6 @@ publicFun.get = function(url, vm, sccssCall, errCall, callback) { //paras:  this
     // console.log('getted', vm)
     vm.loading = false
     vm.response = res
-    console.log('res see head',res)
     var resBody = res.body
     // console.log('get res', res)
     // console.log('res', res.body)
