@@ -99,6 +99,7 @@
     				publicFun.postRes(this.response,this,{
     					goApply:false,
     				})
+    				this.$store.dispatch('info/getAllInfo')
     			}
     			console.log('xhr ready change')
     			console.log('xhr',xhr.readyState)

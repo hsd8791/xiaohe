@@ -82,26 +82,26 @@ export default {
   },
   methods: {
     onMessage(event){
-      let data = JSON.parse(event.data)
-      let contacts
-      console.log('data',data)
-      if(data.action === "taobaoAuthResult"){
-        this.remind.isShow = true
-        let index = Number(data.data.code)
-        let message = STATUS_CODE[index]
-        if(message){
-          this.remind.remindMsg = message
-        }else {
-          this.remind.remindMsg = "未知错误，请联系客服"
-        }
-        // this.remind.remindMsgDscrp = STATUS_CODE[Number(data.data.code)]
-        this.remind.remindOpts=[{
-          msg:"确定"
-        }]
-        this.getStatus()
-      }else {
-        return
-      }
+      // let data = JSON.parse(event.data)
+      // let contacts
+      // console.log('data',data)
+      // if(data.action === "taobaoAuthResult"){
+      //   this.remind.isShow = true
+      //   let index = Number(data.data.code)
+      //   let message = STATUS_CODE[index]
+      //   if(message){
+      //     this.remind.remindMsg = message
+      //   }else {
+      //     this.remind.remindMsg = "未知错误，请联系客服"
+      //   }
+      //   // this.remind.remindMsgDscrp = STATUS_CODE[Number(data.data.code)]
+      //   this.remind.remindOpts=[{
+      //     msg:"确定"
+      //   }]
+      //   this.getStatus()
+      // }else {
+      //   return
+      // }
     },
     submit() {
       let data = {

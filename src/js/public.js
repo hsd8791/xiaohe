@@ -3,6 +3,7 @@ import ivsMap from './ivs_map.js'
 import bus from '../bus.js'
 import App from '../App.vue'
 import parseAntifraud from './anti_fraud_map.js'
+import store from './../store/index.js'
 // var router = require('../router')
 var publicFun = {}
 // publicFun.remindOpts.postDone = [{
@@ -518,7 +519,8 @@ publicFun.post = function(url, body, vm, sccssCall, errCall, callback, exclusive
     if (res.body.error) {
       this.errorHandle(res.body, vm)
     }
-    bus.setStatusFilled(url)
+    // bus.setStatusFilled(url)
+    store.dispatch('info/getAllInfo')
     this.postRes(res, vm)
     // vm.loading = false
     // vm.response = res
