@@ -2,7 +2,7 @@
   <div id="infoZfb" class="input" v-loading='loading' element-loading-text='请稍后'>
     <h1 class="title">
       <app-back></app-back>
-      淘宝绑定
+      支付宝绑定
       <!-- <span class="edit-input" v-if='!editing' @click='edit'>编辑</span> -->
     </h1>
     <h2 class="sub-title">绑定状态</h2>
@@ -108,7 +108,7 @@ export default {
       let r = this.remind
       r.isShow = true
       r.remindMsg = "ios用户需知"
-      r.remindMsgDscrp = "如首次授权提示“非法表单”，请回到小海带此页面，再次发起淘宝授权；授权完成后需要手动切换回APP。"
+      r.remindMsgDscrp = "如首次授权提示“非法表单”，请回到小海带此页面，再次发起授权；授权完成后需要手动切换回APP。"
       r.remindOpts=[{
         msg:'确定',
         callback:() => {
