@@ -5,8 +5,9 @@ let store = {
     idcardUrl:'',
     idcardUrl2:'',
     idcardUrl3:'',
-    sjmhSimTask:'',
-    sjmhTaobaoTask:'',
+    sjmhSimTask:null,
+    sjmhTaobaoTask:null,
+    sjmhZfbTask:null,
     contactPath:'',
     name:'',
     idcardNum:'',
@@ -28,6 +29,9 @@ let store = {
       return !!(state.sjmhSimTask && state.sjmhSimTask.status === "success" )
     },
     taobaoAuthed(state){
+      return !!(state.sjmhZfbTask && state.sjmhZfbTask.status === "success")
+    },
+    zfbAuthed(state){
       return !!(state.sjmhTaobaoTask && state.sjmhTaobaoTask.status === "success")
     },
     contactsUploaded(state){

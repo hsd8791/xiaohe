@@ -12,6 +12,7 @@ import index from '../components/index.vue'
 // import Radio from '../components/tmpts/radio.vue'
 import Identity from '../components/info_identity.vue'
 import info_taobao from '../components/info_taobao.vue'
+import info_zfb from '../components/info_zfb.vue'
 import info_contacts from '../components/info_contacts.vue'
 import info_base from '../components/info_base.vue'
 import Profile from '../components/info_profile.vue'
@@ -117,6 +118,7 @@ indexRoutes = indexRoutes.concat(
 	newRoute(['/index/identity', '/*/identity'], 'Identity', Identity),
 	newRoute(['/index/info_base', '/*/info_base'], 'info_base', info_base),
 	newRoute(['/index/info_taobao', '/*/info_taobao'], 'info_taobao', info_taobao),
+	newRoute(['/index/info_zfb', '/*/info_zfb'], 'info_zfb', info_zfb),
 	newRoute(['/index/info_contacts', '/*/info_contacts'], 'info_contacts', info_contacts),
 	newRoute(['/index/profile', '/*/profile'], 'Profile', Profile),
 	newRoute(['/index/job_info', '/*/job_info'], 'JobInfo', JobInfo),
