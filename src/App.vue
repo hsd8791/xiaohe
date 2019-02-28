@@ -27,7 +27,7 @@ import contact from './contacts.vue'
 import publicFun from './js/public.js'
 import bus from './bus.js'
 import remind from './components/tmpts/remind.vue'
-import './css/icons.css'
+// import './../static/icons.css'
 // import ''
 import './css/input.scss'
 const STATUS_CODE = {
@@ -297,7 +297,7 @@ export default {
       if (data.action === "nativeBack") {
         publicFun.goTopLv()
       }
-      if (data.action === "taobaoAuthResult") {
+      if (data.action === "taobaoAuthResult" || data.action === 'zfbAuthResult') {
         this.remind.isShow = true
         let index = Number(data.data.code)
         let message = STATUS_CODE[index]

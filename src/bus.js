@@ -15,6 +15,8 @@ var bus = new Vue({
     loanInfo: null,
     qualified: 0,
     isNewer: false,
+    canAuthZfb:false,
+    isApp:false,
     checkedIsNewer: false,
     sessionChecked: false,
     firstEnterApp: true,

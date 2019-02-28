@@ -27,8 +27,8 @@
     <h3 class='sub-title first-title'>必填信息</h3>
     <div class="container">
       <div class="row" v-for='row in essentialCell'>
-        <div class="cell" v-for='cell in row' @click='goP(cell)'>
-          <div class="item-icon "><i :class="cell.icon" ></i></div>
+        <div class="cell" v-for='cell in row' @click='goP(cell)' :class="{'actived':cell.actived&&isTest}">
+          <div class="item-icon "><i :class="cell.icon"></i></div>
           <div class="item-name">{{cell.title}}</div>
         </div>
       </div>
@@ -36,13 +36,13 @@
     <h3 class="sub-title">认证信息</h3>
     <div class="container">
       <div class="row" v-for='row in identifyCell'>
-        <div class="cell" v-for='cell in row' @click='goP(cell)'>
+        <div class="cell" v-for='cell in row' @click='goP(cell)' :class="{'actived':cell.actived&&isTest}">
           <div class="item-icon"><i :class="cell.icon"></i></div>
           <div class="item-name">{{cell.title}}</div>
         </div>
       </div>
     </div>
-    <h3 class="sub-title" v-if="false">可选信息</h3>
+    <!-- <h3 class="sub-title" v-if="false">可选信息</h3>
     <div class="container" v-if="false">
       <div class="row" v-for='row in optionalCell'>
         <div class="cell" v-for='cell in row' @click='goP(cell)'>
@@ -50,7 +50,7 @@
           <div class="item-name">{{cell.title}}</div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   </div>
 </template>
@@ -76,34 +76,9 @@ export default {
           { msg: '确定', },
         ],
       },
-      essentialCell: [
-        [
-          { title: '基础信息', link: '/info_base', icon: 'icon-address-book', },
-          // {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
-          // {title:'身份证上传',link:'/upload',icon:'icon-upload',},
-          // {title:'其他信息',link:'/contact_way',icon:'icon-phone',},
-        ],
-        [
-          // {title:'负债调查',link:'/debt',icon:'icon-coin-yen',},
-        ],
-      ],
-      identifyCell: [
-        [
-          // {title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
-          { title: '身份认证', link: '/upload', icon: 'icon-upload', },
-          { title: '手机认证', link: '/shujumohe', icon: 'icon-mobile', },
-          { title: '通讯录', link: '/info_contacts', icon: 'icon-documents', needApp: true },
-          { title: '淘宝', link: '/info_taobao', icon: 'icon-taobao', needApp: true },
-        ]
-      ],
-      optionalCell: [
-        [
-          { title: '个人概况', link: '/profile', icon: 'icon-documents', },
-          { title: '工作信息', link: '/job_info', icon: 'icon-profile', },
-          { title: '负债调查', link: '/debt', icon: 'icon-coin-yen', },
-          // {title:'行业名单',link:'/',icon:'icon-info',},
-        ],
-      ]
+
+
+
     }
   },
   methods: {
@@ -121,21 +96,70 @@ export default {
     },
   },
   computed: {
+    identifyCell() {
+      let cells = [
+        [
+          // {title:'芝麻认证',link:'/zhima',icon:'icon-warning',},
+          { title: '身份认证', link: '/upload', icon: 'icon-upload', actived:this.idCarduploaded},
+          { title: '手机认证', link: '/shujumohe', icon: 'icon-mobile', actived:this.shujumoheAuthed},
+          { title: '通讯录', link: '/info_contacts', icon: 'icon-documents',actived:this.contactsUploaded, needApp: true ,},
+          { title: '淘宝', link: '/info_taobao', icon: 'icon-taobao', actived:this.taobaoAuthed,needApp: true },
+
+        ],
+      ]
+      if (this.showAuthZfb) {
+        if (cells[1] === undefined) {
+          cells[1] = []
+        }
+        cells[1][0] = { title: '支付宝', link: '/info_zfb', icon: 'icon-alipay',actived:this.zfbAuthed, needApp: true, }
+
+      }
+      return cells
+    },
+    essentialCell() {
+      return [
+        [
+          { title: '基础信息', link: '/info_base', icon: 'icon-address-book', actived:this.baseInfoCompleted},
+          // {title:'联系方式',link:'/contact_way',icon:'icon-phone',},
+          // {title:'身份证上传',link:'/upload',icon:'icon-upload',},
+          // {title:'其他信息',link:'/contact_way',icon:'icon-phone',},
+        ],
+      ]
+    },
+    optionalCell() {
+      return [
+        [
+          { title: '个人概况', link: '/profile', icon: 'icon-documents', },
+          { title: '工作信息', link: '/job_info', icon: 'icon-profile', },
+          { title: '负债调查', link: '/debt', icon: 'icon-coin-yen', },
+          // {title:'行业名单',link:'/',icon:'icon-info',},
+        ],
+      ]
+    },
     essentialInfoFilled() {
       return bus.essentialInfoFilled
     },
     isApp() {
       return bus.isApp || window.__isApp
     },
+    canAuthZfb() {
+      return bus.canAuthZfb || window.canAuthZfb
+    },
+    showAuthZfb() {
+      return (this.canAuthZfb && this.isApp) || (!this.isApp)
+    },
     ...mapGetters('info', [
       'idCarduploaded',
       'shujumoheAuthed',
       'taobaoAuthed',
+      'zfbAuthed',
       'contactsUploaded',
       'baseInfoCompleted',
     ]),
 
-
+    isTest(){
+      return this.$route.query.beta==="he"
+    },
 
 
   },
@@ -151,12 +175,18 @@ export default {
 <style lang='scss' scoped>
 $cellBorder:#e2e3e4;
 
+
+
+
 /*$outBorder:#fff;*/
 
 $outBorder:#f4f4f4;
 $cellHeight:0.94rem;
 $itemNameColor:#8f8e94;
 $activeColor:#66adff;
+
+
+
 /*#323233;*/
 
 $itemIconColor:#8f8e94;
@@ -189,7 +219,14 @@ h3.first-title {
     color: $activeColor;
   }
 }
-
+.cell.actived{
+	.item-name {
+		color: $activeColor;
+	}
+	.item-icon i{
+		color: $activeColor;
+	}
+}
 .container {
   /*background: #fff;*/
   /*border:1px solid red;*/
@@ -245,7 +282,5 @@ h3.title:first-child {}
   top: 0;
   left: 0;
 }
-
-
 
 </style>
